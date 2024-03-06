@@ -10,11 +10,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
+/**^
  *
- * @author User
+ * @author Muyeed
  */
-public class SignIN extends Application {
+public class SignINScene extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {

@@ -5,30 +5,38 @@
 package common.signIN;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 /**
  *
- * @author User
+ * @author Muyeed
  */
 public class SignINFXMLController implements Initializable {
+    @FXML
+    private TextField enEmail;
+    @FXML
+    private TextField enPassword;
+    
+    private ArrayList<User> userList = new ArrayList();
     
     @FXML
-    private Label label;
-    
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
+    private void loginButtonAction(ActionEvent event) {
+        for (User x: userList) {
+            if (x.email.equals(enEmail.getText()) && x.password.equals(enPassword.getText())) {
+                System.out.println("Successfull");
+            }
+        }
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        userList.add(new User("muyeed", "123"));
+        userList.add(new User("Alam", "456"));
     }    
     
 }
