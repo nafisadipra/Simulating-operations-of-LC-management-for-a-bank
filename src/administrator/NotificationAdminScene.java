@@ -11,22 +11,31 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
 /**^
  *
  * @author Muyeed
  */
-public class AdministratorScene extends Application {
+
+// If some one reads. It's me Muyeed.
+
+public class NotificationAdminScene extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("CommunicationAdminFXML.fxml"));
-        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("NotificationAdminFXML.fxml"));
+        Parent root = loader.load();
+
+        NotificationAdminController controller = loader.getController();
+        controller.setUser("administrator");
+
         Scene scene = new Scene(root);
-        
+
         stage.setScene(scene);
         stage.show();
     }
 
+    
     /**
      * @param args the command line arguments
      */
