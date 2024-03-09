@@ -44,8 +44,6 @@ public class NotificationAdminController implements Initializable {
     private TableColumn<Notification, String> ttable;
     @FXML
     private TableColumn<Notification, String> dtable;
-    
-    private ArrayList<Notification> notList = new ArrayList();
     @FXML
     private AnchorPane paneSide;
     @FXML
@@ -59,21 +57,21 @@ public class NotificationAdminController implements Initializable {
     @FXML
     private Button buttLog;
     
-        
+    private ArrayList<Notification> notList;
+
     private String user;
     private boolean sanState = false;
 
-    
     public void setUser(String user) {
         this.user = user;
     }
-
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        notList = new ArrayList();
         notList.add(new Notification("Hello, just a hello from me!", "Muyeed", "11.41PM", "06-03-2024"));
         notList.add(new Notification("You must check the back up!", "Dipra", "10.20am", "05-03-2024"));
         notList.add(new Notification("Can you please pick up the call? I'm waiting", "Alam", "10.52PM", "05-03-2024"));
@@ -115,7 +113,15 @@ public class NotificationAdminController implements Initializable {
     @FXML
     private void windowClick(MouseEvent event) {
         Sandwich window = tableSide.getSelectionModel().getSelectedItem();
-        System.out.println(window.getItem());
+        
+        if (window.getItem().equals("Notification")) {
+            notClick(event);
+        }
+        
+        if (window.getItem().equals("Message")) {
+            mailClick(event);
+        }
+        
     }
 
     @FXML

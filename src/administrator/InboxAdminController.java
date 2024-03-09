@@ -121,7 +121,15 @@ public class InboxAdminController implements Initializable {
     @FXML
     private void windowClick(MouseEvent event) {
         Sandwich window = tableSide.getSelectionModel().getSelectedItem();
-        System.out.println(window.getItem());
+        
+        if (window.getItem().equals("Notification")) {
+            notClick(event);
+        }
+        
+        if (window.getItem().equals("Message")) {
+            mailClick(event);
+        }
+        
     }
 
     @FXML
