@@ -5,6 +5,15 @@
         <group>
             <file>file:/F:/Java/Simulating-operations-of-LC-management-for-a-bank/src/administrator/NotificationAdminScene.java</file>
             <file>file:/F:/Java/Simulating-operations-of-LC-management-for-a-bank/src/common/signUP/SignUP.java</file>
+            <file>file:/F:/Java/Simulating-operations-of-LC-management-for-a-bank/src/customer/DashboardCustomerScene.java</file>
+            <file>file:/F:/Java/Simulating-operations-of-LC-management-for-a-bank/src/administrator/CommunicationAdminScene.java</file>
+            <file>file:/F:/Java/Simulating-operations-of-LC-management-for-a-bank/src/administrator/DashboardAdminController.java</file>
+            <file>file:/F:/Java/Simulating-operations-of-LC-management-for-a-bank/src/administrator/CommunicationAdminController.java</file>
+            <file>file:/F:/Java/Simulating-operations-of-LC-management-for-a-bank/src/customer/DashboardCustomerController.java</file>
+            <file>file:/F:/Java/Simulating-operations-of-LC-management-for-a-bank/src/common/signUP/SignUPFXMLController.java</file>
+            <file>file:/F:/Java/Simulating-operations-of-LC-management-for-a-bank/src/customer/DashboardCustomerFXML.fxml</file>
+            <file>file:/F:/Java/Simulating-operations-of-LC-management-for-a-bank/src/common/sandwich/Sandwich.java</file>
+            <file>file:/F:/Java/Simulating-operations-of-LC-management-for-a-bank/src/administrator/NotificationAdminController.java</file>
         </group>
     </open-files>
 </project-private>
