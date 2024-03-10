@@ -51,5 +51,6 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <Button layoutX="882.0" layoutY="436.0" mnemonicParsing="false" onAction="#switchToSignUp" opacity="0.0" prefHeight="25.0" prefWidth="122.0" text="Button" />
    </children>
 </AnchorPane>
