@@ -6,7 +6,7 @@ package common.notification;
 
 /**
  *
- * @author User
+ * @author Muyeed
  */
 public class Notification {
     private String data;

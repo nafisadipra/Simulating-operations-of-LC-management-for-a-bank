@@ -1,23 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package common.reader;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ *
+ * @author Muyeed
+ */
 public class Reader {
     private String location;
     private String fileName;
-    private final ArrayList<String> data;
 
     public Reader(String location, String fileName) {
         this.location = location;
         this.fileName = fileName;
-        this.data = new ArrayList<>();
     }
 
     public String getLocation() {
@@ -42,6 +39,8 @@ public class Reader {
     }
 
     public ArrayList<String> readFile() {
+        ArrayList<String> data = new ArrayList();
+        
         try {
             File directory = new File(location + "/" + fileName);
 
@@ -59,5 +58,25 @@ public class Reader {
         }
 
         return data;
+    }
+    
+    public ArrayList spliteFile() {
+        ArrayList <String> readData = readFile();
+        ArrayList <ArrayList> splitData = new ArrayList();
+        
+        for (int j = 0; j < readData.size(); j++) {
+            ArrayList itemData = new ArrayList();
+            String data = "";
+            for (int i = 0; i < readData.get(j).length(); i++) {
+                if (readData.get(0).charAt(i) == '▓') {
+                    itemData.add(data);
+                    data = "";
+                } else {
+                    data += readData.get(0).charAt(i);
+                }
+            }
+            splitData.add(itemData);
+        }
+        return splitData;
     }
 }

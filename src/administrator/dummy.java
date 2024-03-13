@@ -3,8 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package administrator;
-import common.reader.Reader;
-import java.util.ArrayList;
+import common.aes.AES;
 
 /**
  *
@@ -12,8 +11,9 @@ import java.util.ArrayList;
  */
 public class dummy {
     public static void main(String[] args) {
-        ArrayList<String> d1 = (new Reader("System", "d1.bin")).readFile();
-        System.out.println(d1);
+        String data = AES.encrypt("gg123");
+        System.out.println(data);
+        System.out.println(AES.decrypt(data));
     }
     
 }

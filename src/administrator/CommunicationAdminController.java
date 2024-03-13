@@ -1,9 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package administrator;
-
+import common.notification.*;
 import common.communication.Message;
 import common.reader.Reader;
 import common.writer.Writer;
@@ -163,11 +159,12 @@ public class CommunicationAdminController implements Initializable {
     @FXML
     private void notClick(MouseEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("NotificationAdminFXML.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/notification/NotificationFXML.fxml"));
             Parent root = loader.load();
 
-            NotificationAdminController controller = loader.getController();
-            controller.setUser("administrator");
+            NotificationController controller = loader.getController();
+            String[] x = {"Dash"};
+            controller.initData("Administrator", "m@g.com", x);
             
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("Administrator");
