@@ -4,6 +4,8 @@
  */
 package administrator;
 import common.aes.AES;
+import common.reader.Reader;
+import java.util.ArrayList;
 
 /**
  *
@@ -11,9 +13,9 @@ import common.aes.AES;
  */
 public class dummy {
     public static void main(String[] args) {
-        String data = AES.encrypt("gg123");
-        System.out.println(data);
-        System.out.println(AES.decrypt(data));
+        ArrayList x = new Reader("Database/User/Administrator/m@g.com", "notification.bin").splitFile();
+        
+        System.out.println(x);
     }
     
 }

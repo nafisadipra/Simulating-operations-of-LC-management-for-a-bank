@@ -60,23 +60,25 @@ public class Reader {
         return data;
     }
     
-    public ArrayList spliteFile() {
-        ArrayList <String> readData = readFile();
-        ArrayList <ArrayList> splitData = new ArrayList();
-        
+    public ArrayList<ArrayList<String>> splitFile() {
+        ArrayList<String> readData = readFile();
+        ArrayList<ArrayList<String>> splitData = new ArrayList<>();
+
         for (int j = 0; j < readData.size(); j++) {
-            ArrayList itemData = new ArrayList();
+            ArrayList<String> itemData = new ArrayList<>();
             String data = "";
             for (int i = 0; i < readData.get(j).length(); i++) {
-                if (readData.get(0).charAt(i) == '▓') {
+                if (readData.get(j).charAt(i) == '▓') {
                     itemData.add(data);
                     data = "";
                 } else {
-                    data += readData.get(0).charAt(i);
+                    data += readData.get(j).charAt(i);
                 }
             }
+            itemData.add(data);
             splitData.add(itemData);
         }
         return splitData;
     }
+
 }
