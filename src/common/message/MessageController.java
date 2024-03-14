@@ -1,53 +1,51 @@
-package common.notification;
+package common.message;
 
+import common.notification.NotificationController;
 import common.reader.Reader;
-import common.sandwich.Sandwich;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javax.imageio.ImageIO;
+import common.sandwich.Sandwich;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Collections;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import java.util.Collections;
-
-// controllers
-import common.message.MessageController;
+import javax.imageio.ImageIO;
 
 /**
  * FXML Controller class
  *
  * @author Muyeed
  */
-public class NotificationController implements Initializable {
+public class MessageController implements Initializable {
 
     @FXML
-    private TableView<Notification> table;
+    private TableView<Message> table;
     @FXML
-    private TableColumn<Notification, String> ntable;
+    private TableColumn<Message, String> utable;
     @FXML
-    private TableColumn<Notification, String> utable;
+    private TableColumn<Message, String> mtable;
     @FXML
-    private TableColumn<Notification, String> ttable;
+    private TableColumn<Message, String> ttable;
     @FXML
-    private TableColumn<Notification, String> dtable;
+    private TableColumn<Message, String> dtable;
     @FXML
     private AnchorPane paneSide;
     @FXML
@@ -64,11 +62,13 @@ public class NotificationController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
-    private ArrayList<Notification> notList;
+    private ArrayList <Message> mesList;
+
 
     /**
      * Initializes the controller class.
      */
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
@@ -94,8 +94,8 @@ public class NotificationController implements Initializable {
         paneSide.setVisible(false);
         paneLog.setVisible(false);
         ArrayList <ArrayList<String>> proFetch = (new Reader("Database/User/" + user + "/" + email, "profile.bin")).splitFile('▓');
-        ArrayList <String> data = proFetch.get(0);
-        labName.setText(data.get(0));
+        ArrayList <String> name = proFetch.get(0);
+        labName.setText(name.get(0));
 
         // image
         BufferedImage bufferedImage = null;
@@ -107,19 +107,43 @@ public class NotificationController implements Initializable {
         Image fxImage = SwingFXUtils.toFXImage(bufferedImage, null);
         imageUser.setImage(fxImage);
         
-        // Notification
-        notList = new ArrayList();
-        ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
-        Collections.reverse(notFetch);
-        for (ArrayList <String> x: notFetch) {
-            notList.add(new Notification(x.get(0), x.get(1), x.get(2), x.get(3)));
+        // message
+        ArrayList <Message> mesList = new ArrayList();
+        this.mesList = mesList;
+        ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
+        Collections.reverse(mesFetch);
+        for (ArrayList <String> x: mesFetch) {
+            mesList.add(new Message(x.get(0), x.get(1), x.get(2), x.get(3)));
         }
         
-        ntable.setCellValueFactory(new PropertyValueFactory<>("data"));
-        utable.setCellValueFactory(new PropertyValueFactory<>("user"));
-        ttable.setCellValueFactory(new PropertyValueFactory<>("time"));
-        dtable.setCellValueFactory(new PropertyValueFactory<>("date"));
-        table.getItems().addAll(FXCollections.observableArrayList(notList));
+        utable.setCellValueFactory(new PropertyValueFactory("user"));
+        mtable.setCellValueFactory(new PropertyValueFactory("data"));
+        ttable.setCellValueFactory(new PropertyValueFactory("time"));
+        dtable.setCellValueFactory(new PropertyValueFactory("date"));
+        table.getItems().setAll(FXCollections.observableArrayList(mesList));
+    }
+
+    @FXML
+    private void sendMessage(MouseEvent event) {
+        Message message = table.getSelectionModel().getSelectedItem();
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("InboxFXML.fxml"));
+            Parent root = loader.load();
+
+            InboxController controller = loader.getController();
+            controller.initData(user, email, sanData, mesList, message);
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @FXML
@@ -160,16 +184,11 @@ public class NotificationController implements Initializable {
 
     @FXML
     private void notClick(MouseEvent event) {
-        
-    }
-    
-    @FXML
-    private void mailClick(MouseEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/message/MessageFXML.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/notification/NotificationFXML.fxml"));
             Parent root = loader.load();
 
-            MessageController controller = loader.getController();
+            NotificationController controller = loader.getController();
             controller.initData(user, email, sanData);
             
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -184,6 +203,10 @@ public class NotificationController implements Initializable {
     }
 
     @FXML
+    private void mailClick(MouseEvent event) {
+        
+    }
+    
     private void dashClick(MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + user.toLowerCase() + "/DashboardFXML.fxml"));
@@ -193,6 +216,26 @@ public class NotificationController implements Initializable {
                 ad.DashboardController controller = loader.getController();
                 controller.initData(user, email, sanData);
             }
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void comClick(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ComposeFXML.fxml"));
+            Parent root = loader.load();
+
+            ComposeController controller = loader.getController();
+            controller.initData(user, email, sanData);
             
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");

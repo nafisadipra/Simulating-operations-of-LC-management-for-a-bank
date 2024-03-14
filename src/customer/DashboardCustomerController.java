@@ -4,7 +4,6 @@
  */
 package customer;
 
-import administrator.*;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import java.io.IOException;

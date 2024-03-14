@@ -4,6 +4,7 @@
  */
 package common.writer;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -67,6 +68,29 @@ public class Writer {
             System.out.println("Data Stored");
             
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+
+    public void overWriteFile() {
+        try {
+            File directory = new File(location);
+
+            if (!directory.exists()) {
+                System.out.println("File does not exist!");
+            } else {
+                File myFile = new File(location + "/" + fileName);
+                try (FileWriter myWriter = new FileWriter(myFile, true);
+                     BufferedWriter bufferedWriter = new BufferedWriter(myWriter)) {
+                    bufferedWriter.write(data);
+                    bufferedWriter.newLine();
+                }
+                System.out.println("Data Stored");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     

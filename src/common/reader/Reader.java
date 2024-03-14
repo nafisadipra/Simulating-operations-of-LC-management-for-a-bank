@@ -60,7 +60,7 @@ public class Reader {
         return data;
     }
     
-    public ArrayList<ArrayList<String>> splitFile() {
+    public ArrayList<ArrayList<String>> splitFile(char variable) {
         ArrayList<String> readData = readFile();
         ArrayList<ArrayList<String>> splitData = new ArrayList<>();
 
@@ -68,7 +68,7 @@ public class Reader {
             ArrayList<String> itemData = new ArrayList<>();
             String data = "";
             for (int i = 0; i < readData.get(j).length(); i++) {
-                if (readData.get(j).charAt(i) == '▓') {
+                if (readData.get(j).charAt(i) == variable) {
                     itemData.add(data);
                     data = "";
                 } else {

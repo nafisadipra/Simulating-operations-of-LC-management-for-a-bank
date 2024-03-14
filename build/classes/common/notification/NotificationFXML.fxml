@@ -24,9 +24,9 @@
             <TableView fx:id="table" layoutX="14.0" layoutY="106.0" prefHeight="482.0" prefWidth="1173.0" style="-fx-background-color: #212121; -fx-opacity: 0.7; -fx-base: #212121; -fx-font-size: 16 px;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
                <columns>
                   <TableColumn fx:id="ntable" prefWidth="664.0" style="-fx-background-color: #000000; -fx-text-fill: #ffffff; -fx-border-color: #212121;" text="Notification" />
-                  <TableColumn fx:id="utable" minWidth="0.0" prefWidth="242.0" style="-fx-background-color: #000000; -fx-text-fill: #ffffff; -fx-border-color: #212121;" text="From" />
-                  <TableColumn fx:id="ttable" minWidth="0.0" prefWidth="130.0" style="-fx-background-color: #000000; -fx-text-fill: #ffffff; -fx-border-color: #212121;" text="Time" />
-                  <TableColumn fx:id="dtable" minWidth="0.0" prefWidth="136.0" style="-fx-background-color: #000000; -fx-text-fill: #ffffff; -fx-border-color: #212121;" text="Date" />
+                  <TableColumn fx:id="utable" minWidth="0.0" prefWidth="242.0" style="-fx-background-color: #000000; -fx-text-fill: #ffffff; -fx-border-color: #212121;" text="Type" />
+                  <TableColumn fx:id="ttable" minWidth="0.0" prefWidth="135.0" style="-fx-background-color: #000000; -fx-text-fill: #ffffff; -fx-border-color: #212121;" text="Time" />
+                  <TableColumn fx:id="dtable" minWidth="0.0" prefWidth="130.0" style="-fx-background-color: #000000; -fx-text-fill: #ffffff; -fx-border-color: #212121;" text="Date" />
                </columns>
             </TableView>
       <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #13101F; -fx-opacity: .9;">
