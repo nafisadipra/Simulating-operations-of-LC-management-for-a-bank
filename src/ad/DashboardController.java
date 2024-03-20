@@ -16,7 +16,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -33,6 +32,7 @@ import javax.imageio.ImageIO;
 // controllers
 import common.message.MessageController;
 import common.notification.NotificationController;
+import common.writer.Writer;
 
 /**
  * FXML Controller class
@@ -52,15 +52,11 @@ public class DashboardController implements Initializable {
     @FXML
     private Label labName;
     @FXML
-    private Button buttLog;
-    @FXML
     private ImageView imageUser;
     @FXML
     private Circle mdot;
     @FXML
     private Circle ndot;
-    @FXML
-    private PieChart pieChart;
     
     private String user;
     private String email;
@@ -71,12 +67,7 @@ public class DashboardController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        pieChart.getData().addAll(
-            new PieChart.Data("Clients", 65),
-            new PieChart.Data("Admnistrators", 10),
-            new PieChart.Data("Officers", 20),
-            new PieChart.Data("IT", 5)
-        );
+        
     }    
 
     // pipeline
@@ -99,8 +90,8 @@ public class DashboardController implements Initializable {
         paneSide.setVisible(false);
         paneLog.setVisible(false);
         ArrayList <ArrayList<String>> proFetch = (new Reader("Database/User/" + user + "/" + email, "profile.bin")).splitFile('▓');
-        ArrayList <String> name = proFetch.get(0);
-        labName.setText(name.get(0));
+        ArrayList <String> data = proFetch.get(0);
+        labName.setText(data.get(0));
         
         // image
         BufferedImage originalImage = null;
@@ -122,6 +113,23 @@ public class DashboardController implements Initializable {
             Image fxImage = SwingFXUtils.toFXImage(resizedImage, null);
 
             imageUser.setImage(fxImage);
+        }
+        
+        // dot
+        ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
+        ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
+        ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+        
+        if (mesFetch.size() != Integer.parseInt(dotFetch.get(0).get(0))) {
+            mdot.setVisible(true);
+        } else {
+            mdot.setVisible(false);
+        }
+        
+        if (notFetch.size() != Integer.parseInt(dotFetch.get(0).get(1))) {
+            ndot.setVisible(true);
+        } else {
+            ndot.setVisible(false);
         }
     }
 
@@ -163,6 +171,13 @@ public class DashboardController implements Initializable {
 
     @FXML
     private void notClick(MouseEvent event) {
+        if (ndot.isVisible() == true) {
+            ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
+            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+            String notNum = dotFetch.get(0).get(0) + "▓" + notFetch.size() + "▓";
+            new Writer("Database/User/" + user + "/" + email, "dot.bin", notNum).writeFile();
+        }
+        
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/notification/NotificationFXML.fxml"));
             Parent root = loader.load();
@@ -183,6 +198,13 @@ public class DashboardController implements Initializable {
     
     @FXML
     private void mailClick(MouseEvent event) {
+        if (mdot.isVisible() == true) {
+            ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
+            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+            String mesNum = mesFetch.size() + "▓" + dotFetch.get(0).get(1) + "▓";
+            new Writer("Database/User/" + user + "/" + email, "dot.bin", mesNum).writeFile();
+        }
+        
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/message/MessageFXML.fxml"));
             Parent root = loader.load();
@@ -201,9 +223,25 @@ public class DashboardController implements Initializable {
         }
     }
     
-    @FXML
     private void dashClick(MouseEvent event) {
         
+    }
+
+    @FXML
+    private void outClick(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/signIN/SignINFXML.fxml"));
+            Parent root = loader.load();
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
 }

@@ -18,7 +18,7 @@ public class SceneView extends Application {
         
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("Sign In");
+        stage.setTitle("LC Bank Portal");
         stage.show();
     }
 

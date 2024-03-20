@@ -30,6 +30,8 @@ import java.util.Collections;
 
 // controllers
 import common.message.MessageController;
+import common.writer.Writer;
+import javafx.scene.shape.Circle;
 
 /**
  * FXML Controller class
@@ -65,6 +67,10 @@ public class NotificationController implements Initializable {
     private String email;
     private String[] sanData;
     private ArrayList<Notification> notList;
+    @FXML
+    private Circle mdot;
+    @FXML
+    private Circle ndot;
 
     /**
      * Initializes the controller class.
@@ -120,6 +126,22 @@ public class NotificationController implements Initializable {
         ttable.setCellValueFactory(new PropertyValueFactory<>("time"));
         dtable.setCellValueFactory(new PropertyValueFactory<>("date"));
         table.getItems().addAll(FXCollections.observableArrayList(notList));
+        
+        // dot
+        ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
+        ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+        
+        if (mesFetch.size() != Integer.parseInt(dotFetch.get(0).get(0))) {
+            mdot.setVisible(true);
+        } else {
+            mdot.setVisible(false);
+        }
+        
+        if (notFetch.size() != Integer.parseInt(dotFetch.get(0).get(1))) {
+            ndot.setVisible(true);
+        } else {
+            ndot.setVisible(false);
+        }
     }
 
     @FXML
@@ -160,11 +182,19 @@ public class NotificationController implements Initializable {
 
     @FXML
     private void notClick(MouseEvent event) {
+        ndot.setVisible(false);
         
     }
     
     @FXML
     private void mailClick(MouseEvent event) {
+        if (mdot.isVisible() == true) {
+            ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
+            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+            String mesNum = mesFetch.size() + "▓" + dotFetch.get(0).get(1) + "▓";
+            new Writer("Database/User/" + user + "/" + email, "dot.bin", mesNum).writeFile();
+        }
+        
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/message/MessageFXML.fxml"));
             Parent root = loader.load();
@@ -183,7 +213,6 @@ public class NotificationController implements Initializable {
         }
     }
 
-    @FXML
     private void dashClick(MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + user.toLowerCase() + "/DashboardFXML.fxml"));
@@ -193,6 +222,23 @@ public class NotificationController implements Initializable {
                 ad.DashboardController controller = loader.getController();
                 controller.initData(user, email, sanData);
             }
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
+    private void outClick(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/signIN/SignINFXML.fxml"));
+            Parent root = loader.load();
             
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");

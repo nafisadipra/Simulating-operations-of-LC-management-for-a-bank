@@ -26,6 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -58,14 +59,15 @@ public class ComposeController implements Initializable {
     @FXML
     private ImageView imageUser;
     @FXML
-    private TextArea areaTo;
+    private TextField fieldSub;
+    @FXML
+    private TextField fieldTo;
 
     private String user;
     private String email;
     private String[] sanData;
     private ArrayList <Message> mesList;
     private Message message;
-
 
     // pipeline
     public void initData(String user, String email, String[] sanData) {
@@ -232,7 +234,7 @@ public class ComposeController implements Initializable {
     private void sendClick(MouseEvent event) {
         String mail = "";
         boolean foundAtSymbol = false;
-        String emailText = areaTo.getText();
+        String emailText = fieldTo.getText();
         
         for (int i = 0; i < emailText.length(); i++) {
             if (emailText.charAt(i) == '@') {
@@ -294,12 +296,29 @@ public class ComposeController implements Initializable {
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         
-        String mesData = areaSend.getText().replaceAll("\\n", "\\\\n") + "▓" + email + "▓" + currentTime.format(formatTime) + "▓" + currentDate.format(formatDate);
+        String mesData = areaSend.getText().replaceAll("\\n", "\\\\n") + "▓" + email + "▓" + currentTime.format(formatTime) + "▓" + currentDate.format(formatDate) + "▓" + fieldSub.getText() + "▓" + "null";
         new Writer(location, "message.bin", mesData).overWriteFile();
         
         String notData = ("You recieved a message from " + email) + "▓" + "Message" + "▓" + currentTime.format(formatTime) + "▓" + currentDate.format(formatDate);
         new Writer(location, "notification.bin", notData).overWriteFile();
         
+    }
+    
+    @FXML
+    private void outClick(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/signIN/SignINFXML.fxml"));
+            Parent root = loader.load();
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
 }

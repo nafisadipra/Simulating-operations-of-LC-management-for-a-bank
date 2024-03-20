@@ -2,16 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/Code%20Projects/My%20Projects/Simulating-operations-of-LC-management-for-a-bank/src/ad/Administrator.java</file>
-            <file>file:/D:/Code%20Projects/My%20Projects/Simulating-operations-of-LC-management-for-a-bank/src/ad/DashboardController.java</file>
-            <file>file:/D:/Code%20Projects/My%20Projects/Simulating-operations-of-LC-management-for-a-bank/src/common/notification/NotificationController.java</file>
-            <file>file:/D:/Code%20Projects/My%20Projects/Simulating-operations-of-LC-management-for-a-bank/src/common/reader/Reader.java</file>
-            <file>file:/D:/Code%20Projects/My%20Projects/Simulating-operations-of-LC-management-for-a-bank/src/common/communication/InboxController.java</file>
-            <file>file:/D:/Code%20Projects/My%20Projects/Simulating-operations-of-LC-management-for-a-bank/src/common/communication/MessageController.java</file>
-            <file>file:/D:/Code%20Projects/My%20Projects/Simulating-operations-of-LC-management-for-a-bank/src/common/signIN/SignINScene.java</file>
-            <file>file:/D:/Code%20Projects/My%20Projects/Simulating-operations-of-LC-management-for-a-bank/src/common/signIN/SignINController.java</file>
-            <file>file:/D:/Code%20Projects/My%20Projects/Simulating-operations-of-LC-management-for-a-bank/src/common/aes/AESoutput.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

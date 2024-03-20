@@ -13,42 +13,42 @@
    <children>
       <ImageView fitHeight="600.0" fitWidth="1200.0">
          <image>
-            <Image url="@../iconFiles/SignInMenu.jpg" />
+            <Image url="@../iconFiles/pipra2.jpg" />
          </image>
       </ImageView>
-      <TextField fx:id="enEmail" layoutX="818.0" layoutY="267.0" prefHeight="41.0" prefWidth="293.0" style="-fx-background-color: #dddddd;">
+      <TextField fx:id="enEmail" layoutX="825.0" layoutY="267.0" prefHeight="41.0" prefWidth="293.0" style="-fx-background-color: #dddddd;">
          <font>
             <Font size="16.0" />
          </font></TextField>
-      <PasswordField fx:id="enPassword" layoutX="818.0" layoutY="347.0" prefHeight="41.0" prefWidth="293.0" style="-fx-background-color: #dddddd;">
+      <PasswordField fx:id="enPassword" layoutX="825.0" layoutY="347.0" prefHeight="41.0" prefWidth="293.0" style="-fx-background-color: #dddddd;">
          <font>
             <Font size="16.0" />
          </font></PasswordField>
-      <Button layoutX="1025.0" layoutY="428.0" mnemonicParsing="false" onAction="#loginButtonAction" prefHeight="41.0" prefWidth="86.0" style="-fx-background-color: #441aaa;" text="Log In" textFill="#dddddd">
+      <Button layoutX="1025.0" layoutY="428.0" mnemonicParsing="false" onAction="#loginButtonAction" prefHeight="41.0" prefWidth="86.0" style="-fx-background-color: white;" text="Log In" textFill="#0a0a0a">
          <font>
             <Font size="18.0" />
          </font></Button>
-      <Label layoutX="882.0" layoutY="438.0" text="New here? Sign Up!" textFill="#dddddd">
+      <Label layoutX="882.0" layoutY="438.0" text="New here? Sign Up!" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="669.0" layoutY="266.0" text="Email" textFill="#dddddd">
+      <Label layoutX="669.0" layoutY="266.0" text="Email" textFill="WHITE">
          <font>
             <Font size="29.0" />
          </font>
       </Label>
-      <Label layoutX="669.0" layoutY="346.0" text="Password" textFill="#dddddd">
+      <Label layoutX="669.0" layoutY="346.0" text="Password" textFill="WHITE">
          <font>
             <Font size="29.0" />
          </font>
       </Label>
-      <Label layoutX="75.0" layoutY="110.0" text="LC Bank" textFill="#dddddd">
+      <Label layoutX="75.0" layoutY="110.0" text="LC Bank" textFill="WHITE">
          <font>
             <Font size="96.0" />
          </font>
       </Label>
-      <Label layoutX="75.0" layoutY="220.0" prefHeight="291.0" prefWidth="405.0" text="Unlocking Prosperity, Empowering Dreams, LC Bank, where potential gleams. Secure Transactions, Your Trust Our Goal,In the world of finance, we play a leading role. Leverage Confidence, Bank with LC's Soul." textFill="#dddddd" wrapText="true">
+      <Label layoutX="75.0" layoutY="220.0" prefHeight="291.0" prefWidth="405.0" text="Unlocking Prosperity, Empowering Dreams, LC Bank, where potential gleams. Secure Transactions, Your Trust Our Goal,In the world of finance, we play a leading role. Leverage Confidence, Bank with LC's Soul." textFill="WHITE" wrapText="true">
          <font>
             <Font size="17.0" />
          </font>
@@ -58,7 +58,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="882.0" layoutY="436.0" mnemonicParsing="false" onAction="#switchToSignUp" opacity="0.0" prefHeight="25.0" prefWidth="122.0" text="Button" />
+      <Button layoutX="882.0" layoutY="436.0" mnemonicParsing="false" onAction="#switchToSignUp" opacity="0.0" prefHeight="25.0" prefWidth="122.0" style="-fx-background-color: black;" text="Button" textFill="WHITE" />
       <Label fx:id="labWarning" layoutX="1004.0" layoutY="400.0" text="Wrong Credentials !" textFill="#ff6363" visible="false" />
    </children>
 </AnchorPane>

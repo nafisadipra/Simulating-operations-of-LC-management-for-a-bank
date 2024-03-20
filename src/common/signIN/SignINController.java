@@ -173,7 +173,7 @@ public class SignINController implements Initializable {
 //                    }
 
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    stage.setTitle(user);
+                    stage.setTitle("LC Bank Portal");
 
                     stage.setScene(new Scene(root));
                     stage.show();

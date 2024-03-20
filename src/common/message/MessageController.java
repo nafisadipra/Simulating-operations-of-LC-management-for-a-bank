@@ -14,6 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import common.sandwich.Sandwich;
+import common.writer.Writer;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -26,6 +27,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 
@@ -63,6 +65,10 @@ public class MessageController implements Initializable {
     private String email;
     private String[] sanData;
     private ArrayList <Message> mesList;
+    @FXML
+    private Circle mdot;
+    @FXML
+    private Circle ndot;
 
 
     /**
@@ -121,6 +127,22 @@ public class MessageController implements Initializable {
         ttable.setCellValueFactory(new PropertyValueFactory("time"));
         dtable.setCellValueFactory(new PropertyValueFactory("date"));
         table.getItems().setAll(FXCollections.observableArrayList(mesList));
+        
+        // dot
+        ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
+        ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+        
+        if (mesFetch.size() != Integer.parseInt(dotFetch.get(0).get(0))) {
+            mdot.setVisible(true);
+        } else {
+            mdot.setVisible(false);
+        }
+        
+        if (notFetch.size() != Integer.parseInt(dotFetch.get(0).get(1))) {
+            ndot.setVisible(true);
+        } else {
+            ndot.setVisible(false);
+        }
     }
 
     @FXML
@@ -184,6 +206,13 @@ public class MessageController implements Initializable {
 
     @FXML
     private void notClick(MouseEvent event) {
+        if (ndot.isVisible() == true) {
+            ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
+            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+            String notNum = dotFetch.get(0).get(0) + "▓" + notFetch.size() + "▓";
+            new Writer("Database/User/" + user + "/" + email, "dot.bin", notNum).writeFile();
+        }
+        
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/notification/NotificationFXML.fxml"));
             Parent root = loader.load();
@@ -204,6 +233,7 @@ public class MessageController implements Initializable {
 
     @FXML
     private void mailClick(MouseEvent event) {
+        mdot.setVisible(false);
         
     }
     
@@ -236,6 +266,23 @@ public class MessageController implements Initializable {
 
             ComposeController controller = loader.getController();
             controller.initData(user, email, sanData);
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
+    private void outClick(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/signIN/SignINFXML.fxml"));
+            Parent root = loader.load();
             
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
