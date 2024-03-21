@@ -1,26 +1,26 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package common.message;
 
 /**
  *
- * @author User
+ * @Muyeed
  */
 public class Message {
     private String data;
     private String user;
     private String time;
     private String date;
+    private String subject;
+    private String attachment;
 
-    public Message(String data, String user, String time, String date) {
+    public Message(String data, String user, String time, String date, String subject, String attachment) {
         this.data = data;
         this.user = user;
         this.time = time;
         this.date = date;
+        this.subject = subject;
+        this.attachment = attachment;
     }
-
+    
     public String getData() {
         return data;
     }
@@ -35,6 +35,14 @@ public class Message {
 
     public String getDate() {
         return date;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public String getAttachment() {
+        return attachment;
     }
 
     public void setData(String data) {
@@ -53,9 +61,17 @@ public class Message {
         this.date = date;
     }
 
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public void setAttachment(String attachment) {
+        this.attachment = attachment;
+    }
+
     @Override
     public String toString() {
-        return "Message{" + "data=" + data + ", user=" + user + ", time=" + time + ", date=" + date + '}';
+        return "Message{" + "data=" + data + ", user=" + user + ", time=" + time + ", date=" + date + ", subject=" + subject + ", attachment=" + attachment + '}';
     }
     
 }

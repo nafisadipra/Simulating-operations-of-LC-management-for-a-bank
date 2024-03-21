@@ -184,6 +184,13 @@ public class NotificationController implements Initializable {
     private void notClick(MouseEvent event) {
         ndot.setVisible(false);
         
+        if (ndot.isVisible() == true) {
+            ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
+            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+            String notNum = dotFetch.get(0).get(0) + "▓" + notFetch.size() + "▓";
+            new Writer("Database/User/" + user + "/" + email, "dot.bin", notNum).writeFile();
+        }
+        
     }
     
     @FXML

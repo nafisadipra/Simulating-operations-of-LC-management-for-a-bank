@@ -1,13 +1,19 @@
 package common.message;
 
 import common.notification.NotificationController;
+import common.number.RandomNumber;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.writer.Writer;
+import common.xdir.XDIR;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -21,7 +27,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -32,6 +37,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import static javafx.scene.paint.Color.color;
+import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 
@@ -55,8 +63,6 @@ public class ComposeController implements Initializable {
     @FXML
     private Label labName;
     @FXML
-    private Button buttLog;
-    @FXML
     private ImageView imageUser;
     @FXML
     private TextField fieldSub;
@@ -68,6 +74,16 @@ public class ComposeController implements Initializable {
     private String[] sanData;
     private ArrayList <Message> mesList;
     private Message message;
+    private String attachment = "null";
+    private String path = "null";
+    private long random;
+            
+    @FXML
+    private Circle mdot;
+    @FXML
+    private Circle ndot;
+    @FXML
+    private Label labFile;
 
     // pipeline
     public void initData(String user, String email, String[] sanData) {
@@ -75,6 +91,9 @@ public class ComposeController implements Initializable {
         this.user = user;
         this.email = email;
         this.sanData = sanData;
+        
+        // Generate Random
+        this.random = new RandomNumber(8).generate();
         
         // Side Panel
         ArrayList<Sandwich> sanList = new ArrayList();
@@ -101,10 +120,26 @@ public class ComposeController implements Initializable {
         }
         Image fxImage = SwingFXUtils.toFXImage(bufferedImage, null);
         imageUser.setImage(fxImage);
+        
+        // dot
+        ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
+        ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
+        ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+        
+        if (mesFetch.size() != Integer.parseInt(dotFetch.get(0).get(0))) {
+            mdot.setVisible(true);
+        } else {
+            mdot.setVisible(false);
+        }
+        
+        if (notFetch.size() != Integer.parseInt(dotFetch.get(0).get(1))) {
+            ndot.setVisible(true);
+        } else {
+            ndot.setVisible(false);
+        }
     }
     
-    
-    
+
     /**
      * Initializes the controller class.
      */
@@ -171,6 +206,13 @@ public class ComposeController implements Initializable {
 
     @FXML
     private void notClick(MouseEvent event) {
+        if (ndot.isVisible() == true) {
+            ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
+            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+            String notNum = dotFetch.get(0).get(0) + "▓" + notFetch.size() + "▓";
+            new Writer("Database/User/" + user + "/" + email, "dot.bin", notNum).writeFile();
+        }
+        
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/notification/NotificationFXML.fxml"));
             Parent root = loader.load();
@@ -191,6 +233,13 @@ public class ComposeController implements Initializable {
 
     @FXML
     private void mailClick(MouseEvent event) {
+        if (mdot.isVisible() == true) {
+            ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
+            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+            String mesNum = mesFetch.size() + "▓" + dotFetch.get(0).get(1) + "▓";
+            new Writer("Database/User/" + user + "/" + email, "dot.bin", mesNum).writeFile();
+        }
+        
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageFXML.fxml"));
             Parent root = loader.load();
@@ -290,20 +339,63 @@ public class ComposeController implements Initializable {
         }
         
         String location = "Database/User/" + userText + "/" + emailText;
-        LocalTime currentTime = LocalTime.now();
-        DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("hh:mm a");
+        Path destinationPath = Paths.get(location);
         
-        LocalDate currentDate = LocalDate.now();
-        DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        
-        String mesData = areaSend.getText().replaceAll("\\n", "\\\\n") + "▓" + email + "▓" + currentTime.format(formatTime) + "▓" + currentDate.format(formatDate) + "▓" + fieldSub.getText() + "▓" + "null";
-        new Writer(location, "message.bin", mesData).overWriteFile();
-        
-        String notData = ("You recieved a message from " + email) + "▓" + "Message" + "▓" + currentTime.format(formatTime) + "▓" + currentDate.format(formatDate);
-        new Writer(location, "notification.bin", notData).overWriteFile();
-        
+        if (Files.exists(destinationPath)) {
+            LocalTime currentTime = LocalTime.now();
+            DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("hh:mm a");
+
+            LocalDate currentDate = LocalDate.now();
+            DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            
+            String fileName = "";
+            
+            if (attachment.equals("null")) {
+                fileName += "null";
+            } else {
+                fileName += (random + "_" + attachment);
+            }
+            
+            String subject = fieldSub.getText();
+            
+            if (subject.isEmpty()) {
+                subject = "(No Subject)";
+            }
+            
+            String mesData = areaSend.getText().replaceAll("\\n", "\\\\n") + "▓" + email + "▓" + currentTime.format(formatTime) + "▓" + currentDate.format(formatDate) + "▓" + subject + "▓" + fileName  + "▓" + "0";
+            new Writer(location, "message.bin", mesData).overWriteFile();
+            
+            String notData = ("You recieved a message from " + email) + "▓" + "Message" + "▓" + currentTime.format(formatTime) + "▓" + currentDate.format(formatDate);
+            new Writer(location, "notification.bin", notData).overWriteFile();
+            
+            if (!path.equals("null")) {
+                new XDIR(path, location + "/Attachments/" + fileName).copyFile();;
+            }
+            
+        } else {
+            System.out.println("Nope!"); 
+        } 
     }
     
+    @FXML
+    private void fileClick(MouseEvent event) {
+        this.attachment = "null";
+        this.path = "null";
+        labFile.setVisible(false);
+        
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open File");
+
+        File selectedFile = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
+
+        if (selectedFile != null) {
+            labFile.setText(selectedFile.getName() + " is attached");
+            this.attachment = selectedFile.getName();
+            this.path = selectedFile.getPath();
+            labFile.setVisible(true);
+        }
+    }
+
     @FXML
     private void outClick(MouseEvent event) {
         try {

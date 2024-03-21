@@ -1,4 +1,5 @@
 package common.reader;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -79,6 +80,27 @@ public class Reader {
             splitData.add(itemData);
         }
         return splitData;
+    }
+
+    public void openFile() {
+        File file = new File(location, fileName);
+
+        if (!file.exists()) {
+            System.out.println("File does not exist!");
+            return;
+        }
+
+        if (!Desktop.isDesktopSupported()) {
+            System.out.println("Desktop is not supported!");
+            return;
+        }
+
+        Desktop desktop = Desktop.getDesktop();
+        try {
+            desktop.open(file);
+        } catch (IOException e) {
+            System.out.println("Error opening file: " + e.getMessage());
+        }
     }
 
 }

@@ -28,7 +28,6 @@ public class MessageScene extends Application {
         stage.show();
     }
 
-    
     /**
      * @param args the command line arguments
      */

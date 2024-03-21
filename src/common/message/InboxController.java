@@ -3,6 +3,7 @@ package common.message;
 import common.notification.NotificationController;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
+import common.writer.Writer;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,11 +24,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 
@@ -61,14 +65,22 @@ public class InboxController implements Initializable {
     private ImageView imageFile;
     @FXML
     private Label labFile;
-    @FXML
-    private Label labAttach;
 
     private String user;
     private String email;
     private String[] sanData;
     private ArrayList <Message> mesList;
     private Message message;
+    @FXML
+    private Circle mdot;
+    @FXML
+    private Circle ndot;
+    @FXML
+    private Label labFileNo;
+    @FXML
+    private Button buttFile;
+    @FXML
+    private TextField enSub;
 
     // pipeline
     public void initData(String user, String email, String[] sanData, ArrayList mesList, Message message) {
@@ -108,6 +120,34 @@ public class InboxController implements Initializable {
         // show message
         labSender.setText("From: " + message.getUser());
         areaMessage.setText(message.getData().replaceAll("\\\\n", "\n"));
+        enSub.setText("Subject: " + message.getSubject());
+        
+        labFileNo.setVisible(true);
+        
+        if (!message.getAttachment().equals("null")) {
+            labFileNo.setVisible(false);
+            imageFile.setVisible(true);
+            labFile.setText(message.getAttachment().substring(9));
+            labFile.setVisible(true);
+            buttFile.setDisable(false);
+        }
+        
+        // dot
+        ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
+        ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
+        ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+        
+        if (mesFetch.size() != Integer.parseInt(dotFetch.get(0).get(0))) {
+            mdot.setVisible(true);
+        } else {
+            mdot.setVisible(false);
+        }
+        
+        if (notFetch.size() != Integer.parseInt(dotFetch.get(0).get(1))) {
+            ndot.setVisible(true);
+        } else {
+            ndot.setVisible(false);
+        }
     }
     
     /**
@@ -176,6 +216,13 @@ public class InboxController implements Initializable {
 
     @FXML
     private void notClick(MouseEvent event) {
+        if (ndot.isVisible() == true) {
+            ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
+            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+            String notNum = dotFetch.get(0).get(0) + "▓" + notFetch.size() + "▓";
+            new Writer("Database/User/" + user + "/" + email, "dot.bin", notNum).writeFile();
+        }
+        
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/notification/NotificationFXML.fxml"));
             Parent root = loader.load();
@@ -196,6 +243,13 @@ public class InboxController implements Initializable {
 
     @FXML
     private void mailClick(MouseEvent event) {
+        if (mdot.isVisible() == true) {
+            ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
+            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+            String mesNum = mesFetch.size() + "▓" + dotFetch.get(0).get(1) + "▓";
+            new Writer("Database/User/" + user + "/" + email, "dot.bin", mesNum).writeFile();
+        }
+        
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageFXML.fxml"));
             Parent root = loader.load();
@@ -251,5 +305,11 @@ public class InboxController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void fileClick(MouseEvent event) {
+        (new Reader("Database/User/" + user + "/" + email + "/Attachments/" + message.getAttachment(), message.getAttachment().substring(9))).openFile();
+    }
+
     
 }

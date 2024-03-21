@@ -119,11 +119,11 @@ public class MessageController implements Initializable {
         ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
         Collections.reverse(mesFetch);
         for (ArrayList <String> x: mesFetch) {
-            mesList.add(new Message(x.get(0), x.get(1), x.get(2), x.get(3)));
+            mesList.add(new Message(x.get(0), x.get(1), x.get(2), x.get(3), x.get(4), x.get(5)));
         }
         
         utable.setCellValueFactory(new PropertyValueFactory("user"));
-        mtable.setCellValueFactory(new PropertyValueFactory("data"));
+        mtable.setCellValueFactory(new PropertyValueFactory("subject"));
         ttable.setCellValueFactory(new PropertyValueFactory("time"));
         dtable.setCellValueFactory(new PropertyValueFactory("date"));
         table.getItems().setAll(FXCollections.observableArrayList(mesList));
@@ -234,6 +234,13 @@ public class MessageController implements Initializable {
     @FXML
     private void mailClick(MouseEvent event) {
         mdot.setVisible(false);
+        
+        if (mdot.isVisible() == true) {
+            ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
+            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+            String mesNum = mesFetch.size() + "▓" + dotFetch.get(0).get(1) + "▓";
+            new Writer("Database/User/" + user + "/" + email, "dot.bin", mesNum).writeFile();
+        }
         
     }
     

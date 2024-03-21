@@ -39,7 +39,7 @@
             <Font size="18.0" />
          </font>
       </TextField>
-      <TextArea fx:id="areaSend" layoutX="14.0" layoutY="250.0" prefHeight="283.0" prefWidth="1168.0" style="-fx-control-inner-background: white; -fx-base: gray;">
+      <TextArea fx:id="areaSend" layoutX="14.0" layoutY="250.0" prefHeight="283.0" prefWidth="1168.0" style="-fx-control-inner-background: white;">
          <font>
             <Font size="18.0" />
          </font>
@@ -63,7 +63,7 @@
          <children>
             <TableView fx:id="tableSide" layoutX="12.0" layoutY="8.0" onMouseClicked="#windowClick" prefHeight="588.0" prefWidth="265.0" style="-fx-background-color: #9AD0C2; -fx-base: #9AD0C2; -fx-font-size: 25;">
                <columns>
-                  <TableColumn fx:id="dtableSide" editable="false" minWidth="0.0" prefWidth="263.0" style="-fx-background-color: #9AD0C2; -fx-text-fill: #ffeded; -fx-border-color: #9AD0C2;" />
+                  <TableColumn fx:id="dtableSide" editable="false" minWidth="0.0" prefWidth="263.0" style="-fx-background-color: #9AD0C2; -fx-border-color: #9AD0C2;" />
                </columns>
             </TableView>
             <AnchorPane prefHeight="65.0" prefWidth="290.0" />
@@ -101,6 +101,12 @@
             <Image url="@../iconFiles/User.png" />
          </image>
       </ImageView>
+      <Button layoutX="1135.0" layoutY="168.0" mnemonicParsing="false" onMouseClicked="#fileClick" opacity="0.0" prefHeight="58.0" prefWidth="52.0" text="Button" />
+      <Label fx:id="labFile" layoutX="15.0" layoutY="540.0" prefHeight="17.0" prefWidth="1027.0" text="Filename attached" textFill="#007c1f" visible="false">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
       
    </children>
 </AnchorPane>
