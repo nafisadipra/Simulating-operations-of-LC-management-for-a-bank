@@ -1,4 +1,4 @@
-package common.message;
+package it;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -11,20 +11,21 @@ import javafx.stage.Stage;
  *
  * @author Muyeed
  */
-public class MessageScene extends Application {
+public class SceneView extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageFXML.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("DashboardFXML.fxml"));
         Parent root = loader.load();
-
-        MessageController controller = loader.getController();
-        String[] sanData = {"Dashboard", "Message", "Notification", "Access Logs", "User Management", "Settings"};
+        
+        DashboardController controller = loader.getController();
+        String[] sanData = {"Dashboard", "Message", "Notification", "Control Panel", "Reports", "Settings"};
         controller.initData("AD", "muyeed@lc.ad.com", sanData);
-
+        
         Scene scene = new Scene(root);
-
         stage.setScene(scene);
+        
+        stage.setTitle("LC Bank Portal");
         stage.show();
     }
 
