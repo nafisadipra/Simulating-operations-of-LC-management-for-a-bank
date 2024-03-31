@@ -104,7 +104,7 @@ public class SignINController implements Initializable {
                     switch (user) {
                         case "ADMINISTRATOR":
                             {
-                                administrator.Dashboard controller = loader.getController();
+                                administrator.DashboardController controller = loader.getController();
                                 String[] sanData = {"Dashboard", "Contact", "Notification", "Logs", "Management", "Settings", "Feedback"};
                                 controller.initData(user, email, sanData);
                                 break;

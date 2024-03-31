@@ -228,7 +228,7 @@ public class NotificationController implements Initializable {
             Parent root = loader.load();
 
             if (user.equals("ADMINISTRATOR")) {
-                administrator.Dashboard controller = loader.getController();
+                administrator.DashboardController controller = loader.getController();
                 controller.initData(user, email, sanData);
             }
             

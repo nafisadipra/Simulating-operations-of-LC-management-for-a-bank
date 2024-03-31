@@ -12,13 +12,12 @@ import javafx.stage.Stage;
  * @author Muyeed
  */
 public class SceneView extends Application {
-    
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Management.fxml"));
         Parent root = loader.load();
         
-        Dashboard controller = loader.getController();
+        ManagementController controller = loader.getController();
         String[] sanData = {"Dashboard", "Contact", "Notification", "Logs", "Management", "Settings", "Feedback"};
         controller.initData("ADMINISTRATOR", "muyeed@lc.admin.com", sanData);
         

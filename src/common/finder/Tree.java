@@ -2,6 +2,7 @@ package common.finder;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -32,17 +33,9 @@ public class Tree {
         
         File directory = new File(location);
         
-        for (String data: directory.list()) {
-            locationList.add(data);
-        }
+        locationList.addAll(Arrays.asList(directory.list()));
         
         return locationList;
     }
-    
-    public static void main (String[] args) {
-        Tree lol = new Tree("Database/user");
-        
-        System.out.println(lol.view());
-        
-    }
+
 }

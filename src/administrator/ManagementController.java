@@ -1,5 +1,6 @@
 package administrator;
 
+import common.finder.UserList;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import java.awt.image.BufferedImage;
@@ -28,13 +29,16 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
+import common.user.User;
 
 /**
  * FXML Controller class
  *
  * @author Muyeed
  */
-public class Dashboard implements Initializable {
+public class ManagementController implements Initializable {
 
     @FXML
     private AnchorPane paneSide;
@@ -56,6 +60,16 @@ public class Dashboard implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    @FXML
+    private ComboBox<String> comFilter;
+    @FXML
+    private TableView<User> table;
+    @FXML
+    private TableColumn<User, String> ttype;
+    @FXML
+    private TableColumn<User, String> temail;
+    @FXML
+    private TextField enEmail;
     
     /**
      * Initializes the controller class.
@@ -126,6 +140,19 @@ public class Dashboard implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+        
+        // management
+        String[] usertList = {"All", "Client", "Merchant", "Credit Analyst", "Reporting Officer", "L\\C Officer", "Sales Representative", "Administrator", "General Manager", "Compliance Officer", "IT Officer"};
+        comFilter.getItems().setAll(usertList);
+        comFilter.setValue("All");
+        
+        ArrayList<User> userFetch = (new UserList()).getList();
+        
+        ttype.setCellValueFactory(new PropertyValueFactory("type"));
+        temail.setCellValueFactory(new PropertyValueFactory("email"));
+        
+        table.getItems().setAll(userFetch);
+        
     }
 
     @FXML
