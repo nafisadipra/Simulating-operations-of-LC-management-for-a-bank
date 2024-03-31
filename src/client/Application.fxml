@@ -69,12 +69,12 @@
       <TextField fx:id="addresstxtField" layoutX="170.0" layoutY="196.0" />
       <TextField fx:id="phontxtfield" layoutX="170.0" layoutY="232.0" />
       <TextField fx:id="emailtxtField" layoutX="170.0" layoutY="268.0" />
-      <Label layoutX="389.0" layoutY="120.0" text="Importer:">
+      <Label fx:id="importerLabel" layoutX="389.0" layoutY="120.0" text="Importer:">
          <font>
             <Font name="Arial" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="389.0" layoutY="162.0" text="Quantity:">
+      <Label fx:id="quanLabel" layoutX="389.0" layoutY="162.0" text="Quantity:">
          <font>
             <Font name="Arial" size="16.0" />
          </font>
@@ -104,17 +104,17 @@
             <Font name="Arial" size="16.0" />
          </font>
       </Label>
-      <TextField layoutX="479.0" layoutY="160.0" />
-      <ComboBox layoutX="478.0" layoutY="198.0" prefWidth="150.0" />
-      <ComboBox layoutX="478.0" layoutY="120.0" prefWidth="150.0" />
+      <TextField fx:id="quantxtField" layoutX="479.0" layoutY="160.0" />
+      <ComboBox fx:id="prodComb" layoutX="478.0" layoutY="198.0" prefWidth="150.0" />
+      <ComboBox fx:id="importerComb" layoutX="478.0" layoutY="120.0" prefWidth="150.0" />
       <Line endX="1095.0" layoutX="100.0" layoutY="313.0" startX="-100.0" />
       <Line endX="-115.5" endY="-71.0" layoutX="478.0" layoutY="183.0" startX="-115.5" startY="108.0" />
-      <Label layoutX="389.0" layoutY="201.0" text="Product:">
+      <Label fx:id="productLabel" layoutX="389.0" layoutY="201.0" text="Product:">
          <font>
             <Font name="Arial" size="16.0" />
          </font>
       </Label>
-      <Button layoutX="576.0" layoutY="245.0" mnemonicParsing="false" text="ADD">
+      <Button fx:id="addProBut" layoutX="576.0" layoutY="245.0" mnemonicParsing="false" text="ADD">
          <font>
             <Font name="Arial" size="16.0" />
          </font>
@@ -133,8 +133,8 @@
       <TextArea layoutX="708.0" layoutY="106.0" prefHeight="142.0" prefWidth="398.0" />
       <TableView layoutX="27.0" layoutY="336.0" prefHeight="200.0" prefWidth="573.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="SL.No." />
-          <TableColumn prefWidth="75.0" text="Product" />
+          <TableColumn fx:id="Sltable" prefWidth="75.0" text="SL.No." />
+          <TableColumn fx:id="protable" prefWidth="75.0" text="Product" />
             <TableColumn prefWidth="75.0" text="Quantity" />
             <TableColumn prefWidth="112.0" text="Per Product Price" />
             <TableColumn prefWidth="117.0" text=" Amount" />
