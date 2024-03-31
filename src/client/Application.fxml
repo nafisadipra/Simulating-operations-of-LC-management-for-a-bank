@@ -66,9 +66,9 @@
       <Line endY="94.0" startX="1200.0" startY="94.0" />
       <TextField fx:id="custxtField" layoutX="170.0" layoutY="120.0" />
       <TextField fx:id="comtxtfield" layoutX="170.0" layoutY="158.0" />
-      <TextField layoutX="170.0" layoutY="196.0" />
-      <TextField layoutX="170.0" layoutY="232.0" />
-      <TextField layoutX="170.0" layoutY="268.0" />
+      <TextField fx:id="addresstxtField" layoutX="170.0" layoutY="196.0" />
+      <TextField fx:id="phontxtfield" layoutX="170.0" layoutY="232.0" />
+      <TextField fx:id="emailtxtField" layoutX="170.0" layoutY="268.0" />
       <Label layoutX="389.0" layoutY="120.0" text="Importer:">
          <font>
             <Font name="Arial" size="16.0" />
@@ -89,17 +89,17 @@
             <Font name="Arial" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="41.0" layoutY="232.0" text="Phone:">
+      <Label fx:id="phoneLabel" layoutX="41.0" layoutY="232.0" text="Phone:">
          <font>
             <Font name="Arial" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="41.0" layoutY="266.0" text="Email Address:">
+      <Label fx:id="emailLabel" layoutX="41.0" layoutY="266.0" text="Email Address:">
          <font>
             <Font name="Arial" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="41.0" layoutY="196.0" text="Address:">
+      <Label fx:id="addressLabel" layoutX="41.0" layoutY="196.0" text="Address:">
          <font>
             <Font name="Arial" size="16.0" />
          </font>
