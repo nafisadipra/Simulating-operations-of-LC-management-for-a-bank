@@ -28,6 +28,8 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -56,6 +58,16 @@ public class Management implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    @FXML
+    private ComboBox<String> comFilter;
+    @FXML
+    private TableView<?> table;
+    @FXML
+    private TableColumn<?, ?> ttype;
+    @FXML
+    private TableColumn<?, ?> temail;
+    @FXML
+    private TextField enEmail;
     
     /**
      * Initializes the controller class.
@@ -126,6 +138,12 @@ public class Management implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+        
+        // management
+        String[] usertList = {"All", "Client", "Merchant", "Credit Analyst", "Reporting Officer", "L\\C Officer", "Sales Representative", "Administrator", "General Manager", "Compliance Officer", "IT Officer"};
+        comFilter.getItems().setAll(usertList);
+        comFilter.setValue("All");
+        
     }
 
     @FXML

@@ -32,7 +32,6 @@ public class SignINController implements Initializable {
     private String user;
     private String email;
 
-    
     @FXML
     private void loginButtonAction(ActionEvent event) {
         // mail separator
