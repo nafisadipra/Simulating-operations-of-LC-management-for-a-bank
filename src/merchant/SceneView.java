@@ -18,7 +18,7 @@ public class SceneView extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
         Parent root = loader.load();
         
-        merchant.Dashboard controller = loader.getController();
+        merchant.DashboardController controller = loader.getController();
         String[] sanData = {"Dashboard", "Contact", "Notification", "Merchandise", "Advertising", "Requests", "Transaction", "Invoice", "Switch Account", "Settings", "Policy", "Feedback"};
         controller.initData("MERCHANT", "fuad@lc.mrc.com", sanData);
         

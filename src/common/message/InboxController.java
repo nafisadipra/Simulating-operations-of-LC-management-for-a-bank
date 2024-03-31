@@ -272,7 +272,7 @@ public class InboxController implements Initializable {
     
     private void dashClick(MouseEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + user.toLowerCase() + "/DashboardFXML.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + user.toLowerCase() + "/Dashboard.fxml"));
             Parent root = loader.load();
 
             if (user.equals("ADMINISTRATOR")) {

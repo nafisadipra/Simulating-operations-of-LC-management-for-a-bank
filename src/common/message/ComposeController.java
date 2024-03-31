@@ -262,7 +262,7 @@ public class ComposeController implements Initializable {
     
     private void dashClick(MouseEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + user.toLowerCase() + "/DashboardFXML.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + user.toLowerCase() + "/Dashboard.fxml"));
             Parent root = loader.load();
 
             if (user.equals("ADMINISTRATOR")) {
@@ -300,44 +300,40 @@ public class ComposeController implements Initializable {
         
         String userText = "";
         
-        if (mail.equals("lc.ad.com")) {
-            userText = "AD";
-        }
-        
-        if (mail.equals("lc.it.com")) {
-            userText = "IT";
-        }
-        
-        if (mail.equals("lc.cmo.com")) {
-            userText = "CMO";
-        }
-        
-        if (mail.equals("lc.cli.com")) {
-            userText = "CLI";
-        }
-        
-        if (mail.equals("lc.gm.com")) {
-            userText = "GM";
-        }
-        
-        if (mail.equals("lc.cra.com")) {
-            userText = "CRA";
-        }
-        
-        if (mail.equals("lc.lco.com")) {
-            userText = "LCO";
-        }
-        
-        if (mail.equals("lc.sr.com")) {
-            userText = "SR";
-        }
-        
-        if (mail.equals("lc.crm.com")) {
-            userText = "CRM";
-        }
-        
-        if (mail.equals("lc.ra.com")) {
-            userText = "RA";
+        // user switch
+        switch (mail) {
+            case "lc.admin.com":
+                userText = "ADMINISTRATOR";
+                break;
+            case "lc.it.com":
+                userText = "ITOFFICER";
+                break;
+            case "lc.cli.com":
+                userText = "CLIENT";
+                break;
+            case "lc.mrc.com":
+                userText = "MERCHANT";
+                break;
+            case "lc.gm.com":
+                userText = "GENERALMANAGER";
+                break;
+            case "lc.cr.com":
+                userText = "CREDITANALYST";
+                break;
+            case "lc.of.com":
+                userText = "LCOFFICER";
+                break;
+            case "lc.sr.com":
+                userText = "SALESREPRESENTATIVE";
+                break;
+            case "lc.co.com":
+                userText = "COMPLIANCEOFFICER";
+                break;
+            case "lc.ro.com":
+                userText = "REPORTINGOFFICER";
+                break;
+            default:
+                break;
         }
         
         String location = "Database/User/" + userText + "/" + emailText;

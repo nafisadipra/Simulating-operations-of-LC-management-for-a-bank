@@ -111,7 +111,7 @@ public class SignINController implements Initializable {
                             }
                         case "ITOFFICER":
                             {
-                                itofficer.Dashboard controller = loader.getController();
+                                itofficer.DashboardController controller = loader.getController();
                                 String[] sanData = {"Dashboard", "Contact", "Notification", "Logs", "Monitoring", "Backup", "Settings", "Feedback"};
                                 controller.initData(user, email, sanData);
                                 break;
@@ -125,49 +125,49 @@ public class SignINController implements Initializable {
                             }
                         case "MERCHANT":
                             {
-                                merchant.Dashboard controller = loader.getController();
+                                merchant.DashboardController controller = loader.getController();
                                 String[] sanData = {"Dashboard", "Contact", "Notification", "Merchandise", "Advertising", "Requests", "Transaction", "Invoice", "Switch Account", "Settings", "Policy", "Feedback"};
                                 controller.initData(user, email, sanData);
                                 break;
                             }
                         case "GENERALMANAGER":
                             {
-                                generalmanager.Dashboard controller = loader.getController();
+                                generalmanager.DashboardController controller = loader.getController();
                                 String[] sanData = {"Dashboard", "Contact", "Notification", "Requests", "History", "Clients", "Merchants", "Settings", "Feedback"};
                                 controller.initData(user, email, sanData);
                                 break;
                             }
                         case "CREDITANALYST":
                             {
-                                creditanalyst.Dashboard controller = loader.getController();
+                                creditanalyst.DashboardController controller = loader.getController();
                                 String[] sanData = {"Dashboard", "Contact", "Notification", "Requests", "Clients", "Merchants", "Analytics", "Settings", "Feedback"};
                                 controller.initData(user, email, sanData);
                                 break;
                             }
                         case "LCOFFICER":
                             {
-                                lcofficer.Dashboard controller = loader.getController();
+                                lcofficer.DashboardController controller = loader.getController();
                                 String[] sanData = {"Dashboard", "Contact", "Notification", "L\\C Applications", "History", "Clients", "Merchants", "Settings", "Feedback"};
                                 controller.initData(user, email, sanData);
                                 break;
                             }
                         case "SALESREPRESENTATIVE":
                             {
-                                salesrepresentative.Dashboard controller = loader.getController();
+                                salesrepresentative.DashboardController controller = loader.getController();
                                 String[] sanData = {"Dashboard", "Contact", "Notification", "Relationship", "Advertising", "Transaction", "Analytics", "Settings", "Feedback"};
                                 controller.initData(user, email, sanData);
                                 break;
                             }
                         case "COMPLIANCEOFFICER":
                             {
-                                complianceofficer.Dashboard controller = loader.getController();
+                                complianceofficer.DashboardController controller = loader.getController();
                                 String[] sanData = {"Dashboard", "Contact", "Notification", "Requests", "Clients", "Merchants", "Risk Assessment", "Policy Management", "Settings", "Feedback"};
                                 controller.initData(user, email, sanData);
                                 break;
                             }
                         case "REPORTINGOFFICER":
                             {
-                                reportingofficer.Dashboard controller = loader.getController();
+                                reportingofficer.DashboardController controller = loader.getController();
                                 String[] sanData = {"Dashboard", "Contact", "Notification", "Invoice", "Reports", "Settings", "Feedback"};
                                 controller.initData(user, email, sanData);
                                 break;

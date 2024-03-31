@@ -56,7 +56,7 @@ public class UserList {
         for (String X: ITOFFICER) {
             ArrayList <ArrayList<String>> proFetch = (new Reader("Database/User/ITOFFICER/" + X, "profile.bin")).splitFile('▓');
             ArrayList <String> data = proFetch.get(0);
-            userList.add(new User(data.get(0), data.get(1), X, data.get(2), data.get(3), data.get(4), "Administrator", data.get(5)));
+            userList.add(new User(data.get(0), data.get(1), X, data.get(2), data.get(3), data.get(4), "IT Officer", data.get(5)));
         }
         
         for (String X: LCOFFICER) {
@@ -87,17 +87,15 @@ public class UserList {
         
     }
     
-    public ArrayList <User> getFilterList(String type, String name) {
+    public ArrayList <User> getFilterList(String type, String email) {
         ArrayList <User> userList = (new UserList()).getList();
         ArrayList <User> filterList = new ArrayList();
         
         for (User X: userList) {
-            if ((type.toLowerCase()).equals("all") && (name.isEmpty())) {
-                filterList.add(X);
-            }
-            
-            if ((X.getType()).equals(type) && (X.getName()).equals(name)) {
-                filterList.add(X);
+            if ((type.toLowerCase()).equals("all") || (X.getType()).equals(type)) {
+                if (email.isEmpty() || (X.getEmail()).equals(email)) {
+                    filterList.add(X);
+                }
             }
         }
         

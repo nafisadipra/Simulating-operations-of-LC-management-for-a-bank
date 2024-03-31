@@ -1,5 +1,6 @@
 package administrator;
 
+import common.finder.Tree;
 import common.finder.UserList;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
@@ -32,6 +33,7 @@ import common.writer.Writer;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import common.user.User;
+
 
 /**
  * FXML Controller class
@@ -70,6 +72,8 @@ public class ManagementController implements Initializable {
     private TableColumn<User, String> temail;
     @FXML
     private TextField enEmail;
+    @FXML
+    private TableColumn<?, ?> tstate;
     
     /**
      * Initializes the controller class.
@@ -146,13 +150,11 @@ public class ManagementController implements Initializable {
         comFilter.getItems().setAll(usertList);
         comFilter.setValue("All");
         
-        ArrayList<User> userFetch = (new UserList()).getList();
-        
         ttype.setCellValueFactory(new PropertyValueFactory("type"));
         temail.setCellValueFactory(new PropertyValueFactory("email"));
+        tstate.setCellValueFactory(new PropertyValueFactory("state"));
         
-        table.getItems().setAll(userFetch);
-        
+        table.getItems().setAll((new UserList()).getFilterList(comFilter.getValue(), enEmail.getText()));
     }
 
     @FXML
@@ -187,7 +189,6 @@ public class ManagementController implements Initializable {
             default:
                 break;
         }
-        
     }
 
     @FXML
@@ -280,6 +281,139 @@ public class ManagementController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void filterClick(MouseEvent event) {
+        table.getItems().clear();
+        table.getItems().setAll((new UserList()).getFilterList(comFilter.getValue(), enEmail.getText()));
+        
+    }
+    
+    private void xStatus(String status){
+        String xtype = table.getSelectionModel().getSelectedItem().getType();
+        String xemail = table.getSelectionModel().getSelectedItem().getEmail();
+        
+        switch (xtype) {
+            case "Administrator":
+                xtype = "ADMINISTRATOR";
+                break;
+            case "Client":
+                xtype = "CLIENT";
+                break;
+            case "Compliance Officer":
+                xtype = "COMPLIANCEOFFICER";
+                break;
+            case "Credit Analyst":
+                xtype = "CREDITANALYST";
+                break;
+            case "General Manager":
+                xtype = "GENERALMANAGER";
+                break;
+            case "IT Officer":
+                xtype = "ITOFFICER";
+                break;
+            case "L\\C Officer":
+                xtype = "LCOFFICER";
+                break;
+            case "Merchant":
+                xtype = "MERCHANT";
+                break;
+            case "Reporting Officer":
+                xtype = "REPORTINGOFFICER";
+                break;
+            case "Sales Representative":
+                xtype = "SALESREPRESENTATIVE";
+                break;
+            default:
+                break;
+        }
+        
+        ArrayList <ArrayList<String>> proFetch = (new Reader("Database/User/" + xtype + "/" + xemail, "profile.bin")).splitFile('▓');
+        ArrayList <String> fdata = proFetch.get(0);
+        String sdata = fdata.get(0) + '▓' + fdata.get(1) + '▓' + fdata.get(2) + '▓' + fdata.get(3) + '▓' + fdata.get(4) + '▓' + status + '▓';
+        new Writer("Database/User/" + xtype + "/" + xemail, "profile.bin", sdata).writeFile();
+    }
+
+    @FXML
+    private void banClick(MouseEvent event) {
+        xStatus("Banned");
+        table.getItems().clear();
+        table.getItems().setAll((new UserList()).getFilterList(comFilter.getValue(), enEmail.getText()));
+        
+    }
+
+    @FXML
+    private void restrictClick(MouseEvent event) {
+        xStatus("Restricted");
+        table.getItems().clear();
+        table.getItems().setAll((new UserList()).getFilterList(comFilter.getValue(), enEmail.getText()));
+    }
+
+    @FXML
+    private void unbanClick(MouseEvent event) {
+        xStatus("Active");
+        table.getItems().clear();
+        table.getItems().setAll((new UserList()).getFilterList(comFilter.getValue(), enEmail.getText()));
+    }
+
+    @FXML
+    private void deleteClick(MouseEvent event) {
+        String xtype = table.getSelectionModel().getSelectedItem().getType();
+        String xemail = table.getSelectionModel().getSelectedItem().getEmail();
+        
+        switch (xtype) {
+            case "Administrator":
+                xtype = "ADMINISTRATOR";
+                break;
+            case "Client":
+                xtype = "CLIENT";
+                break;
+            case "Compliance Officer":
+                xtype = "COMPLIANCEOFFICER";
+                break;
+            case "Credit Analyst":
+                xtype = "CREDITANALYST";
+                break;
+            case "General Manager":
+                xtype = "GENERALMANAGER";
+                break;
+            case "IT Officer":
+                xtype = "ITOFFICER";
+                break;
+            case "L\\C Officer":
+                xtype = "LCOFFICER";
+                break;
+            case "Merchant":
+                xtype = "MERCHANT";
+                break;
+            case "Reporting Officer":
+                xtype = "REPORTINGOFFICER";
+                break;
+            case "Sales Representative":
+                xtype = "SALESREPRESENTATIVE";
+                break;
+            default:
+                break;
+        }
+        
+        ArrayList <String> fileData = (new Tree("Database/User/" + xtype + "/" + xemail)).view();
+        
+        for (String X: fileData) {
+            (new File("Database/User/" + xtype + "/" + xemail + "/" + X)).delete();
+        }
+        (new File("Database/User/" + xtype + "/" + xemail)).delete();
+        
+        table.getItems().clear();
+        table.getItems().setAll((new UserList()).getFilterList(comFilter.getValue(), enEmail.getText()));
+    }
+
+    @FXML
+    private void editClick(MouseEvent event) {
+    }
+
+    @FXML
+    private void createClick(MouseEvent event) {
     }
     
 }
