@@ -44,7 +44,7 @@
       </ImageView>
       <Circle fx:id="mdot" fill="#ff3737" layoutX="1078.0" layoutY="43.0" radius="8.0" stroke="TRANSPARENT" strokeType="INSIDE" />
       <Circle fx:id="ndot" fill="#ff3737" layoutX="1121.0" layoutY="43.0" radius="8.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-      <Button layoutX="1007.0" layoutY="530.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="149.0" text="Proceed">
+      <Button fx:id="proceedButton" layoutX="1007.0" layoutY="530.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="149.0" text="Proceed">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
@@ -54,12 +54,12 @@
             <Font name="Arial Black" size="22.0" />
          </font>
       </Label>
-      <CheckBox layoutX="1029.0" layoutY="337.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="108.0" text="Disagree">
+      <CheckBox fx:id="disagreeClick" layoutX="1029.0" layoutY="337.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="108.0" text="Disagree">
          <font>
             <Font name="Arial" size="16.0" />
          </font>
       </CheckBox>
-      <TextArea layoutX="650.0" layoutY="336.0" prefHeight="200.0" prefWidth="240.0" />
+      <TextArea fx:id="policytxtArea" layoutX="650.0" layoutY="336.0" prefHeight="200.0" prefWidth="240.0" />
       <Line endX="667.5" endY="111.29289245605469" startX="667.5" startY="300.0" strokeWidth="3.0" />
       <Line endX="622.5" endY="330.0" startX="622.5" startY="558.0" strokeWidth="3.0" />
       <Line endX="674.5" endY="112.0" layoutY="-1.0" startX="674.5" startY="301.0" strokeWidth="3.0" />
@@ -119,26 +119,26 @@
             <Font name="Arial" size="16.0" />
          </font>
       </Button>
-      <CheckBox layoutX="907.0" layoutY="336.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="81.0" text="Agree">
+      <CheckBox fx:id="agreeClick" layoutX="907.0" layoutY="336.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="81.0" text="Agree">
          <font>
             <Font name="Arial" size="16.0" />
          </font>
       </CheckBox>
-      <Label layoutX="709.0" layoutY="267.0" text="Payable Amount:">
+      <Label fx:id="payableLabel" layoutX="709.0" layoutY="267.0" text="Payable Amount:">
          <font>
             <Font name="Arial" size="16.0" />
          </font>
       </Label>
-      <TextField layoutX="847.0" layoutY="265.0" />
-      <TextArea layoutX="708.0" layoutY="106.0" prefHeight="142.0" prefWidth="398.0" />
-      <TableView layoutX="27.0" layoutY="336.0" prefHeight="200.0" prefWidth="573.0">
+      <TextField fx:id="payabletxtField" layoutX="847.0" layoutY="265.0" />
+      <TextArea fx:id="whitetxtArea" layoutX="708.0" layoutY="106.0" prefHeight="142.0" prefWidth="398.0" />
+      <TableView fx:id="productTable" layoutX="27.0" layoutY="336.0" prefHeight="200.0" prefWidth="573.0">
         <columns>
           <TableColumn fx:id="Sltable" prefWidth="75.0" text="SL.No." />
           <TableColumn fx:id="protable" prefWidth="75.0" text="Product" />
-            <TableColumn prefWidth="75.0" text="Quantity" />
-            <TableColumn prefWidth="112.0" text="Per Product Price" />
-            <TableColumn prefWidth="117.0" text=" Amount" />
-            <TableColumn prefWidth="117.0" text="Importer" />
+            <TableColumn fx:id="quanTable" prefWidth="75.0" text="Quantity" />
+            <TableColumn fx:id="pppTable" prefWidth="112.0" text="Per Product Price" />
+            <TableColumn fx:id="amountable" prefWidth="117.0" text=" Amount" />
+            <TableColumn fx:id="impoTable" prefWidth="117.0" text="Importer" />
         </columns>
       </TableView>
       <AnchorPane fx:id="paneLog" layoutX="896.0" prefHeight="120.0" prefWidth="304.0" style="-fx-background-color: #D6DAC8;" visible="false">
