@@ -35,7 +35,7 @@ public class SignINController implements Initializable {
     
     @FXML
     private void loginButtonAction(ActionEvent event) {
-        
+        // mail separator
         String mail = "";
         boolean foundAtSymbol = false;
         String emailText = enEmail.getText();
@@ -51,44 +51,40 @@ public class SignINController implements Initializable {
             }
         }
         
-        if (mail.equals("lc.ad.com")) {
-            this.user = "AD";
-        }
-        
-        if (mail.equals("lc.it.com")) {
-            this.user = "IT";
-        }
-        
-        if (mail.equals("lc.cmo.com")) {
-            this.user = "CMO";
-        }
-        
-        if (mail.equals("lc.cli.com")) {
-            this.user = "CLI";
-        }
-        
-        if (mail.equals("lc.gm.com")) {
-            this.user = "GM";
-        }
-        
-        if (mail.equals("lc.cra.com")) {
-            this.user = "CRA";
-        }
-        
-        if (mail.equals("lc.lco.com")) {
-            this.user = "LCO";
-        }
-        
-        if (mail.equals("lc.sr.com")) {
-            this.user = "SR";
-        }
-        
-        if (mail.equals("lc.crm.com")) {
-            this.user = "CRM";
-        }
-        
-        if (mail.equals("lc.ra.com")) {
-            this.user = "RA";
+        // user switch
+        switch (mail) {
+            case "lc.admin.com":
+                this.user = "ADMINISTRATOR";
+                break;
+            case "lc.it.com":
+                this.user = "ITOFFICER";
+                break;
+            case "lc.cli.com":
+                this.user = "CLIENT";
+                break;
+            case "lc.mrc.com":
+                this.user = "MERCHANT";
+                break;
+            case "lc.gm.com":
+                this.user = "GENERALMANAGER";
+                break;
+            case "lc.cr.com":
+                this.user = "CREDITANALYST";
+                break;
+            case "lc.of.com":
+                this.user = "LCOFFICER";
+                break;
+            case "lc.sr.com":
+                this.user = "SALESREPRESENTATIVE";
+                break;
+            case "lc.co.com":
+                this.user = "COMPLIANCEOFFICER";
+                break;
+            case "lc.ro.com":
+                this.user = "REPORTINGOFFICER";
+                break;
+            default:
+                break;
         }
         
         this.email = enEmail.getText();
@@ -103,74 +99,83 @@ public class SignINController implements Initializable {
             
             if (password.equals(enPassword.getText())) {
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + user.toLowerCase() + "/DashboardFXML.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + user.toLowerCase() + "/Dashboard.fxml"));
                     Parent root = loader.load();
                     
-                    if (user.equals("AD")) {
-                        ad.DashboardController controller = loader.getController();
-                        String[] sanData = {"Dashboard", "Message", "Notification", "Access Logs", "User Management", "Settings"};
-                        controller.initData(user, email, sanData);
+                    switch (user) {
+                        case "ADMINISTRATOR":
+                            {
+                                administrator.Dashboard controller = loader.getController();
+                                String[] sanData = {"Dashboard", "Contact", "Notification", "Logs", "Management", "Settings", "Feedback"};
+                                controller.initData(user, email, sanData);
+                                break;
+                            }
+                        case "ITOFFICER":
+                            {
+                                itofficer.Dashboard controller = loader.getController();
+                                String[] sanData = {"Dashboard", "Contact", "Notification", "Logs", "Monitoring", "Backup", "Settings", "Feedback"};
+                                controller.initData(user, email, sanData);
+                                break;
+                            }
+                        case "CLIENT":
+                            {
+                                client.Dashboard controller = loader.getController();
+                                String[] sanData = {"Dashboard", "Contact", "Notification", "Application", "Transaction", "Invoice", "Switch Account", "Settings", "Policy", "Feedback"};
+                                controller.initData(user, email, sanData);
+                                break;
+                            }
+                        case "MERCHANT":
+                            {
+                                merchant.Dashboard controller = loader.getController();
+                                String[] sanData = {"Dashboard", "Contact", "Notification", "Merchandise", "Advertising", "Requests", "Transaction", "Invoice", "Switch Account", "Settings", "Policy", "Feedback"};
+                                controller.initData(user, email, sanData);
+                                break;
+                            }
+                        case "GENERALMANAGER":
+                            {
+                                generalmanager.Dashboard controller = loader.getController();
+                                String[] sanData = {"Dashboard", "Contact", "Notification", "Requests", "History", "Clients", "Merchants", "Settings", "Feedback"};
+                                controller.initData(user, email, sanData);
+                                break;
+                            }
+                        case "CREDITANALYST":
+                            {
+                                creditanalyst.Dashboard controller = loader.getController();
+                                String[] sanData = {"Dashboard", "Contact", "Notification", "Requests", "Clients", "Merchants", "Analytics", "Settings", "Feedback"};
+                                controller.initData(user, email, sanData);
+                                break;
+                            }
+                        case "LCOFFICER":
+                            {
+                                lcofficer.Dashboard controller = loader.getController();
+                                String[] sanData = {"Dashboard", "Contact", "Notification", "L\\C Applications", "History", "Clients", "Merchants", "Settings", "Feedback"};
+                                controller.initData(user, email, sanData);
+                                break;
+                            }
+                        case "SALESREPRESENTATIVE":
+                            {
+                                salesrepresentative.Dashboard controller = loader.getController();
+                                String[] sanData = {"Dashboard", "Contact", "Notification", "Relationship", "Advertising", "Transaction", "Analytics", "Settings", "Feedback"};
+                                controller.initData(user, email, sanData);
+                                break;
+                            }
+                        case "COMPLIANCEOFFICER":
+                            {
+                                complianceofficer.Dashboard controller = loader.getController();
+                                String[] sanData = {"Dashboard", "Contact", "Notification", "Requests", "Clients", "Merchants", "Risk Assessment", "Policy Management", "Settings", "Feedback"};
+                                controller.initData(user, email, sanData);
+                                break;
+                            }
+                        case "REPORTINGOFFICER":
+                            {
+                                reportingofficer.Dashboard controller = loader.getController();
+                                String[] sanData = {"Dashboard", "Contact", "Notification", "Invoice", "Reports", "Settings", "Feedback"};
+                                controller.initData(user, email, sanData);
+                                break;
+                            }
+                        default:
+                            break;
                     }
-                    
-//                    if (user.equals("Administrator")) {
-//                        administrator.DashboardController controller = loader.getController();
-//                        String[] sanData = {"Dashboard", "Message", "Notification", "Access Logs", "User Management", "Settings"};
-//                        controller.initData(user, email, sanData);
-//                    }
-//                    
-//                    if (user.equals("Administrator")) {
-//                        administrator.DashboardController controller = loader.getController();
-//                        String[] sanData = {"Dashboard", "Message", "Notification", "Access Logs", "User Management", "Settings"};
-//                        controller.initData(user, email, sanData);
-//                    }
-//                    
-//                    if (user.equals("Administrator")) {
-//                        administrator.DashboardController controller = loader.getController();
-//                        String[] sanData = {"Dashboard", "Message", "Notification", "Access Logs", "User Management", "Settings"};
-//                        controller.initData(user, email, sanData);
-//                    }
-//                    
-//                    if (user.equals("Administrator")) {
-//                        administrator.DashboardController controller = loader.getController();
-//                        String[] sanData = {"Dashboard", "Message", "Notification", "Access Logs", "User Management", "Settings"};
-//                        controller.initData(user, email, sanData);
-//                    }
-//                    
-//                    if (user.equals("Administrator")) {
-//                        administrator.DashboardController controller = loader.getController();
-//                        String[] sanData = {"Dashboard", "Message", "Notification", "Access Logs", "User Management", "Settings"};
-//                        controller.initData(user, email, sanData);
-//                    }
-//                    
-//                    if (user.equals("Administrator")) {
-//                        administrator.DashboardController controller = loader.getController();
-//                        String[] sanData = {"Dashboard", "Message", "Notification", "Access Logs", "User Management", "Settings"};
-//                        controller.initData(user, email, sanData);
-//                    }
-//                    
-//                    if (user.equals("Administrator")) {
-//                        administrator.DashboardController controller = loader.getController();
-//                        String[] sanData = {"Dashboard", "Message", "Notification", "Access Logs", "User Management", "Settings"};
-//                        controller.initData(user, email, sanData);
-//                    }
-//                    
-//                    if (user.equals("Administrator")) {
-//                        administrator.DashboardController controller = loader.getController();
-//                        String[] sanData = {"Dashboard", "Message", "Notification", "Access Logs", "User Management", "Settings"};
-//                        controller.initData(user, email, sanData);
-//                    }
-//                    
-//                    if (user.equals("Administrator")) {
-//                        administrator.DashboardController controller = loader.getController();
-//                        String[] sanData = {"Dashboard", "Message", "Notification", "Access Logs", "User Management", "Settings"};
-//                        controller.initData(user, email, sanData);
-//                    }
-//                    
-//                    if (user.equals("Administrator")) {
-//                        administrator.DashboardController controller = loader.getController();
-//                        String[] sanData = {"Dashboard", "Message", "Notification", "Access Logs", "User Management", "Settings"};
-//                        controller.initData(user, email, sanData);
-//                    }
 
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     stage.setTitle("LC Bank Portal");

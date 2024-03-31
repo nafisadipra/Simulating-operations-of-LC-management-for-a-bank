@@ -181,16 +181,18 @@ public class MessageController implements Initializable {
     private void windowClick(MouseEvent event) {
         Sandwich window = tableSide.getSelectionModel().getSelectedItem();
         
-        if (window.getItem().equals("Notification")) {
-            notClick(event);
-        }
-        
-        if (window.getItem().equals("Message")) {
-            mailClick(event);
-        }
-        
-        if (window.getItem().equals("Dashboard")) {
-            dashClick(event);
+        switch (window.getItem()) {
+            case "Notification":
+                notClick(event);
+                break;
+            case "Contact":
+                mailClick(event);
+                break;
+            case "Dashboard":
+                dashClick(event);
+                break;
+            default:
+                break;
         }
         
     }
@@ -249,8 +251,8 @@ public class MessageController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + user.toLowerCase() + "/DashboardFXML.fxml"));
             Parent root = loader.load();
 
-            if (user.equals("AD")) {
-                ad.DashboardController controller = loader.getController();
+            if (user.equals("ADMINISTRATOR")) {
+                administrator.Dashboard controller = loader.getController();
                 controller.initData(user, email, sanData);
             }
             
