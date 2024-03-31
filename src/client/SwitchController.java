@@ -34,7 +34,7 @@ import common.writer.Writer;
  *
  * @author Muyeed
  */
-public class Switch implements Initializable {
+public class SwitchController implements Initializable {
 
     @FXML
     private AnchorPane paneSide;
