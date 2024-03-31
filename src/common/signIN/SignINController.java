@@ -118,7 +118,7 @@ public class SignINController implements Initializable {
                             }
                         case "CLIENT":
                             {
-                                client.Dashboard controller = loader.getController();
+                                client.DashboardController controller = loader.getController();
                                 String[] sanData = {"Dashboard", "Contact", "Notification", "Application", "Transaction", "Invoice", "Switch Account", "Settings", "Policy", "Feedback"};
                                 controller.initData(user, email, sanData);
                                 break;

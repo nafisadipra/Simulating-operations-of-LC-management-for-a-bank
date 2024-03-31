@@ -28,13 +28,18 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
  *
  * @author Muyeed
  */
-public class Policy implements Initializable {
+public class ApplicationController implements Initializable {
 
     @FXML
     private AnchorPane paneSide;
@@ -56,6 +61,68 @@ public class Policy implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    @FXML
+    private Button proceedButton;
+    @FXML
+    private CheckBox disagreeClick;
+    @FXML
+    private TextArea policytxtArea;
+    @FXML
+    private TextField custxtField;
+    @FXML
+    private TextField comtxtfield;
+    @FXML
+    private TextField addresstxtField;
+    @FXML
+    private TextField phontxtfield;
+    @FXML
+    private TextField emailtxtField;
+    @FXML
+    private Label importerLabel;
+    @FXML
+    private Label quanLabel;
+    @FXML
+    private Label CusName;
+    @FXML
+    private Label comName;
+    @FXML
+    private Label phoneLabel;
+    @FXML
+    private Label emailLabel;
+    @FXML
+    private Label addressLabel;
+    @FXML
+    private TextField quantxtField;
+    @FXML
+    private ComboBox<?> prodComb;
+    @FXML
+    private ComboBox<?> importerComb;
+    @FXML
+    private Label productLabel;
+    @FXML
+    private Button addProBut;
+    @FXML
+    private CheckBox agreeClick;
+    @FXML
+    private Label payableLabel;
+    @FXML
+    private TextField payabletxtField;
+    @FXML
+    private TextArea whitetxtArea;
+    @FXML
+    private TableView<?> productTable;
+    @FXML
+    private TableColumn<?, ?> Sltable;
+    @FXML
+    private TableColumn<?, ?> protable;
+    @FXML
+    private TableColumn<?, ?> quanTable;
+    @FXML
+    private TableColumn<?, ?> pppTable;
+    @FXML
+    private TableColumn<?, ?> amountable;
+    @FXML
+    private TableColumn<?, ?> impoTable;
     
     /**
      * Initializes the controller class.

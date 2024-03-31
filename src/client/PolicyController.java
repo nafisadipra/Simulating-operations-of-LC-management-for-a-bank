@@ -34,7 +34,7 @@ import common.writer.Writer;
  *
  * @author Muyeed
  */
-public class Invoice implements Initializable {
+public class PolicyController implements Initializable {
 
     @FXML
     private AnchorPane paneSide;

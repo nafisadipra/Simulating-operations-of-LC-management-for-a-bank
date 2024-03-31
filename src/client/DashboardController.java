@@ -34,7 +34,7 @@ import common.writer.Writer;
  *
  * @author Muyeed
  */
-public class Application implements Initializable {
+public class DashboardController implements Initializable {
 
     @FXML
     private AnchorPane paneSide;
