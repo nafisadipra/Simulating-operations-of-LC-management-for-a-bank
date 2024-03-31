@@ -79,7 +79,7 @@
             <Font name="Arial" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="41.0" layoutY="120.0" text="Customer Name:">
+      <Label fx:id="CusName" layoutX="41.0" layoutY="120.0" text="Customer Name:">
          <font>
             <Font name="Arial" size="16.0" />
          </font>
