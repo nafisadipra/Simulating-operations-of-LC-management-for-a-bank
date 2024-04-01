@@ -32,7 +32,7 @@ import common.writer.Writer;
 /**
  * FXML Controller class
  *
- * @author Muyeed
+ * @author Ishrak
  */
 public class RequestsController implements Initializable {
 
@@ -148,6 +148,8 @@ public class RequestsController implements Initializable {
             case "Contact":
                 mailClick(event);
                 break;
+            case "Merchants":
+                merchClick(event);
             case "Dashboard":
                 dashClick(event);
                 break;
@@ -237,6 +239,26 @@ public class RequestsController implements Initializable {
     private void settClick(MouseEvent event) {
         
     }
+    private void merchClick(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Merchants.fxml"));
+            Parent root = loader.load();
+
+            MerchantsController controller = loader.getController();
+            controller.initData(user, email, sanData);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    
 
     @FXML
     private void outClick(MouseEvent event) {
