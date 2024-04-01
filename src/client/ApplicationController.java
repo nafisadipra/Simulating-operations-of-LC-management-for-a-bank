@@ -1,5 +1,7 @@
 package client;
 
+import common.lc.PI;
+import common.lc.Product;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import java.awt.image.BufferedImage;
@@ -94,9 +96,9 @@ public class ApplicationController implements Initializable {
     @FXML
     private TextField quantxtField;
     @FXML
-    private ComboBox<?> prodComb;
+    private ComboBox<String> prodComb;
     @FXML
-    private ComboBox<?> importerComb;
+    private ComboBox<String> importerComb;
     @FXML
     private Label productLabel;
     @FXML
@@ -110,19 +112,24 @@ public class ApplicationController implements Initializable {
     @FXML
     private TextArea whitetxtArea;
     @FXML
-    private TableView<?> productTable;
+    private TableView<Product> productTable;
     @FXML
-    private TableColumn<?, ?> Sltable;
+    private TableColumn<Product, String> Sltable;
     @FXML
-    private TableColumn<?, ?> protable;
+    private TableColumn<Product, String> protable;
     @FXML
-    private TableColumn<?, ?> quanTable;
+    private TableColumn<Product, String> quanTable;
     @FXML
-    private TableColumn<?, ?> pppTable;
+    private TableColumn<Product, String> pppTable;
     @FXML
-    private TableColumn<?, ?> amountable;
+    private TableColumn<Product, String> amountable;
     @FXML
-    private TableColumn<?, ?> impoTable;
+    private TableColumn<Product, String> impoTable;
+    
+    
+    
+    
+    private ArrayList<Product>cartList = new ArrayList();
     
     /**
      * Initializes the controller class.
@@ -193,6 +200,33 @@ public class ApplicationController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+        
+        //Importer
+        
+        String[] impList={"Japan.ltd","Polo hike","Nike","Alam Traders","Unilever","Fish Trader"};
+        
+        importerComb.getItems().setAll(impList);
+        
+        //Product
+        
+        String[] productList={"Nike Shoes","Lux Soap","Prawn","Motor parts","Shampoo","Petroleum"};
+        
+        prodComb.getItems().setAll(productList);
+        
+        //table
+        
+        Sltable.setCellValueFactory(new PropertyValueFactory("serial"));
+        
+        protable.setCellValueFactory(new PropertyValueFactory("product"));
+                
+        quanTable.setCellValueFactory(new PropertyValueFactory("quantity"));
+        
+        pppTable.setCellValueFactory(new PropertyValueFactory("perPrice")); 
+        
+        amountable.setCellValueFactory(new PropertyValueFactory("amount"));        
+        
+        impoTable.setCellValueFactory(new PropertyValueFactory("importer")); 
+        
     }
 
     @FXML
@@ -320,6 +354,13 @@ public class ApplicationController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void addClick(MouseEvent event) {
+        
+        cartList.add(new Product("",prodComb.getValue(), quantxtField.getText(), "", "",importerComb.getValue()));
+        productTable.getItems().setAll(cartList);
     }
     
 }
