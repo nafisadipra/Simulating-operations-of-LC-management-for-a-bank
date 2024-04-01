@@ -148,6 +148,11 @@ public class DashboardController implements Initializable {
             case "Contact":
                 mailClick(event);
                 break;
+            case "Requests":
+                reqClick(event);
+            case "Merchants":
+                merchClick(event);
+                            
             case "Dashboard":
                 dashClick(event);
                 break;
@@ -237,6 +242,46 @@ public class DashboardController implements Initializable {
     private void settClick(MouseEvent event) {
         
     }
+    private void reqClick(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Requests.fxml"));
+            Parent root = loader.load();
+
+            RequestsController controller = loader.getController();
+            controller.initData(user, email, sanData);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    private void merchClick(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Merchants.fxml"));
+            Parent root = loader.load();
+
+            MerchantsController controller = loader.getController();
+            controller.initData(user, email, sanData);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    
 
     @FXML
     private void outClick(MouseEvent event) {

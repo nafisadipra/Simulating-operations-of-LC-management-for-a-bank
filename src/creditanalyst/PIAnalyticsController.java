@@ -1,9 +1,12 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
+ */
 package creditanalyst;
 
-import common.finder.UserList;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
-import common.user.User;
+import common.writer.Writer;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -29,86 +32,63 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
-import common.writer.Writer;
-import javafx.scene.control.TextField;
+
 
 /**
  * FXML Controller class
  *
- * @author Muyeed
+ * @author ishra
  */
-public class MerchantsController implements Initializable {
+public class PIAnalyticsController implements Initializable {
 
     @FXML
     private AnchorPane paneSide;
     @FXML
     private TableView<Sandwich> tableSide;
     @FXML
-    private TableColumn<Sandwich, String> dtableSide;
+    private TableColumn<Sandwich,String> dtableSide;
+    @FXML
+    private Circle mdot;
+    @FXML
+    private Circle ndot;
     @FXML
     private AnchorPane paneLog;
     @FXML
     private Label labName;
     @FXML
     private ImageView imageUser;
-    @FXML
-    private Circle mdot;
-    @FXML
-    private Circle ndot;
-    
     private String user;
     private String email;
     private String[] sanData;
-    @FXML
-    private TableView<User> clientInfoTable;
-    @FXML
-    private TableColumn<User, String> merchantNameTB;
-    @FXML
-    private TableColumn<User, String> merchantEmailTB;
-    @FXML
-    private TableColumn<User, String> merchantPhoneTB;
-    @FXML
-    private TableColumn<User, String> merchantAddressTB;
-    @FXML
-    private TableColumn<User, String> dateOfBirthTB;
-    @FXML
-    private TableColumn<User, String> typeTB;
-    @FXML
-    private TableColumn<User, String> statusTB;
-    @FXML
-    private TextField merchSearchBox;
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) {}
         
-    }    
-
-    // pipeline
     public void initData(String user, String email, String[] sanData) {
         // append
         this.user = user;
         this.email = email;
         this.sanData = sanData;
-        
+
         // Side Panel
         ArrayList<Sandwich> sanList = new ArrayList();
 
-        for (String x: sanData) {
+        for (String x : sanData) {
             sanList.add(new Sandwich(x));
         }
         dtableSide.setCellValueFactory(new PropertyValueFactory("item"));
         tableSide.getItems().setAll(FXCollections.observableArrayList(sanList));
-        
+
         // Show Panel
         paneSide.setVisible(false);
         paneLog.setVisible(false);
-        ArrayList <ArrayList<String>> proFetch = (new Reader("Database/User/" + user + "/" + email, "profile.bin")).splitFile('▓');
-        ArrayList <String> data = proFetch.get(0);
+        ArrayList<ArrayList<String>> proFetch = (new Reader("Database/User/" + user + "/" + email, "profile.bin")).splitFile('▓');
+        ArrayList<String> data = proFetch.get(0);
         labName.setText(data.get(0));
-        
+
         // image
         BufferedImage originalImage = null;
         try {
@@ -130,52 +110,30 @@ public class MerchantsController implements Initializable {
 
             imageUser.setImage(fxImage);
         }
-        
+
         // dot
-        ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
-        ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
-        ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
-        
+        ArrayList<ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
+        ArrayList<ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
+        ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+
         if (mesFetch.size() != Integer.parseInt(dotFetch.get(0).get(0))) {
             mdot.setVisible(true);
         } else {
             mdot.setVisible(false);
         }
-        
+
         if (notFetch.size() != Integer.parseInt(dotFetch.get(0).get(1))) {
             ndot.setVisible(true);
         } else {
             ndot.setVisible(false);
         }
-        
-        //table
-        merchantNameTB.setCellValueFactory(new PropertyValueFactory("name"));
-        merchantEmailTB.setCellValueFactory(new PropertyValueFactory("email"));
-        merchantPhoneTB.setCellValueFactory(new PropertyValueFactory("phone"));
-        merchantAddressTB.setCellValueFactory(new PropertyValueFactory("address"));
-        dateOfBirthTB.setCellValueFactory(new PropertyValueFactory("dob"));
-        typeTB.setCellValueFactory(new PropertyValueFactory("type"));
-        statusTB.setCellValueFactory(new PropertyValueFactory("state"));
-        
-        
-        clientInfoTable.getItems().setAll((new UserList()).getFilterList("Merchant", merchSearchBox.getText()));
-        
-        
     }
 
-    @FXML
-    private void sandAction(MouseEvent event) {
-        if (paneSide.isVisible()) {
-            paneSide.setVisible(false);
-        } else {
-            paneSide.setVisible(true);
-        }
-    }
 
     @FXML
     private void windowClick(MouseEvent event) {
         Sandwich window = tableSide.getSelectionModel().getSelectedItem();
-        
+
         switch (window.getItem()) {
             case "Notification":
                 notClick(event);
@@ -183,8 +141,6 @@ public class MerchantsController implements Initializable {
             case "Contact":
                 mailClick(event);
                 break;
-            case "Requests":
-                reqClick(event);
             case "Dashboard":
                 dashClick(event);
                 break;
@@ -197,21 +153,30 @@ public class MerchantsController implements Initializable {
             default:
                 break;
         }
-        
     }
 
     @FXML
-    private void logClick(MouseEvent event) {
-        if (paneLog.isVisible()) {
-            paneLog.setVisible(false);
+    private void sandAction(MouseEvent event) {
+        if (paneSide.isVisible()) {
+            paneSide.setVisible(false);
         } else {
-            paneLog.setVisible(true);
+            paneSide.setVisible(true);
         }
     }
-
+    private void dashClick(MouseEvent event) {
+        
+    }
+    
+    private void feedClick(MouseEvent event) {
+        
+    }
+    
+    private void settClick(MouseEvent event) {
+        
+    }
     @FXML
     private void notClick(MouseEvent event) {
-        if (ndot.isVisible() == true) {
+            if (ndot.isVisible() == true) {
             ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
             ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
             String notNum = dotFetch.get(0).get(0) + "▓" + notFetch.size() + "▓";
@@ -235,10 +200,10 @@ public class MerchantsController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     @FXML
     private void mailClick(MouseEvent event) {
-        if (mdot.isVisible() == true) {
+            if (mdot.isVisible() == true) {
             ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
             ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
             String mesNum = mesFetch.size() + "▓" + dotFetch.get(0).get(1) + "▓";
@@ -262,45 +227,13 @@ public class MerchantsController implements Initializable {
             e.printStackTrace();
         }
     }
-    
-    private void dashClick(MouseEvent event) {
-        
-    }
-    
-    private void feedClick(MouseEvent event) {
-        
-    }
-    
-    private void settClick(MouseEvent event) {
-        
-    }
-    private void reqClick(MouseEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Requests.fxml"));
-            Parent root = loader.load();
-
-            RequestsController controller = loader.getController();
-            controller.initData(user, email, sanData);
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setTitle("LC Bank Portal");
-
-            stage.setScene(new Scene(root));
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-    
 
     @FXML
     private void outClick(MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/signIN/SignINFXML.fxml"));
             Parent root = loader.load();
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -313,7 +246,12 @@ public class MerchantsController implements Initializable {
     }
 
     @FXML
-    private void searchClientClick(MouseEvent event) {
+    private void logClick(MouseEvent event) {
+        if (paneLog.isVisible()) {
+            paneLog.setVisible(false);
+        } else {
+            paneLog.setVisible(true);
+        }
     }
     
 }
