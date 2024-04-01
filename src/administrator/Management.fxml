@@ -12,8 +12,39 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #EEEDEB;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="administrator.Management">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #EEEDEB;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="administrator.ManagementController">
    <children>
+      <Label layoutX="862.0" layoutY="113.0" text="Filter By">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="comFilter" layoutX="925.0" layoutY="107.0" prefHeight="28.0" prefWidth="256.0" style="-fx-border-color: black; -fx-background-color: white;" />
+      <Label layoutX="862.0" layoutY="163.0" text="Email">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="enEmail" layoutX="925.0" layoutY="157.0" prefHeight="28.0" prefWidth="256.0" style="-fx-border-color: black; -fx-background-color: white;" />
+      <Button layoutX="1076.0" layoutY="199.0" mnemonicParsing="false" onMouseClicked="#filterClick" prefHeight="28.0" prefWidth="102.0" style="-fx-background-color: black;" text="Search" textFill="WHITE" />
+      <Label layoutX="15.0" layoutY="40.0" text="User Management">
+         <font>
+            <Font size="44.0" />
+         </font>
+      </Label>
+      <TableView fx:id="table" layoutX="15.0" layoutY="109.0" prefHeight="479.0" prefWidth="825.0">
+        <columns>
+          <TableColumn fx:id="ttype" prefWidth="196.0" text="Type" />
+          <TableColumn fx:id="temail" prefWidth="417.0" text="Email" />
+            <TableColumn fx:id="tstate" prefWidth="208.0" text="State" />
+        </columns>
+      </TableView>
+      <Button layoutX="862.0" layoutY="275.0" mnemonicParsing="false" onMouseClicked="#banClick" prefHeight="50.0" prefWidth="151.0" style="-fx-background-color: #ffa069; -fx-border-color: black;" text="Ban" />
+      <Button layoutX="862.0" layoutY="336.0" mnemonicParsing="false" onMouseClicked="#restrictClick" prefHeight="50.0" prefWidth="151.0" style="-fx-background-color: #ffe869; -fx-border-color: black;" text="Restrict" />
+      <Button layoutX="1028.0" layoutY="275.0" mnemonicParsing="false" onMouseClicked="#unbanClick" prefHeight="50.0" prefWidth="151.0" style="-fx-background-color: #37ff80; -fx-border-color: black;" text="Active" />
+      <Button layoutX="1028.0" layoutY="336.0" mnemonicParsing="false" onMouseClicked="#deleteClick" prefHeight="50.0" prefWidth="151.0" style="-fx-background-color: #ff697d; -fx-border-color: black;" text="Delete" />
+      <Button layoutX="862.0" layoutY="400.0" mnemonicParsing="false" onMouseClicked="#editClick" prefHeight="50.0" prefWidth="317.0" style="-fx-background-color: #aaa6ff; -fx-border-color: black;" text="Edit" />
+      <Button layoutX="862.0" layoutY="463.0" mnemonicParsing="false" onMouseClicked="#createClick" prefHeight="50.0" prefWidth="317.0" style="-fx-background-color: #5ce4ff; -fx-border-color: black;" text="Create User" />
       <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;" visible="false">
          <children>
             <TableView fx:id="tableSide" layoutX="12.0" layoutY="8.0" onMouseClicked="#windowClick" prefHeight="588.0" prefWidth="265.0" style="-fx-background-color: #9AD0C2; -fx-base: #9AD0C2; -fx-font-size: 25;">
@@ -41,33 +72,6 @@
       </ImageView>
       <Circle fx:id="mdot" fill="#ff3737" layoutX="1078.0" layoutY="43.0" radius="8.0" stroke="TRANSPARENT" strokeType="INSIDE" />
       <Circle fx:id="ndot" fill="#ff3737" layoutX="1121.0" layoutY="43.0" radius="8.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-      <Label layoutX="875.0" layoutY="112.0" text="Filter By">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-      <ComboBox fx:id="comFilter" layoutX="928.0" layoutY="108.0" prefHeight="25.0" prefWidth="250.0" />
-      <Label layoutX="875.0" layoutY="162.0" text="Email">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-      <TextField fx:id="enEmail" layoutX="928.0" layoutY="158.0" prefHeight="25.0" prefWidth="250.0" />
-      <Button layoutX="1098.0" layoutY="198.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="77.0" text="Search" />
-      <Label layoutX="15.0" layoutY="40.0" text="User Management">
-         <font>
-            <Font size="44.0" />
-         </font>
-      </Label>
-      <TableView fx:id="table" layoutX="15.0" layoutY="109.0" prefHeight="479.0" prefWidth="821.0">
-        <columns>
-          <TableColumn fx:id="ttype" prefWidth="287.0" text="Type" />
-          <TableColumn fx:id="temail" prefWidth="532.0" text="Email" />
-        </columns>
-      </TableView>
-      <Button layoutX="875.0" layoutY="275.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="77.0" text="Ban" />
-      <Button layoutX="989.0" layoutY="275.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="77.0" text="Restrict" />
-      <Button layoutX="1098.0" layoutY="275.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="77.0" text="Edit" />
       <AnchorPane fx:id="paneLog" layoutX="896.0" prefHeight="120.0" prefWidth="304.0" style="-fx-background-color: #D6DAC8;" visible="false">
          <children>
             <Label fx:id="labName" alignment="TOP_LEFT" contentDisplay="RIGHT" layoutX="27.0" layoutY="29.0" text="Name" textAlignment="RIGHT" wrapText="true">

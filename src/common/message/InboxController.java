@@ -272,12 +272,72 @@ public class InboxController implements Initializable {
     
     private void dashClick(MouseEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + user.toLowerCase() + "/DashboardFXML.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + user.toLowerCase() + "/Dashboard.fxml"));
             Parent root = loader.load();
 
-            if (user.equals("ADMINISTRATOR")) {
-                administrator.Dashboard controller = loader.getController();
-                controller.initData(user, email, sanData);
+            switch (user) {
+                case "ADMINISTRATOR":
+                    {
+                        administrator.DashboardController controller = loader.getController();
+                        controller.initData(user, email, sanData);
+                        break;
+                    }
+                case "CREDITANALYST":
+                    {
+                        creditanalyst.DashboardController controller = loader.getController();
+                        controller.initData(user, email, sanData);
+                        break;
+                    }
+                case "CLIENT":
+                    {
+                        client.DashboardController controller = loader.getController();
+                        controller.initData(user, email, sanData);
+                        break;
+                    }
+                case "COMPLIANCEOFFICER":
+                    {
+                        complianceofficer.DashboardController controller = loader.getController();
+                        controller.initData(user, email, sanData);
+                        break;
+                    }
+                case "GENERALMANAGER":
+                    {
+                        generalmanager.DashboardController controller = loader.getController();
+                        controller.initData(user, email, sanData);
+                        break;
+                    }
+                case "ITOFFICER":
+                    {
+                        itofficer.DashboardController controller = loader.getController();
+                        controller.initData(user, email, sanData);
+                        break;
+                    }
+                case "LCOFFICER":
+                    {
+                        lcofficer.DashboardController controller = loader.getController();
+                        controller.initData(user, email, sanData);
+                        break;
+                    }
+                case "MERCHANT":
+                    {
+                        merchant.DashboardController controller = loader.getController();
+                        controller.initData(user, email, sanData);
+                        break;
+                    }
+                case "REPORTINGOFFICER":
+                    {
+                        reportingofficer.DashboardController controller = loader.getController();
+                        controller.initData(user, email, sanData);
+                        break;
+                    }
+                case "SALESREPRESENTATIVE":
+                    {
+                        salesrepresentative.DashboardController controller = loader.getController();
+                        controller.initData(user, email, sanData);
+                        break;
+                    }
+                default:
+                    break;
             }
             
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
