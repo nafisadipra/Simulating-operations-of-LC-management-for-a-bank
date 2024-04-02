@@ -1,9 +1,7 @@
 package generalmanager;
 
-import common.finder.UserList;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
-import common.user.User;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -37,7 +35,7 @@ import javafx.scene.control.TextField;
  *
  * @author Muyeed
  */
-public class ClientsController implements Initializable {
+public class ViewerController implements Initializable {
 
     @FXML
     private AnchorPane paneSide;
@@ -59,20 +57,29 @@ public class ClientsController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    private String xuser;
+    private String xname;
+    private String xemail;
+    private String xstatus;
+    private String xaddress;
+    private String xphone;
+    private String xtype;
     @FXML
-    private TableView<User> table;
-    @FXML
-    private TableColumn<User, String> ttype;
-    @FXML
-    private TableColumn<User, String> temail;
+    private ImageView imageView;
     @FXML
     private TextField enEmail;
     @FXML
-    private TableColumn<User, String> tname;
+    private TextField enPhone;
     @FXML
-    private TableColumn<User, String> tphone;
+    private TextField enAddress;
     @FXML
-    private TableColumn<User, String> tstate;
+    private TextField enStatus;
+    @FXML
+    private Label labCardMoney;
+    @FXML
+    private Label labCardName;
+    @FXML
+    private Label labUserName;
     
     /**
      * Initializes the controller class.
@@ -83,11 +90,17 @@ public class ClientsController implements Initializable {
     }    
 
     // pipeline
-    public void initData(String user, String email, String[] sanData) {
+    public void initData(String user, String email, String[] sanData, String xuser, String xname, String xemail, String xphone, String xaddress, String xstatus) {
         // append
         this.user = user;
         this.email = email;
         this.sanData = sanData;
+        this.xuser = xuser;
+        this.xname = xname;
+        this.xemail = xemail;
+        this.xphone = xphone;
+        this.xaddress = xaddress;
+        this.xstatus = xstatus;
         
         // Side Panel
         ArrayList<Sandwich> sanList = new ArrayList();
@@ -144,14 +157,87 @@ public class ClientsController implements Initializable {
             ndot.setVisible(false);
         }
         
-        // table
-        ttype.setCellValueFactory(new PropertyValueFactory("type"));
-        tname.setCellValueFactory(new PropertyValueFactory("name"));
-        tphone.setCellValueFactory(new PropertyValueFactory("phone"));
-        temail.setCellValueFactory(new PropertyValueFactory("email"));
-        tstate.setCellValueFactory(new PropertyValueFactory("state"));
+        // user
+        enEmail.setText(xemail);
+        enPhone.setText(xphone);
+        enAddress.setText(xaddress);
+        enStatus.setText(xstatus);
+        labUserName.setText(xname);
+        labCardName.setText(xname);
         
-        table.getItems().setAll((new UserList()).getFilterList("Client", enEmail.getText()));
+        switch (xstatus) {
+            case "Active":
+                enStatus.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: green;");
+                break;
+            case "Banned":
+                enStatus.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: red;");
+                break;
+            case "Restricted":
+                enStatus.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: orange;");
+                break;
+            default:
+                break;
+        }
+        
+        // user switch
+        switch (xuser) {
+            case "Administrator":
+                this.xtype = "ADMINISTRATOR";
+                break;
+            case "IT Officer":
+                this.xtype = "ITOFFICER";
+                break;
+            case "Client":
+                this.xtype = "CLIENT";
+                break;
+            case "Merchant":
+                this.xtype = "MERCHANT";
+                break;
+            case "General Manager":
+                this.xtype = "GENERALMANAGER";
+                break;
+            case "Credit Analyst":
+                this.xtype = "CREDITANALYST";
+                break;
+            case "L\\C Officer":
+                this.xtype = "LCOFFICER";
+                break;
+            case "Sales Representative":
+                this.xtype = "SALESREPRESENTATIVE";
+                break;
+            case "Compliance Officer":
+                this.xtype = "COMPLIANCEOFFICER";
+                break;
+            case "Reporting Officer":
+                this.xtype = "REPORTINGOFFICER";
+                break;
+            default:
+                break;
+        }
+        
+        // view user image
+        BufferedImage originalImage2 = null;
+        try {
+            originalImage2 = ImageIO.read(new File("Database/User/" + xtype + "/" + xemail + "/user.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (originalImage2 != null) {
+            int targetWidth2 = 50;
+            int targetHeight2 = 50;
+
+            BufferedImage resizedImage2 = new BufferedImage(targetWidth2, targetHeight2, BufferedImage.TYPE_INT_ARGB);
+            java.awt.Graphics2D g2d2 = resizedImage2.createGraphics();
+            g2d2.drawImage(originalImage2, 0, 0, targetWidth2, targetHeight2, null);
+            g2d2.dispose();
+
+            Image fxImage2 = SwingFXUtils.toFXImage(resizedImage2, null);
+
+            imageView.setImage(fxImage2);
+            labCardMoney.setText((new Reader("Database/User/" + xtype + "/" + xemail, "credit.bin")).splitFile('▓').get(0).get(0) + "$");
+        }
+        
     }
 
     @FXML
@@ -282,26 +368,39 @@ public class ClientsController implements Initializable {
     }
 
     @FXML
-    private void filterClick(MouseEvent event) {
-        table.getItems().setAll((new UserList()).getFilterList("Client", enEmail.getText()));
-    }
-
-    @FXML
-    private void userCLick(MouseEvent event) {
+    private void backClick(MouseEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Viewer.fxml"));
+            // user switch
+            switch (xuser) {
+                case "Administrator":
+                    break;
+                case "IT Officer":
+                    break;
+                case "Client":
+                    break;
+                case "Merchant":
+                    break;
+                case "General Manager":
+                    break;
+                case "Credit Analyst":
+                    break;
+                case "L\\C Officer":
+                    break;
+                case "Sales Representative":
+                    break;
+                case "Compliance Officer":
+                    break;
+                case "Reporting Officer":
+                    break;
+                default:
+                    break;
+            }
+            
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Clients.fxml"));
             Parent root = loader.load();
 
-            ViewerController controller = loader.getController();
-            
-            String xuser = table.getSelectionModel().getSelectedItem().getType();
-            String xname = table.getSelectionModel().getSelectedItem().getName();
-            String xemail = table.getSelectionModel().getSelectedItem().getEmail();
-            String xphone = table.getSelectionModel().getSelectedItem().getPhone();
-            String xaddress = table.getSelectionModel().getSelectedItem().getAddress();
-            String xstatus = table.getSelectionModel().getSelectedItem().getState();
-            
-            controller.initData(user, email, sanData, xuser, xname, xemail, xphone, xaddress, xstatus);
+            ClientsController controller = loader.getController();
+            controller.initData(user, email, sanData);
             
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
@@ -312,7 +411,6 @@ public class ClientsController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(table.getSelectionModel().getSelectedItem());
     }
     
 }
