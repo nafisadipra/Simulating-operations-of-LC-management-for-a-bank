@@ -1,7 +1,9 @@
 package generalmanager;
 
+import common.finder.UserList;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
+import common.user.User;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +30,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -56,6 +59,20 @@ public class MerchantsController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    @FXML
+    private TableView<User> table;
+    @FXML
+    private TableColumn<User, String> ttype;
+    @FXML
+    private TableColumn<User, String> temail;
+    @FXML
+    private TextField enEmail;
+    @FXML
+    private TableColumn<User, String> tname;
+    @FXML
+    private TableColumn<User, String> tphone;
+    @FXML
+    private TableColumn<User, String> tstate;
     
     /**
      * Initializes the controller class.
@@ -126,6 +143,15 @@ public class MerchantsController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+        
+        // table
+        ttype.setCellValueFactory(new PropertyValueFactory("type"));
+        tname.setCellValueFactory(new PropertyValueFactory("name"));
+        tphone.setCellValueFactory(new PropertyValueFactory("phone"));
+        temail.setCellValueFactory(new PropertyValueFactory("email"));
+        tstate.setCellValueFactory(new PropertyValueFactory("state"));
+        
+        table.getItems().setAll((new UserList()).getFilterList("Merchant", enEmail.getText()));
     }
 
     @FXML
@@ -253,6 +279,40 @@ public class MerchantsController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    @FXML
+    private void userCLick(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Viewer.fxml"));
+            Parent root = loader.load();
+
+            ViewerController controller = loader.getController();
+            
+            String xuser = table.getSelectionModel().getSelectedItem().getType();
+            String xname = table.getSelectionModel().getSelectedItem().getName();
+            String xemail = table.getSelectionModel().getSelectedItem().getEmail();
+            String xphone = table.getSelectionModel().getSelectedItem().getPhone();
+            String xaddress = table.getSelectionModel().getSelectedItem().getAddress();
+            String xstatus = table.getSelectionModel().getSelectedItem().getState();
+            
+            controller.initData(user, email, sanData, xuser, xname, xemail, xphone, xaddress, xstatus);
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void filterClick(MouseEvent event) {
+        table.getItems().setAll((new UserList()).getFilterList("Merchant", enEmail.getText()));
     }
     
 }

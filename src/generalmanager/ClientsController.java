@@ -283,6 +283,7 @@ public class ClientsController implements Initializable {
 
     @FXML
     private void filterClick(MouseEvent event) {
+        table.getItems().setAll((new UserList()).getFilterList("Client", enEmail.getText()));
     }
 
     @FXML

@@ -63,6 +63,7 @@ public class ViewerController implements Initializable {
     private String xstatus;
     private String xaddress;
     private String xphone;
+    private String xtype;
     @FXML
     private ImageView imageView;
     @FXML
@@ -177,11 +178,47 @@ public class ViewerController implements Initializable {
             default:
                 break;
         }
-
+        
+        // user switch
+        switch (xuser) {
+            case "Administrator":
+                this.xtype = "ADMINISTRATOR";
+                break;
+            case "IT Officer":
+                this.xtype = "ITOFFICER";
+                break;
+            case "Client":
+                this.xtype = "CLIENT";
+                break;
+            case "Merchant":
+                this.xtype = "MERCHANT";
+                break;
+            case "General Manager":
+                this.xtype = "GENERALMANAGER";
+                break;
+            case "Credit Analyst":
+                this.xtype = "CREDITANALYST";
+                break;
+            case "L\\C Officer":
+                this.xtype = "LCOFFICER";
+                break;
+            case "Sales Representative":
+                this.xtype = "SALESREPRESENTATIVE";
+                break;
+            case "Compliance Officer":
+                this.xtype = "COMPLIANCEOFFICER";
+                break;
+            case "Reporting Officer":
+                this.xtype = "REPORTINGOFFICER";
+                break;
+            default:
+                break;
+        }
+        
         // view user image
         BufferedImage originalImage2 = null;
         try {
-            originalImage2 = ImageIO.read(new File("Database/User/CLIENT" + "/" + xemail + "/user.jpg"));
+            originalImage2 = ImageIO.read(new File("Database/User/" + xtype + "/" + xemail + "/user.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -198,7 +235,7 @@ public class ViewerController implements Initializable {
             Image fxImage2 = SwingFXUtils.toFXImage(resizedImage2, null);
 
             imageView.setImage(fxImage2);
-            labCardMoney.setText((new Reader("Database/User/CLIENT" + "/" + xemail, "credit.bin")).splitFile('▓').get(0).get(0) + "$");
+            labCardMoney.setText((new Reader("Database/User/" + xtype + "/" + xemail, "credit.bin")).splitFile('▓').get(0).get(0) + "$");
         }
         
     }
@@ -331,7 +368,49 @@ public class ViewerController implements Initializable {
     }
 
     @FXML
-    private void backMessage(MouseEvent event) {
+    private void backClick(MouseEvent event) {
+        try {
+            // user switch
+            switch (xuser) {
+                case "Administrator":
+                    break;
+                case "IT Officer":
+                    break;
+                case "Client":
+                    break;
+                case "Merchant":
+                    break;
+                case "General Manager":
+                    break;
+                case "Credit Analyst":
+                    break;
+                case "L\\C Officer":
+                    break;
+                case "Sales Representative":
+                    break;
+                case "Compliance Officer":
+                    break;
+                case "Reporting Officer":
+                    break;
+                default:
+                    break;
+            }
+            
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Clients.fxml"));
+            Parent root = loader.load();
+
+            ClientsController controller = loader.getController();
+            controller.initData(user, email, sanData);
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
 }
