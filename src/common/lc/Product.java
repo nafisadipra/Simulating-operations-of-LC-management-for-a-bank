@@ -11,12 +11,12 @@ package common.lc;
 public class Product {
     private String serial,product,quantity,perPrice,amount,importer;
 
-    public Product(String serial, String product, String quantity, String perPrice, String amount, String importer) {
+    public Product(String serial, String product, String quantity, String perPrice, String importer) {
         this.serial = serial;
         this.product = product;
         this.quantity = quantity;
         this.perPrice = perPrice;
-        this.amount = amount;
+       
         this.importer = importer;
     }
 
@@ -37,7 +37,9 @@ public class Product {
     }
 
     public String getAmount() {
-        return amount;
+        double a = Double.parseDouble(getPerPrice().substring(1));
+        double b = Double.parseDouble(getQuantity());
+        return Double.toString(a*b);
     }
 
     public String getImporter() {

@@ -134,6 +134,7 @@ public class ApplicationController implements Initializable {
     private ComboBox<String> merComb;
     private String Xemail; 
     private  ArrayList <ArrayList<String>> productFetch;
+    private Double payAmount = 0.0;
     
     /**
      * Initializes the controller class.
@@ -371,8 +372,13 @@ public class ApplicationController implements Initializable {
     @FXML
     private void addClick(MouseEvent event) {
         
-        cartList.add(new Product("",prodComb.getValue(), quantxtField.getText(), "", "",merComb.getValue()));
+        cartList.add(new Product("",prodComb.getValue().split(" - ")[1], quantxtField.getText(), prodComb.getValue().split(" - ")[0],merComb.getValue()));
         productTable.getItems().setAll(cartList);
+        for(Product X:cartList){
+            this.payAmount += Double.parseDouble(X.getAmount());
+            
+        }
+        payabletxtField.setText(Double.toString(payAmount));
     }
 
     @FXML
@@ -391,12 +397,14 @@ public class ApplicationController implements Initializable {
         this.productFetch = (new Reader("Database/User/MERCHANT/" +Xemail , "product.bin")).splitFile('▓');
         ArrayList<String>productList = new ArrayList();
         for(ArrayList<String> Y:productFetch){
-            productList.add(Y.get(0));
+            productList.add(Y.get(1)+" - "+Y.get(0));
+            
             
             
         }
         prodComb.getItems().setAll(productList);
-       
+        
+        
     }
     
 }
