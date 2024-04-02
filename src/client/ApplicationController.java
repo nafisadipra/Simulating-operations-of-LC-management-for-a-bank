@@ -132,6 +132,8 @@ public class ApplicationController implements Initializable {
     private ArrayList<Product>cartList = new ArrayList();
     @FXML
     private ComboBox<String> merComb;
+    private String Xemail; 
+    private  ArrayList <ArrayList<String>> productFetch;
     
     /**
      * Initializes the controller class.
@@ -206,13 +208,11 @@ public class ApplicationController implements Initializable {
         ArrayList<String>companyFetch=new Tree("Database/User/MERCHANT").view();
         for( String X:companyFetch ){
             ArrayList <ArrayList<String>> nameFetch = (new Reader("Database/User/MERCHANT/" + X  , "profile.bin")).splitFile('▓');
-            System.out.println(nameFetch.get(0).get(0));
             exList.add(nameFetch.get(0).get(0));
-            ArrayList <ArrayList<String>> productFetch = (new Reader("Database/User/MERCHANT/" + X  , "product.bin")).splitFile('▓');
-            System.out.println(productFetch);
-            System.out.println(" ");
+            
             
         }
+        
         //Importer
         
         
@@ -223,7 +223,7 @@ public class ApplicationController implements Initializable {
         
        
         
-        prodComb.getItems().setAll();
+       
         
         //table
         
@@ -377,6 +377,26 @@ public class ApplicationController implements Initializable {
 
     @FXML
     private void proClick(MouseEvent event) {
+        ArrayList<String>companyFetch=new Tree("Database/User/MERCHANT").view();
+        for( String X:companyFetch ){
+            ArrayList <ArrayList<String>> nameFetch = (new Reader("Database/User/MERCHANT/" + X  , "profile.bin")).splitFile('▓');
+            
+            
+            if (merComb.getValue().equals(nameFetch.get(0).get(0))){
+                this.Xemail=X;
+            }
+
+        }
+        
+        this.productFetch = (new Reader("Database/User/MERCHANT/" +Xemail , "product.bin")).splitFile('▓');
+        ArrayList<String>productList = new ArrayList();
+        for(ArrayList<String> Y:productFetch){
+            productList.add(Y.get(0));
+            
+            
+        }
+        prodComb.getItems().setAll(productList);
+       
     }
     
 }
