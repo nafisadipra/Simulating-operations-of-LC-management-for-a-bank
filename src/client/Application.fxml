@@ -42,7 +42,7 @@
       <TextField fx:id="addresstxtField" layoutX="170.0" layoutY="196.0" />
       <TextField fx:id="phontxtfield" layoutX="170.0" layoutY="232.0" />
       <TextField fx:id="emailtxtField" layoutX="170.0" layoutY="268.0" />
-      <Label fx:id="importerLabel" layoutX="389.0" layoutY="120.0" text="Importer:">
+      <Label fx:id="importerLabel" layoutX="389.0" layoutY="120.0" text="Merchant:">
          <font>
             <Font name="Arial" size="16.0" />
          </font>
@@ -78,8 +78,8 @@
          </font>
       </Label>
       <TextField fx:id="quantxtField" layoutX="479.0" layoutY="160.0" />
-      <ComboBox fx:id="prodComb" layoutX="478.0" layoutY="198.0" prefWidth="150.0" />
-      <ComboBox fx:id="importerComb" layoutX="478.0" layoutY="120.0" prefWidth="150.0" />
+      <ComboBox fx:id="prodComb" layoutX="478.0" layoutY="198.0" onMouseClicked="#proClick" prefWidth="150.0" />
+      <ComboBox fx:id="merComb" layoutX="478.0" layoutY="120.0" prefWidth="150.0" />
       <Line endX="1095.0" layoutX="100.0" layoutY="313.0" startX="-100.0" />
       <Line endX="-115.5" endY="-71.0" layoutX="478.0" layoutY="183.0" startX="-115.5" startY="108.0" />
       <Label fx:id="productLabel" layoutX="389.0" layoutY="201.0" text="Product:">

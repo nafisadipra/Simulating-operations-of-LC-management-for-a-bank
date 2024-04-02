@@ -1,5 +1,6 @@
 package client;
 
+import common.finder.Tree;
 import common.lc.PI;
 import common.lc.Product;
 import common.reader.Reader;
@@ -97,8 +98,7 @@ public class ApplicationController implements Initializable {
     private TextField quantxtField;
     @FXML
     private ComboBox<String> prodComb;
-    @FXML
-    private ComboBox<String> importerComb;
+  
     @FXML
     private Label productLabel;
     @FXML
@@ -130,6 +130,8 @@ public class ApplicationController implements Initializable {
     
     
     private ArrayList<Product>cartList = new ArrayList();
+    @FXML
+    private ComboBox<String> merComb;
     
     /**
      * Initializes the controller class.
@@ -200,18 +202,28 @@ public class ApplicationController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
-        
+        ArrayList<String>exList= new ArrayList();
+        ArrayList<String>companyFetch=new Tree("Database/User/MERCHANT").view();
+        for( String X:companyFetch ){
+            ArrayList <ArrayList<String>> nameFetch = (new Reader("Database/User/MERCHANT/" + X  , "profile.bin")).splitFile('▓');
+            System.out.println(nameFetch.get(0).get(0));
+            exList.add(nameFetch.get(0).get(0));
+            ArrayList <ArrayList<String>> productFetch = (new Reader("Database/User/MERCHANT/" + X  , "product.bin")).splitFile('▓');
+            System.out.println(productFetch);
+            System.out.println(" ");
+            
+        }
         //Importer
         
-        String[] impList={"Japan.ltd","Polo hike","Nike","Alam Traders","Unilever","Fish Trader"};
         
-        importerComb.getItems().setAll(impList);
+        
+        merComb.getItems().setAll(exList);
         
         //Product
         
-        String[] productList={"Nike Shoes","Lux Soap","Prawn","Motor parts","Shampoo","Petroleum"};
+       
         
-        prodComb.getItems().setAll(productList);
+        prodComb.getItems().setAll();
         
         //table
         
@@ -359,8 +371,12 @@ public class ApplicationController implements Initializable {
     @FXML
     private void addClick(MouseEvent event) {
         
-        cartList.add(new Product("",prodComb.getValue(), quantxtField.getText(), "", "",importerComb.getValue()));
+        cartList.add(new Product("",prodComb.getValue(), quantxtField.getText(), "", "",merComb.getValue()));
         productTable.getItems().setAll(cartList);
+    }
+
+    @FXML
+    private void proClick(MouseEvent event) {
     }
     
 }
