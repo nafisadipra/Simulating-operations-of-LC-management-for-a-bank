@@ -1,9 +1,7 @@
 package generalmanager;
 
-import common.finder.UserList;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
-import common.user.User;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -37,7 +35,7 @@ import javafx.scene.control.TextField;
  *
  * @author Muyeed
  */
-public class ClientsController implements Initializable {
+public class ViewerController implements Initializable {
 
     @FXML
     private AnchorPane paneSide;
@@ -59,20 +57,28 @@ public class ClientsController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    private String xuser;
+    private String xname;
+    private String xemail;
+    private String xstatus;
+    private String xaddress;
+    private String xphone;
     @FXML
-    private TableView<User> table;
-    @FXML
-    private TableColumn<User, String> ttype;
-    @FXML
-    private TableColumn<User, String> temail;
+    private ImageView imageView;
     @FXML
     private TextField enEmail;
     @FXML
-    private TableColumn<User, String> tname;
+    private TextField enPhone;
     @FXML
-    private TableColumn<User, String> tphone;
+    private TextField enAddress;
     @FXML
-    private TableColumn<User, String> tstate;
+    private TextField enStatus;
+    @FXML
+    private Label labCardMoney;
+    @FXML
+    private Label labCardName;
+    @FXML
+    private Label labUserName;
     
     /**
      * Initializes the controller class.
@@ -83,11 +89,17 @@ public class ClientsController implements Initializable {
     }    
 
     // pipeline
-    public void initData(String user, String email, String[] sanData) {
+    public void initData(String user, String email, String[] sanData, String xuser, String xname, String xemail, String xphone, String xaddress, String xstatus) {
         // append
         this.user = user;
         this.email = email;
         this.sanData = sanData;
+        this.xuser = xuser;
+        this.xname = xname;
+        this.xemail = xemail;
+        this.xphone = xphone;
+        this.xaddress = xaddress;
+        this.xstatus = xstatus;
         
         // Side Panel
         ArrayList<Sandwich> sanList = new ArrayList();
@@ -144,14 +156,51 @@ public class ClientsController implements Initializable {
             ndot.setVisible(false);
         }
         
-        // table
-        ttype.setCellValueFactory(new PropertyValueFactory("type"));
-        tname.setCellValueFactory(new PropertyValueFactory("name"));
-        tphone.setCellValueFactory(new PropertyValueFactory("phone"));
-        temail.setCellValueFactory(new PropertyValueFactory("email"));
-        tstate.setCellValueFactory(new PropertyValueFactory("state"));
+        // user
+        enEmail.setText(xemail);
+        enPhone.setText(xphone);
+        enAddress.setText(xaddress);
+        enStatus.setText(xstatus);
+        labUserName.setText(xname);
+        labCardName.setText(xname);
         
-        table.getItems().setAll((new UserList()).getFilterList("Client", enEmail.getText()));
+        switch (xstatus) {
+            case "Active":
+                enStatus.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: green;");
+                break;
+            case "Banned":
+                enStatus.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: red;");
+                break;
+            case "Restricted":
+                enStatus.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: orange;");
+                break;
+            default:
+                break;
+        }
+
+        // view user image
+        BufferedImage originalImage2 = null;
+        try {
+            originalImage2 = ImageIO.read(new File("Database/User/CLIENT" + "/" + xemail + "/user.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (originalImage2 != null) {
+            int targetWidth2 = 50;
+            int targetHeight2 = 50;
+
+            BufferedImage resizedImage2 = new BufferedImage(targetWidth2, targetHeight2, BufferedImage.TYPE_INT_ARGB);
+            java.awt.Graphics2D g2d2 = resizedImage2.createGraphics();
+            g2d2.drawImage(originalImage2, 0, 0, targetWidth2, targetHeight2, null);
+            g2d2.dispose();
+
+            Image fxImage2 = SwingFXUtils.toFXImage(resizedImage2, null);
+
+            imageView.setImage(fxImage2);
+            labCardMoney.setText((new Reader("Database/User/CLIENT" + "/" + xemail, "credit.bin")).splitFile('▓').get(0).get(0) + "$");
+        }
+        
     }
 
     @FXML
@@ -282,36 +331,7 @@ public class ClientsController implements Initializable {
     }
 
     @FXML
-    private void filterClick(MouseEvent event) {
-    }
-
-    @FXML
-    private void userCLick(MouseEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Viewer.fxml"));
-            Parent root = loader.load();
-
-            ViewerController controller = loader.getController();
-            
-            String xuser = table.getSelectionModel().getSelectedItem().getType();
-            String xname = table.getSelectionModel().getSelectedItem().getName();
-            String xemail = table.getSelectionModel().getSelectedItem().getEmail();
-            String xphone = table.getSelectionModel().getSelectedItem().getPhone();
-            String xaddress = table.getSelectionModel().getSelectedItem().getAddress();
-            String xstatus = table.getSelectionModel().getSelectedItem().getState();
-            
-            controller.initData(user, email, sanData, xuser, xname, xemail, xphone, xaddress, xstatus);
-            
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setTitle("LC Bank Portal");
-
-            stage.setScene(new Scene(root));
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println(table.getSelectionModel().getSelectedItem());
+    private void backMessage(MouseEvent event) {
     }
     
 }

@@ -73,7 +73,7 @@ public class ManagementController implements Initializable {
     @FXML
     private TextField enEmail;
     @FXML
-    private TableColumn<?, ?> tstate;
+    private TableColumn<User, String> tstate;
     
     /**
      * Initializes the controller class.
@@ -155,6 +155,7 @@ public class ManagementController implements Initializable {
         tstate.setCellValueFactory(new PropertyValueFactory("state"));
         
         table.getItems().setAll((new UserList()).getFilterList(comFilter.getValue(), enEmail.getText()));
+        
     }
 
     @FXML
