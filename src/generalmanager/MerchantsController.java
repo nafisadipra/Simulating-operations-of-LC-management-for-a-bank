@@ -166,7 +166,6 @@ public class MerchantsController implements Initializable {
     @FXML
     private void windowClick(MouseEvent event) {
         Sandwich window = tableSide.getSelectionModel().getSelectedItem();
-        
         switch (window.getItem()) {
             case "Notification":
                 notClick(event);
@@ -183,10 +182,21 @@ public class MerchantsController implements Initializable {
             case "Feedback":
                 feedClick(event);
                 break;
+            case "Requests":
+                reqClick(event);
+                break;
+            case "History":
+                hisClick(event);
+                break;
+            case "Clients":
+                cliClick(event);
+                break;
+            case "Merchants":
+                mrcClick(event);
+                break;
             default:
                 break;
         }
-        
     }
 
     @FXML
@@ -253,7 +263,22 @@ public class MerchantsController implements Initializable {
     }
     
     private void dashClick(MouseEvent event) {
-        
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
+            Parent root = loader.load();
+
+            DashboardController controller = loader.getController();
+            controller.initData(user, email, sanData);
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     private void feedClick(MouseEvent event) {
@@ -261,6 +286,67 @@ public class MerchantsController implements Initializable {
     }
     
     private void settClick(MouseEvent event) {
+        
+    }
+    
+    private void reqClick(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Requests.fxml"));
+            Parent root = loader.load();
+
+            RequestsController controller = loader.getController();
+            controller.initData(user, email, sanData);
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void hisClick(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Requests.fxml"));
+            Parent root = loader.load();
+
+            RequestsController controller = loader.getController();
+            controller.initData(user, email, sanData);
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void cliClick(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Clients.fxml"));
+            Parent root = loader.load();
+
+            ClientsController controller = loader.getController();
+            controller.initData(user, email, sanData);
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void mrcClick(MouseEvent event) {
         
     }
 

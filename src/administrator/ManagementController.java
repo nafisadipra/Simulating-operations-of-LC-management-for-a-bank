@@ -71,10 +71,10 @@ public class ManagementController implements Initializable {
     @FXML
     private TableColumn<User, String> temail;
     @FXML
-    private TextField enEmail;
-    @FXML
     private TableColumn<User, String> tstate;
-    
+    @FXML
+    private TextField enEmail;
+
     /**
      * Initializes the controller class.
      */
@@ -256,7 +256,22 @@ public class ManagementController implements Initializable {
     }
     
     private void dashClick(MouseEvent event) {
-        
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
+            Parent root = loader.load();
+
+            common.message.MessageController controller = loader.getController();
+            controller.initData(user, email, sanData);
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     private void feedClick(MouseEvent event) {
