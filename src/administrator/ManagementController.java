@@ -426,6 +426,30 @@ public class ManagementController implements Initializable {
 
     @FXML
     private void editClick(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Editor.fxml"));
+            Parent root = loader.load();
+
+            EditorController controller = loader.getController();
+            
+            String xuser = table.getSelectionModel().getSelectedItem().getType();
+            String xname = table.getSelectionModel().getSelectedItem().getName();
+            String xemail = table.getSelectionModel().getSelectedItem().getEmail();
+            String xphone = table.getSelectionModel().getSelectedItem().getPhone();
+            String xaddress = table.getSelectionModel().getSelectedItem().getAddress();
+            String xstatus = table.getSelectionModel().getSelectedItem().getState();
+            
+            controller.initData(user, email, sanData, xuser, xname, xemail, xphone, xaddress, xstatus);
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

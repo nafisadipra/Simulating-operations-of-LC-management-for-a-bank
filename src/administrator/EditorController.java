@@ -28,13 +28,14 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
  *
  * @author Muyeed
  */
-public class EditController implements Initializable {
+public class EditorController implements Initializable {
 
     @FXML
     private AnchorPane paneSide;
@@ -56,6 +57,28 @@ public class EditController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    private String xuser;
+    private String xname;
+    private String xemail;
+    private String xstatus;
+    private String xaddress;
+    private String xphone;
+    private String xtype;
+    @FXML
+    private ImageView imageView;
+    @FXML
+    private TextField enEmail;
+    @FXML
+    private TextField enPhone;
+    @FXML
+    private TextField enAddress;
+    @FXML
+    private TextField enStatus;
+    private Label labCardName;
+    @FXML
+    private Label labUserName;
+    @FXML
+    private TextField enStatus1;
     
     /**
      * Initializes the controller class.
@@ -66,11 +89,17 @@ public class EditController implements Initializable {
     }    
 
     // pipeline
-    public void initData(String user, String email, String[] sanData) {
+    public void initData(String user, String email, String[] sanData, String xuser, String xname, String xemail, String xphone, String xaddress, String xstatus) {
         // append
         this.user = user;
         this.email = email;
         this.sanData = sanData;
+        this.xuser = xuser;
+        this.xname = xname;
+        this.xemail = xemail;
+        this.xphone = xphone;
+        this.xaddress = xaddress;
+        this.xstatus = xstatus;
         
         // Side Panel
         ArrayList<Sandwich> sanList = new ArrayList();
@@ -126,6 +155,87 @@ public class EditController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+        
+        // user
+        enEmail.setText(xemail);
+        enPhone.setText(xphone);
+        enAddress.setText(xaddress);
+        enStatus.setText(xstatus);
+        labUserName.setText(xname);
+        
+        switch (xstatus) {
+            case "Active":
+                enStatus.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: green;");
+                break;
+            case "Banned":
+                enStatus.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: red;");
+                break;
+            case "Restricted":
+                enStatus.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: orange;");
+                break;
+            default:
+                break;
+        }
+        
+        // user switch
+        switch (xuser) {
+            case "Administrator":
+                this.xtype = "ADMINISTRATOR";
+                break;
+            case "IT Officer":
+                this.xtype = "ITOFFICER";
+                break;
+            case "Client":
+                this.xtype = "CLIENT";
+                break;
+            case "Merchant":
+                this.xtype = "MERCHANT";
+                break;
+            case "General Manager":
+                this.xtype = "GENERALMANAGER";
+                break;
+            case "Credit Analyst":
+                this.xtype = "CREDITANALYST";
+                break;
+            case "L\\C Officer":
+                this.xtype = "LCOFFICER";
+                break;
+            case "Sales Representative":
+                this.xtype = "SALESREPRESENTATIVE";
+                break;
+            case "Compliance Officer":
+                this.xtype = "COMPLIANCEOFFICER";
+                break;
+            case "Reporting Officer":
+                this.xtype = "REPORTINGOFFICER";
+                break;
+            default:
+                break;
+        }
+        
+        // view user image
+        BufferedImage originalImage2 = null;
+        try {
+            originalImage2 = ImageIO.read(new File("Database/User/" + xtype + "/" + xemail + "/user.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (originalImage2 != null) {
+            int targetWidth2 = 50;
+            int targetHeight2 = 50;
+
+            BufferedImage resizedImage2 = new BufferedImage(targetWidth2, targetHeight2, BufferedImage.TYPE_INT_ARGB);
+            java.awt.Graphics2D g2d2 = resizedImage2.createGraphics();
+            g2d2.drawImage(originalImage2, 0, 0, targetWidth2, targetHeight2, null);
+            g2d2.dispose();
+
+            Image fxImage2 = SwingFXUtils.toFXImage(resizedImage2, null);
+
+            imageView.setImage(fxImage2);
+            
+        }
+        
     }
 
     @FXML
@@ -140,7 +250,6 @@ public class EditController implements Initializable {
     @FXML
     private void windowClick(MouseEvent event) {
         Sandwich window = tableSide.getSelectionModel().getSelectedItem();
-        
         switch (window.getItem()) {
             case "Notification":
                 notClick(event);
@@ -157,10 +266,13 @@ public class EditController implements Initializable {
             case "Feedback":
                 feedClick(event);
                 break;
+            case "Management":
+                break;
+            case "Logs":
+                break;
             default:
                 break;
         }
-        
     }
 
     @FXML
@@ -227,7 +339,22 @@ public class EditController implements Initializable {
     }
     
     private void dashClick(MouseEvent event) {
-        
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
+            Parent root = loader.load();
+
+            DashboardController controller = loader.getController();
+            controller.initData(user, email, sanData);
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     private void feedClick(MouseEvent event) {
@@ -252,6 +379,55 @@ public class EditController implements Initializable {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    
+    private void admBack(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Management.fxml"));
+            Parent root = loader.load();
+
+            ManagementController controller = loader.getController();
+            controller.initData(user, email, sanData);
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
+    private void backClick(MouseEvent event) {
+        // user switch
+        switch (xuser) {
+            case "Administrator":
+                admBack(event);
+                break;
+            case "IT Officer":
+                break;
+            case "Client":
+                break;
+            case "Merchant":
+                break;
+            case "General Manager":
+                break;
+            case "Credit Analyst":
+                break;
+            case "L\\C Officer":
+                break;
+            case "Sales Representative":
+                break;
+            case "Compliance Officer":
+                break;
+            case "Reporting Officer":
+                break;
+            default:
+                break;
         }
     }
     
