@@ -29,6 +29,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -57,6 +58,22 @@ public class MerchandiseController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    @FXML
+    private TextField enEmail;
+    @FXML
+    private TableView<?> table;
+    @FXML
+    private TableColumn<?, ?> tname;
+    @FXML
+    private TableColumn<?, ?> tprice;
+    @FXML
+    private TableColumn<?, ?> tquantity;
+    @FXML
+    private TextField enName;
+    @FXML
+    private TextField enPrice;
+    @FXML
+    private TextField enQuantity;
     
     /**
      * Initializes the controller class.
@@ -316,6 +333,14 @@ public class MerchandiseController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void filterClick(MouseEvent event) {
+    }
+
+    @FXML
+    private void userCLick(MouseEvent event) {
     }
     
 }

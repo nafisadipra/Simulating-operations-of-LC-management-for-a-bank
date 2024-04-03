@@ -29,6 +29,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.control.ComboBox;
 
 /**
  * FXML Controller class
@@ -57,6 +58,16 @@ public class AdvertisingController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    @FXML
+    private TableView<?> table;
+    @FXML
+    private ComboBox<?> prodCom;
+    @FXML
+    private TableColumn<?, ?> tprod;
+    @FXML
+    private TableColumn<?, ?> tbrief;
+    @FXML
+    private TableColumn<?, ?> tstatus;
     
     /**
      * Initializes the controller class.
@@ -316,6 +327,14 @@ public class AdvertisingController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void userCLick(MouseEvent event) {
+    }
+
+    @FXML
+    private void filterClick(MouseEvent event) {
     }
     
 }

@@ -57,6 +57,16 @@ public class InvoiceController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    @FXML
+    private TableView<?> table;
+    @FXML
+    private TableColumn<?, ?> ttype;
+    @FXML
+    private TableColumn<?, ?> tinvoice;
+    @FXML
+    private TableColumn<?, ?> ttime;
+    @FXML
+    private TableColumn<?, ?> tdate;
     
     /**
      * Initializes the controller class.
@@ -315,6 +325,10 @@ public class InvoiceController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void userCLick(MouseEvent event) {
     }
     
 }

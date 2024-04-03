@@ -12,7 +12,27 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #EEEDEB;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="merchant.TransactionController">
    <children>
-      <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;">
+      <Label layoutX="15.0" layoutY="40.0" text="Transactions">
+         <font>
+            <Font size="44.0" />
+         </font>
+      </Label>
+      <Label layoutX="19.0" layoutY="114.0" text="Create Transaction">
+         <font>
+            <Font name="System Italic" size="16.0" />
+         </font>
+      </Label>
+      <Button layoutX="166.0" layoutY="113.0" mnemonicParsing="false" onMouseClicked="#filterClick" prefHeight="28.0" prefWidth="102.0" style="-fx-background-color: #37ff80; -fx-border-color: black;" text="Create" />
+      <TableView fx:id="table" layoutX="15.0" layoutY="156.0" onMouseClicked="#userCLick" prefHeight="432.0" prefWidth="1170.0">
+         <columns>
+            <TableColumn fx:id="tid" prefWidth="141.0" text="ID" />
+            <TableColumn fx:id="tfrom" prefWidth="318.0" text="From" />
+            <TableColumn fx:id="tto" prefWidth="370.0" text="To" />
+            <TableColumn fx:id="tname" minWidth="0.0" prefWidth="228.0" text="Time" />
+            <TableColumn fx:id="tdate" prefWidth="110.0" text="Date" />
+         </columns>
+      </TableView>
+      <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;" visible="false">
          <children>
             <TableView fx:id="tableSide" layoutX="12.0" layoutY="8.0" onMouseClicked="#windowClick" prefHeight="588.0" prefWidth="265.0" style="-fx-background-color: #9AD0C2; -fx-base: #9AD0C2; -fx-font-size: 25;">
                <columns>
@@ -39,7 +59,7 @@
       </ImageView>
       <Circle fx:id="mdot" fill="#ff3737" layoutX="1078.0" layoutY="43.0" radius="8.0" stroke="TRANSPARENT" strokeType="INSIDE" />
       <Circle fx:id="ndot" fill="#ff3737" layoutX="1121.0" layoutY="43.0" radius="8.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-      <AnchorPane fx:id="paneLog" layoutX="896.0" prefHeight="120.0" prefWidth="304.0" style="-fx-background-color: #D6DAC8;">
+      <AnchorPane fx:id="paneLog" layoutX="896.0" prefHeight="120.0" prefWidth="304.0" style="-fx-background-color: #D6DAC8;" visible="false">
          <children>
             <Label fx:id="labName" alignment="TOP_LEFT" contentDisplay="RIGHT" layoutX="27.0" layoutY="29.0" text="Name" textAlignment="RIGHT" wrapText="true">
                <font>
