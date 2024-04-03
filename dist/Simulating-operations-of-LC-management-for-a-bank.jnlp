@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Simulating-operations-of-LC-management-for-a-bank.jar" size="5848459" download="eager" />
+    <jar href="Simulating-operations-of-LC-management-for-a-bank.jar" size="5919522" download="eager" />
   </resources>
   <jfx:javafx-desc  width="800" height="600" main-class="common.signIN.SceneView"  name="Simulating-operations-of-LC-management-for-a-bank" />
   <update check="always"/>

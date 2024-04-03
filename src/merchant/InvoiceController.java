@@ -2,6 +2,7 @@ package merchant;
 
 import common.reader.Reader;
 import common.sandwich.Sandwich;
+import common.switcher.GUI;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -56,6 +57,16 @@ public class InvoiceController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    @FXML
+    private TableView<?> table;
+    @FXML
+    private TableColumn<?, ?> ttype;
+    @FXML
+    private TableColumn<?, ?> tinvoice;
+    @FXML
+    private TableColumn<?, ?> ttime;
+    @FXML
+    private TableColumn<?, ?> tdate;
     
     /**
      * Initializes the controller class.
@@ -149,20 +160,81 @@ public class InvoiceController implements Initializable {
                 mailClick(event);
                 break;
             case "Dashboard":
-                dashClick(event);
+                (new GUI(user, email, sanData)).dashClick(event);
+                break;
+            case "Application":
+                (new GUI(user, email, sanData)).applcClick(event);
+                break;
+            case "Transaction":
+                (new GUI(user, email, sanData)).transClick(event);
+                break;
+            case "Invoice":
+                (new GUI(user, email, sanData)).ivcClick(event);
+                break;
+            case "Switch Account":
+                (new GUI(user, email, sanData)).swtClick(event);
                 break;
             case "Settings":
-                settClick(event);
+                (new GUI(user, email, sanData)).sttClick(event);
+                break;
+            case "Policy":
+                (new GUI(user, email, sanData)).pcyClick(event);
+                break;
+            case "Policy Management":
+                (new GUI(user, email, sanData)).pcyClick(event);
                 break;
             case "Feedback":
-                feedClick(event);
+                (new GUI(user, email, sanData)).pcyClick(event);
+                break;
+            case "Merchandise":
+                (new GUI(user, email, sanData)).mrcDiseClick(event);
+                break;
+            case "Advertising":
+                (new GUI(user, email, sanData)).advClick(event);
+                break;
+            case "Requests":
+                (new GUI(user, email, sanData)).reqClick(event);
+                break;
+            case "History":
+                (new GUI(user, email, sanData)).hisClick(event);
+                break;
+            case "Clients":
+                (new GUI(user, email, sanData)).cliClick(event);
+                break;
+            case "Merchants":
+                (new GUI(user, email, sanData)).mrcClick(event);
+                break;
+            case "Analytics":
+                (new GUI(user, email, sanData)).anlClick(event);
+                break;
+            case "Risk Assessment":
+                (new GUI(user, email, sanData)).riskClick(event);
+                break;
+            case "L\\C Application":
+                (new GUI(user, email, sanData)).applcClick(event);
+                break;
+            case "Logs":
+                (new GUI(user, email, sanData)).logUserClick(event);
+                break;
+            case "Management":
+                (new GUI(user, email, sanData)).mgtClick(event);
+                break;
+            case "Monitoring":
+                (new GUI(user, email, sanData)).monClick(event);
+                break;
+            case "Backup":
+                (new GUI(user, email, sanData)).bkpClick(event);
+                break;
+            case "Relationship":
+                (new GUI(user, email, sanData)).rlnClick(event);
+                break;
+            case "Reports":
+                (new GUI(user, email, sanData)).rptClick(event);
                 break;
             default:
                 break;
         }
-        
     }
-
     @FXML
     private void logClick(MouseEvent event) {
         if (paneLog.isVisible()) {
@@ -253,6 +325,10 @@ public class InvoiceController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void userCLick(MouseEvent event) {
     }
     
 }

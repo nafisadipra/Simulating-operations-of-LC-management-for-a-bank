@@ -18,7 +18,7 @@
             <Font size="44.0" />
          </font>
       </Label>
-      <Label layoutX="15.0" layoutY="116.0" text="Email">
+      <Label layoutX="19.0" layoutY="114.0" text="Email">
          <font>
             <Font name="System Italic" size="16.0" />
          </font>
