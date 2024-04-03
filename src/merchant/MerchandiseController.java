@@ -1,5 +1,6 @@
 package merchant;
 
+import common.lc.Product;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -29,7 +30,10 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.TilePane;
 
 /**
  * FXML Controller class
@@ -61,19 +65,21 @@ public class MerchandiseController implements Initializable {
     @FXML
     private TextField enEmail;
     @FXML
-    private TableView<?> table;
+    private TableView<Product> table;
     @FXML
-    private TableColumn<?, ?> tname;
+    private TableColumn<Product, String> tname;
     @FXML
-    private TableColumn<?, ?> tprice;
+    private TableColumn<Product, String> tprice;
     @FXML
-    private TableColumn<?, ?> tquantity;
+    private TableColumn<Product, String> tquantity;
     @FXML
     private TextField enName;
     @FXML
     private TextField enPrice;
     @FXML
     private TextField enQuantity;
+    
+    private  ArrayList <ArrayList<String>> productFetch;
     
     /**
      * Initializes the controller class.
@@ -144,6 +150,21 @@ public class MerchandiseController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+        
+        this.productFetch = (new Reader("Database/User/MERCHANT/" +email , "product.bin")).splitFile('▓');
+        
+        // product
+        tname.setCellValueFactory(new PropertyValueFactory("product"));
+        tprice.setCellValueFactory(new PropertyValueFactory("perPrice"));
+        tquantity.setCellValueFactory(new PropertyValueFactory("quantity"));
+        
+        ArrayList<Product>productList = new ArrayList();
+        for(ArrayList<String> Y:productFetch){
+            productList.add(new Product("", Y.get(0), Y.get(2), Y.get(1), ""));
+        }
+        
+        table.getItems().setAll(productList);
+ 
     }
 
     @FXML
@@ -337,10 +358,63 @@ public class MerchandiseController implements Initializable {
 
     @FXML
     private void filterClick(MouseEvent event) {
+        this.productFetch = (new Reader("Database/User/MERCHANT/" + email , "product.bin")).splitFile('▓');
+        ArrayList<Product> productList = new ArrayList();
+        for(ArrayList<String> Y: productFetch){
+            if (-1 != Y.get(0).toLowerCase().indexOf(enEmail.getText().toLowerCase())) {
+                productList.add(new Product("", Y.get(0), Y.get(2), Y.get(1), ""));
+            }
+        }
+        table.getItems().setAll(productList);
+        
     }
 
     @FXML
     private void userCLick(MouseEvent event) {
+    }
+
+    @FXML
+    private void addClick(MouseEvent event) {
+        if (!enName.getText().isEmpty() && !enQuantity.getText().isEmpty() && !enPrice.getText().isEmpty()) {
+            try {
+                int quantity = Integer.parseInt(enQuantity.getText());
+                int price = Integer.parseInt(enPrice.getText());
+
+                String prodD = enName.getText() + "▓" + "$" + price + "▓" +  quantity  + "▓";
+                new Writer("Database/User/" + user + "/" + email, "product.bin", prodD).overWriteFile();
+
+                this.productFetch = (new Reader("Database/User/MERCHANT/" + email , "product.bin")).splitFile('▓');
+                ArrayList<Product> productList = new ArrayList();
+                for(ArrayList<String> Y: productFetch){
+                    productList.add(new Product("", Y.get(0), Y.get(2), Y.get(1), ""));
+                }
+                table.getItems().setAll(productList);
+                
+            } catch (NumberFormatException e) {
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Quantity & Price must be an integer.");
+                alert.showAndWait();
+            }
+        } else {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Please fill in all fields.");
+            alert.showAndWait();
+        }
+
+    }
+
+    @FXML
+    private void deleteClick(MouseEvent event) {
+        Product xdata = table.getSelectionModel().getSelectedItem();
+        System.out.println(xdata);
+        String prodD = xdata.getProduct() + "▓" + xdata.getPerPrice() + "▓" +  xdata.getQuantity()  + "▓";
+        new Writer("Database/User/" + user + "/" + email, "product.bin", "").deleteLine(prodD);
+        (new GUI(user, email, sanData)).mrcDiseClick(event);
+        
     }
     
 }
