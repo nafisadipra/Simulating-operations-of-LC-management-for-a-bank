@@ -18,7 +18,7 @@
             <Font size="44.0" />
          </font>
       </Label>
-      <TableView fx:id="table" layoutX="13.0" layoutY="104.0" onMouseClicked="#userCLick" prefHeight="486.0" prefWidth="1176.0">
+      <TableView fx:id="table" layoutX="13.0" layoutY="104.0" onMouseClicked="#userCLick" prefHeight="486.0" prefWidth="1176.0" style="-fx-border-color: black;">
          <columns>
             <TableColumn fx:id="ttype" prefWidth="221.0" text="Type" />
             <TableColumn fx:id="tinvoice" prefWidth="584.0" text="Invoice" />

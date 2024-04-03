@@ -32,7 +32,7 @@
             <Font size="44.0" />
          </font>
       </Label>
-      <TableView fx:id="table" layoutX="15.0" layoutY="109.0" prefHeight="479.0" prefWidth="825.0">
+      <TableView fx:id="table" layoutX="15.0" layoutY="109.0" prefHeight="479.0" prefWidth="825.0" style="-fx-border-color: black;">
         <columns>
           <TableColumn fx:id="ttype" prefWidth="196.0" text="Type" />
           <TableColumn fx:id="temail" prefWidth="417.0" text="Email" />

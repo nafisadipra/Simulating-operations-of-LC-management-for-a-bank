@@ -68,13 +68,9 @@ public class ApplicationController implements Initializable {
     @FXML
     private Button proceedButton;
     @FXML
-    private CheckBox disagreeClick;
-    @FXML
     private TextArea policytxtArea;
     @FXML
     private TextField custxtField;
-    @FXML
-    private TextField comtxtfield;
     @FXML
     private TextField addresstxtField;
     @FXML
@@ -87,8 +83,6 @@ public class ApplicationController implements Initializable {
     private Label quanLabel;
     @FXML
     private Label CusName;
-    @FXML
-    private Label comName;
     @FXML
     private Label phoneLabel;
     @FXML
@@ -136,6 +130,10 @@ public class ApplicationController implements Initializable {
     private String Xemail; 
     private  ArrayList <ArrayList<String>> productFetch;
     private Double payAmount = 0.0;
+    @FXML
+    private Button clearProBut;
+    @FXML
+    private Label payableLabel1;
     
     /**
      * Initializes the controller class.
