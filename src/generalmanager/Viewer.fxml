@@ -21,7 +21,7 @@
       <AnchorPane layoutX="16.0" layoutY="94.0" prefHeight="491.0" prefWidth="1170.0" style="-fx-border-color: black; -fx-background-color: white;">
          <children>
             <Button layoutX="1104.0" layoutY="14.0" mnemonicParsing="false" opacity="0.0" text="Button" />
-            <ImageView fx:id="imageView" layoutX="14.0" layoutY="14.0" onMouseClicked="#logClick">
+            <ImageView fx:id="imageView" layoutX="14.0" layoutY="14.0">
                <image>
                   <Image url="@../common/iconFiles/User.png" />
                </image>
