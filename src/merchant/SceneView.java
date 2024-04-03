@@ -20,7 +20,7 @@ public class SceneView extends Application {
         
         merchant.DashboardController controller = loader.getController();
         String[] sanData = {"Dashboard", "Contact", "Notification", "Merchandise", "Advertising", "Requests", "Transaction", "Invoice", "Switch Account", "Settings", "Policy", "Feedback"};
-        controller.initData("MERCHANT", "fuad@lc.mrc.com", sanData);
+        controller.initData("MERCHANT", "apple@lc.mrc.com", sanData);
         
         Scene scene = new Scene(root);
         stage.setScene(scene);
