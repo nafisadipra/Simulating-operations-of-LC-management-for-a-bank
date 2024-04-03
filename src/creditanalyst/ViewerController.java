@@ -1,6 +1,5 @@
 package creditanalyst;
 
-
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import java.awt.image.BufferedImage;
