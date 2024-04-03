@@ -3,7 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Code%20Projects/My%20Projects/Simulating-operations-of-LC-management-for-a-bank/src/generalmanager/SceneView.java</file>
+            <file>file:/D:/cse213%20project/Simulating-operations-of-LC-management-for-a-bank/src/common/alertBox/AlertBoxController.java</file>
+            <file>file:/D:/cse213%20project/Simulating-operations-of-LC-management-for-a-bank/src/client/ApplicationController.java</file>
+            <file>file:/D:/cse213%20project/Simulating-operations-of-LC-management-for-a-bank/src/common/alertBox/AlertBoxFXML.fxml</file>
+            <file>file:/D:/cse213%20project/Simulating-operations-of-LC-management-for-a-bank/src/client/SceneView.java</file>
         </group>
     </open-files>
 </project-private>
