@@ -40,14 +40,14 @@
             <Font name="Arial Italic" size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="payabletxtField" layoutX="885.0" layoutY="253.0" prefHeight="27.0" prefWidth="297.0" style="-fx-background-color: white; -fx-border-color: black;" />
+      <TextField fx:id="payabletxtField" editable="false" layoutX="885.0" layoutY="253.0" prefHeight="27.0" prefWidth="297.0" style="-fx-background-color: white; -fx-border-color: black;" />
       <TextArea fx:id="whitetxtArea" editable="false" layoutX="757.0" layoutY="105.0" prefHeight="142.0" prefWidth="426.0" style="-fx-border-color: black;" />
       <AnchorPane layoutX="19.0" layoutY="105.0" prefHeight="164.0" prefWidth="386.0" style="-fx-border-color: black;">
          <children>
-            <TextField fx:id="custxtField" layoutX="144.0" layoutY="12.0" prefHeight="27.0" prefWidth="222.0" style="-fx-background-color: white; -fx-border-color: black;" />
-            <TextField fx:id="addresstxtField" layoutX="144.0" layoutY="49.0" prefHeight="27.0" prefWidth="222.0" style="-fx-background-color: white; -fx-border-color: black;" />
-            <TextField fx:id="phontxtfield" layoutX="144.0" layoutY="85.0" prefHeight="27.0" prefWidth="222.0" style="-fx-background-color: white; -fx-border-color: black;" />
-            <TextField fx:id="emailtxtField" layoutX="144.0" layoutY="121.0" prefHeight="27.0" prefWidth="222.0" style="-fx-background-color: white; -fx-border-color: black;" />
+            <TextField fx:id="custxtField" layoutX="144.0" layoutY="12.0" prefHeight="27.0" prefWidth="222.0" promptText="eg; Nafisa Anzum" style="-fx-background-color: white; -fx-border-color: black;" />
+            <TextField fx:id="addresstxtField" layoutX="144.0" layoutY="49.0" prefHeight="27.0" prefWidth="222.0" promptText="eg; Motijhil, Dhaka, Bangladesh" style="-fx-background-color: white; -fx-border-color: black;" />
+            <TextField fx:id="phontxtfield" layoutX="144.0" layoutY="85.0" prefHeight="27.0" prefWidth="222.0" promptText="eg; +8801712345678" style="-fx-background-color: white; -fx-border-color: black;" />
+            <TextField fx:id="emailtxtField" layoutX="144.0" layoutY="121.0" prefHeight="27.0" prefWidth="222.0" promptText="eg; nafisa@email.com" style="-fx-background-color: white; -fx-border-color: black;" />
             <Label fx:id="CusName" layoutX="16.0" layoutY="16.0" text="Customer Name">
                <font>
                   <Font name="Arial Italic" size="16.0" />
@@ -82,9 +82,9 @@
                   <Font name="Arial Italic" size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="quantxtField" layoutX="93.0" layoutY="52.0" prefHeight="27.0" prefWidth="222.0" style="-fx-background-color: white; -fx-border-color: black;" />
-            <ComboBox fx:id="prodComb" layoutX="93.0" layoutY="90.0" onMouseClicked="#proClick" prefHeight="27.0" prefWidth="222.0" style="-fx-background-color: white; -fx-border-color: black;" />
-            <ComboBox fx:id="merComb" layoutX="93.0" layoutY="15.0" prefHeight="27.0" prefWidth="222.0" style="-fx-background-color: white; -fx-border-color: black;" />
+            <TextField fx:id="quantxtField" layoutX="93.0" layoutY="52.0" prefHeight="27.0" prefWidth="222.0" promptText="eg; 50" style="-fx-background-color: white; -fx-border-color: black;" />
+            <ComboBox fx:id="prodComb" layoutX="93.0" layoutY="90.0" onMouseClicked="#proClick" prefHeight="27.0" prefWidth="222.0" promptText="Select" style="-fx-background-color: white; -fx-border-color: black;" />
+            <ComboBox fx:id="merComb" layoutX="93.0" layoutY="15.0" prefHeight="27.0" prefWidth="222.0" promptText="Select" style="-fx-background-color: white; -fx-border-color: black;" />
             <Label fx:id="productLabel" layoutX="14.0" layoutY="93.0" text="Product">
                <font>
                   <Font name="Arial Italic" size="16.0" />
