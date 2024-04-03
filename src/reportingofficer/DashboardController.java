@@ -157,6 +157,8 @@ public class DashboardController implements Initializable {
             case "Feedback":
                 feedClick(event);
                 break;
+            case "Invoice":
+                invoClick(event);
             default:
                 break;
         }
@@ -227,6 +229,26 @@ public class DashboardController implements Initializable {
     }
     
     private void dashClick(MouseEvent event) {
+        
+        
+    }
+    private void invoClick(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Invoice.fxml"));
+            Parent root = loader.load();
+
+            InvoiceController controller = loader.getController();
+            controller.initData(user, email, sanData);
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         
     }
     

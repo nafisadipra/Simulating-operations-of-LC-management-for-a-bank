@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #EEEDEB;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="creditanalyst.ViewerController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #EEEDEB;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="administrator.EditorController">
    <children>
       <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="13.0" layoutY="51.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#backClick" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -20,8 +20,7 @@
       </ImageView>
       <AnchorPane layoutX="16.0" layoutY="94.0" prefHeight="491.0" prefWidth="1170.0" style="-fx-border-color: black; -fx-background-color: white;">
          <children>
-            <Button layoutX="1104.0" layoutY="14.0" mnemonicParsing="false" opacity="0.0" text="Button" />
-            <ImageView fx:id="imageView" layoutX="14.0" layoutY="14.0">
+            <ImageView fx:id="imageView" layoutX="14.0" layoutY="14.0" onMouseClicked="#logClick">
                <image>
                   <Image url="@../common/iconFiles/User.png" />
                </image>
@@ -36,58 +35,32 @@
                   <Font name="System Italic" size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="enEmail" editable="false" layoutX="80.0" layoutY="77.0" prefHeight="28.0" prefWidth="725.0" style="-fx-border-color: black; -fx-background-color: white;" />
+            <TextField fx:id="enEmail" layoutX="95.0" layoutY="80.0" prefHeight="28.0" prefWidth="725.0" style="-fx-border-color: black; -fx-background-color: white;" />
             <Label layoutX="14.0" layoutY="123.0" text="Phone">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="enPhone" editable="false" layoutX="80.0" layoutY="119.0" prefHeight="28.0" prefWidth="725.0" style="-fx-border-color: black; -fx-background-color: white;" />
+            <TextField fx:id="enPhone" layoutX="95.0" layoutY="122.0" prefHeight="28.0" prefWidth="725.0" style="-fx-border-color: black; -fx-background-color: white;" />
             <Label layoutX="14.0" layoutY="164.0" text="Address">
                <font>
                   <Font name="System Italic" size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="enAddress" editable="false" layoutX="80.0" layoutY="160.0" prefHeight="28.0" prefWidth="725.0" style="-fx-border-color: black; -fx-background-color: white;" />
+            <TextField fx:id="enAddress" layoutX="95.0" layoutY="163.0" prefHeight="28.0" prefWidth="725.0" style="-fx-border-color: black; -fx-background-color: white;" />
             <Label layoutX="14.0" layoutY="204.0" text="Status">
                <font>
                   <Font name="System Italic" size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="enStatus" editable="false" layoutX="80.0" layoutY="200.0" prefHeight="28.0" prefWidth="725.0" style="-fx-border-color: black; -fx-background-color: white;" />
-            <ImageView fitHeight="200.0" fitWidth="336.0" layoutX="820.0" layoutY="47.0">
-               <image>
-                  <Image url="@../common/iconFiles/credit.jpg" />
-               </image>
-            </ImageView>
-            <TableView layoutX="14.0" layoutY="277.0" prefHeight="200.0" prefWidth="563.0">
-              <columns>
-                <TableColumn prefWidth="442.0" text="Overview" />
-                <TableColumn prefWidth="119.0" text="Date" />
-              </columns>
-            </TableView>
-            <Label layoutX="13.0" layoutY="248.0" text="LC History">
+            <TextField fx:id="enStatus" layoutX="95.0" layoutY="203.0" prefHeight="28.0" prefWidth="725.0" style="-fx-border-color: black; -fx-background-color: white;" />
+            <Label layoutX="14.0" layoutY="243.0" text="Passsword">
                <font>
-                  <Font size="16.0" />
+                  <Font name="System Italic" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="593.0" layoutY="248.0" text="Transaction History">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <TableView layoutX="593.0" layoutY="277.0" prefHeight="200.0" prefWidth="563.0">
-               <columns>
-                  <TableColumn prefWidth="442.0" text="Overview" />
-                  <TableColumn prefWidth="119.0" text="Date" />
-               </columns>
-            </TableView>
-            <Label fx:id="labCardMoney" layoutX="847.0" layoutY="88.0" text="100000000$" textFill="WHITE">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </Label>
-            <Label fx:id="labCardName" layoutX="920.0" layoutY="190.0" text="Name" textFill="WHITE" />
+            <TextField fx:id="enStatus1" layoutX="95.0" layoutY="242.0" prefHeight="28.0" prefWidth="725.0" style="-fx-border-color: black; -fx-background-color: white;" />
+            <Button layoutX="748.0" layoutY="284.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" style="-fx-background-color: black;" text="Save" textFill="WHITE" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;" visible="false">

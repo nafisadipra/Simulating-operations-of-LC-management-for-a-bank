@@ -406,5 +406,26 @@ public class ApplicationController implements Initializable {
         
         
     }
+
+    @FXML
+    private void proceedClick(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/alertBox/AlertBoxFXML.fxml"));
+            Parent root = loader.load();
+
+            common.alertBox.AlertBoxController controller = loader.getController();
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+            
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+    }
     
 }

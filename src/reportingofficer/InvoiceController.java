@@ -28,6 +28,8 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.control.ComboBox;
+
 
 /**
  * FXML Controller class
@@ -56,12 +58,17 @@ public class InvoiceController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    @FXML
+    private ComboBox<String> stateBox;
+    @FXML
+    private ComboBox<String> userBox;
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    
         
     }    
 
