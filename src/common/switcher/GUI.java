@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package common.switcher;
 
 import java.io.IOException;
@@ -14,7 +10,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author User
+ * @author Muyeed
  */
 public class GUI {
     private String user;

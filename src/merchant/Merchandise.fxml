@@ -33,31 +33,31 @@
       <TableView fx:id="table" layoutX="15.0" layoutY="156.0" onMouseClicked="#userCLick" prefHeight="432.0" prefWidth="762.0" style="-fx-border-color: black;">
          <columns>
             <TableColumn fx:id="tname" prefWidth="437.0" text="Name" />
-            <TableColumn fx:id="tprice" prefWidth="169.0" text="Price" />
+            <TableColumn fx:id="tprice" prefWidth="169.0" text="Price ($)" />
             <TableColumn fx:id="tquantity" minWidth="0.0" prefWidth="155.0" text="Quantity" />
          </columns>
       </TableView>
       <AnchorPane layoutX="790.0" layoutY="156.0" prefHeight="200.0" prefWidth="396.0" style="-fx-border-color: black;">
          <children>
-            <TextField fx:id="enName" layoutX="123.0" layoutY="21.0" prefHeight="28.0" prefWidth="256.0" style="-fx-border-color: black; -fx-background-color: white;" />
+            <TextField fx:id="enName" layoutX="123.0" layoutY="21.0" prefHeight="28.0" prefWidth="256.0" promptText="eg; Laptop" style="-fx-border-color: black; -fx-background-color: white;" />
             <Label layoutX="14.0" layoutY="23.0" text="Product Name">
                <font>
                   <Font name="System Italic" size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="enPrice" layoutX="123.0" layoutY="63.0" prefHeight="28.0" prefWidth="256.0" style="-fx-border-color: black; -fx-background-color: white;" />
+            <TextField fx:id="enPrice" layoutX="123.0" layoutY="63.0" prefHeight="28.0" prefWidth="256.0" promptText="eg; 100" style="-fx-border-color: black; -fx-background-color: white;" />
             <Label layoutX="14.0" layoutY="65.0" text="Price">
                <font>
                   <Font name="System Italic" size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="enQuantity" layoutX="123.0" layoutY="105.0" prefHeight="28.0" prefWidth="256.0" style="-fx-border-color: black; -fx-background-color: white;" />
+            <TextField fx:id="enQuantity" layoutX="123.0" layoutY="105.0" prefHeight="28.0" prefWidth="256.0" promptText="eg; 50" style="-fx-border-color: black; -fx-background-color: white;" />
             <Label layoutX="14.0" layoutY="107.0" text="Quantity">
                <font>
                   <Font name="System Italic" size="16.0" />
                </font>
             </Label>
-            <Button layoutX="277.0" layoutY="151.0" mnemonicParsing="false" onMouseClicked="#filterClick" prefHeight="28.0" prefWidth="102.0" style="-fx-background-color: #37ff80; -fx-border-color: black;" text="Add" />
+            <Button layoutX="277.0" layoutY="151.0" mnemonicParsing="false" onMouseClicked="#addClick" prefHeight="28.0" prefWidth="102.0" style="-fx-background-color: #37ff80; -fx-border-color: black;" text="Add" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;" visible="false">
@@ -109,7 +109,7 @@
       </Label>
       <AnchorPane layoutX="790.0" layoutY="419.0" prefHeight="57.0" prefWidth="396.0" style="-fx-border-color: black;">
          <children>
-            <Button layoutX="12.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#filterClick" prefHeight="28.0" prefWidth="370.0" style="-fx-background-color: #ff697d; -fx-border-color: black;" text="Delete" />
+            <Button layoutX="12.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#deleteClick" prefHeight="28.0" prefWidth="370.0" style="-fx-background-color: #ff697d; -fx-border-color: black;" text="Delete" />
          </children>
       </AnchorPane>
       
