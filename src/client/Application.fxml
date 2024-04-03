@@ -84,7 +84,7 @@
             </Label>
             <TextField fx:id="quantxtField" layoutX="93.0" layoutY="52.0" prefHeight="27.0" prefWidth="222.0" promptText="eg; 50" style="-fx-background-color: white; -fx-border-color: black;" />
             <ComboBox fx:id="prodComb" layoutX="93.0" layoutY="90.0" onMouseClicked="#proClick" prefHeight="27.0" prefWidth="222.0" promptText="Select" style="-fx-background-color: white; -fx-border-color: black;" />
-            <ComboBox fx:id="merComb" layoutX="93.0" layoutY="15.0" prefHeight="27.0" prefWidth="222.0" promptText="Select" style="-fx-background-color: white; -fx-border-color: black;" />
+            <ComboBox fx:id="merComb" layoutX="93.0" layoutY="15.0" onMouseClicked="#merClick" prefHeight="27.0" prefWidth="222.0" promptText="Select" style="-fx-background-color: white; -fx-border-color: black;" />
             <Label fx:id="productLabel" layoutX="14.0" layoutY="93.0" text="Product">
                <font>
                   <Font name="Arial Italic" size="16.0" />

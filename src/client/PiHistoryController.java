@@ -1,8 +1,6 @@
 package client;
 
-import common.finder.Tree;
-import common.lc.PI;
-import common.lc.Product;
+import merchant.*;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -33,17 +31,14 @@ import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
  *
  * @author Muyeed
  */
-public class ApplicationController implements Initializable {
+public class PiHistoryController implements Initializable {
 
     @FXML
     private AnchorPane paneSide;
@@ -66,75 +61,19 @@ public class ApplicationController implements Initializable {
     private String email;
     private String[] sanData;
     @FXML
-    private Button proceedButton;
+    private TableColumn<?, ?> tid;
     @FXML
-    private TextArea policytxtArea;
+    private TableColumn<?, ?> tfrom;
     @FXML
-    private TextField custxtField;
+    private TableColumn<?, ?> tname;
     @FXML
-    private TextField addresstxtField;
+    private TableColumn<?, ?> tdate;
     @FXML
-    private TextField phontxtfield;
+    private Button createID;
     @FXML
-    private TextField emailtxtField;
+    private TableView<?> tableVieW;
     @FXML
-    private Label importerLabel;
-    @FXML
-    private Label quanLabel;
-    @FXML
-    private Label CusName;
-    @FXML
-    private Label phoneLabel;
-    @FXML
-    private Label emailLabel;
-    @FXML
-    private Label addressLabel;
-    @FXML
-    private TextField quantxtField;
-    @FXML
-    private ComboBox<String> prodComb;
-  
-    @FXML
-    private Label productLabel;
-    @FXML
-    private Button addProBut;
-    @FXML
-    private CheckBox agreeClick;
-    @FXML
-    private Label payableLabel;
-    @FXML
-    private TextField payabletxtField;
-    @FXML
-    private TextArea whitetxtArea;
-    @FXML
-    private TableView<Product> productTable;
-    @FXML
-    private TableColumn<Product, String> Sltable;
-    @FXML
-    private TableColumn<Product, String> protable;
-    @FXML
-    private TableColumn<Product, String> quanTable;
-    @FXML
-    private TableColumn<Product, String> pppTable;
-    @FXML
-    private TableColumn<Product, String> amountable;
-    @FXML
-    private TableColumn<Product, String> impoTable;
-    
-    
-    
-    
-    private ArrayList<Product>cartList = new ArrayList();
-    @FXML
-    private ComboBox<String> merComb;
-    private String Xemail; 
-    private  ArrayList <ArrayList<String>> productFetch;
-    private Double payAmount = 0.0;
-    @FXML
-    private Button clearProBut;
-    @FXML
-    private Label payableLabel1;
-    private String company="Null";
+    private ComboBox<?> filterComb;
     
     /**
      * Initializes the controller class.
@@ -205,41 +144,6 @@ public class ApplicationController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
-        ArrayList<String>exList= new ArrayList();
-        ArrayList<String>companyFetch=new Tree("Database/User/MERCHANT").view();
-        for( String X:companyFetch ){
-            ArrayList <ArrayList<String>> nameFetch = (new Reader("Database/User/MERCHANT/" + X  , "profile.bin")).splitFile('▓');
-            exList.add(nameFetch.get(0).get(0));
-            
-            
-        }
-        
-        //Importer
-        
-        
-        
-        merComb.getItems().setAll(exList);
-        
-        //Product
-        
-       
-        
-       
-        
-        //table
-        
-        Sltable.setCellValueFactory(new PropertyValueFactory("serial"));
-        
-        protable.setCellValueFactory(new PropertyValueFactory("product"));
-                
-        quanTable.setCellValueFactory(new PropertyValueFactory("quantity"));
-        
-        pppTable.setCellValueFactory(new PropertyValueFactory("perPrice")); 
-        
-        amountable.setCellValueFactory(new PropertyValueFactory("amount"));        
-        
-        impoTable.setCellValueFactory(new PropertyValueFactory("importer")); 
-        
     }
 
     @FXML
@@ -432,82 +336,11 @@ public class ApplicationController implements Initializable {
     }
 
     @FXML
-    private void addClick(MouseEvent event) {
-        boolean productExists = false;
-
-        for (Product product : cartList) {
-            if (product.getProduct().equals(prodComb.getValue().split(" - ")[1])) {
-                int newQuantity = Integer.parseInt(product.getQuantity()) + Integer.parseInt(quantxtField.getText());
-                product.setQuantity(Integer.toString(newQuantity));
-                productExists = true;
-                break;
-            }
-        }
-
-        if (!productExists) {
-            cartList.add(new Product(String.valueOf(cartList.size() + 1), prodComb.getValue().split(" - ")[1], quantxtField.getText(), prodComb.getValue().split(" - ")[0], merComb.getValue()));
-        }
-
-        productTable.getItems().setAll(cartList);
-
-        this.payAmount = 0.0;
-        for (Product product : cartList) {
-            this.payAmount += Double.parseDouble(product.getAmount());
-        }
-        payabletxtField.setText(Double.toString(this.payAmount));
+    private void filterClick(MouseEvent event) {
     }
 
     @FXML
-    private void proClick(MouseEvent event) {
-        ArrayList<String>companyFetch=new Tree("Database/User/MERCHANT").view();
-        for( String X:companyFetch ){
-            ArrayList <ArrayList<String>> nameFetch = (new Reader("Database/User/MERCHANT/" + X  , "profile.bin")).splitFile('▓');
-            
-            
-            if (merComb.getValue().equals(nameFetch.get(0).get(0))){
-                this.Xemail=X;
-            }
-
-        }
-        
-        this.productFetch = (new Reader("Database/User/MERCHANT/" +Xemail , "product.bin")).splitFile('▓');
-        ArrayList<String>productList = new ArrayList();
-        for(ArrayList<String> Y:productFetch){
-            productList.add(Y.get(1)+" - "+Y.get(0));
-            
-            
-            
-        }
-        prodComb.getItems().setAll(productList);
-        
-        
-    }
-
-    @FXML
-    private void proceedClick(MouseEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/alertBox/AlertBoxFXML.fxml"));
-            Parent root = loader.load();
-
-            common.alertBox.AlertBoxController controller = loader.getController();
-            
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setTitle("LC Bank Portal");
-            
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-    }
-
-    @FXML
-    private void merClick(MouseEvent event) {
-        prodComb.setValue("Select");
-        
+    private void userCLick(MouseEvent event) {
     }
     
 }
