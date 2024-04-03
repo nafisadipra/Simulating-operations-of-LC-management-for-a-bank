@@ -60,23 +60,19 @@ public class MerchantsController implements Initializable {
     private String email;
     private String[] sanData;
     @FXML
-    private TableView<User> clientInfoTable;
+    private TableView<User> table;
     @FXML
-    private TableColumn<User, String> merchantNameTB;
+    private TableColumn<User, String> ttype;
     @FXML
-    private TableColumn<User, String> merchantEmailTB;
+    private TableColumn<User, String> temail;
     @FXML
-    private TableColumn<User, String> merchantPhoneTB;
+    private TextField enEmail;
     @FXML
-    private TableColumn<User, String> merchantAddressTB;
+    private TableColumn<User, String> tname;
     @FXML
-    private TableColumn<User, String> dateOfBirthTB;
+    private TableColumn<User, String> tphone;
     @FXML
-    private TableColumn<User, String> typeTB;
-    @FXML
-    private TableColumn<User, String> statusTB;
-    @FXML
-    private TextField merchSearchBox;
+    private TableColumn<User, String> tstate;
     
     /**
      * Initializes the controller class.
@@ -148,19 +144,14 @@ public class MerchantsController implements Initializable {
             ndot.setVisible(false);
         }
         
-        //table
-        merchantNameTB.setCellValueFactory(new PropertyValueFactory("name"));
-        merchantEmailTB.setCellValueFactory(new PropertyValueFactory("email"));
-        merchantPhoneTB.setCellValueFactory(new PropertyValueFactory("phone"));
-        merchantAddressTB.setCellValueFactory(new PropertyValueFactory("address"));
-        dateOfBirthTB.setCellValueFactory(new PropertyValueFactory("dob"));
-        typeTB.setCellValueFactory(new PropertyValueFactory("type"));
-        statusTB.setCellValueFactory(new PropertyValueFactory("state"));
+        // table
+        ttype.setCellValueFactory(new PropertyValueFactory("type"));
+        tname.setCellValueFactory(new PropertyValueFactory("name"));
+        tphone.setCellValueFactory(new PropertyValueFactory("phone"));
+        temail.setCellValueFactory(new PropertyValueFactory("email"));
+        tstate.setCellValueFactory(new PropertyValueFactory("state"));
         
-        
-        clientInfoTable.getItems().setAll((new UserList()).getFilterList("Merchant", merchSearchBox.getText()));
-        
-        
+        table.getItems().setAll((new UserList()).getFilterList("Merchant", enEmail.getText()));
     }
 
     @FXML
@@ -175,7 +166,6 @@ public class MerchantsController implements Initializable {
     @FXML
     private void windowClick(MouseEvent event) {
         Sandwich window = tableSide.getSelectionModel().getSelectedItem();
-        
         switch (window.getItem()) {
             case "Notification":
                 notClick(event);
@@ -183,8 +173,6 @@ public class MerchantsController implements Initializable {
             case "Contact":
                 mailClick(event);
                 break;
-            case "Requests":
-                reqClick(event);
             case "Dashboard":
                 dashClick(event);
                 break;
@@ -194,10 +182,21 @@ public class MerchantsController implements Initializable {
             case "Feedback":
                 feedClick(event);
                 break;
+            case "Requests":
+                reqClick(event);
+                break;
+            case "History":
+                hisClick(event);
+                break;
+            case "Clients":
+                cliClick(event);
+                break;
+            case "Merchants":
+                mrcClick(event);
+                break;
             default:
                 break;
         }
-        
     }
 
     @FXML
@@ -264,24 +263,13 @@ public class MerchantsController implements Initializable {
     }
     
     private void dashClick(MouseEvent event) {
-        
-    }
-    
-    private void feedClick(MouseEvent event) {
-        
-    }
-    
-    private void settClick(MouseEvent event) {
-        
-    }
-    private void reqClick(MouseEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Requests.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
             Parent root = loader.load();
 
-            RequestsController controller = loader.getController();
+            DashboardController controller = loader.getController();
             controller.initData(user, email, sanData);
-
+            
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -291,9 +279,76 @@ public class MerchantsController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
     
+    private void feedClick(MouseEvent event) {
+        
+    }
+    
+    private void settClick(MouseEvent event) {
+        
+    }
+    
+    private void reqClick(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Requests.fxml"));
+            Parent root = loader.load();
+
+            RequestsController controller = loader.getController();
+            controller.initData(user, email, sanData);
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void hisClick(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Requests.fxml"));
+            Parent root = loader.load();
+
+            RequestsController controller = loader.getController();
+            controller.initData(user, email, sanData);
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void cliClick(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Clients.fxml"));
+            Parent root = loader.load();
+
+            ClientsController controller = loader.getController();
+            controller.initData(user, email, sanData);
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void mrcClick(MouseEvent event) {
+        
+    }
 
     @FXML
     private void outClick(MouseEvent event) {
@@ -312,8 +367,38 @@ public class MerchantsController implements Initializable {
         }
     }
 
+
     @FXML
-    private void searchClientClick(MouseEvent event) {
+    private void userCLick(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Viewer.fxml"));
+            Parent root = loader.load();
+
+            ViewerController controller = loader.getController();
+            
+            String xuser = table.getSelectionModel().getSelectedItem().getType();
+            String xname = table.getSelectionModel().getSelectedItem().getName();
+            String xemail = table.getSelectionModel().getSelectedItem().getEmail();
+            String xphone = table.getSelectionModel().getSelectedItem().getPhone();
+            String xaddress = table.getSelectionModel().getSelectedItem().getAddress();
+            String xstatus = table.getSelectionModel().getSelectedItem().getState();
+            
+            controller.initData(user, email, sanData, xuser, xname, xemail, xphone, xaddress, xstatus);
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void filterClick(MouseEvent event) {
+        table.getItems().setAll((new UserList()).getFilterList("Merchant", enEmail.getText()));
     }
     
 }

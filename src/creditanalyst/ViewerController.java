@@ -1,4 +1,5 @@
-package generalmanager;
+package creditanalyst;
+
 
 import common.reader.Reader;
 import common.sandwich.Sandwich;
