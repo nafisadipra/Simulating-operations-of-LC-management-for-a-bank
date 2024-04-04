@@ -73,12 +73,12 @@ public class ComposeController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
-    private ArrayList <Message> mesList;
+    private ArrayList<Message> mesList;
     private Message message;
     private String attachment = "null";
     private String path = "null";
     private long random;
-            
+
     @FXML
     private Circle mdot;
     @FXML
@@ -92,24 +92,25 @@ public class ComposeController implements Initializable {
         this.user = user;
         this.email = email;
         this.sanData = sanData;
-        
+
         // Generate Random
         this.random = new RandomNumber(8).generate();
-        
+
         // Side Panel
         ArrayList<Sandwich> sanList = new ArrayList();
 
-        for (String x: sanData) {
+        for (String x : sanData) {
             sanList.add(new Sandwich(x));
         }
         dtableSide.setCellValueFactory(new PropertyValueFactory("item"));
         tableSide.getItems().setAll(FXCollections.observableArrayList(sanList));
-        
+
         // Show Panel
         paneSide.setVisible(false);
         paneLog.setVisible(false);
-        ArrayList <ArrayList<String>> proFetch = (new Reader("Database/User/" + user + "/" + email, "profile.bin")).splitFile('▓');
-        ArrayList <String> data = proFetch.get(0);
+        ArrayList<ArrayList<String>> proFetch = (new Reader("Database/User/" + user + "/" + email, "profile.bin"))
+                .splitFile('▓');
+        ArrayList<String> data = proFetch.get(0);
         labName.setText(data.get(0));
 
         // image
@@ -121,33 +122,35 @@ public class ComposeController implements Initializable {
         }
         Image fxImage = SwingFXUtils.toFXImage(bufferedImage, null);
         imageUser.setImage(fxImage);
-        
+
         // dot
-        ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
-        ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
-        ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
-        
+        ArrayList<ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin"))
+                .splitFile('▓');
+        ArrayList<ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin"))
+                .splitFile('▓');
+        ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin"))
+                .splitFile('▓');
+
         if (mesFetch.size() != Integer.parseInt(dotFetch.get(0).get(0))) {
             mdot.setVisible(true);
         } else {
             mdot.setVisible(false);
         }
-        
+
         if (notFetch.size() != Integer.parseInt(dotFetch.get(0).get(1))) {
             ndot.setVisible(true);
         } else {
             ndot.setVisible(false);
         }
     }
-    
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-    } 
+
+    }
 
     @FXML
     private void backMessage(MouseEvent event) {
@@ -157,7 +160,7 @@ public class ComposeController implements Initializable {
 
             MessageController controller = loader.getController();
             controller.initData(user, email, sanData);
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -181,7 +184,7 @@ public class ComposeController implements Initializable {
     @FXML
     private void windowClick(MouseEvent event) {
         Sandwich window = tableSide.getSelectionModel().getSelectedItem();
-        
+
         switch (window.getItem()) {
             case "Notification":
                 notClick(event);
@@ -214,7 +217,7 @@ public class ComposeController implements Initializable {
                 (new GUI(user, email, sanData)).pcyClick(event);
                 break;
             case "Feedback":
-                (new GUI(user, email, sanData)).pcyClick(event);
+                (new GUI(user, email, sanData)).feedClick(event);
                 break;
             case "Merchandise":
                 (new GUI(user, email, sanData)).mrcDiseClick(event);
@@ -278,19 +281,21 @@ public class ComposeController implements Initializable {
     @FXML
     private void notClick(MouseEvent event) {
         if (ndot.isVisible() == true) {
-            ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
-            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+            ArrayList<ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email,
+                    "notification.bin")).splitFile('▓');
+            ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin"))
+                    .splitFile('▓');
             String notNum = dotFetch.get(0).get(0) + "▓" + notFetch.size() + "▓";
             new Writer("Database/User/" + user + "/" + email, "dot.bin", notNum).writeFile();
         }
-        
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/notification/NotificationFXML.fxml"));
             Parent root = loader.load();
 
             NotificationController controller = loader.getController();
             controller.initData(user, email, sanData);
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -305,19 +310,21 @@ public class ComposeController implements Initializable {
     @FXML
     private void mailClick(MouseEvent event) {
         if (mdot.isVisible() == true) {
-            ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
-            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+            ArrayList<ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin"))
+                    .splitFile('▓');
+            ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin"))
+                    .splitFile('▓');
             String mesNum = mesFetch.size() + "▓" + dotFetch.get(0).get(1) + "▓";
             new Writer("Database/User/" + user + "/" + email, "dot.bin", mesNum).writeFile();
         }
-        
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageFXML.fxml"));
             Parent root = loader.load();
 
             MessageController controller = loader.getController();
             controller.initData(user, email, sanData);
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -328,77 +335,67 @@ public class ComposeController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     private void dashClick(MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + user.toLowerCase() + "/Dashboard.fxml"));
             Parent root = loader.load();
 
             switch (user) {
-                case "ADMINISTRATOR":
-                    {
-                        administrator.DashboardController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
-                case "CREDITANALYST":
-                    {
-                        creditanalyst.DashboardController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
-                case "CLIENT":
-                    {
-                        client.DashboardController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
-                case "COMPLIANCEOFFICER":
-                    {
-                        complianceofficer.DashboardController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
-                case "GENERALMANAGER":
-                    {
-                        generalmanager.DashboardController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
-                case "ITOFFICER":
-                    {
-                        itofficer.DashboardController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
-                case "LCOFFICER":
-                    {
-                        lcofficer.DashboardController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
-                case "MERCHANT":
-                    {
-                        merchant.DashboardController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
-                case "REPORTINGOFFICER":
-                    {
-                        reportingofficer.DashboardController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
-                case "SALESREPRESENTATIVE":
-                    {
-                        salesrepresentative.DashboardController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
+                case "ADMINISTRATOR": {
+                    administrator.DashboardController controller = loader.getController();
+                    controller.initData(user, email, sanData);
+                    break;
+                }
+                case "CREDITANALYST": {
+                    creditanalyst.DashboardController controller = loader.getController();
+                    controller.initData(user, email, sanData);
+                    break;
+                }
+                case "CLIENT": {
+                    client.DashboardController controller = loader.getController();
+                    controller.initData(user, email, sanData);
+                    break;
+                }
+                case "COMPLIANCEOFFICER": {
+                    complianceofficer.DashboardController controller = loader.getController();
+                    controller.initData(user, email, sanData);
+                    break;
+                }
+                case "GENERALMANAGER": {
+                    generalmanager.DashboardController controller = loader.getController();
+                    controller.initData(user, email, sanData);
+                    break;
+                }
+                case "ITOFFICER": {
+                    itofficer.DashboardController controller = loader.getController();
+                    controller.initData(user, email, sanData);
+                    break;
+                }
+                case "LCOFFICER": {
+                    lcofficer.DashboardController controller = loader.getController();
+                    controller.initData(user, email, sanData);
+                    break;
+                }
+                case "MERCHANT": {
+                    merchant.DashboardController controller = loader.getController();
+                    controller.initData(user, email, sanData);
+                    break;
+                }
+                case "REPORTINGOFFICER": {
+                    reportingofficer.DashboardController controller = loader.getController();
+                    controller.initData(user, email, sanData);
+                    break;
+                }
+                case "SALESREPRESENTATIVE": {
+                    salesrepresentative.DashboardController controller = loader.getController();
+                    controller.initData(user, email, sanData);
+                    break;
+                }
                 default:
                     break;
             }
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -415,7 +412,7 @@ public class ComposeController implements Initializable {
         String mail = "";
         boolean foundAtSymbol = false;
         String emailText = fieldTo.getText();
-        
+
         for (int i = 0; i < emailText.length(); i++) {
             if (emailText.charAt(i) == '@') {
                 foundAtSymbol = true;
@@ -426,9 +423,9 @@ public class ComposeController implements Initializable {
                 mail += emailText.charAt(i);
             }
         }
-        
+
         String userText = "";
-        
+
         // user switch
         switch (mail) {
             case "lc.admin.com":
@@ -464,52 +461,56 @@ public class ComposeController implements Initializable {
             default:
                 break;
         }
-        
+
         String location = "Database/User/" + userText + "/" + emailText;
         Path destinationPath = Paths.get(location);
-        
+
         if (Files.exists(destinationPath)) {
             LocalTime currentTime = LocalTime.now();
             DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("hh:mm a");
 
             LocalDate currentDate = LocalDate.now();
             DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            
+
             String fileName = "";
-            
+
             if (attachment.equals("null")) {
                 fileName += "null";
             } else {
                 fileName += (random + "_" + attachment);
             }
-            
+
             String subject = fieldSub.getText();
-            
+
             if (subject.isEmpty()) {
                 subject = "(No Subject)";
             }
-            
-            String mesData = areaSend.getText().replaceAll("\\n", "\\\\n") + "▓" + email + "▓" + currentTime.format(formatTime) + "▓" + currentDate.format(formatDate) + "▓" + subject + "▓" + fileName  + "▓" + "0";
+
+            String mesData = areaSend.getText().replaceAll("\\n", "\\\\n") + "▓" + email + "▓"
+                    + currentTime.format(formatTime) + "▓" + currentDate.format(formatDate) + "▓" + subject + "▓"
+                    + fileName + "▓" + "0";
             new Writer(location, "message.bin", mesData).overWriteFile();
-            
-            String notData = ("You recieved a message from " + email) + "▓" + "Message" + "▓" + currentTime.format(formatTime) + "▓" + currentDate.format(formatDate);
+
+            String notData = ("You recieved a message from " + email) + "▓" + "Message" + "▓"
+                    + currentTime.format(formatTime) + "▓" + currentDate.format(formatDate);
             new Writer(location, "notification.bin", notData).overWriteFile();
-            
+
             if (!path.equals("null")) {
-                new XDIR(path, location + "/Attachments/" + fileName).copyFile();;
+                new XDIR(path, location + "/Attachments/" + fileName).copyFile();
+                ;
             }
-            
+
         } else {
-            System.out.println("Nope!"); 
-        } 
+            System.out.println("Nope!");
+        }
     }
-    
+
     @FXML
     private void fileClick(MouseEvent event) {
         this.attachment = "null";
         this.path = "null";
         labFile.setVisible(false);
-        
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open File");
 
@@ -528,7 +529,7 @@ public class ComposeController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/signIN/SignINFXML.fxml"));
             Parent root = loader.load();
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -539,5 +540,5 @@ public class ComposeController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
 }

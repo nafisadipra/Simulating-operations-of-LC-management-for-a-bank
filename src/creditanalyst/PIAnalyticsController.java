@@ -34,7 +34,6 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 
-
 /**
  * FXML Controller class
  *
@@ -47,7 +46,7 @@ public class PIAnalyticsController implements Initializable {
     @FXML
     private TableView<Sandwich> tableSide;
     @FXML
-    private TableColumn<Sandwich,String> dtableSide;
+    private TableColumn<Sandwich, String> dtableSide;
     @FXML
     private Circle mdot;
     @FXML
@@ -66,8 +65,9 @@ public class PIAnalyticsController implements Initializable {
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {}
-        
+    public void initialize(URL url, ResourceBundle rb) {
+    }
+
     public void initData(String user, String email, String[] sanData) {
         // append
         this.user = user;
@@ -86,7 +86,8 @@ public class PIAnalyticsController implements Initializable {
         // Show Panel
         paneSide.setVisible(false);
         paneLog.setVisible(false);
-        ArrayList<ArrayList<String>> proFetch = (new Reader("Database/User/" + user + "/" + email, "profile.bin")).splitFile('▓');
+        ArrayList<ArrayList<String>> proFetch = (new Reader("Database/User/" + user + "/" + email, "profile.bin"))
+                .splitFile('▓');
         ArrayList<String> data = proFetch.get(0);
         labName.setText(data.get(0));
 
@@ -113,9 +114,12 @@ public class PIAnalyticsController implements Initializable {
         }
 
         // dot
-        ArrayList<ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
-        ArrayList<ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
-        ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+        ArrayList<ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin"))
+                .splitFile('▓');
+        ArrayList<ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin"))
+                .splitFile('▓');
+        ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin"))
+                .splitFile('▓');
 
         if (mesFetch.size() != Integer.parseInt(dotFetch.get(0).get(0))) {
             mdot.setVisible(true);
@@ -130,11 +134,10 @@ public class PIAnalyticsController implements Initializable {
         }
     }
 
-
     @FXML
     private void windowClick(MouseEvent event) {
         Sandwich window = tableSide.getSelectionModel().getSelectedItem();
-        
+
         switch (window.getItem()) {
             case "Notification":
                 notClick(event);
@@ -167,7 +170,7 @@ public class PIAnalyticsController implements Initializable {
                 (new GUI(user, email, sanData)).pcyClick(event);
                 break;
             case "Feedback":
-                (new GUI(user, email, sanData)).pcyClick(event);
+                (new GUI(user, email, sanData)).feedClick(event);
                 break;
             case "Merchandise":
                 (new GUI(user, email, sanData)).mrcDiseClick(event);
@@ -227,33 +230,37 @@ public class PIAnalyticsController implements Initializable {
             paneSide.setVisible(true);
         }
     }
+
     private void dashClick(MouseEvent event) {
-        
+
     }
-    
+
     private void feedClick(MouseEvent event) {
-        
+
     }
-    
+
     private void settClick(MouseEvent event) {
-        
+
     }
+
     @FXML
     private void notClick(MouseEvent event) {
-            if (ndot.isVisible() == true) {
-            ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
-            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+        if (ndot.isVisible() == true) {
+            ArrayList<ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email,
+                    "notification.bin")).splitFile('▓');
+            ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin"))
+                    .splitFile('▓');
             String notNum = dotFetch.get(0).get(0) + "▓" + notFetch.size() + "▓";
             new Writer("Database/User/" + user + "/" + email, "dot.bin", notNum).writeFile();
         }
-        
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/notification/NotificationFXML.fxml"));
             Parent root = loader.load();
 
             common.notification.NotificationController controller = loader.getController();
             controller.initData(user, email, sanData);
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -267,20 +274,22 @@ public class PIAnalyticsController implements Initializable {
 
     @FXML
     private void mailClick(MouseEvent event) {
-            if (mdot.isVisible() == true) {
-            ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
-            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+        if (mdot.isVisible() == true) {
+            ArrayList<ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin"))
+                    .splitFile('▓');
+            ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin"))
+                    .splitFile('▓');
             String mesNum = mesFetch.size() + "▓" + dotFetch.get(0).get(1) + "▓";
             new Writer("Database/User/" + user + "/" + email, "dot.bin", mesNum).writeFile();
         }
-        
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/message/MessageFXML.fxml"));
             Parent root = loader.load();
 
             common.message.MessageController controller = loader.getController();
             controller.initData(user, email, sanData);
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -317,5 +326,5 @@ public class PIAnalyticsController implements Initializable {
             paneLog.setVisible(true);
         }
     }
-    
+
 }

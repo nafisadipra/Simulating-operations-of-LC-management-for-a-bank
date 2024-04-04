@@ -643,53 +643,11 @@ public class GUI {
     
     public void sttClick(MouseEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + user.toLowerCase() + "/Settings.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/settings/SettingsFXML.fxml"));
             Parent root = loader.load();
             
-            switch (user) {
-                case "ADMINISTRATOR":
-                    {
-                        break;
-                    }
-                case "CREDITANALYST":
-                    {
-                        break;
-                    }
-                case "CLIENT":
-                    {
-                        break;
-                    }
-                case "COMPLIANCEOFFICER":
-                    {
-                        break;
-                    }
-                case "GENERALMANAGER":
-                    {
-                        break;
-                    }
-                case "ITOFFICER":
-                    {
-                        break;
-                    }
-                case "LCOFFICER":
-                    {
-                        break;
-                    }
-                case "MERCHANT":
-                    {
-                        break;
-                    }
-                case "REPORTINGOFFICER":
-                    {
-                        break;
-                    }
-                case "SALESREPRESENTATIVE":
-                    {
-                        break;
-                    }
-                default:
-                    break;
-            }
+            common.settings.SettingsController controller = loader.getController();
+            controller.initData(user, email, sanData);
             
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
@@ -771,52 +729,11 @@ public class GUI {
     
     public void feedClick(MouseEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + user.toLowerCase() + "/Feedback.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/feedback/FeedbackFXML.fxml"));
             Parent root = loader.load();
             
-            switch (user) {
-                case "ADMINISTRATOR":
-                    {
-                        break;
-                    }
-                case "CREDITANALYST":
-                    {
-                        break;
-                    }
-                case "CLIENT":
-                    {
-                        break;
-                    }
-                case "COMPLIANCEOFFICER":
-                    {
-                        break;
-                    }
-                case "GENERALMANAGER":
-                    {
-                        break;
-                    }
-                case "ITOFFICER":
-                    {
-                        break;
-                    }
-                case "LCOFFICER":
-                    {
-                    }
-                case "MERCHANT":
-                    {
-                        break;
-                    }
-                case "REPORTINGOFFICER":
-                    {
-                        break;
-                    }
-                case "SALESREPRESENTATIVE":
-                    {
-                        break;
-                    }
-                default:
-                    break;
-            }
+            common.feedback.FeedbackController controller = loader.getController();
+            controller.initData(user, email, sanData);
             
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");

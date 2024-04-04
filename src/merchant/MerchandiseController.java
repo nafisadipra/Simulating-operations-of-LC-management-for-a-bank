@@ -58,7 +58,7 @@ public class MerchandiseController implements Initializable {
     private Circle mdot;
     @FXML
     private Circle ndot;
-    
+
     private String user;
     private String email;
     private String[] sanData;
@@ -78,16 +78,16 @@ public class MerchandiseController implements Initializable {
     private TextField enPrice;
     @FXML
     private TextField enQuantity;
-    
-    private  ArrayList <ArrayList<String>> productFetch;
-    
+
+    private ArrayList<ArrayList<String>> productFetch;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-    }    
+
+    }
 
     // pipeline
     public void initData(String user, String email, String[] sanData) {
@@ -95,23 +95,24 @@ public class MerchandiseController implements Initializable {
         this.user = user;
         this.email = email;
         this.sanData = sanData;
-        
+
         // Side Panel
         ArrayList<Sandwich> sanList = new ArrayList();
 
-        for (String x: sanData) {
+        for (String x : sanData) {
             sanList.add(new Sandwich(x));
         }
         dtableSide.setCellValueFactory(new PropertyValueFactory("item"));
         tableSide.getItems().setAll(FXCollections.observableArrayList(sanList));
-        
+
         // Show Panel
         paneSide.setVisible(false);
         paneLog.setVisible(false);
-        ArrayList <ArrayList<String>> proFetch = (new Reader("Database/User/" + user + "/" + email, "profile.bin")).splitFile('▓');
-        ArrayList <String> data = proFetch.get(0);
+        ArrayList<ArrayList<String>> proFetch = (new Reader("Database/User/" + user + "/" + email, "profile.bin"))
+                .splitFile('▓');
+        ArrayList<String> data = proFetch.get(0);
         labName.setText(data.get(0));
-        
+
         // image
         BufferedImage originalImage = null;
         try {
@@ -133,38 +134,41 @@ public class MerchandiseController implements Initializable {
 
             imageUser.setImage(fxImage);
         }
-        
+
         // dot
-        ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
-        ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
-        ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
-        
+        ArrayList<ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin"))
+                .splitFile('▓');
+        ArrayList<ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin"))
+                .splitFile('▓');
+        ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin"))
+                .splitFile('▓');
+
         if (mesFetch.size() != Integer.parseInt(dotFetch.get(0).get(0))) {
             mdot.setVisible(true);
         } else {
             mdot.setVisible(false);
         }
-        
+
         if (notFetch.size() != Integer.parseInt(dotFetch.get(0).get(1))) {
             ndot.setVisible(true);
         } else {
             ndot.setVisible(false);
         }
-        
-        this.productFetch = (new Reader("Database/User/MERCHANT/" +email , "product.bin")).splitFile('▓');
-        
+
+        this.productFetch = (new Reader("Database/User/MERCHANT/" + email, "product.bin")).splitFile('▓');
+
         // product
         tname.setCellValueFactory(new PropertyValueFactory("product"));
         tprice.setCellValueFactory(new PropertyValueFactory("price"));
         tquantity.setCellValueFactory(new PropertyValueFactory("quantity"));
-        
-        ArrayList<Product>productList = new ArrayList();
-        for(ArrayList<String> Y:productFetch){
+
+        ArrayList<Product> productList = new ArrayList();
+        for (ArrayList<String> Y : productFetch) {
             productList.add(new Product("", Y.get(0), Y.get(2), Y.get(1), ""));
         }
-        
+
         table.getItems().setAll(productList);
- 
+
     }
 
     @FXML
@@ -179,7 +183,7 @@ public class MerchandiseController implements Initializable {
     @FXML
     private void windowClick(MouseEvent event) {
         Sandwich window = tableSide.getSelectionModel().getSelectedItem();
-        
+
         switch (window.getItem()) {
             case "Notification":
                 notClick(event);
@@ -212,7 +216,7 @@ public class MerchandiseController implements Initializable {
                 (new GUI(user, email, sanData)).pcyClick(event);
                 break;
             case "Feedback":
-                (new GUI(user, email, sanData)).pcyClick(event);
+                (new GUI(user, email, sanData)).feedClick(event);
                 break;
             case "Merchandise":
                 (new GUI(user, email, sanData)).mrcDiseClick(event);
@@ -276,19 +280,21 @@ public class MerchandiseController implements Initializable {
     @FXML
     private void notClick(MouseEvent event) {
         if (ndot.isVisible() == true) {
-            ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
-            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+            ArrayList<ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email,
+                    "notification.bin")).splitFile('▓');
+            ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin"))
+                    .splitFile('▓');
             String notNum = dotFetch.get(0).get(0) + "▓" + notFetch.size() + "▓";
             new Writer("Database/User/" + user + "/" + email, "dot.bin", notNum).writeFile();
         }
-        
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/notification/NotificationFXML.fxml"));
             Parent root = loader.load();
 
             common.notification.NotificationController controller = loader.getController();
             controller.initData(user, email, sanData);
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -299,23 +305,25 @@ public class MerchandiseController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     @FXML
     private void mailClick(MouseEvent event) {
         if (mdot.isVisible() == true) {
-            ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
-            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+            ArrayList<ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin"))
+                    .splitFile('▓');
+            ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin"))
+                    .splitFile('▓');
             String mesNum = mesFetch.size() + "▓" + dotFetch.get(0).get(1) + "▓";
             new Writer("Database/User/" + user + "/" + email, "dot.bin", mesNum).writeFile();
         }
-        
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/message/MessageFXML.fxml"));
             Parent root = loader.load();
 
             common.message.MessageController controller = loader.getController();
             controller.initData(user, email, sanData);
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -326,17 +334,17 @@ public class MerchandiseController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     private void dashClick(MouseEvent event) {
-        
+
     }
-    
+
     private void feedClick(MouseEvent event) {
-        
+
     }
-    
+
     private void settClick(MouseEvent event) {
-        
+
     }
 
     @FXML
@@ -344,7 +352,7 @@ public class MerchandiseController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/signIN/SignINFXML.fxml"));
             Parent root = loader.load();
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -358,15 +366,15 @@ public class MerchandiseController implements Initializable {
 
     @FXML
     private void filterClick(MouseEvent event) {
-        this.productFetch = (new Reader("Database/User/MERCHANT/" + email , "product.bin")).splitFile('▓');
+        this.productFetch = (new Reader("Database/User/MERCHANT/" + email, "product.bin")).splitFile('▓');
         ArrayList<Product> productList = new ArrayList();
-        for(ArrayList<String> Y: productFetch){
+        for (ArrayList<String> Y : productFetch) {
             if (-1 != Y.get(0).toLowerCase().indexOf(enEmail.getText().toLowerCase())) {
                 productList.add(new Product("", Y.get(0), Y.get(2), Y.get(1), ""));
             }
         }
         table.getItems().setAll(productList);
-        
+
     }
 
     @FXML
@@ -380,16 +388,16 @@ public class MerchandiseController implements Initializable {
                 int quantity = Integer.parseInt(enQuantity.getText());
                 int price = Integer.parseInt(enPrice.getText());
 
-                String prodD = enName.getText() + "▓" + "$" + price + "▓" +  quantity  + "▓";
+                String prodD = enName.getText() + "▓" + "$" + price + "▓" + quantity + "▓";
                 new Writer("Database/User/" + user + "/" + email, "product.bin", prodD).overWriteFile();
 
-                this.productFetch = (new Reader("Database/User/MERCHANT/" + email , "product.bin")).splitFile('▓');
+                this.productFetch = (new Reader("Database/User/MERCHANT/" + email, "product.bin")).splitFile('▓');
                 ArrayList<Product> productList = new ArrayList();
-                for(ArrayList<String> Y: productFetch){
+                for (ArrayList<String> Y : productFetch) {
                     productList.add(new Product("", Y.get(0), Y.get(2), Y.get(1), ""));
                 }
                 table.getItems().setAll(productList);
-                
+
             } catch (NumberFormatException e) {
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error");
@@ -411,10 +419,10 @@ public class MerchandiseController implements Initializable {
     private void deleteClick(MouseEvent event) {
         Product xdata = table.getSelectionModel().getSelectedItem();
         System.out.println(xdata);
-        String prodD = xdata.getProduct() + "▓" + xdata.getPrice() + "▓" +  xdata.getQuantity()  + "▓";
+        String prodD = xdata.getProduct() + "▓" + xdata.getPrice() + "▓" + xdata.getQuantity() + "▓";
         new Writer("Database/User/" + user + "/" + email, "product.bin", "").deleteLine(prodD);
         (new GUI(user, email, sanData)).mrcDiseClick(event);
-        
+
     }
-    
+
 }

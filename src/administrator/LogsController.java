@@ -215,7 +215,7 @@ public class LogsController implements Initializable {
                 (new GUI(user, email, sanData)).pcyClick(event);
                 break;
             case "Feedback":
-                (new GUI(user, email, sanData)).pcyClick(event);
+                (new GUI(user, email, sanData)).feedClick(event);
                 break;
             case "Merchandise":
                 (new GUI(user, email, sanData)).mrcDiseClick(event);

@@ -70,7 +70,7 @@ public class InboxController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
-    private ArrayList <Message> mesList;
+    private ArrayList<Message> mesList;
     private Message message;
     @FXML
     private Circle mdot;
@@ -91,21 +91,22 @@ public class InboxController implements Initializable {
         this.sanData = sanData;
         this.mesList = mesList;
         this.message = message;
-        
+
         // Side Panel
         ArrayList<Sandwich> sanList = new ArrayList();
 
-        for (String x: sanData) {
+        for (String x : sanData) {
             sanList.add(new Sandwich(x));
         }
         dtableSide.setCellValueFactory(new PropertyValueFactory("item"));
         tableSide.getItems().setAll(FXCollections.observableArrayList(sanList));
-        
+
         // Show Panel
         paneSide.setVisible(false);
         paneLog.setVisible(false);
-        ArrayList <ArrayList<String>> proFetch = (new Reader("Database/User/" + user + "/" + email, "profile.bin")).splitFile('▓');
-        ArrayList <String> name = proFetch.get(0);
+        ArrayList<ArrayList<String>> proFetch = (new Reader("Database/User/" + user + "/" + email, "profile.bin"))
+                .splitFile('▓');
+        ArrayList<String> name = proFetch.get(0);
         labName.setText(name.get(0));
 
         // image
@@ -117,14 +118,14 @@ public class InboxController implements Initializable {
         }
         Image fxImage = SwingFXUtils.toFXImage(bufferedImage, null);
         imageUser.setImage(fxImage);
-        
+
         // show message
         labSender.setText("From: " + message.getUser());
         areaMessage.setText(message.getData().replaceAll("\\\\n", "\n"));
         enSub.setText("Subject: " + message.getSubject());
-        
+
         labFileNo.setVisible(true);
-        
+
         if (!message.getAttachment().equals("null")) {
             labFileNo.setVisible(false);
             imageFile.setVisible(true);
@@ -132,32 +133,35 @@ public class InboxController implements Initializable {
             labFile.setVisible(true);
             buttFile.setDisable(false);
         }
-        
+
         // dot
-        ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
-        ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
-        ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
-        
+        ArrayList<ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin"))
+                .splitFile('▓');
+        ArrayList<ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin"))
+                .splitFile('▓');
+        ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin"))
+                .splitFile('▓');
+
         if (mesFetch.size() != Integer.parseInt(dotFetch.get(0).get(0))) {
             mdot.setVisible(true);
         } else {
             mdot.setVisible(false);
         }
-        
+
         if (notFetch.size() != Integer.parseInt(dotFetch.get(0).get(1))) {
             ndot.setVisible(true);
         } else {
             ndot.setVisible(false);
         }
     }
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-    } 
+
+    }
 
     @FXML
     private void backMessage(MouseEvent event) {
@@ -167,7 +171,7 @@ public class InboxController implements Initializable {
 
             MessageController controller = loader.getController();
             controller.initData(user, email, sanData);
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -191,7 +195,7 @@ public class InboxController implements Initializable {
     @FXML
     private void windowClick(MouseEvent event) {
         Sandwich window = tableSide.getSelectionModel().getSelectedItem();
-        
+
         switch (window.getItem()) {
             case "Notification":
                 notClick(event);
@@ -224,7 +228,7 @@ public class InboxController implements Initializable {
                 (new GUI(user, email, sanData)).pcyClick(event);
                 break;
             case "Feedback":
-                (new GUI(user, email, sanData)).pcyClick(event);
+                (new GUI(user, email, sanData)).feedClick(event);
                 break;
             case "Merchandise":
                 (new GUI(user, email, sanData)).mrcDiseClick(event);
@@ -288,19 +292,21 @@ public class InboxController implements Initializable {
     @FXML
     private void notClick(MouseEvent event) {
         if (ndot.isVisible() == true) {
-            ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
-            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+            ArrayList<ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email,
+                    "notification.bin")).splitFile('▓');
+            ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin"))
+                    .splitFile('▓');
             String notNum = dotFetch.get(0).get(0) + "▓" + notFetch.size() + "▓";
             new Writer("Database/User/" + user + "/" + email, "dot.bin", notNum).writeFile();
         }
-        
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/notification/NotificationFXML.fxml"));
             Parent root = loader.load();
 
             NotificationController controller = loader.getController();
             controller.initData(user, email, sanData);
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -315,19 +321,21 @@ public class InboxController implements Initializable {
     @FXML
     private void mailClick(MouseEvent event) {
         if (mdot.isVisible() == true) {
-            ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
-            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+            ArrayList<ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin"))
+                    .splitFile('▓');
+            ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin"))
+                    .splitFile('▓');
             String mesNum = mesFetch.size() + "▓" + dotFetch.get(0).get(1) + "▓";
             new Writer("Database/User/" + user + "/" + email, "dot.bin", mesNum).writeFile();
         }
-        
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageFXML.fxml"));
             Parent root = loader.load();
 
             MessageController controller = loader.getController();
             controller.initData(user, email, sanData);
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -338,77 +346,67 @@ public class InboxController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     private void dashClick(MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + user.toLowerCase() + "/Dashboard.fxml"));
             Parent root = loader.load();
 
             switch (user) {
-                case "ADMINISTRATOR":
-                    {
-                        administrator.DashboardController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
-                case "CREDITANALYST":
-                    {
-                        creditanalyst.DashboardController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
-                case "CLIENT":
-                    {
-                        client.DashboardController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
-                case "COMPLIANCEOFFICER":
-                    {
-                        complianceofficer.DashboardController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
-                case "GENERALMANAGER":
-                    {
-                        generalmanager.DashboardController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
-                case "ITOFFICER":
-                    {
-                        itofficer.DashboardController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
-                case "LCOFFICER":
-                    {
-                        lcofficer.DashboardController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
-                case "MERCHANT":
-                    {
-                        merchant.DashboardController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
-                case "REPORTINGOFFICER":
-                    {
-                        reportingofficer.DashboardController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
-                case "SALESREPRESENTATIVE":
-                    {
-                        salesrepresentative.DashboardController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
+                case "ADMINISTRATOR": {
+                    administrator.DashboardController controller = loader.getController();
+                    controller.initData(user, email, sanData);
+                    break;
+                }
+                case "CREDITANALYST": {
+                    creditanalyst.DashboardController controller = loader.getController();
+                    controller.initData(user, email, sanData);
+                    break;
+                }
+                case "CLIENT": {
+                    client.DashboardController controller = loader.getController();
+                    controller.initData(user, email, sanData);
+                    break;
+                }
+                case "COMPLIANCEOFFICER": {
+                    complianceofficer.DashboardController controller = loader.getController();
+                    controller.initData(user, email, sanData);
+                    break;
+                }
+                case "GENERALMANAGER": {
+                    generalmanager.DashboardController controller = loader.getController();
+                    controller.initData(user, email, sanData);
+                    break;
+                }
+                case "ITOFFICER": {
+                    itofficer.DashboardController controller = loader.getController();
+                    controller.initData(user, email, sanData);
+                    break;
+                }
+                case "LCOFFICER": {
+                    lcofficer.DashboardController controller = loader.getController();
+                    controller.initData(user, email, sanData);
+                    break;
+                }
+                case "MERCHANT": {
+                    merchant.DashboardController controller = loader.getController();
+                    controller.initData(user, email, sanData);
+                    break;
+                }
+                case "REPORTINGOFFICER": {
+                    reportingofficer.DashboardController controller = loader.getController();
+                    controller.initData(user, email, sanData);
+                    break;
+                }
+                case "SALESREPRESENTATIVE": {
+                    salesrepresentative.DashboardController controller = loader.getController();
+                    controller.initData(user, email, sanData);
+                    break;
+                }
                 default:
                     break;
             }
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -419,13 +417,13 @@ public class InboxController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     @FXML
     private void outClick(MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/signIN/SignINFXML.fxml"));
             Parent root = loader.load();
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -439,8 +437,8 @@ public class InboxController implements Initializable {
 
     @FXML
     private void fileClick(MouseEvent event) {
-        (new Reader("Database/User/" + user + "/" + email + "/Attachments/" + message.getAttachment(), message.getAttachment().substring(9))).openFile();
+        (new Reader("Database/User/" + user + "/" + email + "/Attachments/" + message.getAttachment(),
+                message.getAttachment().substring(9))).openFile();
     }
 
-    
 }
