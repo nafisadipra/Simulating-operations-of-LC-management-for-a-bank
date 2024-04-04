@@ -1,6 +1,5 @@
 package client;
 
-import merchant.*;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -31,14 +30,16 @@ import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
+import javafx.scene.shape.Rectangle;
 
 /**
  * FXML Controller class
  *
  * @author Muyeed
  */
-public class PiHistoryController implements Initializable {
+public class CreateTransactionController implements Initializable {
 
     @FXML
     private AnchorPane paneSide;
@@ -61,19 +62,19 @@ public class PiHistoryController implements Initializable {
     private String email;
     private String[] sanData;
     @FXML
-    private TableColumn<?, ?> tid;
+    private Rectangle gradientpg;
     @FXML
-    private TableColumn<?, ?> tfrom;
+    private TextField cvvtxt;
     @FXML
-    private TableColumn<?, ?> tname;
+    private TextField cardNumtxt;
     @FXML
-    private TableColumn<?, ?> tdate;
+    private DatePicker datePic;
     @FXML
-    private Button createID;
+    private ImageView cardjpg;
     @FXML
-    private TableView<?> tableVieW;
+    private Button Paybutton;
     @FXML
-    private ComboBox<?> filterComb;
+    private TextField cardNametxt;
     
     /**
      * Initializes the controller class.
@@ -333,14 +334,6 @@ public class PiHistoryController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @FXML
-    private void filterClick(MouseEvent event) {
-    }
-
-    @FXML
-    private void userCLick(MouseEvent event) {
     }
     
 }
