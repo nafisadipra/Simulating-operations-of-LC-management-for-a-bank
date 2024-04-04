@@ -93,7 +93,7 @@ public class UserList {
         
         for (User X: userList) {
             if ((type.toLowerCase()).equals("all") || (X.getType()).equals(type)) {
-                if (email.isEmpty() || (X.getEmail()).equals(email)) {
+                if (email.isEmpty() || (-1 != (X.getEmail().toLowerCase()).indexOf(email.toLowerCase()))) {
                     filterList.add(X);
                 }
             }

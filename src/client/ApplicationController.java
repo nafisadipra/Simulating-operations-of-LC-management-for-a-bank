@@ -73,6 +73,8 @@ public class ApplicationController implements Initializable {
     private TableView<?> tableVieW;
     @FXML
     private ComboBox<?> filterComb;
+    @FXML
+    private Button createID1;
     
     /**
      * Initializes the controller class.
@@ -340,6 +342,10 @@ public class ApplicationController implements Initializable {
 
     @FXML
     private void userCLick(MouseEvent event) {
+    }
+
+    @FXML
+    private void createClick(MouseEvent event) {
     }
     
 }

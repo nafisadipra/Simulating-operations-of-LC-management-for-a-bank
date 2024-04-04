@@ -155,7 +155,7 @@ public class MerchandiseController implements Initializable {
         
         // product
         tname.setCellValueFactory(new PropertyValueFactory("product"));
-        tprice.setCellValueFactory(new PropertyValueFactory("perPrice"));
+        tprice.setCellValueFactory(new PropertyValueFactory("price"));
         tquantity.setCellValueFactory(new PropertyValueFactory("quantity"));
         
         ArrayList<Product>productList = new ArrayList();
@@ -411,7 +411,7 @@ public class MerchandiseController implements Initializable {
     private void deleteClick(MouseEvent event) {
         Product xdata = table.getSelectionModel().getSelectedItem();
         System.out.println(xdata);
-        String prodD = xdata.getProduct() + "▓" + xdata.getPerPrice() + "▓" +  xdata.getQuantity()  + "▓";
+        String prodD = xdata.getProduct() + "▓" + xdata.getPrice() + "▓" +  xdata.getQuantity()  + "▓";
         new Writer("Database/User/" + user + "/" + email, "product.bin", "").deleteLine(prodD);
         (new GUI(user, email, sanData)).mrcDiseClick(event);
         

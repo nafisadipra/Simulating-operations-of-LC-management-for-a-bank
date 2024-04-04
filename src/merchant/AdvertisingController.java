@@ -29,6 +29,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 
 /**
@@ -68,6 +69,12 @@ public class AdvertisingController implements Initializable {
     private TableColumn<?, ?> tbrief;
     @FXML
     private TableColumn<?, ?> tstatus;
+    @FXML
+    private ComboBox<?> filterComb;
+    @FXML
+    private Button createID1;
+    @FXML
+    private Button reqClick;
     
     /**
      * Initializes the controller class.
@@ -138,6 +145,11 @@ public class AdvertisingController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+        
+        // product
+        String[] filterList = {"All", "Accepted", "Pending", "Rejected"};
+        
+        
     }
 
     @FXML
@@ -335,6 +347,11 @@ public class AdvertisingController implements Initializable {
 
     @FXML
     private void filterClick(MouseEvent event) {
+    }
+
+    @FXML
+    private void reqClick(MouseEvent event) {
+        
     }
     
 }

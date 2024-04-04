@@ -1,9 +1,14 @@
 package common.signIN;
 
 import common.aes.AES;
+import common.device.IP;
 import common.reader.Reader;
+import common.writer.Writer;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -101,12 +106,14 @@ public class SignINController implements Initializable {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + user.toLowerCase() + "/Dashboard.fxml"));
                     Parent root = loader.load();
                     
+                    String logger = "Default";
                     switch (user) {
                         case "ADMINISTRATOR":
                             {
                                 administrator.DashboardController controller = loader.getController();
                                 String[] sanData = {"Dashboard", "Contact", "Notification", "Logs", "Management", "Settings", "Feedback"};
                                 controller.initData(user, email, sanData);
+                                logger = "Administrator";
                                 break;
                             }
                         case "ITOFFICER":
@@ -114,6 +121,7 @@ public class SignINController implements Initializable {
                                 itofficer.DashboardController controller = loader.getController();
                                 String[] sanData = {"Dashboard", "Contact", "Notification", "Logs", "Monitoring", "Backup", "Settings", "Feedback"};
                                 controller.initData(user, email, sanData);
+                                logger = "IT Officer";
                                 break;
                             }
                         case "CLIENT":
@@ -121,6 +129,7 @@ public class SignINController implements Initializable {
                                 client.DashboardController controller = loader.getController();
                                 String[] sanData = {"Dashboard", "Contact", "Notification", "Application", "Transaction", "Invoice", "Switch Account", "Settings", "Policy", "Feedback"};
                                 controller.initData(user, email, sanData);
+                                logger = "Client";
                                 break;
                             }
                         case "MERCHANT":
@@ -128,6 +137,7 @@ public class SignINController implements Initializable {
                                 merchant.DashboardController controller = loader.getController();
                                 String[] sanData = {"Dashboard", "Contact", "Notification", "Merchandise", "Advertising", "Requests", "Transaction", "Invoice", "Switch Account", "Settings", "Policy", "Feedback"};
                                 controller.initData(user, email, sanData);
+                                logger = "Merchant";
                                 break;
                             }
                         case "GENERALMANAGER":
@@ -135,6 +145,7 @@ public class SignINController implements Initializable {
                                 generalmanager.DashboardController controller = loader.getController();
                                 String[] sanData = {"Dashboard", "Contact", "Notification", "Requests", "History", "Clients", "Merchants", "Settings", "Feedback"};
                                 controller.initData(user, email, sanData);
+                                logger = "General Manager";
                                 break;
                             }
                         case "CREDITANALYST":
@@ -142,6 +153,7 @@ public class SignINController implements Initializable {
                                 creditanalyst.DashboardController controller = loader.getController();
                                 String[] sanData = {"Dashboard", "Contact", "Notification", "Requests", "Clients", "Merchants", "Analytics", "Settings", "Feedback"};
                                 controller.initData(user, email, sanData);
+                                logger = "Credit Analyst";
                                 break;
                             }
                         case "LCOFFICER":
@@ -149,6 +161,7 @@ public class SignINController implements Initializable {
                                 lcofficer.DashboardController controller = loader.getController();
                                 String[] sanData = {"Dashboard", "Contact", "Notification", "L\\C Applications", "History", "Clients", "Merchants", "Settings", "Feedback"};
                                 controller.initData(user, email, sanData);
+                                logger = "Administrator";
                                 break;
                             }
                         case "SALESREPRESENTATIVE":
@@ -156,6 +169,7 @@ public class SignINController implements Initializable {
                                 salesrepresentative.DashboardController controller = loader.getController();
                                 String[] sanData = {"Dashboard", "Contact", "Notification", "Relationship", "Advertising", "Transaction", "Analytics", "Settings", "Feedback"};
                                 controller.initData(user, email, sanData);
+                                logger = "Sales Representative";
                                 break;
                             }
                         case "COMPLIANCEOFFICER":
@@ -163,6 +177,7 @@ public class SignINController implements Initializable {
                                 complianceofficer.DashboardController controller = loader.getController();
                                 String[] sanData = {"Dashboard", "Contact", "Notification", "Requests", "Clients", "Merchants", "Risk Assessment", "Policy Management", "Settings", "Feedback"};
                                 controller.initData(user, email, sanData);
+                                logger = "Compliance Officer";
                                 break;
                             }
                         case "REPORTINGOFFICER":
@@ -170,6 +185,7 @@ public class SignINController implements Initializable {
                                 reportingofficer.DashboardController controller = loader.getController();
                                 String[] sanData = {"Dashboard", "Contact", "Notification", "Invoice", "Reports", "Settings", "Feedback"};
                                 controller.initData(user, email, sanData);
+                                logger = "Reporting Officer";
                                 break;
                             }
                         default:
@@ -181,6 +197,16 @@ public class SignINController implements Initializable {
 
                     stage.setScene(new Scene(root));
                     stage.show();
+                    
+                    LocalTime currentTime = LocalTime.now();
+                    DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("hh:mm a");
+
+                    LocalDate currentDate = LocalDate.now();
+                    DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    
+                    String log = logger + "▓" + email + "▓" + IP.getIP() + "▓" + currentTime.format(formatTime) + "▓" + currentDate.format(formatDate) + "▓";
+                    
+                    new Writer("Database/Official/LOG", "signin.bin", log).overWriteFile();
 
                 } catch (IOException e) {
                     e.printStackTrace();

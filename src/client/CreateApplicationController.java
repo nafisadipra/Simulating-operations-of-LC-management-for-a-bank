@@ -118,8 +118,6 @@ public class CreateApplicationController implements Initializable {
     private TableColumn<Product, String> pppTable;
     @FXML
     private TableColumn<Product, String> amountable;
-    @FXML
-    private TableColumn<Product, String> impoTable;
     
     
     
@@ -135,6 +133,8 @@ public class CreateApplicationController implements Initializable {
     @FXML
     private Label payableLabel1;
     private String company="Null";
+    @FXML
+    private TableColumn<?, ?> expoTable;
     
     /**
      * Initializes the controller class.
@@ -214,18 +214,9 @@ public class CreateApplicationController implements Initializable {
             
         }
         
-        //Importer
-        
-        
-        
+        //Exporter
         merComb.getItems().setAll(exList);
-        
-        //Product
-        
-       
-        
-       
-        
+
         //table
         
         Sltable.setCellValueFactory(new PropertyValueFactory("serial"));
@@ -234,11 +225,11 @@ public class CreateApplicationController implements Initializable {
                 
         quanTable.setCellValueFactory(new PropertyValueFactory("quantity"));
         
-        pppTable.setCellValueFactory(new PropertyValueFactory("perPrice")); 
+        pppTable.setCellValueFactory(new PropertyValueFactory("price")); 
         
         amountable.setCellValueFactory(new PropertyValueFactory("amount"));        
         
-        impoTable.setCellValueFactory(new PropertyValueFactory("importer")); 
+        expoTable.setCellValueFactory(new PropertyValueFactory("exporter")); 
         
     }
 
