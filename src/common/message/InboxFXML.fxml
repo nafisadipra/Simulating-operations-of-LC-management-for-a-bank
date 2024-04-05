@@ -19,37 +19,27 @@
             <Image url="@../iconFiles/arrow.png" />
          </image>
       </ImageView>
-      <TextArea fx:id="areaSend" layoutX="14.0" layoutY="397.0" prefHeight="130.0" prefWidth="1173.0" style="-fx-border-color: black;">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextArea>
-      <TextArea fx:id="areaMessage" editable="false" layoutX="14.0" layoutY="141.0" prefHeight="224.0" prefWidth="975.0" style="-fx-border-color: black;">
+      <TextArea fx:id="areaMessage" editable="false" layoutX="14.0" layoutY="161.0" prefHeight="427.0" prefWidth="971.0" style="-fx-border-color: black;">
          <font>
             <Font size="18.0" />
          </font>
       </TextArea>
       <TextField fx:id="enSub" editable="false" layoutX="15.0" layoutY="108.0" prefHeight="28.0" prefWidth="1173.0" style="-fx-border-color: black;">
          <font>
-            <Font name="System Bold" size="12.0" />
+            <Font name="System Italic" size="18.0" />
          </font>
       </TextField>
-      <Label layoutX="15.0" layoutY="366.0" text="Reply">
-         <font>
-            <Font size="21.0" />
-         </font>
-      </Label>
       <Label fx:id="labSender" layoutX="15.0" layoutY="79.0" text="From: Sender">
          <font>
             <Font size="21.0" />
          </font>
       </Label>
-      <Button layoutX="1063.0" layoutY="544.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="123.0" style="-fx-background-color: black;" text="Send" textFill="WHITE">
+      <Button layoutX="996.0" layoutY="544.0" mnemonicParsing="false" onMouseClicked="#comClick" prefHeight="43.0" prefWidth="190.0" style="-fx-background-color: black;" text="Reply" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;">
+      <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;" visible="false">
          <children>
             <TableView fx:id="tableSide" layoutX="12.0" layoutY="8.0" onMouseClicked="#windowClick" prefHeight="588.0" prefWidth="265.0" style="-fx-background-color: #9AD0C2; -fx-base: #9AD0C2; -fx-font-size: 25;">
                <columns>
@@ -74,7 +64,7 @@
             <Image url="@../iconFiles/Mail.png" />
          </image>
       </ImageView>
-      <AnchorPane layoutX="996.0" layoutY="141.0" prefHeight="224.0" prefWidth="192.0" style="-fx-background-color: white; -fx-border-color: black;">
+      <AnchorPane layoutX="996.0" layoutY="161.0" prefHeight="218.0" prefWidth="192.0" style="-fx-background-color: white; -fx-border-color: black;">
          <children>
             <ImageView fx:id="imageFile" fitHeight="103.0" fitWidth="103.0" layoutX="44.0" layoutY="51.0" visible="false">
                <image>
@@ -82,17 +72,17 @@
                </image>
             </ImageView>
             <Label fx:id="labFileNo" contentDisplay="CENTER" layoutX="54.0" layoutY="104.0" text="No Attachment" />
-            <Button fx:id="buttFile" disable="true" layoutY="2.0" mnemonicParsing="false" onMouseClicked="#fileClick" opacity="0.0" prefHeight="216.0" prefWidth="190.0" text="Button" />
+            <Button fx:id="buttFile" disable="true" layoutY="5.0" mnemonicParsing="false" onMouseClicked="#fileClick" opacity="0.0" prefHeight="213.0" prefWidth="190.0" text="Button" />
          </children>
       </AnchorPane>
-      <Label fx:id="labFile" contentDisplay="CENTER" layoutX="996.0" layoutY="365.0" prefHeight="13.0" prefWidth="190.0" text="FileName.pdf">
+      <Label fx:id="labFile" contentDisplay="CENTER" layoutX="996.0" layoutY="381.0" prefHeight="13.0" prefWidth="190.0" text="FileName.pdf">
          <font>
             <Font size="9.0" />
          </font>
       </Label>
       <Circle fx:id="mdot" fill="#ff3737" layoutX="1078.0" layoutY="43.0" radius="8.0" stroke="TRANSPARENT" strokeType="INSIDE" />
       <Circle fx:id="ndot" fill="#ff3737" layoutX="1121.0" layoutY="43.0" radius="8.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-      <AnchorPane fx:id="paneLog" layoutX="896.0" prefHeight="120.0" prefWidth="304.0" style="-fx-background-color: #D6DAC8 #D6DAC8;">
+      <AnchorPane fx:id="paneLog" layoutX="896.0" prefHeight="120.0" prefWidth="304.0" style="-fx-background-color: #D6DAC8 #D6DAC8;" visible="false">
          <children>
             <Label fx:id="labName" alignment="TOP_LEFT" contentDisplay="RIGHT" layoutX="27.0" layoutY="29.0" text="Name" textAlignment="RIGHT" wrapText="true">
                <font>

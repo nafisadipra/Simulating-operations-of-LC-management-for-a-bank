@@ -1,6 +1,7 @@
 package merchant;
 
 import common.lc.Product;
+import common.prompt.Prompt;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -399,18 +400,10 @@ public class MerchandiseController implements Initializable {
                 table.getItems().setAll(productList);
 
             } catch (NumberFormatException e) {
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Quantity & Price must be an integer.");
-                alert.showAndWait();
+                (new Prompt()).getAlert("Quantity & Price must be an integer.", "error");
             }
         } else {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Please fill in all fields.");
-            alert.showAndWait();
+            (new Prompt()).getAlert("Please fill in all fields.", "error");
         }
 
     }

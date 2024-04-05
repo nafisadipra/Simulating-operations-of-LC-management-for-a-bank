@@ -25,6 +25,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -70,6 +72,10 @@ public class MessageController implements Initializable {
     private Circle mdot;
     @FXML
     private Circle ndot;
+    @FXML
+    private ComboBox<String> filterComb;
+    @FXML
+    private Button createID1;
 
     /**
      * Initializes the controller class.
@@ -147,6 +153,11 @@ public class MessageController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+        
+        // filter
+        String[] filterList = {"Inbox", "Outbox"};
+        filterComb.getItems().setAll(filterList);
+        filterComb.setValue(filterList[0]);
     }
 
     @FXML
@@ -400,7 +411,7 @@ public class MessageController implements Initializable {
             Parent root = loader.load();
 
             ComposeController controller = loader.getController();
-            controller.initData(user, email, sanData);
+            controller.initData(user, email, sanData, "", "");
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
@@ -428,6 +439,10 @@ public class MessageController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void filterClick(MouseEvent event) {
     }
 
 }

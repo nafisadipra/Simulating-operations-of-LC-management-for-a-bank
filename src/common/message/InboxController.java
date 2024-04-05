@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -44,8 +43,6 @@ public class InboxController implements Initializable {
 
     @FXML
     private AnchorPane paneSide;
-    @FXML
-    private TextArea areaSend;
     @FXML
     private TextArea areaMessage;
     @FXML
@@ -423,6 +420,34 @@ public class InboxController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/signIN/SignINFXML.fxml"));
             Parent root = loader.load();
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
+    private void comClick(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ComposeFXML.fxml"));
+            Parent root = loader.load();
+
+            ComposeController controller = loader.getController();
+            String subjectX = message.getSubject();
+            String subjectY = subjectX;
+            
+            if (-1 == subjectX.toLowerCase().indexOf("reply: ")) {
+                subjectY = "Reply: " + subjectX;
+            } else {
+                subjectY = subjectX;
+            }         
+            controller.initData(user, email, sanData, message.getUser(), subjectY);
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");

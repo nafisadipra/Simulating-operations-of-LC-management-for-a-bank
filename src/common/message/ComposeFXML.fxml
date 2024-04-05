@@ -19,6 +19,11 @@
             <Image url="@../iconFiles/arrow.png" />
          </image>
       </ImageView>
+      <TextArea fx:id="areaSend" layoutX="14.0" layoutY="250.0" prefHeight="283.0" prefWidth="1168.0" style="-fx-border-color: black;">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextArea>
       <Label layoutX="15.0" layoutY="78.0" text="To">
          <font>
             <Font size="21.0" />
@@ -39,11 +44,6 @@
             <Font size="18.0" />
          </font>
       </TextField>
-      <TextArea fx:id="areaSend" layoutX="14.0" layoutY="250.0" prefHeight="283.0" prefWidth="1168.0" style="-fx-border-color: black;">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextArea>
       <Label layoutX="15.0" layoutY="219.0" text="Message">
          <font>
             <Font size="21.0" />

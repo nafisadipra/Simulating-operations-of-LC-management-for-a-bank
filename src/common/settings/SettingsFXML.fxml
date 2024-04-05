@@ -25,7 +25,7 @@
                   <Image url="@../iconFiles/User.png" />
                </image>
             </ImageView>
-            <PasswordField layoutX="156.0" layoutY="83.0" prefHeight="27.0" prefWidth="290.0" promptText="Enter your current password" style="-fx-background-color: white; -fx-border-color: black;" />
+            <PasswordField fx:id="enCurrentPassword" layoutX="156.0" layoutY="83.0" prefHeight="27.0" prefWidth="290.0" promptText="Enter your current password" style="-fx-background-color: white; -fx-border-color: black;" />
             <Label layoutX="14.0" layoutY="84.0" text="Current Password">
                <font>
                   <Font name="System Italic" size="16.0" />

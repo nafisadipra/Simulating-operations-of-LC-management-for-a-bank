@@ -2,6 +2,7 @@ package common.message;
 
 import common.notification.NotificationController;
 import common.number.RandomNumber;
+import common.prompt.Prompt;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -73,6 +74,8 @@ public class ComposeController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    private String recieverX;
+    private String subjectX;
     private ArrayList<Message> mesList;
     private Message message;
     private String attachment = "null";
@@ -87,11 +90,13 @@ public class ComposeController implements Initializable {
     private Label labFile;
 
     // pipeline
-    public void initData(String user, String email, String[] sanData) {
+    public void initData(String user, String email, String[] sanData, String recieverX, String subjectX) {
         // append
         this.user = user;
         this.email = email;
         this.sanData = sanData;
+        this.recieverX = recieverX;
+        this.subjectX = subjectX;
 
         // Generate Random
         this.random = new RandomNumber(8).generate();
@@ -142,6 +147,10 @@ public class ComposeController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+        
+        // passed
+        fieldTo.setText(recieverX);
+        fieldSub.setText(subjectX);
     }
 
     /**
@@ -499,9 +508,12 @@ public class ComposeController implements Initializable {
                 new XDIR(path, location + "/Attachments/" + fileName).copyFile();
                 ;
             }
+            
+            (new Prompt()).getAlert("Email sent!", "information");
+            mailClick(event);
 
         } else {
-            System.out.println("Nope!");
+            (new Prompt()).getAlert("Invalid email!", "error");
         }
     }
 

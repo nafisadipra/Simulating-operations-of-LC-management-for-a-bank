@@ -1,5 +1,6 @@
 package common.settings;
 
+import common.aes.AES;
 import common.notification.*;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
@@ -31,6 +32,7 @@ import java.util.Collections;
 
 // controllers
 import common.message.MessageController;
+import common.prompt.Prompt;
 import common.switcher.GUI;
 import common.writer.Writer;
 import javafx.scene.control.Alert;
@@ -79,6 +81,8 @@ public class SettingsController implements Initializable {
     private PasswordField enNewPassword;
     @FXML
     private PasswordField enConfirmPassword;
+    @FXML
+    private PasswordField enCurrentPassword;
 
     /**
      * Initializes the controller class.
@@ -323,25 +327,42 @@ public class SettingsController implements Initializable {
     private void saveClick(MouseEvent event) {
         int length = enNewPassword.getText().length();
         
-        String error = "Null";
+        if (enCurrentPassword.getText().isEmpty() || enNewPassword.getText().isEmpty() || enConfirmPassword.getText().isEmpty()) {
+            (new Prompt()).getAlert("Fields cannot be empty!", "error");
+            return;
+        }
         
         if (length > 7 && length < 17) {
         } else {
-            error = "New password must contain 8-16 charecters!";
+            (new Prompt()).getAlert("New password must contain 8-16 charecters!", "error");
+            return;
         }
         
         if (enNewPassword.getText().equals(enConfirmPassword.getText())) {
         } else {
-            error = "Confirm password does not match the new password!";
+            (new Prompt()).getAlert("Confirm password does not match the new password!", "error");
+            return;
         }
         
-        if (!error.equals("Null")) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(error);
-            alert.showAndWait();
+        ArrayList <ArrayList<String>> proFetch = (new Reader("Database/User/" + user + "/" + email, "profile.bin")).splitFile('▓');
+        ArrayList <String> data = proFetch.get(0);
+        String password = AES.decrypt(data.get(1));
+        
+        if (password.equals(enNewPassword.getText())) {
+            (new Prompt()).getAlert("This password is already in use!", "error");
+            return;
         }
+
+        if (!password.equals(enCurrentPassword.getText())) {
+            (new Prompt()).getAlert("Current password does not match!", "error");
+        } else {
+            String getNewPassword = enNewPassword.getText();
+            String newPassword = AES.encrypt(getNewPassword);
+            String newData = proFetch.get(0).get(0) + "▓" + newPassword + "▓" + proFetch.get(0).get(2) + "▓" + proFetch.get(0).get(3) + "▓" + proFetch.get(0).get(4) + "▓" + proFetch.get(0).get(5) + "▓";
+            new Writer("Database/User/" + user + "/" + email, "profile.bin", newData).writeFile();
+            (new Prompt()).getAlert("Password updated!", "information");
+        }
+        
     }
 
 }
