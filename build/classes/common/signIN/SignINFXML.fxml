@@ -48,7 +48,7 @@
             <Font size="96.0" />
          </font>
       </Label>
-      <Label layoutX="75.0" layoutY="220.0" prefHeight="291.0" prefWidth="405.0" text="Unlocking Prosperity, Empowering Dreams, LC Bank, where potential gleams. Secure Transactions, Your Trust Our Goal,In the world of finance, we play a leading role. Leverage Confidence, Bank with LC's Soul." textFill="WHITE" wrapText="true">
+      <Label layoutX="75.0" layoutY="220.0" prefHeight="291.0" prefWidth="405.0" text="Unlocking Prosperity, Empowering Dreams, LC Bank, where potential gleams. Secure Transactions, Your Trust Our Goal, In the world of finance, we play a leading role. Leverage Confidence, Bank with LC's Soul." textFill="WHITE" wrapText="true">
          <font>
             <Font size="17.0" />
          </font>

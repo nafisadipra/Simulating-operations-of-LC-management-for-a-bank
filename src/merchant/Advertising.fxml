@@ -48,7 +48,7 @@
             </Label>
             <Button fx:id="reqClick" layoutX="283.0" layoutY="394.0" mnemonicParsing="false" onMouseClicked="#reqClick" prefHeight="28.0" prefWidth="102.0" style="-fx-background-color: black;" text="Request" textFill="WHITE" />
             <ComboBox fx:id="prodCom" layoutX="123.0" layoutY="23.0" prefHeight="25.0" prefWidth="256.0" promptText="Select" style="-fx-border-color: black; -fx-background-color: white;" />
-            <TextArea layoutX="12.0" layoutY="91.0" prefHeight="292.0" prefWidth="373.0" promptText="e.g. MacBook is now on a 50% discount offer! Grab the discount quickly!" style="-fx-border-color: black;" />
+            <TextArea fx:id="areaBrief" layoutX="12.0" layoutY="91.0" prefHeight="292.0" prefWidth="373.0" promptText="e.g. MacBook is now on a 50% discount offer! Grab the discount quickly!" style="-fx-border-color: black;" />
             <Label layoutX="12.0" layoutY="66.0" text="Brief">
                <font>
                   <Font name="System Italic" size="16.0" />

@@ -1,5 +1,8 @@
 package merchant;
 
+import common.advertisement.Advertisement;
+import common.device.Log;
+import common.prompt.Prompt;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -31,6 +34,7 @@ import javax.imageio.ImageIO;
 import common.writer.Writer;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
 
 /**
  * FXML Controller class
@@ -60,21 +64,23 @@ public class AdvertisingController implements Initializable {
     private String email;
     private String[] sanData;
     @FXML
-    private TableView<?> table;
+    private TableView<Advertisement> table;
     @FXML
-    private ComboBox<?> prodCom;
+    private ComboBox<String> prodCom;
     @FXML
-    private TableColumn<?, ?> tprod;
+    private TableColumn<Advertisement, String> tprod;
     @FXML
-    private TableColumn<?, ?> tbrief;
+    private TableColumn<Advertisement, String> tbrief;
     @FXML
-    private TableColumn<?, ?> tstatus;
+    private TableColumn<Advertisement, String> tstatus;
     @FXML
-    private ComboBox<?> filterComb;
+    private ComboBox<String> filterComb;
     @FXML
     private Button createID1;
     @FXML
     private Button reqClick;
+    @FXML
+    private TextArea areaBrief;
 
     /**
      * Initializes the controller class.
@@ -152,7 +158,44 @@ public class AdvertisingController implements Initializable {
 
         // product
         String[] filterList = { "All", "Accepted", "Pending", "Rejected" };
+        filterComb.getItems().setAll(filterList);
+        filterComb.setValue(filterList[0]);
+        
+        ArrayList<ArrayList<String>>productFetch = (new Reader("Database/User/MERCHANT/" + email, "product.bin")).splitFile('▓');
+        ArrayList<String> productList = new ArrayList();
+        
+        for (ArrayList<String> Y : productFetch) {
+            productList.add(Y.get(1) + " - " + Y.get(0));
 
+        }
+        
+        prodCom.getItems().setAll(productList);
+    
+        // advertisement
+        getAdv();
+        
+    }
+    
+    private void getAdv(){
+        ArrayList<Advertisement>advList = new ArrayList();
+        ArrayList <ArrayList<String>> advFetch = (new Reader("Database/Official/ADVERTISEMENT" , "advertisement.bin")).splitFile('▓');
+        
+        if (filterComb.getValue().equals("All")) {
+            for(ArrayList<String> Y:advFetch){
+                advList.add(new Advertisement(Y.get(0), Y.get(1), Y.get(2), Y.get(3)));
+            }
+        } else {
+            for(ArrayList<String> Y:advFetch){
+                if (Y.get(2).equals(filterComb.getValue())) {
+                    advList.add(new Advertisement(Y.get(0), Y.get(1), Y.get(2), Y.get(3)));   
+                }
+            }
+        }
+        
+        tprod.setCellValueFactory(new PropertyValueFactory("product"));
+        tbrief.setCellValueFactory(new PropertyValueFactory("brief"));
+        tstatus.setCellValueFactory(new PropertyValueFactory("status"));
+        table.getItems().setAll(advList);
     }
 
     @FXML
@@ -354,11 +397,23 @@ public class AdvertisingController implements Initializable {
 
     @FXML
     private void filterClick(MouseEvent event) {
+        getAdv();
     }
 
     @FXML
     private void reqClick(MouseEvent event) {
+        if (prodCom.getValue() == null || prodCom.getValue().equals("Select") || areaBrief.getText() == null || areaBrief.getText().isEmpty()) {
+            (new Prompt()).getAlert("Please fill in all fields.", "error");
+            return;
+        }
 
+        if ((new Prompt()).getAlert("Are you sure?", "confirmation").getResult().getText().equals("Cancel")) {
+            return;
+        }
+
+        String advD = prodCom.getValue() + "▓" + areaBrief.getText() + "▓" + "Pending" + "▓";
+        new Writer("Database/Official/ADVERTISEMENT", "advertisement.bin", advD).overWriteFile();
+        (new GUI(user, email, sanData)).advClick(event);
     }
 
 }

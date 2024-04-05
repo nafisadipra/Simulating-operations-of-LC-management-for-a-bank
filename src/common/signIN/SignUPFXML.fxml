@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="common.signIN.SignUPController">
+   <children>
+      <ImageView fitHeight="600.0" fitWidth="1200.0">
+         <image>
+            <Image url="@../iconFiles/pipra2.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="75.0" layoutY="110.0" text="LC Bank" textFill="WHITE">
+         <font>
+            <Font size="96.0" />
+         </font>
+      </Label>
+      <Label layoutX="75.0" layoutY="220.0" prefHeight="291.0" prefWidth="405.0" text="Unlocking Prosperity, Empowering Dreams, LC Bank, where potential gleams. Secure Transactions, Your Trust Our Goal, In the world of finance, we play a leading role. Leverage Confidence, Bank with LC's Soul." textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="218.0" layoutY="220.0" text="Unlocking Global Trades" textFill="#dddddd">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="labWarning" layoutX="1004.0" layoutY="400.0" text="Wrong Credentials !" textFill="#ff6363" visible="false" />
+      <AnchorPane layoutX="521.0" prefHeight="600.0" prefWidth="679.0" style="-fx-background-color: #EEEDEB;">
+         <children>
+            <TextField layoutX="239.0" layoutY="126.0" prefHeight="27.0" prefWidth="416.0" style="-fx-background-color: white; -fx-border-color: black;">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <Label layoutX="21.0" layoutY="126.0" text="Name" textFill="#646464">
+               <font>
+                  <Font name="System Italic" size="26.0" />
+               </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="182.0" text="Phone" textFill="#646464">
+               <font>
+                  <Font name="System Italic" size="26.0" />
+               </font>
+            </Label>
+            <TextField layoutX="239.0" layoutY="182.0" prefHeight="27.0" prefWidth="416.0" style="-fx-background-color: white; -fx-border-color: black;">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <DatePicker layoutX="239.0" layoutY="242.0" prefHeight="39.0" prefWidth="416.0" style="-fx-border-color: black;" />
+            <Label layoutX="20.0" layoutY="242.0" text="Birthday" textFill="#646464">
+               <font>
+                  <Font name="System Italic" size="26.0" />
+               </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="303.0" text="NID" textFill="#646464">
+               <font>
+                  <Font name="System Italic" size="26.0" />
+               </font>
+            </Label>
+            <TextField layoutX="239.0" layoutY="303.0" prefHeight="27.0" prefWidth="416.0" style="-fx-background-color: white; -fx-border-color: black;">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <TextField layoutX="239.0" layoutY="364.0" prefHeight="27.0" prefWidth="416.0" style="-fx-background-color: white; -fx-border-color: black;">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <Label layoutX="20.0" layoutY="364.0" text="Password" textFill="#646464">
+               <font>
+                  <Font name="System Italic" size="26.0" />
+               </font>
+            </Label>
+            <TextField layoutX="239.0" layoutY="424.0" prefHeight="27.0" prefWidth="416.0" style="-fx-background-color: white; -fx-border-color: black;">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <Label layoutX="20.0" layoutY="424.0" text="Confirm Password" textFill="#646464">
+               <font>
+                  <Font name="System Italic" size="26.0" />
+               </font>
+            </Label>
+            <Button layoutX="549.0" layoutY="484.0" mnemonicParsing="false" onAction="#loginButtonAction" prefHeight="41.0" prefWidth="106.0" style="-fx-background-color: black;" text="Register" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Label layoutX="19.0" layoutY="20.0" text="Register as Client" textFill="#646464">
+               <font>
+                  <Font name="System Italic" size="56.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Label layoutX="910.0" layoutY="495.0" text="Already a user? Login">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="910.0" layoutY="493.0" mnemonicParsing="false" onAction="#switchToSignUp" opacity="0.0" prefHeight="25.0" prefWidth="133.0" style="-fx-background-color: black;" text="Button" textFill="WHITE" />
+   </children>
+</AnchorPane>

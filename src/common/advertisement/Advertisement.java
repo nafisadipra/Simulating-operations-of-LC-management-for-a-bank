@@ -1,22 +1,20 @@
-package common.advert;
+package common.advertisement;
 
 /**
  *
  * @author Muyeed
  */
-public class Advert {
+public class Advertisement {
     private String product;
     private String brief;
     private String status;
-    private String from;
-    private String state;
+    private String merchant;
 
-    public Advert(String product, String brief, String status, String from, String state) {
+    public Advertisement(String product, String brief, String status, String merchant) {
         this.product = product;
         this.brief = brief;
         this.status = status;
-        this.from = from;
-        this.state = state;
+        this.merchant = merchant;
     }
 
     public String getProduct() {
@@ -43,25 +41,17 @@ public class Advert {
         this.status = status;
     }
 
-    public String getFrom() {
-        return from;
+    public String getMerchant() {
+        return merchant;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
+    public void setMerchant(String merchant) {
+        this.merchant = merchant;
     }
 
     @Override
     public String toString() {
-        return "Advert{" + "product=" + product + ", brief=" + brief + ", status=" + status + ", from=" + from + ", state=" + state + '}';
+        return "Advert{" + "product=" + product + ", brief=" + brief + ", status=" + status + ", merchant=" + merchant + '}';
     }
-
+    
 }
