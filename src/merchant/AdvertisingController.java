@@ -411,7 +411,7 @@ public class AdvertisingController implements Initializable {
             return;
         }
 
-        String advD = prodCom.getValue() + "▓" + areaBrief.getText() + "▓" + "Pending" + "▓";
+        String advD = prodCom.getValue() + "▓" + areaBrief.getText() + "▓" + "Pending" + "▓" + user + "▓";
         new Writer("Database/Official/ADVERTISEMENT", "advertisement.bin", advD).overWriteFile();
         (new GUI(user, email, sanData)).advClick(event);
     }

@@ -74,6 +74,8 @@ public class MerchantsController implements Initializable {
     private TableColumn<User, String> tphone;
     @FXML
     private TableColumn<User, String> tstate;
+    @FXML
+    private TableColumn<User, String> tcompany;
 
     /**
      * Initializes the controller class.
@@ -155,6 +157,7 @@ public class MerchantsController implements Initializable {
         tphone.setCellValueFactory(new PropertyValueFactory("phone"));
         temail.setCellValueFactory(new PropertyValueFactory("email"));
         tstate.setCellValueFactory(new PropertyValueFactory("state"));
+        tcompany.setCellValueFactory(new PropertyValueFactory("company"));
 
         table.getItems().setAll((new UserList()).getFilterList("Merchant", enEmail.getText()));
     }
@@ -341,6 +344,11 @@ public class MerchantsController implements Initializable {
     }
 
     @FXML
+    private void filterClick(MouseEvent event) {
+        table.getItems().setAll((new UserList()).getFilterList("Merchant", enEmail.getText()));
+    }
+
+    @FXML
     private void userCLick(MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Viewer.fxml"));
@@ -354,8 +362,9 @@ public class MerchantsController implements Initializable {
             String xphone = table.getSelectionModel().getSelectedItem().getPhone();
             String xaddress = table.getSelectionModel().getSelectedItem().getAddress();
             String xstatus = table.getSelectionModel().getSelectedItem().getState();
+            String xcompany = table.getSelectionModel().getSelectedItem().getCompany();
 
-            controller.initData(user, email, sanData, xuser, xname, xemail, xphone, xaddress, xstatus);
+            controller.initData(user, email, sanData, xuser, xname, xemail, xphone, xaddress, xstatus, xcompany);
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
@@ -366,11 +375,6 @@ public class MerchantsController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @FXML
-    private void filterClick(MouseEvent event) {
-        table.getItems().setAll((new UserList()).getFilterList("Merchant", enEmail.getText()));
     }
 
 }

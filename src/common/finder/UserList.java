@@ -26,61 +26,61 @@ public class UserList {
         for (String X: ADMINISTRATOR) {
             ArrayList <ArrayList<String>> proFetch = (new Reader("Database/User/ADMINISTRATOR/" + X, "profile.bin")).splitFile('▓');
             ArrayList <String> data = proFetch.get(0);
-            userList.add(new User(data.get(0), data.get(1), X, data.get(2), data.get(3), data.get(4), "Administrator", data.get(5)));
+            userList.add(new User(data.get(0), data.get(1), X, data.get(2), data.get(3), data.get(4), "Administrator", data.get(5), data.get(6), data.get(7), data.get(8)));
         }
         
         for (String X: CLIENT) {
             ArrayList <ArrayList<String>> proFetch = (new Reader("Database/User/CLIENT/" + X, "profile.bin")).splitFile('▓');
             ArrayList <String> data = proFetch.get(0);
-            userList.add(new User(data.get(0), data.get(1), X, data.get(2), data.get(3), data.get(4), "Client", data.get(5)));
+            userList.add(new User(data.get(0), data.get(1), X, data.get(2), data.get(3), data.get(4), "Client", data.get(5), data.get(6), data.get(7), data.get(8)));
         }
         
         for (String X: COMPLIANCEOFFICER) {
             ArrayList <ArrayList<String>> proFetch = (new Reader("Database/User/COMPLIANCEOFFICER/" + X, "profile.bin")).splitFile('▓');
             ArrayList <String> data = proFetch.get(0);
-            userList.add(new User(data.get(0), data.get(1), X, data.get(2), data.get(3), data.get(4), "Compliance Officer", data.get(5)));
+            userList.add(new User(data.get(0), data.get(1), X, data.get(2), data.get(3), data.get(4), "Compliance Officer", data.get(5), data.get(6), data.get(7), data.get(8)));
         }
         
         for (String X: CREDITANALYST) {
             ArrayList <ArrayList<String>> proFetch = (new Reader("Database/User/CREDITANALYST/" + X, "profile.bin")).splitFile('▓');
             ArrayList <String> data = proFetch.get(0);
-            userList.add(new User(data.get(0), data.get(1), X, data.get(2), data.get(3), data.get(4), "Credit Analyst", data.get(5)));
+            userList.add(new User(data.get(0), data.get(1), X, data.get(2), data.get(3), data.get(4), "Credit Analyst", data.get(5), data.get(6), data.get(7), data.get(8)));
         }
         
         for (String X: GENERALMANAGER) {
             ArrayList <ArrayList<String>> proFetch = (new Reader("Database/User/GENERALMANAGER/" + X, "profile.bin")).splitFile('▓');
             ArrayList <String> data = proFetch.get(0);
-            userList.add(new User(data.get(0), data.get(1), X, data.get(2), data.get(3), data.get(4), "General Manager", data.get(5)));
+            userList.add(new User(data.get(0), data.get(1), X, data.get(2), data.get(3), data.get(4), "General Manager", data.get(5), data.get(6), data.get(7), data.get(8)));
         }
         
         for (String X: ITOFFICER) {
             ArrayList <ArrayList<String>> proFetch = (new Reader("Database/User/ITOFFICER/" + X, "profile.bin")).splitFile('▓');
             ArrayList <String> data = proFetch.get(0);
-            userList.add(new User(data.get(0), data.get(1), X, data.get(2), data.get(3), data.get(4), "IT Officer", data.get(5)));
+            userList.add(new User(data.get(0), data.get(1), X, data.get(2), data.get(3), data.get(4), "IT Officer", data.get(5), data.get(6), data.get(7), data.get(8)));
         }
         
         for (String X: LCOFFICER) {
             ArrayList <ArrayList<String>> proFetch = (new Reader("Database/User/LCOFFICER/" + X, "profile.bin")).splitFile('▓');
             ArrayList <String> data = proFetch.get(0);
-            userList.add(new User(data.get(0), data.get(1), X, data.get(2), data.get(3), data.get(4), "L\\C Officer", data.get(5)));
+            userList.add(new User(data.get(0), data.get(1), X, data.get(2), data.get(3), data.get(4), "L\\C Officer", data.get(5), data.get(6), data.get(7), data.get(8)));
         }
         
         for (String X: MERCHANT) {
             ArrayList <ArrayList<String>> proFetch = (new Reader("Database/User/MERCHANT/" + X, "profile.bin")).splitFile('▓');
             ArrayList <String> data = proFetch.get(0);
-            userList.add(new User(data.get(0), data.get(1), X, data.get(2), data.get(3), data.get(4), "Merchant", data.get(5)));
+            userList.add(new User(data.get(0), data.get(1), X, data.get(2), data.get(3), data.get(4), "Merchant", data.get(5), data.get(6), data.get(7), data.get(8)));
         }
         
         for (String X: REPORTINGOFFICER) {
             ArrayList <ArrayList<String>> proFetch = (new Reader("Database/User/REPORTINGOFFICER/" + X, "profile.bin")).splitFile('▓');
             ArrayList <String> data = proFetch.get(0);
-            userList.add(new User(data.get(0), data.get(1), X, data.get(2), data.get(3), data.get(4), "Reporting Officer", data.get(5)));
+            userList.add(new User(data.get(0), data.get(1), X, data.get(2), data.get(3), data.get(4), "Reporting Officer", data.get(5), data.get(6), data.get(7), data.get(8)));
         }
         
         for (String X: SALESREPRESENTATIVE) {
             ArrayList <ArrayList<String>> proFetch = (new Reader("Database/User/SALESREPRESENTATIVE/" + X, "profile.bin")).splitFile('▓');
             ArrayList <String> data = proFetch.get(0);
-            userList.add(new User(data.get(0), data.get(1), X, data.get(2), data.get(3), data.get(4), "Sales Representative", data.get(5)));
+            userList.add(new User(data.get(0), data.get(1), X, data.get(2), data.get(3), data.get(4), "Sales Representative", data.get(5), data.get(6), data.get(7), data.get(8)));
         }
         
         return userList;

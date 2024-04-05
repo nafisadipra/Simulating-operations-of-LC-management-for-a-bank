@@ -29,6 +29,8 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 
 /**
  * FXML Controller class
@@ -57,6 +59,10 @@ public class RequestsController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    @FXML
+    private ComboBox<?> filterComb;
+    @FXML
+    private Button createID1;
 
     /**
      * Initializes the controller class.
@@ -312,6 +318,10 @@ public class RequestsController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void filterClick(MouseEvent event) {
     }
 
 }

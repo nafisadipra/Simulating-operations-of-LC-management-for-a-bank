@@ -254,8 +254,6 @@ public class FeedbackController implements Initializable {
 
     @FXML
     private void notClick(MouseEvent event) {
-        ndot.setVisible(false);
-
         if (ndot.isVisible() == true) {
             ArrayList<ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email,
                     "notification.bin")).splitFile('▓');
@@ -265,6 +263,22 @@ public class FeedbackController implements Initializable {
             new Writer("Database/User/" + user + "/" + email, "dot.bin", notNum).writeFile();
         }
 
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/notification/NotificationFXML.fxml"));
+            Parent root = loader.load();
+
+            common.notification.NotificationController controller = loader.getController();
+            controller.initData(user, email, sanData);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

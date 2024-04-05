@@ -65,6 +65,7 @@ public class ViewerController implements Initializable {
     private String xaddress;
     private String xphone;
     private String xtype;
+    private String xcompany;
     @FXML
     private ImageView imageView;
     @FXML
@@ -81,6 +82,8 @@ public class ViewerController implements Initializable {
     private Label labCardName;
     @FXML
     private Label labUserName;
+    @FXML
+    private TextField enCompany;
 
     /**
      * Initializes the controller class.
@@ -92,7 +95,7 @@ public class ViewerController implements Initializable {
 
     // pipeline
     public void initData(String user, String email, String[] sanData, String xuser, String xname, String xemail,
-            String xphone, String xaddress, String xstatus) {
+            String xphone, String xaddress, String xstatus, String xcompany) {
         // append
         this.user = user;
         this.email = email;
@@ -103,6 +106,7 @@ public class ViewerController implements Initializable {
         this.xphone = xphone;
         this.xaddress = xaddress;
         this.xstatus = xstatus;
+        this.xcompany = xcompany;
 
         // Side Panel
         ArrayList<Sandwich> sanList = new ArrayList();
@@ -170,6 +174,7 @@ public class ViewerController implements Initializable {
         enStatus.setText(xstatus);
         labUserName.setText(xname);
         labCardName.setText(xname);
+        enCompany.setText(xcompany);
 
         switch (xstatus) {
             case "Active":

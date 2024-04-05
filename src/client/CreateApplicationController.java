@@ -211,7 +211,7 @@ public class CreateApplicationController implements Initializable {
         for (String X : companyFetch) {
             ArrayList<ArrayList<String>> nameFetch = (new Reader("Database/User/MERCHANT/" + X, "profile.bin"))
                     .splitFile('▓');
-            exList.add(nameFetch.get(0).get(0));
+            exList.add(nameFetch.get(0).get(8));
 
         }
 
@@ -461,7 +461,7 @@ public class CreateApplicationController implements Initializable {
             ArrayList<ArrayList<String>> nameFetch = (new Reader("Database/User/MERCHANT/" + X, "profile.bin"))
                     .splitFile('▓');
 
-            if (merComb.getValue().equals(nameFetch.get(0).get(0))) {
+            if (merComb.getValue().equals(nameFetch.get(0).get(8))) {
                 this.Xemail = X;
             }
 

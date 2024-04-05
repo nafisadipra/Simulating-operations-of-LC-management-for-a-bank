@@ -28,10 +28,11 @@
       <TableView fx:id="table" layoutX="15.0" layoutY="156.0" onMouseClicked="#userCLick" prefHeight="432.0" prefWidth="1170.0" style="-fx-border-color: black;">
          <columns>
             <TableColumn fx:id="ttype" prefWidth="141.0" text="Type" />
-            <TableColumn fx:id="tname" prefWidth="318.0" text="Name" />
-            <TableColumn fx:id="temail" prefWidth="370.0" text="Email" />
-            <TableColumn fx:id="tphone" minWidth="0.0" prefWidth="228.0" text="Phone" />
-            <TableColumn fx:id="tstate" prefWidth="110.0" text="State" />
+            <TableColumn fx:id="tname" prefWidth="230.0" text="Name" />
+            <TableColumn fx:id="tcompany" prefWidth="202.0" text="Company" />
+            <TableColumn fx:id="temail" minWidth="0.0" prefWidth="280.0" text="Email" />
+            <TableColumn fx:id="tphone" prefWidth="184.0" text="Phone" />
+            <TableColumn fx:id="tstate" prefWidth="128.0" text="State" />
          </columns>
       </TableView>
       <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;" visible="false">
