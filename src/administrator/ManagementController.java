@@ -394,7 +394,7 @@ public class ManagementController implements Initializable {
                 .splitFile('▓');
         ArrayList<String> fdata = proFetch.get(0);
         String sdata = fdata.get(0) + '▓' + fdata.get(1) + '▓' + fdata.get(2) + '▓' + fdata.get(3) + '▓' + fdata.get(4)
-                + '▓' + status + '▓';
+                + '▓' + status + '▓' + fdata.get(6) + '▓' + fdata.get(7) + '▓' + fdata.get(8) + '▓';
         new Writer("Database/User/" + xtype + "/" + xemail, "profile.bin", sdata).writeFile();
     }
 

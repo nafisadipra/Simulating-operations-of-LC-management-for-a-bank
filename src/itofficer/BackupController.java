@@ -1,5 +1,7 @@
 package itofficer;
 
+import common.device.Force;
+import common.prompt.Prompt;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -29,6 +31,17 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import common.zipper.Compress;
+import common.zipper.Decompress;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 /**
  * FXML Controller class
@@ -57,6 +70,14 @@ public class BackupController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    @FXML
+    private TextField enB;
+    @FXML
+    private TextField enR;
+    @FXML
+    private Button rButt;
+    @FXML
+    private TextArea areaLog;
 
     /**
      * Initializes the controller class.
@@ -131,6 +152,7 @@ public class BackupController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+        
     }
 
     @FXML
@@ -323,6 +345,81 @@ public class BackupController implements Initializable {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void backupClick(MouseEvent event) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        System.setOut((new PrintStream(baos)));
+        
+        if (!enB.getText().isEmpty()) {
+            if ((new Prompt()).getAlert("Are you sure to create backup?", "confirmation").getResult().getText().equals("Cancel")) {
+                return;
+            }
+            if (new Compress().run(enB.getText()) == true) {
+                String myData = "LC Bank Console v1.2.7 @Author Muyeed\n";
+                areaLog.setText(myData + baos.toString());
+                (new Prompt()).getAlert("Backup was successful!", "information");
+            } else {
+                (new Prompt()).getAlert("Error while creating backup!", "warning");
+            }
+            
+        } else {
+            (new Prompt()).getAlert("Please select output destination!", "error");
+        }
+    }
+
+    @FXML
+    private void restoreClick(MouseEvent event) {
+        (new Force()).deleteFolder("Database");
+        
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        System.setOut((new PrintStream(baos)));
+        
+        if (!enR.getText().isEmpty()) {
+            if ((new Prompt()).getAlert("Warning: previous data will be erased!\nAre you sure?", "confirmation").getResult().getText().equals("Cancel")) {
+                return;
+            }
+            if (new Decompress().run(enR.getText()) == true) {
+                String myData = "LC Bank Console v1.2.7 @Author Muyeed\n";
+                areaLog.setText(myData + baos.toString());
+                (new Prompt()).getAlert("Restore was successful!", "information");
+            } else {
+                (new Prompt()).getAlert("Error while restoring!", "warning");
+            }
+            
+        } else {
+            (new Prompt()).getAlert("Please select Database.zip!", "error");
+        }
+    }
+
+    @FXML
+    private void bClick(MouseEvent event) {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Output Folder");
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        File selectedDirectory = directoryChooser.showDialog(stage);
+
+        if (selectedDirectory != null) {
+            enB.setText(selectedDirectory.getAbsolutePath());
+        }
+    }
+
+    @FXML
+    private void rClick(MouseEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Backup File");
+
+        ExtensionFilter extFilter = new ExtensionFilter("ZIP files (*.zip)", "*.zip");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        File selectedFile = fileChooser.showOpenDialog(stage);
+
+        if (selectedFile != null) {
+            enR.setText(selectedFile.getAbsolutePath());
         }
     }
 

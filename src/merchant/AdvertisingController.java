@@ -403,7 +403,7 @@ public class AdvertisingController implements Initializable {
     @FXML
     private void reqClick(MouseEvent event) {
         if (prodCom.getValue() == null || prodCom.getValue().equals("Select") || areaBrief.getText() == null || areaBrief.getText().isEmpty()) {
-            (new Prompt()).getAlert("Please fill in all fields.", "error");
+            (new Prompt()).getAlert("Please fill in all fields!", "error");
             return;
         }
 

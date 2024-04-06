@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,7 +14,64 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #EEEDEB;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="itofficer.BackupController">
    <children>
-      <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;">
+      <Label layoutX="15.0" layoutY="40.0" text="Backup &amp; Recovery">
+         <font>
+            <Font size="44.0" />
+         </font>
+      </Label>
+      <Label layoutX="16.0" layoutY="108.0" text="Create Backup">
+         <font>
+            <Font name="System Italic" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="608.0" layoutY="108.0" text="Restore Database">
+         <font>
+            <Font name="System Italic" size="18.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="16.0" layoutY="144.0" prefHeight="139.0" prefWidth="578.0" style="-fx-border-color: black; -fx-background-color: white;">
+         <children>
+            <TextField fx:id="enB" editable="false" layoutX="51.0" layoutY="34.0" prefHeight="27.0" prefWidth="510.0" style="-fx-background-color: white; -fx-border-color: black;">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </TextField>
+            <Label layoutX="14.0" layoutY="14.0" text="Destination">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Button layoutX="14.0" layoutY="35.0" mnemonicParsing="false" onMouseClicked="#bClick" style="-fx-background-color: white; -fx-border-color: black;" text="..." />
+            <Button layoutX="406.0" layoutY="81.0" mnemonicParsing="false" onMouseClicked="#backupClick" prefHeight="34.0" prefWidth="155.0" style="-fx-background-color: black;" text="Backup" textFill="WHITE" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="608.0" layoutY="144.0" prefHeight="139.0" prefWidth="578.0" style="-fx-border-color: black; -fx-background-color: white;">
+         <children>
+            <TextField fx:id="enR" editable="false" layoutX="51.0" layoutY="34.0" prefHeight="27.0" prefWidth="510.0" style="-fx-background-color: white; -fx-border-color: black;">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </TextField>
+            <Label layoutX="14.0" layoutY="14.0" text="Destination">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Button fx:id="rButt" layoutX="14.0" layoutY="35.0" mnemonicParsing="false" onMouseClicked="#rClick" style="-fx-background-color: white; -fx-border-color: black;" text="..." />
+            <Button layoutX="406.0" layoutY="81.0" mnemonicParsing="false" onMouseClicked="#restoreClick" prefHeight="34.0" prefWidth="155.0" style="-fx-background-color: black;" text="Restore" textFill="WHITE" />
+         </children>
+      </AnchorPane>
+      <TextArea fx:id="areaLog" editable="false" layoutX="16.0" layoutY="336.0" prefHeight="243.0" prefWidth="1168.0" style="-fx-text-fill: #397302;">
+         <font>
+            <Font name="Monospaced Regular" size="12.0" />
+         </font>
+      </TextArea>
+      <Label layoutX="16.0" layoutY="300.0" text="Output Logs">
+         <font>
+            <Font name="System Italic" size="18.0" />
+         </font>
+      </Label>
+      <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;" visible="false">
          <children>
             <TableView fx:id="tableSide" layoutX="12.0" layoutY="8.0" onMouseClicked="#windowClick" prefHeight="588.0" prefWidth="265.0" style="-fx-background-color: #9AD0C2; -fx-base: #9AD0C2; -fx-font-size: 25;">
                <columns>
@@ -39,7 +98,7 @@
       </ImageView>
       <Circle fx:id="mdot" fill="#ff3737" layoutX="1078.0" layoutY="43.0" radius="8.0" stroke="TRANSPARENT" strokeType="INSIDE" />
       <Circle fx:id="ndot" fill="#ff3737" layoutX="1121.0" layoutY="43.0" radius="8.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-      <AnchorPane fx:id="paneLog" layoutX="896.0" prefHeight="120.0" prefWidth="304.0" style="-fx-background-color: #D6DAC8;">
+      <AnchorPane fx:id="paneLog" layoutX="896.0" prefHeight="120.0" prefWidth="304.0" style="-fx-background-color: #D6DAC8;" visible="false">
          <children>
             <Label fx:id="labName" alignment="TOP_LEFT" contentDisplay="RIGHT" layoutX="27.0" layoutY="29.0" text="Name" textAlignment="RIGHT" wrapText="true">
                <font>
