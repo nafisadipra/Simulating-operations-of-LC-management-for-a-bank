@@ -33,7 +33,7 @@ import common.writer.Writer;
 /**
  * FXML Controller class
  *
- * @author Muyeed
+ * @author Ishrak
  */
 public class AnalyticsController implements Initializable {
 

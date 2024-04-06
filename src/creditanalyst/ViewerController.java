@@ -34,7 +34,7 @@ import javafx.scene.control.TextField;
 /**
  * FXML Controller class
  *
- * @author Muyeed
+ * @author Ishrak
  */
 public class ViewerController implements Initializable {
 

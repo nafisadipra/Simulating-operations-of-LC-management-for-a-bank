@@ -34,7 +34,7 @@ import javafx.scene.control.ComboBox;
 /**
  * FXML Controller class
  *
- * @author Muyeed
+ * @author Ishrak
  */
 public class InvoiceController implements Initializable {
 
