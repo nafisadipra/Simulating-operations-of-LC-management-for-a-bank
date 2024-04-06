@@ -29,6 +29,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.control.ComboBox;
 
 /**
  * FXML Controller class
@@ -57,6 +58,8 @@ public class ReportsController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    @FXML
+    private ComboBox<String> userSelectReport;
 
     /**
      * Initializes the controller class.
@@ -131,7 +134,11 @@ public class ReportsController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+        //combo box 
+        String[] selecUser ={"User","Transaction","Maintenance"};
+        userSelectReport.getItems().addAll(selecUser); 
     }
+    
 
     @FXML
     private void sandAction(MouseEvent event) {
@@ -324,6 +331,10 @@ public class ReportsController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void filterClick(MouseEvent event) {
     }
 
 }

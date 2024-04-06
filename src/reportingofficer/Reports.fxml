@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -54,6 +55,19 @@
             <Image url="@../common/iconFiles/User.png" />
          </image>
       </ImageView>
+      <Button fx:id="createReport" layoutX="324.0" layoutY="120.0" mnemonicParsing="false" onMouseClicked="#filterClick" prefHeight="28.0" prefWidth="125.0" style="-fx-background-color: black;" text="Create Report" textFill="WHITE" />
+      <ComboBox fx:id="userSelectReport" layoutX="106.0" layoutY="120.0" prefHeight="27.0" prefWidth="202.0" promptText="                        Select " style="-fx-border-color: black; -fx-background-color: white;" />
+      <Label layoutX="13.0" layoutY="41.0" prefHeight="37.0" prefWidth="172.0" text="Reports">
+         <font>
+            <Font size="44.0" />
+         </font>
+      </Label>
+      <TableView layoutX="28.0" layoutY="163.0" prefHeight="423.0" prefWidth="1144.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
       
    </children>
 </AnchorPane>
