@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 /**^
  *
- * @author Muyeed
+ * @author Ishrak
  */
 public class SceneView extends Application {
     

@@ -34,7 +34,7 @@ import javafx.scene.control.ComboBox;
 /**
  * FXML Controller class
  *
- * @author Muyeed
+ * @author Ishrak
  */
 public class InvoiceController implements Initializable {
 
@@ -59,15 +59,19 @@ public class InvoiceController implements Initializable {
     private String email;
     private String[] sanData;
     @FXML
-    private ComboBox<String> stateBox;
+    private ComboBox<String> userSelect;
     @FXML
-    private ComboBox<String> userBox;
+    private ComboBox<String> stateSelectBox;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        String[] setUser = {"All","Client","Merchant"};
+        String[] setState = {"All","Pending","Previous"};
+        userSelect.getItems().addAll(setUser);
+        stateSelectBox.getItems().addAll(setState);
 
     }
 
@@ -136,6 +140,10 @@ public class InvoiceController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+        //combo box initiallize
+
+        
+        
     }
 
     @FXML
@@ -329,6 +337,10 @@ public class InvoiceController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void filterOnClick(MouseEvent event) {
     }
 
 }

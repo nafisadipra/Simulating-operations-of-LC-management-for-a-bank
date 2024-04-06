@@ -29,11 +29,13 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 
 /**
  * FXML Controller class
  *
- * @author Muyeed
+ * @author Ishrak
  */
 public class ReportsController implements Initializable {
 
@@ -57,6 +59,10 @@ public class ReportsController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    @FXML
+    private ComboBox<String> userSelectReport;
+    @FXML
+    private Button createReport;
 
     /**
      * Initializes the controller class.
@@ -131,7 +137,11 @@ public class ReportsController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+        //combo box 
+        String[] selecUser ={"User","Transaction","Maintenance"};
+        userSelectReport.getItems().addAll(selecUser); 
     }
+    
 
     @FXML
     private void sandAction(MouseEvent event) {
@@ -308,7 +318,6 @@ public class ReportsController implements Initializable {
     private void settClick(MouseEvent event) {
 
     }
-
     @FXML
     private void outClick(MouseEvent event) {
         try {
@@ -324,6 +333,29 @@ public class ReportsController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void reportCreateBtn(MouseEvent event) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ReportMake.fxml"));
+            Parent root = loader.load();
+
+            reportingofficer.ReportMakeController controller = loader.getController();
+            controller.initData(user, email, sanData);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        
     }
 
 }
