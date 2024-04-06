@@ -15,8 +15,10 @@
    <children>
       <TableView layoutX="36.0" layoutY="173.0" prefHeight="403.0" prefWidth="1128.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn prefWidth="363.0" text="Type" />
+          <TableColumn minWidth="0.0" prefWidth="422.0" text="Invoice" />
+            <TableColumn prefWidth="169.0" text="Date" />
+            <TableColumn prefWidth="173.0" text="Time" />
         </columns>
       </TableView>
       <Button layoutX="505.0" layoutY="123.0" mnemonicParsing="false" onMouseClicked="#filterOnClick" prefHeight="28.0" prefWidth="102.0" style="-fx-background-color: black;" text="Filter" textFill="WHITE" />

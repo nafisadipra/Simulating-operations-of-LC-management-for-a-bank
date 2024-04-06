@@ -6,6 +6,8 @@
             <file>file:/D:/Java/Simulating-operations-of-LC-management-for-a-bank/src/reportingofficer/ReportMakeController.java</file>
             <file>file:/D:/Java/Simulating-operations-of-LC-management-for-a-bank/src/creditanalyst/MerchantsController.java</file>
             <file>file:/D:/Java/Simulating-operations-of-LC-management-for-a-bank/src/creditanalyst/RequestsController.java</file>
+            <file>file:/D:/Java/Simulating-operations-of-LC-management-for-a-bank/src/common/signIN/SignINController.java</file>
+            <file>file:/D:/Java/Simulating-operations-of-LC-management-for-a-bank/src/common/zipper/Compress.java</file>
             <file>file:/D:/Java/Simulating-operations-of-LC-management-for-a-bank/src/common/feedback/FeedbackFXML.fxml</file>
             <file>file:/D:/Java/Simulating-operations-of-LC-management-for-a-bank/src/creditanalyst/AnalyticsController.java</file>
             <file>file:/D:/Java/Simulating-operations-of-LC-management-for-a-bank/src/creditanalyst/ClientsController.java</file>
@@ -16,9 +18,11 @@
             <file>file:/D:/Java/Simulating-operations-of-LC-management-for-a-bank/src/reportingofficer/InvoiceController.java</file>
             <file>file:/D:/Java/Simulating-operations-of-LC-management-for-a-bank/src/creditanalyst/Dashboard.fxml</file>
             <file>file:/D:/Java/Simulating-operations-of-LC-management-for-a-bank/src/reportingofficer/DashboardController.java</file>
+            <file>file:/D:/Java/Simulating-operations-of-LC-management-for-a-bank/src/merchant/SceneView.java</file>
             <file>file:/D:/Java/Simulating-operations-of-LC-management-for-a-bank/src/reportingofficer/ReportMake.fxml</file>
             <file>file:/D:/Java/Simulating-operations-of-LC-management-for-a-bank/src/common/signIN/SceneView.java</file>
             <file>file:/D:/Java/Simulating-operations-of-LC-management-for-a-bank/src/creditanalyst/PIAnalyticsController.java</file>
+            <file>file:/D:/Java/Simulating-operations-of-LC-management-for-a-bank/src/itofficer/SceneView.java</file>
             <file>file:/D:/Java/Simulating-operations-of-LC-management-for-a-bank/src/creditanalyst/SceneView.java</file>
             <file>file:/D:/Java/Simulating-operations-of-LC-management-for-a-bank/src/creditanalyst/ViewerController.java</file>
             <file>file:/D:/Java/Simulating-operations-of-LC-management-for-a-bank/src/reportingofficer/SceneView.java</file>
