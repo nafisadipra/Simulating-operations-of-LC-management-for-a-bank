@@ -1,5 +1,6 @@
 package administrator;
 
+import common.device.Force;
 import common.finder.Tree;
 import common.finder.UserList;
 import common.reader.Reader;
@@ -420,7 +421,6 @@ public class ManagementController implements Initializable {
         table.getItems().setAll((new UserList()).getFilterList(comFilter.getValue(), enEmail.getText()));
     }
 
-    @FXML
     private void deleteClick(MouseEvent event) {
         String xtype = table.getSelectionModel().getSelectedItem().getType();
         String xemail = table.getSelectionModel().getSelectedItem().getEmail();
@@ -465,7 +465,8 @@ public class ManagementController implements Initializable {
         for (String X : fileData) {
             (new File("Database/User/" + xtype + "/" + xemail + "/" + X)).delete();
         }
-        (new File("Database/User/" + xtype + "/" + xemail)).delete();
+        
+        new Force().deleteFolder("Database/User/" + xtype + "/" + xemail);
 
         table.getItems().clear();
         table.getItems().setAll((new UserList()).getFilterList(comFilter.getValue(), enEmail.getText()));

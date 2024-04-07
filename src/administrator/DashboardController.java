@@ -1,5 +1,6 @@
 package administrator;
 
+import common.finder.UserList;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -29,6 +30,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.chart.PieChart;
 
 /**
  * FXML Controller class
@@ -53,6 +55,8 @@ public class DashboardController implements Initializable {
     private Circle mdot;
     @FXML
     private Circle ndot;
+    @FXML
+    private PieChart userPieChart;
 
     private String user;
     private String email;
@@ -131,6 +135,56 @@ public class DashboardController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+        
+        // dashboard
+        userPieChart.getData().clear();
+        
+        ArrayList<ArrayList<String>> userList = (new UserList()).get2DList();
+        
+        int i = 0;
+        String cuser = "";
+        for (ArrayList<String> X: userList) {
+            
+            switch (i) {
+                case 0:
+                    cuser = "Administrator";
+                    break;
+                case 1:
+                    cuser = "Client";
+                    break;
+                case 2:
+                    cuser = "Compliance";
+                    break;
+                case 3:
+                    cuser = "Credit Analyst";
+                    break;
+                case 4:
+                    cuser = "General Manager";
+                    break;
+                case 5:
+                    cuser = "IT Officer";
+                    break;
+                case 6:
+                    cuser = "LC Officer";
+                    break;
+                case 7:
+                    cuser = "Merchant";
+                    break;
+                case 8:
+                    cuser = "Reporting Officer";
+                    break;
+                case 9:
+                    cuser = "Sales Representative";
+                    break;
+                default:
+                    break;
+            }
+            
+            i += 1;
+            
+            userPieChart.getData().add(new PieChart.Data(cuser, X.size()));
+        }
+        
     }
 
     @FXML

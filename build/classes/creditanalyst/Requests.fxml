@@ -12,11 +12,11 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #EEEDEB;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="creditanalyst.RequestsController">
    <children>
-      <TableView layoutX="274.0" layoutY="116.0" prefHeight="368.0" prefWidth="653.0">
+      <TableView layoutX="8.0" layoutY="169.0" prefHeight="368.0" prefWidth="1185.0">
         <columns>
-          <TableColumn minWidth="0.0" prefWidth="228.0" text="PI Request" />
-            <TableColumn minWidth="0.0" prefWidth="193.0" text="Date" />
-            <TableColumn minWidth="0.0" prefWidth="231.0" text="Time" />
+          <TableColumn minWidth="0.0" prefWidth="675.0" text="PI Request" />
+            <TableColumn minWidth="0.0" prefWidth="222.0" text="Time" />
+            <TableColumn minWidth="0.0" prefWidth="287.0" text="Date" />
         </columns>
       </TableView>
       <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;" visible="false">
@@ -61,6 +61,11 @@
             <Image url="@../common/iconFiles/User.png" />
          </image>
       </ImageView>
+      <Label layoutX="13.0" layoutY="43.0" prefHeight="65.0" prefWidth="181.0" text="Requests">
+         <font>
+            <Font size="44.0" />
+         </font>
+      </Label>
       
    </children>
 </AnchorPane>

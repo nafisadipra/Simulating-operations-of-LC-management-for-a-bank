@@ -103,4 +103,32 @@ public class UserList {
         
     }
     
+    public ArrayList<ArrayList<String>> get2DList() {
+        ArrayList<ArrayList<String>> userList = new ArrayList();
+        
+        ArrayList <String> ADMINISTRATOR = (new Tree("Database/User/ADMINISTRATOR")).view();
+        ArrayList <String> CLIENT = (new Tree("Database/User/CLIENT")).view();
+        ArrayList <String> COMPLIANCEOFFICER = (new Tree("Database/User/COMPLIANCEOFFICER")).view();
+        ArrayList <String> CREDITANALYST = (new Tree("Database/User/CREDITANALYST")).view();
+        ArrayList <String> GENERALMANAGER = (new Tree("Database/User/GENERALMANAGER")).view();
+        ArrayList <String> ITOFFICER = (new Tree("Database/User/ITOFFICER")).view();
+        ArrayList <String> LCOFFICER = (new Tree("Database/User/LCOFFICER")).view();
+        ArrayList <String> MERCHANT = (new Tree("Database/User/MERCHANT")).view();
+        ArrayList <String> REPORTINGOFFICER = (new Tree("Database/User/REPORTINGOFFICER")).view();
+        ArrayList <String> SALESREPRESENTATIVE = (new Tree("Database/User/SALESREPRESENTATIVE")).view();
+        
+        userList.add(ADMINISTRATOR);
+        userList.add(CLIENT);
+        userList.add(COMPLIANCEOFFICER);
+        userList.add(CREDITANALYST);
+        userList.add(GENERALMANAGER);
+        userList.add(ITOFFICER);
+        userList.add(LCOFFICER);
+        userList.add(MERCHANT);
+        userList.add(REPORTINGOFFICER);
+        userList.add(SALESREPRESENTATIVE);
+        
+        return userList;
+    }
+    
 }

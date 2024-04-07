@@ -39,11 +39,10 @@
       <AnchorPane layoutX="827.0" layoutY="300.0" prefHeight="288.0" prefWidth="359.0" style="-fx-border-color: black;">
          <children>
             <Button layoutX="21.0" layoutY="23.0" mnemonicParsing="false" onMouseClicked="#banClick" prefHeight="50.0" prefWidth="151.0" style="-fx-background-color: #ffa069; -fx-border-color: black;" text="Ban" />
-            <Button layoutX="21.0" layoutY="84.0" mnemonicParsing="false" onMouseClicked="#restrictClick" prefHeight="50.0" prefWidth="151.0" style="-fx-background-color: #ffe869; -fx-border-color: black;" text="Restrict" />
+            <Button layoutX="21.0" layoutY="90.0" mnemonicParsing="false" onMouseClicked="#restrictClick" prefHeight="50.0" prefWidth="151.0" style="-fx-background-color: #ffe869; -fx-border-color: black;" text="Restrict" />
             <Button layoutX="187.0" layoutY="23.0" mnemonicParsing="false" onMouseClicked="#unbanClick" prefHeight="50.0" prefWidth="151.0" style="-fx-background-color: #37ff80; -fx-border-color: black;" text="Active" />
-            <Button layoutX="187.0" layoutY="84.0" mnemonicParsing="false" onMouseClicked="#deleteClick" prefHeight="50.0" prefWidth="151.0" style="-fx-background-color: #ff697d; -fx-border-color: black;" text="Delete" />
-            <Button layoutX="21.0" layoutY="148.0" mnemonicParsing="false" onMouseClicked="#editClick" prefHeight="50.0" prefWidth="317.0" style="-fx-background-color: #aaa6ff; -fx-border-color: black;" text="Edit" />
-            <Button layoutX="21.0" layoutY="211.0" mnemonicParsing="false" onMouseClicked="#createClick" prefHeight="50.0" prefWidth="317.0" style="-fx-background-color: #5ce4ff; -fx-border-color: black;" text="Create User" />
+            <Button layoutX="187.0" layoutY="90.0" mnemonicParsing="false" onMouseClicked="#editClick" prefHeight="50.0" prefWidth="151.0" style="-fx-background-color: #aaa6ff; -fx-border-color: black;" text="Edit" />
+            <Button layoutX="21.0" layoutY="157.0" mnemonicParsing="false" onMouseClicked="#createClick" prefHeight="50.0" prefWidth="317.0" style="-fx-background-color: #5ce4ff; -fx-border-color: black;" text="Create User" />
          </children>
       </AnchorPane>
       <TableView fx:id="table" layoutX="15.0" layoutY="109.0" prefHeight="479.0" prefWidth="796.0" style="-fx-border-color: black;">
