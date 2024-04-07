@@ -328,7 +328,7 @@ public class FeedbackController implements Initializable {
     }
 
     @FXML
-    private void sendClick(MouseEvent event) {
+    private void submitClick(MouseEvent event) {
     }
 
 }

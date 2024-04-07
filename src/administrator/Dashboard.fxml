@@ -18,7 +18,62 @@
             <Font size="44.0" />
          </font>
       </Label>
-      <PieChart fx:id="userPieChart" layoutX="15.0" layoutY="100.0" />
+      <PieChart fx:id="userPieChart" layoutX="15.0" layoutY="146.0" prefHeight="441.0" prefWidth="605.0" style="-fx-border-color: gray; -fx-background-color: white;" />
+      <Label layoutX="15.0" layoutY="115.0" text="User Chart" textFill="#616161">
+         <font>
+            <Font name="System Italic" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="632.0" layoutY="115.0" text="User Overview" textFill="#616161">
+         <font>
+            <Font name="System Italic" size="22.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="632.0" layoutY="147.0" prefHeight="80.0" prefWidth="556.0" style="-fx-background-color: white; -fx-border-color: gray;">
+         <children>
+            <Label fx:id="labCli" layoutX="14.0" layoutY="20.0" text="CLIENTS   : 100" textFill="#007e80">
+               <font>
+                  <Font name="Monospaced Regular" size="34.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="632.0" layoutY="227.0" prefHeight="80.0" prefWidth="556.0" style="-fx-background-color: white; -fx-border-color: gray;">
+         <children>
+            <Label fx:id="labMer" layoutX="14.0" layoutY="20.0" text="MERCHANTS : 100" textFill="#5300bd">
+               <font>
+                  <Font name="Monospaced Regular" size="34.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="632.0" layoutY="307.0" prefHeight="80.0" prefWidth="556.0" style="-fx-background-color: white; -fx-border-color: gray;">
+         <children>
+            <Label fx:id="labOff" layoutX="14.0" layoutY="20.0" text="EMPLOYEES : 100" textFill="#b24d00">
+               <font>
+                  <Font name="Monospaced Regular" size="34.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="632.0" layoutY="427.0" prefHeight="80.0" prefWidth="556.0" style="-fx-background-color: black; -fx-border-color: gray;">
+         <children>
+            <Label fx:id="labLog" layoutX="14.0" layoutY="20.0" text="LOGINS    : 100" textFill="#b7d5ff">
+               <font>
+                  <Font name="Monospaced Regular" size="34.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="632.0" layoutY="507.0" prefHeight="80.0" prefWidth="556.0" style="-fx-background-color: black; -fx-border-color: gray;">
+         <children>
+            <Label fx:id="labReg" layoutX="14.0" layoutY="20.0" text="REGISTERS : 100" textFill="#c3ffb8">
+               <font>
+                  <Font name="Monospaced Regular" size="34.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
       <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;" visible="false">
          <children>
             <TableView fx:id="tableSide" layoutX="12.0" layoutY="8.0" onMouseClicked="#windowClick" prefHeight="588.0" prefWidth="265.0" style="-fx-background-color: #9AD0C2; -fx-base: #9AD0C2; -fx-font-size: 25;">
@@ -61,6 +116,11 @@
             <Image url="@../common/iconFiles/User.png" />
          </image>
       </ImageView>
+      <Label layoutX="632.0" layoutY="395.0" prefHeight="0.0" prefWidth="100.0" text="Logs" textFill="#616161">
+         <font>
+            <Font name="System Italic" size="22.0" />
+         </font>
+      </Label>
       
    </children>
 </AnchorPane>

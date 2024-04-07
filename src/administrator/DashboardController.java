@@ -61,6 +61,16 @@ public class DashboardController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    @FXML
+    private Label labLog;
+    @FXML
+    private Label labReg;
+    @FXML
+    private Label labCli;
+    @FXML
+    private Label labMer;
+    @FXML
+    private Label labOff;
 
     /**
      * Initializes the controller class.
@@ -142,39 +152,50 @@ public class DashboardController implements Initializable {
         ArrayList<ArrayList<String>> userList = (new UserList()).get2DList();
         
         int i = 0;
+        int off = 0;
         String cuser = "";
         for (ArrayList<String> X: userList) {
             
             switch (i) {
                 case 0:
                     cuser = "Administrator";
+                    off += X.size();
                     break;
                 case 1:
                     cuser = "Client";
+                    labCli.setText("CLIENTS   : " + X.size());
                     break;
                 case 2:
                     cuser = "Compliance";
+                    off += X.size();
                     break;
                 case 3:
                     cuser = "Credit Analyst";
+                    off += X.size();
                     break;
                 case 4:
                     cuser = "General Manager";
+                    off += X.size();
                     break;
                 case 5:
                     cuser = "IT Officer";
+                    off += X.size();
                     break;
                 case 6:
                     cuser = "LC Officer";
+                    off += X.size();
                     break;
                 case 7:
                     cuser = "Merchant";
+                    labMer.setText("MERCHANTS : " + X.size());
                     break;
                 case 8:
                     cuser = "Reporting Officer";
+                    off += X.size();
                     break;
                 case 9:
                     cuser = "Sales Representative";
+                    off += X.size();
                     break;
                 default:
                     break;
@@ -185,6 +206,10 @@ public class DashboardController implements Initializable {
             userPieChart.getData().add(new PieChart.Data(cuser, X.size()));
         }
         
+        labLog.setText("LOGINS    : " + (new Reader("Database/Official/LOG" , "signin.bin")).splitFile('▓').size());
+        labReg.setText("REGISTERS : " + (new Reader("Database/Official/LOG" , "register.bin")).splitFile('▓').size());
+        labOff.setText("EMPLOYEES : " + Integer.toString(off));
+
     }
 
     @FXML

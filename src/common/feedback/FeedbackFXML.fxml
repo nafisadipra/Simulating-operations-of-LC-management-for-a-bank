@@ -39,7 +39,7 @@
             <Font size="21.0" />
          </font>
       </Label>
-      <Button layoutX="1063.0" layoutY="548.0" mnemonicParsing="false" onMouseClicked="#sendClick" prefHeight="36.0" prefWidth="123.0" style="-fx-background-color: black;" text="Submit" textFill="#eeeeee">
+      <Button layoutX="1063.0" layoutY="548.0" mnemonicParsing="false" onMouseClicked="#submitClick" prefHeight="36.0" prefWidth="123.0" style="-fx-background-color: black;" text="Submit" textFill="#eeeeee">
          <font>
             <Font size="16.0" />
          </font>
