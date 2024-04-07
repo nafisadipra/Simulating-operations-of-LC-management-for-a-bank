@@ -1,8 +1,10 @@
 package complianceofficer;
 
+import common.finder.UserList;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
+import common.user.User;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +31,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -57,6 +60,20 @@ public class MerchantsController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    @FXML
+    private TextField enEmail;
+    @FXML
+    private TableView<User> table;
+    @FXML
+    private TableColumn<User, String> ttype;
+    @FXML
+    private TableColumn<User, String> tname;
+    @FXML
+    private TableColumn<User, String> temail;
+    @FXML
+    private TableColumn<User, String> tphone;
+    @FXML
+    private TableColumn<User, String> tstate;
 
     /**
      * Initializes the controller class.
@@ -131,6 +148,14 @@ public class MerchantsController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+        //table
+        ttype.setCellValueFactory(new PropertyValueFactory("type"));
+        tname.setCellValueFactory(new PropertyValueFactory("name"));
+        tphone.setCellValueFactory(new PropertyValueFactory("phone"));
+        temail.setCellValueFactory(new PropertyValueFactory("email"));
+        tstate.setCellValueFactory(new PropertyValueFactory("state"));
+
+        table.getItems().setAll((new UserList()).getFilterList("Merchant", enEmail.getText()));
     }
 
     @FXML
@@ -324,6 +349,15 @@ public class MerchantsController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void userCLick(MouseEvent event) {
+    }
+
+    @FXML
+    private void filterClick(MouseEvent event) {
+        table.getItems().setAll((new UserList()).getFilterList("Merchant", enEmail.getText()));
     }
 
 }

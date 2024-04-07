@@ -29,6 +29,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.control.ComboBox;
 
 /**
  * FXML Controller class
@@ -57,6 +58,8 @@ public class RequestsController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    @FXML
+    private ComboBox<String> piSelect;
 
     /**
      * Initializes the controller class.
@@ -131,6 +134,9 @@ public class RequestsController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+        //combo
+        String[] perfoma = {"PI"};
+        piSelect.getItems().addAll(perfoma);
     }
 
     @FXML
@@ -324,6 +330,10 @@ public class RequestsController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void viewBtn(MouseEvent event) {
     }
 
 }
