@@ -1,5 +1,7 @@
 package itofficer;
 
+import common.device.Force;
+import common.prompt.Prompt;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -29,6 +31,17 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import common.zipper.Compress;
+import common.zipper.Decompress;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 /**
  * FXML Controller class
@@ -53,18 +66,26 @@ public class BackupController implements Initializable {
     private Circle mdot;
     @FXML
     private Circle ndot;
-    
+
     private String user;
     private String email;
     private String[] sanData;
-    
+    @FXML
+    private TextField enB;
+    @FXML
+    private TextField enR;
+    @FXML
+    private Button rButt;
+    @FXML
+    private TextArea areaLog;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-    }    
+
+    }
 
     // pipeline
     public void initData(String user, String email, String[] sanData) {
@@ -72,23 +93,24 @@ public class BackupController implements Initializable {
         this.user = user;
         this.email = email;
         this.sanData = sanData;
-        
+
         // Side Panel
         ArrayList<Sandwich> sanList = new ArrayList();
 
-        for (String x: sanData) {
+        for (String x : sanData) {
             sanList.add(new Sandwich(x));
         }
         dtableSide.setCellValueFactory(new PropertyValueFactory("item"));
         tableSide.getItems().setAll(FXCollections.observableArrayList(sanList));
-        
+
         // Show Panel
         paneSide.setVisible(false);
         paneLog.setVisible(false);
-        ArrayList <ArrayList<String>> proFetch = (new Reader("Database/User/" + user + "/" + email, "profile.bin")).splitFile('▓');
-        ArrayList <String> data = proFetch.get(0);
+        ArrayList<ArrayList<String>> proFetch = (new Reader("Database/User/" + user + "/" + email, "profile.bin"))
+                .splitFile('▓');
+        ArrayList<String> data = proFetch.get(0);
         labName.setText(data.get(0));
-        
+
         // image
         BufferedImage originalImage = null;
         try {
@@ -110,23 +132,27 @@ public class BackupController implements Initializable {
 
             imageUser.setImage(fxImage);
         }
-        
+
         // dot
-        ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
-        ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
-        ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
-        
+        ArrayList<ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin"))
+                .splitFile('▓');
+        ArrayList<ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin"))
+                .splitFile('▓');
+        ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin"))
+                .splitFile('▓');
+
         if (mesFetch.size() != Integer.parseInt(dotFetch.get(0).get(0))) {
             mdot.setVisible(true);
         } else {
             mdot.setVisible(false);
         }
-        
+
         if (notFetch.size() != Integer.parseInt(dotFetch.get(0).get(1))) {
             ndot.setVisible(true);
         } else {
             ndot.setVisible(false);
         }
+        
     }
 
     @FXML
@@ -141,7 +167,7 @@ public class BackupController implements Initializable {
     @FXML
     private void windowClick(MouseEvent event) {
         Sandwich window = tableSide.getSelectionModel().getSelectedItem();
-        
+
         switch (window.getItem()) {
             case "Notification":
                 notClick(event);
@@ -174,7 +200,7 @@ public class BackupController implements Initializable {
                 (new GUI(user, email, sanData)).pcyClick(event);
                 break;
             case "Feedback":
-                (new GUI(user, email, sanData)).pcyClick(event);
+                (new GUI(user, email, sanData)).feedClick(event);
                 break;
             case "Merchandise":
                 (new GUI(user, email, sanData)).mrcDiseClick(event);
@@ -238,19 +264,21 @@ public class BackupController implements Initializable {
     @FXML
     private void notClick(MouseEvent event) {
         if (ndot.isVisible() == true) {
-            ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
-            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+            ArrayList<ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email,
+                    "notification.bin")).splitFile('▓');
+            ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin"))
+                    .splitFile('▓');
             String notNum = dotFetch.get(0).get(0) + "▓" + notFetch.size() + "▓";
             new Writer("Database/User/" + user + "/" + email, "dot.bin", notNum).writeFile();
         }
-        
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/notification/NotificationFXML.fxml"));
             Parent root = loader.load();
 
             common.notification.NotificationController controller = loader.getController();
             controller.initData(user, email, sanData);
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -261,23 +289,25 @@ public class BackupController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     @FXML
     private void mailClick(MouseEvent event) {
         if (mdot.isVisible() == true) {
-            ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
-            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+            ArrayList<ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin"))
+                    .splitFile('▓');
+            ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin"))
+                    .splitFile('▓');
             String mesNum = mesFetch.size() + "▓" + dotFetch.get(0).get(1) + "▓";
             new Writer("Database/User/" + user + "/" + email, "dot.bin", mesNum).writeFile();
         }
-        
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/message/MessageFXML.fxml"));
             Parent root = loader.load();
 
             common.message.MessageController controller = loader.getController();
             controller.initData(user, email, sanData);
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -288,17 +318,17 @@ public class BackupController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     private void dashClick(MouseEvent event) {
-        
+
     }
-    
+
     private void feedClick(MouseEvent event) {
-        
+
     }
-    
+
     private void settClick(MouseEvent event) {
-        
+
     }
 
     @FXML
@@ -306,7 +336,7 @@ public class BackupController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/signIN/SignINFXML.fxml"));
             Parent root = loader.load();
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -317,5 +347,80 @@ public class BackupController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
+    @FXML
+    private void backupClick(MouseEvent event) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        System.setOut((new PrintStream(baos)));
+        
+        if (!enB.getText().isEmpty()) {
+            if ((new Prompt()).getAlert("Are you sure to create backup?", "confirmation").getResult().getText().equals("Cancel")) {
+                return;
+            }
+            if (new Compress().run(enB.getText()) == true) {
+                String myData = "LC Bank Console v1.2.7 @Author Muyeed\n";
+                areaLog.setText(myData + baos.toString());
+                (new Prompt()).getAlert("Backup was successful!", "information");
+            } else {
+                (new Prompt()).getAlert("Error while creating backup!", "warning");
+            }
+            
+        } else {
+            (new Prompt()).getAlert("Please select output destination!", "error");
+        }
+    }
+
+    @FXML
+    private void restoreClick(MouseEvent event) {
+        (new Force()).deleteFolder("Database");
+        
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        System.setOut((new PrintStream(baos)));
+        
+        if (!enR.getText().isEmpty()) {
+            if ((new Prompt()).getAlert("Warning: previous data will be erased!\nAre you sure?", "confirmation").getResult().getText().equals("Cancel")) {
+                return;
+            }
+            if (new Decompress().run(enR.getText()) == true) {
+                String myData = "LC Bank Console v1.2.7 @Author Muyeed\n";
+                areaLog.setText(myData + baos.toString());
+                (new Prompt()).getAlert("Restore was successful!", "information");
+            } else {
+                (new Prompt()).getAlert("Error while restoring!", "warning");
+            }
+            
+        } else {
+            (new Prompt()).getAlert("Please select Database.zip!", "error");
+        }
+    }
+
+    @FXML
+    private void bClick(MouseEvent event) {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Output Folder");
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        File selectedDirectory = directoryChooser.showDialog(stage);
+
+        if (selectedDirectory != null) {
+            enB.setText(selectedDirectory.getAbsolutePath());
+        }
+    }
+
+    @FXML
+    private void rClick(MouseEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Backup File");
+
+        ExtensionFilter extFilter = new ExtensionFilter("ZIP files (*.zip)", "*.zip");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        File selectedFile = fileChooser.showOpenDialog(stage);
+
+        if (selectedFile != null) {
+            enR.setText(selectedFile.getAbsolutePath());
+        }
+    }
+
 }

@@ -54,7 +54,7 @@ public class ViewerController implements Initializable {
     private Circle mdot;
     @FXML
     private Circle ndot;
-    
+
     private String user;
     private String email;
     private String[] sanData;
@@ -65,6 +65,7 @@ public class ViewerController implements Initializable {
     private String xaddress;
     private String xphone;
     private String xtype;
+    private String xcompany;
     @FXML
     private ImageView imageView;
     @FXML
@@ -81,17 +82,20 @@ public class ViewerController implements Initializable {
     private Label labCardName;
     @FXML
     private Label labUserName;
-    
+    @FXML
+    private TextField enCompany;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-    }    
+
+    }
 
     // pipeline
-    public void initData(String user, String email, String[] sanData, String xuser, String xname, String xemail, String xphone, String xaddress, String xstatus) {
+    public void initData(String user, String email, String[] sanData, String xuser, String xname, String xemail,
+            String xphone, String xaddress, String xstatus, String xcompany) {
         // append
         this.user = user;
         this.email = email;
@@ -102,23 +106,25 @@ public class ViewerController implements Initializable {
         this.xphone = xphone;
         this.xaddress = xaddress;
         this.xstatus = xstatus;
-        
+        this.xcompany = xcompany;
+
         // Side Panel
         ArrayList<Sandwich> sanList = new ArrayList();
 
-        for (String x: sanData) {
+        for (String x : sanData) {
             sanList.add(new Sandwich(x));
         }
         dtableSide.setCellValueFactory(new PropertyValueFactory("item"));
         tableSide.getItems().setAll(FXCollections.observableArrayList(sanList));
-        
+
         // Show Panel
         paneSide.setVisible(false);
         paneLog.setVisible(false);
-        ArrayList <ArrayList<String>> proFetch = (new Reader("Database/User/" + user + "/" + email, "profile.bin")).splitFile('▓');
-        ArrayList <String> data = proFetch.get(0);
+        ArrayList<ArrayList<String>> proFetch = (new Reader("Database/User/" + user + "/" + email, "profile.bin"))
+                .splitFile('▓');
+        ArrayList<String> data = proFetch.get(0);
         labName.setText(data.get(0));
-        
+
         // image
         BufferedImage originalImage = null;
         try {
@@ -140,24 +146,27 @@ public class ViewerController implements Initializable {
 
             imageUser.setImage(fxImage);
         }
-        
+
         // dot
-        ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
-        ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
-        ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
-        
+        ArrayList<ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin"))
+                .splitFile('▓');
+        ArrayList<ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin"))
+                .splitFile('▓');
+        ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin"))
+                .splitFile('▓');
+
         if (mesFetch.size() != Integer.parseInt(dotFetch.get(0).get(0))) {
             mdot.setVisible(true);
         } else {
             mdot.setVisible(false);
         }
-        
+
         if (notFetch.size() != Integer.parseInt(dotFetch.get(0).get(1))) {
             ndot.setVisible(true);
         } else {
             ndot.setVisible(false);
         }
-        
+
         // user
         enEmail.setText(xemail);
         enPhone.setText(xphone);
@@ -165,7 +174,8 @@ public class ViewerController implements Initializable {
         enStatus.setText(xstatus);
         labUserName.setText(xname);
         labCardName.setText(xname);
-        
+        enCompany.setText(xcompany);
+
         switch (xstatus) {
             case "Active":
                 enStatus.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: green;");
@@ -179,7 +189,7 @@ public class ViewerController implements Initializable {
             default:
                 break;
         }
-        
+
         // user switch
         switch (xuser) {
             case "Administrator":
@@ -215,7 +225,7 @@ public class ViewerController implements Initializable {
             default:
                 break;
         }
-        
+
         // view user image
         BufferedImage originalImage2 = null;
         try {
@@ -236,9 +246,11 @@ public class ViewerController implements Initializable {
             Image fxImage2 = SwingFXUtils.toFXImage(resizedImage2, null);
 
             imageView.setImage(fxImage2);
-            labCardMoney.setText((new Reader("Database/User/" + xtype + "/" + xemail, "credit.bin")).splitFile('▓').get(0).get(0) + "$");
+            labCardMoney.setText(
+                    (new Reader("Database/User/" + xtype + "/" + xemail, "credit.bin")).splitFile('▓').get(0).get(0)
+                            + "$");
         }
-        
+
     }
 
     @FXML
@@ -253,7 +265,7 @@ public class ViewerController implements Initializable {
     @FXML
     private void windowClick(MouseEvent event) {
         Sandwich window = tableSide.getSelectionModel().getSelectedItem();
-        
+
         switch (window.getItem()) {
             case "Notification":
                 notClick(event);
@@ -286,7 +298,7 @@ public class ViewerController implements Initializable {
                 (new GUI(user, email, sanData)).pcyClick(event);
                 break;
             case "Feedback":
-                (new GUI(user, email, sanData)).pcyClick(event);
+                (new GUI(user, email, sanData)).feedClick(event);
                 break;
             case "Merchandise":
                 (new GUI(user, email, sanData)).mrcDiseClick(event);
@@ -350,19 +362,21 @@ public class ViewerController implements Initializable {
     @FXML
     private void notClick(MouseEvent event) {
         if (ndot.isVisible() == true) {
-            ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
-            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+            ArrayList<ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email,
+                    "notification.bin")).splitFile('▓');
+            ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin"))
+                    .splitFile('▓');
             String notNum = dotFetch.get(0).get(0) + "▓" + notFetch.size() + "▓";
             new Writer("Database/User/" + user + "/" + email, "dot.bin", notNum).writeFile();
         }
-        
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/notification/NotificationFXML.fxml"));
             Parent root = loader.load();
 
             common.notification.NotificationController controller = loader.getController();
             controller.initData(user, email, sanData);
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -373,23 +387,25 @@ public class ViewerController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     @FXML
     private void mailClick(MouseEvent event) {
         if (mdot.isVisible() == true) {
-            ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
-            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+            ArrayList<ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin"))
+                    .splitFile('▓');
+            ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin"))
+                    .splitFile('▓');
             String mesNum = mesFetch.size() + "▓" + dotFetch.get(0).get(1) + "▓";
             new Writer("Database/User/" + user + "/" + email, "dot.bin", mesNum).writeFile();
         }
-        
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/message/MessageFXML.fxml"));
             Parent root = loader.load();
 
             common.message.MessageController controller = loader.getController();
             controller.initData(user, email, sanData);
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -406,7 +422,7 @@ public class ViewerController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/signIN/SignINFXML.fxml"));
             Parent root = loader.load();
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -417,7 +433,7 @@ public class ViewerController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     private void clientBack(MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Clients.fxml"));
@@ -425,7 +441,7 @@ public class ViewerController implements Initializable {
 
             ClientsController controller = loader.getController();
             controller.initData(user, email, sanData);
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -436,7 +452,7 @@ public class ViewerController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     private void merchantBack(MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Merchants.fxml"));
@@ -444,7 +460,7 @@ public class ViewerController implements Initializable {
 
             MerchantsController controller = loader.getController();
             controller.initData(user, email, sanData);
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -455,7 +471,7 @@ public class ViewerController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     @FXML
     private void backClick(MouseEvent event) {
         // user switch
@@ -486,5 +502,5 @@ public class ViewerController implements Initializable {
                 break;
         }
     }
-    
+
 }

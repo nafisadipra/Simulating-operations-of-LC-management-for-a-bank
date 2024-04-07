@@ -9,15 +9,15 @@ package common.lc;
  * @author User
  */
 public class Product {
-    private String serial,product,quantity,perPrice,amount,importer;
+    private String serial,product,quantity,price,amount,exporter;
 
-    public Product(String serial, String product, String quantity, String perPrice, String importer) {
+    public Product(String serial, String product, String quantity, String price, String exporter) {
         this.serial = serial;
         this.product = product;
         this.quantity = quantity;
-        this.perPrice = perPrice;
+        this.price = price;
        
-        this.importer = importer;
+        this.exporter = exporter;
     }
 
     public String getSerial() {
@@ -32,18 +32,18 @@ public class Product {
         return quantity;
     }
 
-    public String getPerPrice() {
-        return perPrice;
+    public String getPrice() {
+        return price;
     }
 
     public String getAmount() {
-        double a = Double.parseDouble(getPerPrice().substring(1));
+        double a = Double.parseDouble(getPrice().substring(1));
         double b = Double.parseDouble(getQuantity());
         return Double.toString(a*b);
     }
 
-    public String getImporter() {
-        return importer;
+    public String getExporter() {
+        return exporter;
     }
 
     public void setSerial(String serial) {
@@ -58,21 +58,21 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public void setPerPrice(String perPrice) {
-        this.perPrice = perPrice;
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     public void setAmount(String amount) {
         this.amount = amount;
     }
 
-    public void setImporter(String importer) {
-        this.importer = importer;
+    public void setExporter(String exporter) {
+        this.exporter = exporter;
     }
 
     @Override
     public String toString() {
-        return "Product{" + "serial=" + serial + ", product=" + product + ", quantity=" + quantity + ", perPrice=" + perPrice + ", amount=" + amount + ", importer=" + importer + '}';
+        return "Product{" + "serial=" + serial + ", product=" + product + ", quantity=" + quantity + ", price=" + price + ", amount=" + amount + ", exporter=" + exporter + '}';
     }
     
 }

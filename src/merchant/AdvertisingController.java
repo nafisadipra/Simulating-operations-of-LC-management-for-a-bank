@@ -1,5 +1,8 @@
 package merchant;
 
+import common.advertisement.Advertisement;
+import common.device.Log;
+import common.prompt.Prompt;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -29,7 +32,9 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
 
 /**
  * FXML Controller class
@@ -54,28 +59,36 @@ public class AdvertisingController implements Initializable {
     private Circle mdot;
     @FXML
     private Circle ndot;
-    
+
     private String user;
     private String email;
     private String[] sanData;
     @FXML
-    private TableView<?> table;
+    private TableView<Advertisement> table;
     @FXML
-    private ComboBox<?> prodCom;
+    private ComboBox<String> prodCom;
     @FXML
-    private TableColumn<?, ?> tprod;
+    private TableColumn<Advertisement, String> tprod;
     @FXML
-    private TableColumn<?, ?> tbrief;
+    private TableColumn<Advertisement, String> tbrief;
     @FXML
-    private TableColumn<?, ?> tstatus;
-    
+    private TableColumn<Advertisement, String> tstatus;
+    @FXML
+    private ComboBox<String> filterComb;
+    @FXML
+    private Button createID1;
+    @FXML
+    private Button reqClick;
+    @FXML
+    private TextArea areaBrief;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-    }    
+
+    }
 
     // pipeline
     public void initData(String user, String email, String[] sanData) {
@@ -83,23 +96,24 @@ public class AdvertisingController implements Initializable {
         this.user = user;
         this.email = email;
         this.sanData = sanData;
-        
+
         // Side Panel
         ArrayList<Sandwich> sanList = new ArrayList();
 
-        for (String x: sanData) {
+        for (String x : sanData) {
             sanList.add(new Sandwich(x));
         }
         dtableSide.setCellValueFactory(new PropertyValueFactory("item"));
         tableSide.getItems().setAll(FXCollections.observableArrayList(sanList));
-        
+
         // Show Panel
         paneSide.setVisible(false);
         paneLog.setVisible(false);
-        ArrayList <ArrayList<String>> proFetch = (new Reader("Database/User/" + user + "/" + email, "profile.bin")).splitFile('▓');
-        ArrayList <String> data = proFetch.get(0);
+        ArrayList<ArrayList<String>> proFetch = (new Reader("Database/User/" + user + "/" + email, "profile.bin"))
+                .splitFile('▓');
+        ArrayList<String> data = proFetch.get(0);
         labName.setText(data.get(0));
-        
+
         // image
         BufferedImage originalImage = null;
         try {
@@ -121,23 +135,67 @@ public class AdvertisingController implements Initializable {
 
             imageUser.setImage(fxImage);
         }
-        
+
         // dot
-        ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
-        ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
-        ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
-        
+        ArrayList<ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin"))
+                .splitFile('▓');
+        ArrayList<ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin"))
+                .splitFile('▓');
+        ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin"))
+                .splitFile('▓');
+
         if (mesFetch.size() != Integer.parseInt(dotFetch.get(0).get(0))) {
             mdot.setVisible(true);
         } else {
             mdot.setVisible(false);
         }
-        
+
         if (notFetch.size() != Integer.parseInt(dotFetch.get(0).get(1))) {
             ndot.setVisible(true);
         } else {
             ndot.setVisible(false);
         }
+
+        // product
+        String[] filterList = { "All", "Accepted", "Pending", "Rejected" };
+        filterComb.getItems().setAll(filterList);
+        filterComb.setValue(filterList[0]);
+        
+        ArrayList<ArrayList<String>>productFetch = (new Reader("Database/User/MERCHANT/" + email, "product.bin")).splitFile('▓');
+        ArrayList<String> productList = new ArrayList();
+        
+        for (ArrayList<String> Y : productFetch) {
+            productList.add(Y.get(1) + " - " + Y.get(0));
+
+        }
+        
+        prodCom.getItems().setAll(productList);
+    
+        // advertisement
+        getAdv();
+        
+    }
+    
+    private void getAdv(){
+        ArrayList<Advertisement>advList = new ArrayList();
+        ArrayList <ArrayList<String>> advFetch = (new Reader("Database/Official/ADVERTISEMENT" , "advertisement.bin")).splitFile('▓');
+        
+        if (filterComb.getValue().equals("All")) {
+            for(ArrayList<String> Y:advFetch){
+                advList.add(new Advertisement(Y.get(0), Y.get(1), Y.get(2), Y.get(3)));
+            }
+        } else {
+            for(ArrayList<String> Y:advFetch){
+                if (Y.get(2).equals(filterComb.getValue())) {
+                    advList.add(new Advertisement(Y.get(0), Y.get(1), Y.get(2), Y.get(3)));   
+                }
+            }
+        }
+        
+        tprod.setCellValueFactory(new PropertyValueFactory("product"));
+        tbrief.setCellValueFactory(new PropertyValueFactory("brief"));
+        tstatus.setCellValueFactory(new PropertyValueFactory("status"));
+        table.getItems().setAll(advList);
     }
 
     @FXML
@@ -152,7 +210,7 @@ public class AdvertisingController implements Initializable {
     @FXML
     private void windowClick(MouseEvent event) {
         Sandwich window = tableSide.getSelectionModel().getSelectedItem();
-        
+
         switch (window.getItem()) {
             case "Notification":
                 notClick(event);
@@ -185,7 +243,7 @@ public class AdvertisingController implements Initializable {
                 (new GUI(user, email, sanData)).pcyClick(event);
                 break;
             case "Feedback":
-                (new GUI(user, email, sanData)).pcyClick(event);
+                (new GUI(user, email, sanData)).feedClick(event);
                 break;
             case "Merchandise":
                 (new GUI(user, email, sanData)).mrcDiseClick(event);
@@ -249,19 +307,21 @@ public class AdvertisingController implements Initializable {
     @FXML
     private void notClick(MouseEvent event) {
         if (ndot.isVisible() == true) {
-            ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
-            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+            ArrayList<ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email,
+                    "notification.bin")).splitFile('▓');
+            ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin"))
+                    .splitFile('▓');
             String notNum = dotFetch.get(0).get(0) + "▓" + notFetch.size() + "▓";
             new Writer("Database/User/" + user + "/" + email, "dot.bin", notNum).writeFile();
         }
-        
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/notification/NotificationFXML.fxml"));
             Parent root = loader.load();
 
             common.notification.NotificationController controller = loader.getController();
             controller.initData(user, email, sanData);
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -272,23 +332,25 @@ public class AdvertisingController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     @FXML
     private void mailClick(MouseEvent event) {
         if (mdot.isVisible() == true) {
-            ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
-            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+            ArrayList<ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin"))
+                    .splitFile('▓');
+            ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin"))
+                    .splitFile('▓');
             String mesNum = mesFetch.size() + "▓" + dotFetch.get(0).get(1) + "▓";
             new Writer("Database/User/" + user + "/" + email, "dot.bin", mesNum).writeFile();
         }
-        
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/message/MessageFXML.fxml"));
             Parent root = loader.load();
 
             common.message.MessageController controller = loader.getController();
             controller.initData(user, email, sanData);
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -299,17 +361,17 @@ public class AdvertisingController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     private void dashClick(MouseEvent event) {
-        
+
     }
-    
+
     private void feedClick(MouseEvent event) {
-        
+
     }
-    
+
     private void settClick(MouseEvent event) {
-        
+
     }
 
     @FXML
@@ -317,7 +379,7 @@ public class AdvertisingController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/signIN/SignINFXML.fxml"));
             Parent root = loader.load();
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -335,6 +397,23 @@ public class AdvertisingController implements Initializable {
 
     @FXML
     private void filterClick(MouseEvent event) {
+        getAdv();
     }
-    
+
+    @FXML
+    private void reqClick(MouseEvent event) {
+        if (prodCom.getValue() == null || prodCom.getValue().equals("Select") || areaBrief.getText() == null || areaBrief.getText().isEmpty()) {
+            (new Prompt()).getAlert("Please fill in all fields!", "error");
+            return;
+        }
+
+        if ((new Prompt()).getAlert("Are you sure?", "confirmation").getResult().getText().equals("Cancel")) {
+            return;
+        }
+
+        String advD = prodCom.getValue() + "▓" + areaBrief.getText() + "▓" + "Pending" + "▓" + user + "▓";
+        new Writer("Database/Official/ADVERTISEMENT", "advertisement.bin", advD).overWriteFile();
+        (new GUI(user, email, sanData)).advClick(event);
+    }
+
 }

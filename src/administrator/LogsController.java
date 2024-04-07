@@ -1,5 +1,7 @@
 package administrator;
 
+import common.device.Log;
+import common.lc.Product;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -29,6 +31,8 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 
 /**
  * FXML Controller class
@@ -57,6 +61,23 @@ public class LogsController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    @FXML
+    private TableView<Log> table;
+    @FXML
+    private TableColumn<Log, String> ttype;
+    @FXML
+    private TableColumn<Log, String> temail;
+    @FXML
+    private TableColumn<Log, String> ttime;
+    @FXML
+    private TableColumn<Log, String> tdate;
+    @FXML
+    private TableColumn<Log, String> tip;
+    @FXML
+    private ComboBox<String> filterComb;
+    @FXML
+    private Button createID1;
+    private  ArrayList <ArrayList<String>> logFetch;
     
     /**
      * Initializes the controller class.
@@ -127,6 +148,26 @@ public class LogsController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+        
+        // log
+        ttype.setCellValueFactory(new PropertyValueFactory("user"));
+        temail.setCellValueFactory(new PropertyValueFactory("email"));
+        ttime.setCellValueFactory(new PropertyValueFactory("time"));
+        tdate.setCellValueFactory(new PropertyValueFactory("date"));
+        tip.setCellValueFactory(new PropertyValueFactory("ip"));
+        
+        String[] filterData = {"Sign In", "Register"};
+        filterComb.getItems().setAll(filterData);
+        filterComb.setValue(filterData[0]);
+        
+        this.logFetch = (new Reader("Database/Official/LOG" , "signin.bin")).splitFile('▓');
+
+        ArrayList<Log>logList = new ArrayList();
+        for(ArrayList<String> Y:logFetch){
+            logList.add(new Log(Y.get(0), Y.get(1), Y.get(2), Y.get(3), Y.get(4)));
+        }
+        table.getItems().setAll(logList);
+        
     }
 
     @FXML
@@ -174,7 +215,7 @@ public class LogsController implements Initializable {
                 (new GUI(user, email, sanData)).pcyClick(event);
                 break;
             case "Feedback":
-                (new GUI(user, email, sanData)).pcyClick(event);
+                (new GUI(user, email, sanData)).feedClick(event);
                 break;
             case "Merchandise":
                 (new GUI(user, email, sanData)).mrcDiseClick(event);
@@ -316,6 +357,21 @@ public class LogsController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void filterClick(MouseEvent event) {
+        if (filterComb.getValue().equals("Sign In")) {
+            this.logFetch = (new Reader("Database/Official/LOG" , "signin.bin")).splitFile('▓');
+        } else if (filterComb.getValue().equals("Register")) {
+            this.logFetch = (new Reader("Database/Official/LOG" , "register.bin")).splitFile('▓');
+        }
+
+        ArrayList<Log>logList = new ArrayList();
+        for(ArrayList<String> Y:logFetch){
+            logList.add(new Log(Y.get(0), Y.get(1), Y.get(2), Y.get(3), Y.get(4)));
+        }
+        table.getItems().setAll(logList);
     }
     
 }

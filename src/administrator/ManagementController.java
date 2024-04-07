@@ -35,7 +35,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import common.user.User;
 
-
 /**
  * FXML Controller class
  *
@@ -59,7 +58,7 @@ public class ManagementController implements Initializable {
     private Circle mdot;
     @FXML
     private Circle ndot;
-    
+
     private String user;
     private String email;
     private String[] sanData;
@@ -81,8 +80,8 @@ public class ManagementController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-    }    
+
+    }
 
     // pipeline
     public void initData(String user, String email, String[] sanData) {
@@ -90,23 +89,24 @@ public class ManagementController implements Initializable {
         this.user = user;
         this.email = email;
         this.sanData = sanData;
-        
+
         // Side Panel
         ArrayList<Sandwich> sanList = new ArrayList();
 
-        for (String x: sanData) {
+        for (String x : sanData) {
             sanList.add(new Sandwich(x));
         }
         dtableSide.setCellValueFactory(new PropertyValueFactory("item"));
         tableSide.getItems().setAll(FXCollections.observableArrayList(sanList));
-        
+
         // Show Panel
         paneSide.setVisible(false);
         paneLog.setVisible(false);
-        ArrayList <ArrayList<String>> proFetch = (new Reader("Database/User/" + user + "/" + email, "profile.bin")).splitFile('▓');
-        ArrayList <String> data = proFetch.get(0);
+        ArrayList<ArrayList<String>> proFetch = (new Reader("Database/User/" + user + "/" + email, "profile.bin"))
+                .splitFile('▓');
+        ArrayList<String> data = proFetch.get(0);
         labName.setText(data.get(0));
-        
+
         // image
         BufferedImage originalImage = null;
         try {
@@ -128,35 +128,39 @@ public class ManagementController implements Initializable {
 
             imageUser.setImage(fxImage);
         }
-        
+
         // dot
-        ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
-        ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
-        ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
-        
+        ArrayList<ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin"))
+                .splitFile('▓');
+        ArrayList<ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin"))
+                .splitFile('▓');
+        ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin"))
+                .splitFile('▓');
+
         if (mesFetch.size() != Integer.parseInt(dotFetch.get(0).get(0))) {
             mdot.setVisible(true);
         } else {
             mdot.setVisible(false);
         }
-        
+
         if (notFetch.size() != Integer.parseInt(dotFetch.get(0).get(1))) {
             ndot.setVisible(true);
         } else {
             ndot.setVisible(false);
         }
-        
+
         // management
-        String[] usertList = {"All", "Client", "Merchant", "Credit Analyst", "Reporting Officer", "L\\C Officer", "Sales Representative", "Administrator", "General Manager", "Compliance Officer", "IT Officer"};
+        String[] usertList = { "All", "Client", "Merchant", "Credit Analyst", "Reporting Officer", "L\\C Officer",
+                "Sales Representative", "Administrator", "General Manager", "Compliance Officer", "IT Officer" };
         comFilter.getItems().setAll(usertList);
         comFilter.setValue("All");
-        
+
         ttype.setCellValueFactory(new PropertyValueFactory("type"));
         temail.setCellValueFactory(new PropertyValueFactory("email"));
         tstate.setCellValueFactory(new PropertyValueFactory("state"));
-        
+
         table.getItems().setAll((new UserList()).getFilterList(comFilter.getValue(), enEmail.getText()));
-        
+
     }
 
     @FXML
@@ -171,7 +175,7 @@ public class ManagementController implements Initializable {
     @FXML
     private void windowClick(MouseEvent event) {
         Sandwich window = tableSide.getSelectionModel().getSelectedItem();
-        
+
         switch (window.getItem()) {
             case "Notification":
                 notClick(event);
@@ -204,7 +208,7 @@ public class ManagementController implements Initializable {
                 (new GUI(user, email, sanData)).pcyClick(event);
                 break;
             case "Feedback":
-                (new GUI(user, email, sanData)).pcyClick(event);
+                (new GUI(user, email, sanData)).feedClick(event);
                 break;
             case "Merchandise":
                 (new GUI(user, email, sanData)).mrcDiseClick(event);
@@ -268,19 +272,21 @@ public class ManagementController implements Initializable {
     @FXML
     private void notClick(MouseEvent event) {
         if (ndot.isVisible() == true) {
-            ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
-            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+            ArrayList<ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email,
+                    "notification.bin")).splitFile('▓');
+            ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin"))
+                    .splitFile('▓');
             String notNum = dotFetch.get(0).get(0) + "▓" + notFetch.size() + "▓";
             new Writer("Database/User/" + user + "/" + email, "dot.bin", notNum).writeFile();
         }
-        
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/notification/NotificationFXML.fxml"));
             Parent root = loader.load();
 
             common.notification.NotificationController controller = loader.getController();
             controller.initData(user, email, sanData);
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -291,23 +297,25 @@ public class ManagementController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     @FXML
     private void mailClick(MouseEvent event) {
         if (mdot.isVisible() == true) {
-            ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
-            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
+            ArrayList<ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin"))
+                    .splitFile('▓');
+            ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin"))
+                    .splitFile('▓');
             String mesNum = mesFetch.size() + "▓" + dotFetch.get(0).get(1) + "▓";
             new Writer("Database/User/" + user + "/" + email, "dot.bin", mesNum).writeFile();
         }
-        
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/message/MessageFXML.fxml"));
             Parent root = loader.load();
 
             common.message.MessageController controller = loader.getController();
             controller.initData(user, email, sanData);
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -318,13 +326,13 @@ public class ManagementController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     @FXML
     private void outClick(MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/signIN/SignINFXML.fxml"));
             Parent root = loader.load();
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -340,13 +348,13 @@ public class ManagementController implements Initializable {
     private void filterClick(MouseEvent event) {
         table.getItems().clear();
         table.getItems().setAll((new UserList()).getFilterList(comFilter.getValue(), enEmail.getText()));
-        
+
     }
-    
-    private void xStatus(String status){
+
+    private void xStatus(String status) {
         String xtype = table.getSelectionModel().getSelectedItem().getType();
         String xemail = table.getSelectionModel().getSelectedItem().getEmail();
-        
+
         switch (xtype) {
             case "Administrator":
                 xtype = "ADMINISTRATOR";
@@ -381,10 +389,12 @@ public class ManagementController implements Initializable {
             default:
                 break;
         }
-        
-        ArrayList <ArrayList<String>> proFetch = (new Reader("Database/User/" + xtype + "/" + xemail, "profile.bin")).splitFile('▓');
-        ArrayList <String> fdata = proFetch.get(0);
-        String sdata = fdata.get(0) + '▓' + fdata.get(1) + '▓' + fdata.get(2) + '▓' + fdata.get(3) + '▓' + fdata.get(4) + '▓' + status + '▓';
+
+        ArrayList<ArrayList<String>> proFetch = (new Reader("Database/User/" + xtype + "/" + xemail, "profile.bin"))
+                .splitFile('▓');
+        ArrayList<String> fdata = proFetch.get(0);
+        String sdata = fdata.get(0) + '▓' + fdata.get(1) + '▓' + fdata.get(2) + '▓' + fdata.get(3) + '▓' + fdata.get(4)
+                + '▓' + status + '▓' + fdata.get(6) + '▓' + fdata.get(7) + '▓' + fdata.get(8) + '▓';
         new Writer("Database/User/" + xtype + "/" + xemail, "profile.bin", sdata).writeFile();
     }
 
@@ -393,7 +403,7 @@ public class ManagementController implements Initializable {
         xStatus("Banned");
         table.getItems().clear();
         table.getItems().setAll((new UserList()).getFilterList(comFilter.getValue(), enEmail.getText()));
-        
+
     }
 
     @FXML
@@ -414,7 +424,7 @@ public class ManagementController implements Initializable {
     private void deleteClick(MouseEvent event) {
         String xtype = table.getSelectionModel().getSelectedItem().getType();
         String xemail = table.getSelectionModel().getSelectedItem().getEmail();
-        
+
         switch (xtype) {
             case "Administrator":
                 xtype = "ADMINISTRATOR";
@@ -449,14 +459,14 @@ public class ManagementController implements Initializable {
             default:
                 break;
         }
-        
-        ArrayList <String> fileData = (new Tree("Database/User/" + xtype + "/" + xemail)).view();
-        
-        for (String X: fileData) {
+
+        ArrayList<String> fileData = (new Tree("Database/User/" + xtype + "/" + xemail)).view();
+
+        for (String X : fileData) {
             (new File("Database/User/" + xtype + "/" + xemail + "/" + X)).delete();
         }
         (new File("Database/User/" + xtype + "/" + xemail)).delete();
-        
+
         table.getItems().clear();
         table.getItems().setAll((new UserList()).getFilterList(comFilter.getValue(), enEmail.getText()));
     }
@@ -468,16 +478,16 @@ public class ManagementController implements Initializable {
             Parent root = loader.load();
 
             EditorController controller = loader.getController();
-            
+
             String xuser = table.getSelectionModel().getSelectedItem().getType();
             String xname = table.getSelectionModel().getSelectedItem().getName();
             String xemail = table.getSelectionModel().getSelectedItem().getEmail();
             String xphone = table.getSelectionModel().getSelectedItem().getPhone();
             String xaddress = table.getSelectionModel().getSelectedItem().getAddress();
             String xstatus = table.getSelectionModel().getSelectedItem().getState();
-            
+
             controller.initData(user, email, sanData, xuser, xname, xemail, xphone, xaddress, xstatus);
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -492,5 +502,5 @@ public class ManagementController implements Initializable {
     @FXML
     private void createClick(MouseEvent event) {
     }
-    
+
 }
