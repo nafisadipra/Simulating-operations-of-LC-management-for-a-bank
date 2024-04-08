@@ -320,8 +320,6 @@ public class MessageController implements Initializable {
 
     @FXML
     private void mailClick(MouseEvent event) {
-        mdot.setVisible(false);
-
         if (mdot.isVisible() == true) {
             ArrayList<ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin"))
                     .splitFile('▓');
@@ -331,6 +329,22 @@ public class MessageController implements Initializable {
             new Writer("Database/User/" + user + "/" + email, "dot.bin", mesNum).writeFile();
         }
 
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageFXML.fxml"));
+            Parent root = loader.load();
+
+            MessageController controller = loader.getController();
+            controller.initData(user, email, sanData);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void dashClick(MouseEvent event) {
@@ -440,9 +454,24 @@ public class MessageController implements Initializable {
             e.printStackTrace();
         }
     }
-
+    
     @FXML
     private void filterClick(MouseEvent event) {
+        if (filterComb.getValue().equals("Outbox")) {
+            ArrayList<Message> mesList = new ArrayList();
+            this.mesList = mesList;
+            ArrayList<ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "outbox.bin"))
+                    .splitFile('▓');
+            Collections.reverse(mesFetch);
+            for (ArrayList<String> x : mesFetch) {
+                mesList.add(new Message(x.get(0), x.get(1), x.get(2), x.get(3), x.get(4), x.get(5)));
+            }
+
+            table.getItems().setAll(FXCollections.observableArrayList(mesList));
+        } else {
+            mailClick(event);
+        }
+        
     }
 
 }

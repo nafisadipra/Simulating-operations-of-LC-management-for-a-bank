@@ -1,5 +1,8 @@
 package administrator;
 
+import common.aes.AES;
+import common.device.ImageResizer;
+import common.prompt.Prompt;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -30,6 +33,7 @@ import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class
@@ -64,6 +68,10 @@ public class EditorController implements Initializable {
     private String xstatus;
     private String xaddress;
     private String xphone;
+    private String xcountry;
+    private String xnid;
+    private String xcompany;
+    private String xdob;
     private String xtype;
     @FXML
     private ImageView imageView;
@@ -77,9 +85,17 @@ public class EditorController implements Initializable {
     private TextField enStatus;
     private Label labCardName;
     @FXML
-    private Label labUserName;
+    private TextField labUserName;
     @FXML
-    private TextField enStatus1;
+    private TextField enCountry;
+    @FXML
+    private TextField enNID;
+    @FXML
+    private TextField enCom;
+    @FXML
+    private TextField enDOB;
+    @FXML
+    private TextField enPass;
 
     /**
      * Initializes the controller class.
@@ -91,7 +107,7 @@ public class EditorController implements Initializable {
 
     // pipeline
     public void initData(String user, String email, String[] sanData, String xuser, String xname, String xemail,
-            String xphone, String xaddress, String xstatus) {
+            String xphone, String xaddress, String xstatus, String xcountry, String xnid, String xcompany, String xdob) {
         // append
         this.user = user;
         this.email = email;
@@ -102,6 +118,10 @@ public class EditorController implements Initializable {
         this.xphone = xphone;
         this.xaddress = xaddress;
         this.xstatus = xstatus;
+        this.xcountry = xcountry;
+        this.xnid = xnid;
+        this.xcompany = xcompany;
+        this.xdob = xdob;
 
         // Side Panel
         ArrayList<Sandwich> sanList = new ArrayList();
@@ -167,6 +187,11 @@ public class EditorController implements Initializable {
         enPhone.setText(xphone);
         enAddress.setText(xaddress);
         enStatus.setText(xstatus);
+        enCountry.setText(xcountry);
+        enDOB.setText(xdob);
+        enNID.setText(xnid);
+        enCom.setText(xcompany);
+        enCountry.setText(xcountry);
         labUserName.setText(xname);
 
         switch (xstatus) {
@@ -445,34 +470,102 @@ public class EditorController implements Initializable {
         }
     }
 
-    @FXML
     private void backClick(MouseEvent event) {
-        // user switch
-        switch (xuser) {
-            case "Administrator":
-                admBack(event);
-                break;
-            case "IT Officer":
-                break;
-            case "Client":
-                break;
-            case "Merchant":
-                break;
-            case "General Manager":
-                break;
-            case "Credit Analyst":
-                break;
-            case "L\\C Officer":
-                break;
-            case "Sales Representative":
-                break;
-            case "Compliance Officer":
-                break;
-            case "Reporting Officer":
-                break;
-            default:
-                break;
+        admBack(event);
+    }
+
+    @FXML
+    private void changeClick(MouseEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open User Picture");
+
+        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPEG files (*.jpg)", "*.jpg");
+        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
+        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        File selectedFile = fileChooser.showOpenDialog(stage);
+
+        if (selectedFile == null) {
+            return;
+        }
+
+        if ((new Prompt()).getAlert("Are you to add this picture?", "confirmation").getResult().getText().equals("Cancel")) {
+            return;
+        }
+
+        (new ImageResizer()).resize(selectedFile.getAbsolutePath(), "Database/User/" + user + "/" + email);
+        
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Editor.fxml"));
+            Parent root = loader.load();
+
+            EditorController controller = loader.getController();
+            
+            ArrayList<ArrayList<String>> proFetch = (new Reader("Database/User/" + xuser + "/" + xemail, "profile.bin")).splitFile('▓');
+
+            controller.initData(user, email, sanData, xuser, proFetch.get(0).get(0), xemail, proFetch.get(0).get(2), proFetch.get(0).get(3), proFetch.get(0).get(5), proFetch.get(0).get(6), proFetch.get(0).get(7), proFetch.get(0).get(8), proFetch.get(0).get(4));
+
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
+    @FXML
+    private void saveClick(MouseEvent event) {
+        if (labUserName.getText().isEmpty() || enPhone.getText().isEmpty() || enAddress.getText().isEmpty() || enDOB.getText().isEmpty() || enStatus.getText().isEmpty() || enCountry.getText().isEmpty() || enNID.getText().isEmpty() || enCom.getText().isEmpty()) {
+            (new Prompt()).getAlert("Please fill in all fields.", "error");
+            return;
+        }
+        
+        
+        ArrayList<ArrayList<String>> proFetchM = (new Reader("Database/User/" + user + "/" + email, "profile.bin")).splitFile('▓');
+        
+        String passData = proFetchM.get(0).get(1);
+        
+        if (!enPass.getText().isEmpty()) {
+            passData = AES.encrypt(enPass.getText());
+            
+            if (enPass.getText().length() > 7 && enPass.getText().length()< 17) {
+            } else {
+                (new Prompt()).getAlert("New password must contain 8-16 charecters!", "error");
+                return;
+            }
+            
+        }
+        
+        if ((new Prompt()).getAlert("Are sure to update the user informations?", "confirmation").getResult().getText().equals("Cancel")) {
+            return;
+        }
+        
+        String newData = labUserName.getText() + "▓" + passData + "▓" + enPhone.getText() + "▓" + enAddress.getText() + "▓" + enDOB.getText() + "▓" + enStatus.getText() + "▓" + enCountry.getText() + "▓" + enNID.getText() + "▓" + enCom.getText() + "▓";
+        new Writer("Database/User/" + xtype + "/" + xemail, "profile.bin", newData).writeFile();
+        
+        (new Prompt()).getAlert("User informations updated!", "information");
+        
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Editor.fxml"));
+            Parent root = loader.load();
+
+            EditorController controller = loader.getController();
+            
+            ArrayList<ArrayList<String>> proFetch = (new Reader("Database/User/" + xtype + "/" + xemail, "profile.bin")).splitFile('▓');
+
+            controller.initData(user, email, sanData, xuser, proFetch.get(0).get(0), xemail, proFetch.get(0).get(2), proFetch.get(0).get(3), proFetch.get(0).get(5), proFetch.get(0).get(6), proFetch.get(0).get(7), proFetch.get(0).get(8), proFetch.get(0).get(4));
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

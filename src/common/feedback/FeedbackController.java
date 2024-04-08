@@ -32,8 +32,12 @@ import java.util.Collections;
 
 // controllers
 import common.message.MessageController;
+import common.prompt.Prompt;
 import common.switcher.GUI;
 import common.writer.Writer;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Circle;
@@ -329,6 +333,21 @@ public class FeedbackController implements Initializable {
 
     @FXML
     private void submitClick(MouseEvent event) {
+        if (fieldSub.getText().isEmpty() || areaSend.getText().isEmpty()) {
+            (new Prompt()).getAlert("Please fill all the required fields!", "error");
+            return;
+        }
+        
+        LocalTime currentTime = LocalTime.now();
+        DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("hh:mm a");
+
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        
+        String feedback = fieldSub.getText() +  "▓" + areaSend.getText() +  "▓" + user + "▓" + email+ "▓" + currentTime.format(formatTime) + "▓" + currentDate.format(formatDate) + "▓" ;
+        new Writer("Database/Official/FEEDBACK", "feedback.bin", feedback).overWriteFile();
+        (new Prompt()).getAlert("Your feedback has been sent!", "information");
+        (new GUI(user, email, sanData)).feedClick(event);
     }
 
 }

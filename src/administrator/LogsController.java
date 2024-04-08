@@ -33,6 +33,7 @@ import javax.imageio.ImageIO;
 import common.writer.Writer;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -78,6 +79,8 @@ public class LogsController implements Initializable {
     @FXML
     private Button createID1;
     private  ArrayList <ArrayList<String>> logFetch;
+    @FXML
+    private TextField enEmail;
     
     /**
      * Initializes the controller class.
@@ -366,11 +369,20 @@ public class LogsController implements Initializable {
         } else if (filterComb.getValue().equals("Register")) {
             this.logFetch = (new Reader("Database/Official/LOG" , "register.bin")).splitFile('▓');
         }
-
+        
         ArrayList<Log>logList = new ArrayList();
-        for(ArrayList<String> Y:logFetch){
-            logList.add(new Log(Y.get(0), Y.get(1), Y.get(2), Y.get(3), Y.get(4)));
+        if (enEmail.getText().isEmpty()) {
+            for(ArrayList<String> Y:logFetch){
+                logList.add(new Log(Y.get(0), Y.get(1), Y.get(2), Y.get(3), Y.get(4)));
+            }
+        } else {
+            for(ArrayList<String> Y:logFetch){
+                if (-1 != Y.get(1).indexOf(enEmail.getText())) {
+                    logList.add(new Log(Y.get(0), Y.get(1), Y.get(2), Y.get(3), Y.get(4)));
+                }
+            }
         }
+        
         table.getItems().setAll(logList);
     }
     

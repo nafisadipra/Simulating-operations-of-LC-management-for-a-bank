@@ -499,6 +499,7 @@ public class ComposeController implements Initializable {
                     + currentTime.format(formatTime) + "▓" + currentDate.format(formatDate) + "▓" + subject + "▓"
                     + fileName + "▓" + "0";
             new Writer(location, "message.bin", mesData).overWriteFile();
+            new Writer("Database/User/" + user + "/" + email, "outbox.bin", mesData).overWriteFile();
 
             String notData = ("You recieved a message from " + email) + "▓" + "Message" + "▓"
                     + currentTime.format(formatTime) + "▓" + currentDate.format(formatDate);
@@ -506,6 +507,7 @@ public class ComposeController implements Initializable {
 
             if (!path.equals("null")) {
                 new XDIR(path, location + "/Attachments/" + fileName).copyFile();
+                new XDIR(path, "Database/User/" + user + "/" + email + "/Attachments/" + fileName).copyFile();
                 ;
             }
             

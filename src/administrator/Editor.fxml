@@ -20,47 +20,71 @@
       </ImageView>
       <AnchorPane layoutX="16.0" layoutY="94.0" prefHeight="491.0" prefWidth="1170.0" style="-fx-border-color: black; -fx-background-color: white;">
          <children>
-            <ImageView fx:id="imageView" layoutX="14.0" layoutY="14.0" onMouseClicked="#logClick">
+            <ImageView fx:id="imageView" layoutX="14.0" layoutY="14.0" onMouseClicked="#changeClick">
                <image>
                   <Image url="@../common/iconFiles/User.png" />
                </image>
             </ImageView>
-            <Label fx:id="labUserName" layoutX="78.0" layoutY="22.0" text="Name">
+            <TextField fx:id="labUserName" layoutX="95.0" layoutY="14.0" prefHeight="51.0" prefWidth="1062.0" style="-fx-background-color: white; -fx-border-color: black;" text="Name">
                <font>
                   <Font size="24.0" />
                </font>
-            </Label>
+            </TextField>
+            <TextField fx:id="enEmail" editable="false" layoutX="95.0" layoutY="80.0" prefHeight="28.0" prefWidth="1062.0" style="-fx-border-color: black; -fx-background-color: white;" />
+            <TextField fx:id="enPhone" layoutX="95.0" layoutY="119.0" prefHeight="28.0" prefWidth="1062.0" style="-fx-border-color: black; -fx-background-color: white;" />
+            <TextField fx:id="enAddress" layoutX="95.0" layoutY="159.0" prefHeight="28.0" prefWidth="1062.0" style="-fx-border-color: black; -fx-background-color: white;" />
+            <TextField fx:id="enCountry" layoutX="95.0" layoutY="200.0" prefHeight="28.0" prefWidth="1062.0" style="-fx-border-color: black; -fx-background-color: white;" />
+            <TextField fx:id="enDOB" layoutX="95.0" layoutY="238.0" prefHeight="28.0" prefWidth="1062.0" style="-fx-border-color: black; -fx-background-color: white;" />
+            <TextField fx:id="enNID" layoutX="95.0" layoutY="277.0" prefHeight="28.0" prefWidth="1062.0" style="-fx-border-color: black; -fx-background-color: white;" />
+            <TextField fx:id="enCom" layoutX="95.0" layoutY="316.0" prefHeight="28.0" prefWidth="1062.0" style="-fx-border-color: black; -fx-background-color: white;" />
+            <TextField fx:id="enStatus" editable="false" layoutX="95.0" layoutY="358.0" prefHeight="28.0" prefWidth="1062.0" style="-fx-border-color: black; -fx-background-color: white;" />
+            <TextField fx:id="enPass" layoutX="95.0" layoutY="402.0" prefHeight="28.0" prefWidth="1062.0" promptText="Keep the password field blank if you don't want to change it!" style="-fx-border-color: black; -fx-background-color: white;" />
             <Label layoutX="14.0" layoutY="81.0" text="Email">
                <font>
                   <Font name="System Italic" size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="enEmail" layoutX="95.0" layoutY="80.0" prefHeight="28.0" prefWidth="1062.0" style="-fx-border-color: black; -fx-background-color: white;" />
-            <Label layoutX="14.0" layoutY="123.0" text="Phone">
+            <Label layoutX="14.0" layoutY="120.0" text="Phone">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="enPhone" layoutX="95.0" layoutY="122.0" prefHeight="28.0" prefWidth="1062.0" style="-fx-border-color: black; -fx-background-color: white;" />
-            <Label layoutX="14.0" layoutY="164.0" text="Address">
+            <Label layoutX="14.0" layoutY="160.0" text="Address">
                <font>
                   <Font name="System Italic" size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="enAddress" layoutX="95.0" layoutY="163.0" prefHeight="28.0" prefWidth="1062.0" style="-fx-border-color: black; -fx-background-color: white;" />
-            <Label layoutX="14.0" layoutY="204.0" text="Status">
+            <Label layoutX="14.0" layoutY="360.0" text="Status">
                <font>
                   <Font name="System Italic" size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="enStatus" layoutX="95.0" layoutY="203.0" prefHeight="28.0" prefWidth="1062.0" style="-fx-border-color: black; -fx-background-color: white;" />
-            <Label layoutX="14.0" layoutY="243.0" text="Passsword">
+            <Label layoutX="14.0" layoutY="403.0" text="Passsword">
                <font>
                   <Font name="System Italic" size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="enStatus1" layoutX="95.0" layoutY="242.0" prefHeight="28.0" prefWidth="1062.0" style="-fx-border-color: black; -fx-background-color: white;" />
-            <Button layoutX="1085.0" layoutY="452.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" style="-fx-background-color: black;" text="Save" textFill="WHITE" />
+            <Label layoutX="14.0" layoutY="201.0" text="Country">
+               <font>
+                  <Font name="System Italic" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="240.0" text="Birthday">
+               <font>
+                  <Font name="System Italic" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="277.0" text="NID">
+               <font>
+                  <Font name="System Italic" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="318.0" text="Company">
+               <font>
+                  <Font name="System Italic" size="16.0" />
+               </font>
+            </Label>
+            <Button layoutX="1018.0" layoutY="442.0" mnemonicParsing="false" onMouseClicked="#saveClick" prefHeight="35.0" prefWidth="139.0" style="-fx-background-color: #37ff80; -fx-border-color: black;" text="Save" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;" visible="false">

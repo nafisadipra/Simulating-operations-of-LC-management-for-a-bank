@@ -1,5 +1,9 @@
 package administrator;
 
+import common.aes.AES;
+import common.device.ImageResizer;
+import common.emailGen.EmailGen;
+import common.prompt.Prompt;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -29,14 +33,16 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class
  *
  * @author Muyeed
  */
-public class EditorController implements Initializable {
+public class CreatorController implements Initializable {
 
     @FXML
     private AnchorPane paneSide;
@@ -58,13 +64,8 @@ public class EditorController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
-    private String xuser;
-    private String xname;
-    private String xemail;
-    private String xstatus;
-    private String xaddress;
-    private String xphone;
-    private String xtype;
+    private String imgPath = "";
+
     @FXML
     private ImageView imageView;
     @FXML
@@ -74,12 +75,21 @@ public class EditorController implements Initializable {
     @FXML
     private TextField enAddress;
     @FXML
-    private TextField enStatus;
-    private Label labCardName;
+    private TextField labUserName;
     @FXML
-    private Label labUserName;
+    private TextField enCountry;
     @FXML
-    private TextField enStatus1;
+    private TextField enNID;
+    @FXML
+    private TextField enCom;
+    @FXML
+    private TextField enDOB;
+    @FXML
+    private TextField enPass;
+    @FXML
+    private RadioButton cliRad;
+    @FXML
+    private RadioButton mrcRad;
 
     /**
      * Initializes the controller class.
@@ -90,18 +100,11 @@ public class EditorController implements Initializable {
     }
 
     // pipeline
-    public void initData(String user, String email, String[] sanData, String xuser, String xname, String xemail,
-            String xphone, String xaddress, String xstatus) {
+    public void initData(String user, String email, String[] sanData) {
         // append
         this.user = user;
         this.email = email;
         this.sanData = sanData;
-        this.xuser = xuser;
-        this.xname = xname;
-        this.xemail = xemail;
-        this.xphone = xphone;
-        this.xaddress = xaddress;
-        this.xstatus = xstatus;
 
         // Side Panel
         ArrayList<Sandwich> sanList = new ArrayList();
@@ -161,86 +164,9 @@ public class EditorController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
-
-        // user
-        enEmail.setText(xemail);
-        enPhone.setText(xphone);
-        enAddress.setText(xaddress);
-        enStatus.setText(xstatus);
-        labUserName.setText(xname);
-
-        switch (xstatus) {
-            case "Active":
-                enStatus.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: green;");
-                break;
-            case "Banned":
-                enStatus.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: red;");
-                break;
-            case "Restricted":
-                enStatus.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: orange;");
-                break;
-            default:
-                break;
-        }
-
-        // user switch
-        switch (xuser) {
-            case "Administrator":
-                this.xtype = "ADMINISTRATOR";
-                break;
-            case "IT Officer":
-                this.xtype = "ITOFFICER";
-                break;
-            case "Client":
-                this.xtype = "CLIENT";
-                break;
-            case "Merchant":
-                this.xtype = "MERCHANT";
-                break;
-            case "General Manager":
-                this.xtype = "GENERALMANAGER";
-                break;
-            case "Credit Analyst":
-                this.xtype = "CREDITANALYST";
-                break;
-            case "L\\C Officer":
-                this.xtype = "LCOFFICER";
-                break;
-            case "Sales Representative":
-                this.xtype = "SALESREPRESENTATIVE";
-                break;
-            case "Compliance Officer":
-                this.xtype = "COMPLIANCEOFFICER";
-                break;
-            case "Reporting Officer":
-                this.xtype = "REPORTINGOFFICER";
-                break;
-            default:
-                break;
-        }
-
-        // view user image
-        BufferedImage originalImage2 = null;
-        try {
-            originalImage2 = ImageIO.read(new File("Database/User/" + xtype + "/" + xemail + "/user.jpg"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (originalImage2 != null) {
-            int targetWidth2 = 50;
-            int targetHeight2 = 50;
-
-            BufferedImage resizedImage2 = new BufferedImage(targetWidth2, targetHeight2, BufferedImage.TYPE_INT_ARGB);
-            java.awt.Graphics2D g2d2 = resizedImage2.createGraphics();
-            g2d2.drawImage(originalImage2, 0, 0, targetWidth2, targetHeight2, null);
-            g2d2.dispose();
-
-            Image fxImage2 = SwingFXUtils.toFXImage(resizedImage2, null);
-
-            imageView.setImage(fxImage2);
-
-        }
+        
+        // radio
+        cliRad.setSelected(true);
 
     }
 
@@ -445,34 +371,118 @@ public class EditorController implements Initializable {
         }
     }
 
-    @FXML
     private void backClick(MouseEvent event) {
-        // user switch
-        switch (xuser) {
-            case "Administrator":
-                admBack(event);
-                break;
-            case "IT Officer":
-                break;
-            case "Client":
-                break;
-            case "Merchant":
-                break;
-            case "General Manager":
-                break;
-            case "Credit Analyst":
-                break;
-            case "L\\C Officer":
-                break;
-            case "Sales Representative":
-                break;
-            case "Compliance Officer":
-                break;
-            case "Reporting Officer":
-                break;
-            default:
-                break;
-        }
+        admBack(event);
     }
 
+    @FXML
+    private void changeClick(MouseEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open User Picture");
+
+        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPEG files (*.jpg)", "*.jpg");
+        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
+        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        
+        // view user image
+        BufferedImage originalImage2 = null;
+        try {
+            originalImage2 = ImageIO.read(new File(selectedFile.getAbsolutePath()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (originalImage2 != null) {
+            int targetWidth2 = 50;
+            int targetHeight2 = 50;
+
+            BufferedImage resizedImage2 = new BufferedImage(targetWidth2, targetHeight2, BufferedImage.TYPE_INT_ARGB);
+            java.awt.Graphics2D g2d2 = resizedImage2.createGraphics();
+            g2d2.drawImage(originalImage2, 0, 0, targetWidth2, targetHeight2, null);
+            g2d2.dispose();
+
+            Image fxImage2 = SwingFXUtils.toFXImage(resizedImage2, null);
+
+            imageView.setImage(fxImage2);
+
+        }
+        
+        this.imgPath = selectedFile.getAbsolutePath();
+        
+    }
+
+    @FXML
+    private void createClick(MouseEvent event) {
+        if (labUserName.getText().isEmpty() || enPhone.getText().isEmpty() || enAddress.getText().isEmpty() || enDOB.getText().isEmpty() || enCountry.getText().isEmpty() || enNID.getText().isEmpty() || enCom.getText().isEmpty()) {
+            (new Prompt()).getAlert("Please fill in all fields.", "error");
+            return;
+        }
+
+        if (imgPath.equals("")) {
+            (new Prompt()).getAlert("Please select a user picture!", "error");
+            return;
+        }
+        
+        String passData = "";
+        if (!enPass.getText().isEmpty()) {
+            passData = AES.encrypt(enPass.getText());
+            
+            if (enPass.getText().length() > 7 && enPass.getText().length()< 17) {
+            } else {
+                (new Prompt()).getAlert("New password must contain 8-16 charecters!", "error");
+                return;
+            }
+        }
+        
+        String xtype = "";
+        if (cliRad.isSelected()) {
+            xtype = "CLIENT";
+        }
+        else if (mrcRad.isSelected()) {
+            xtype = "MERCHANT";
+        }
+        
+        String newData = labUserName.getText() + "▓" + passData + "▓" + enPhone.getText() + "▓" + enAddress.getText() + "▓" + enDOB.getText() + "▓" + "Active" + "▓" + enCountry.getText() + "▓" + enNID.getText() + "▓" + enCom.getText() + "▓";
+        
+        new Writer("Database/User/" + xtype + "/" + enEmail.getText(), "profile.bin", newData).writeFile();
+        (new ImageResizer()).resize(imgPath, "Database/User/" + xtype + "/" + enEmail.getText());
+        new Writer("Database/User/" + xtype + "/" + enEmail.getText(), "credit.bin", "127007800▓").writeFile();
+        new Writer("Database/User/" + xtype + "/" + enEmail.getText(), "dot.bin", "0▓0▓").writeFile();
+        new Writer("Database/User/" + xtype + "/" + enEmail.getText(), "message.bin", "").writeFile();
+        new Writer("Database/User/" + xtype + "/" + enEmail.getText(), "notification.bin", "").writeFile();
+        new Writer("Database/User/" + xtype + "/" + enEmail.getText(), "outbox.bin", "").writeFile();
+        new Writer("Database/User/" + xtype + "/" + enEmail.getText(), "product.bin", "").writeFile();
+        new Writer("Database/User/" + xtype + "/" + enEmail.getText(), "connect.bin", "").writeFile();
+        (new Prompt()).getAlert("New User Created!", "information");
+        admBack(event);
+    }
+
+    @FXML
+    private void generateClick(MouseEvent event) {
+        if (labUserName.getText().isEmpty()) {
+            (new Prompt()).getAlert("Please enter the name!", "error");
+            return;
+        }
+        
+        if (cliRad.isSelected()) {
+            enEmail.setText(new EmailGen().getEmail(labUserName.getText(), "CLIENT"));
+        }
+        else if (mrcRad.isSelected()) {
+            enEmail.setText(new EmailGen().getEmail(labUserName.getText(), "MERCHANT"));
+        }
+        
+    }
+
+    @FXML
+    private void radCliClick(MouseEvent event) {
+        mrcRad.setSelected(false);
+    }
+
+    @FXML
+    private void radMrcClick(MouseEvent event) {
+        cliRad.setSelected(false);
+    }
 }

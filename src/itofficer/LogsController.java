@@ -1,7 +1,6 @@
-package administrator;
+package itofficer;
 
 import common.device.Log;
-import common.lc.Product;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -33,6 +32,7 @@ import javax.imageio.ImageIO;
 import common.writer.Writer;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -78,6 +78,8 @@ public class LogsController implements Initializable {
     @FXML
     private Button createID1;
     private  ArrayList <ArrayList<String>> logFetch;
+    @FXML
+    private TextField enEmail;
     
     /**
      * Initializes the controller class.
@@ -156,7 +158,7 @@ public class LogsController implements Initializable {
         tdate.setCellValueFactory(new PropertyValueFactory("date"));
         tip.setCellValueFactory(new PropertyValueFactory("ip"));
         
-        String[] filterData = {"Sign In", "Register"};
+        String[] filterData = {"Sign In", "Register", "Suspecious"};
         filterComb.getItems().setAll(filterData);
         filterComb.setValue(filterData[0]);
         
@@ -365,12 +367,23 @@ public class LogsController implements Initializable {
             this.logFetch = (new Reader("Database/Official/LOG" , "signin.bin")).splitFile('▓');
         } else if (filterComb.getValue().equals("Register")) {
             this.logFetch = (new Reader("Database/Official/LOG" , "register.bin")).splitFile('▓');
+        } else if (filterComb.getValue().equals("Suspecious")) {
+            this.logFetch = (new Reader("Database/Official/LOG" , "suspecious.bin")).splitFile('▓');
         }
-
+        
         ArrayList<Log>logList = new ArrayList();
-        for(ArrayList<String> Y:logFetch){
-            logList.add(new Log(Y.get(0), Y.get(1), Y.get(2), Y.get(3), Y.get(4)));
+        if (enEmail.getText().isEmpty()) {
+            for(ArrayList<String> Y:logFetch){
+                logList.add(new Log(Y.get(0), Y.get(1), Y.get(2), Y.get(3), Y.get(4)));
+            }
+        } else {
+            for(ArrayList<String> Y:logFetch){
+                if (-1 != Y.get(1).indexOf(enEmail.getText())) {
+                    logList.add(new Log(Y.get(0), Y.get(1), Y.get(2), Y.get(3), Y.get(4)));
+                }
+            }
         }
+        
         table.getItems().setAll(logList);
     }
     

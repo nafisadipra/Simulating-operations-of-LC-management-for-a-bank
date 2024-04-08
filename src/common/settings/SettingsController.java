@@ -264,8 +264,6 @@ public class SettingsController implements Initializable {
 
     @FXML
     private void notClick(MouseEvent event) {
-        ndot.setVisible(false);
-
         if (ndot.isVisible() == true) {
             ArrayList<ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email,
                     "notification.bin")).splitFile('▓');
@@ -275,6 +273,22 @@ public class SettingsController implements Initializable {
             new Writer("Database/User/" + user + "/" + email, "dot.bin", notNum).writeFile();
         }
 
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/notification/NotificationFXML.fxml"));
+            Parent root = loader.load();
+
+            NotificationController controller = loader.getController();
+            controller.initData(user, email, sanData);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -358,7 +372,7 @@ public class SettingsController implements Initializable {
         } else {
             String getNewPassword = enNewPassword.getText();
             String newPassword = AES.encrypt(getNewPassword);
-            String newData = proFetch.get(0).get(0) + "▓" + newPassword + "▓" + proFetch.get(0).get(2) + "▓" + proFetch.get(0).get(3) + "▓" + proFetch.get(0).get(4) + "▓" + proFetch.get(0).get(5) + "▓";
+            String newData = proFetch.get(0).get(0) + "▓" + newPassword + "▓" + proFetch.get(0).get(2) + "▓" + proFetch.get(0).get(3) + "▓" + proFetch.get(0).get(4) + "▓" + proFetch.get(0).get(5) + "▓" + proFetch.get(0).get(6) + "▓" + proFetch.get(0).get(7) + "▓" + proFetch.get(0).get(8) + "▓";
             new Writer("Database/User/" + user + "/" + email, "profile.bin", newData).writeFile();
             (new Prompt()).getAlert("Password updated!", "information");
         }
