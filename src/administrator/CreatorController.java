@@ -1,7 +1,5 @@
 package administrator;
 
-import common.device.Log;
-import common.lc.Product;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -31,15 +29,14 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
  *
  * @author Muyeed
  */
-public class LogsController implements Initializable {
+public class EditorController implements Initializable {
 
     @FXML
     private AnchorPane paneSide;
@@ -57,59 +54,72 @@ public class LogsController implements Initializable {
     private Circle mdot;
     @FXML
     private Circle ndot;
-    
+
     private String user;
     private String email;
     private String[] sanData;
+    private String xuser;
+    private String xname;
+    private String xemail;
+    private String xstatus;
+    private String xaddress;
+    private String xphone;
+    private String xtype;
     @FXML
-    private TableView<Log> table;
+    private ImageView imageView;
     @FXML
-    private TableColumn<Log, String> ttype;
+    private TextField enEmail;
     @FXML
-    private TableColumn<Log, String> temail;
+    private TextField enPhone;
     @FXML
-    private TableColumn<Log, String> ttime;
+    private TextField enAddress;
     @FXML
-    private TableColumn<Log, String> tdate;
+    private TextField enStatus;
+    private Label labCardName;
     @FXML
-    private TableColumn<Log, String> tip;
+    private Label labUserName;
     @FXML
-    private ComboBox<String> filterComb;
-    @FXML
-    private Button createID1;
-    private  ArrayList <ArrayList<String>> logFetch;
-    
+    private TextField enStatus1;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-    }    
+
+    }
 
     // pipeline
-    public void initData(String user, String email, String[] sanData) {
+    public void initData(String user, String email, String[] sanData, String xuser, String xname, String xemail,
+            String xphone, String xaddress, String xstatus) {
         // append
         this.user = user;
         this.email = email;
         this.sanData = sanData;
-        
+        this.xuser = xuser;
+        this.xname = xname;
+        this.xemail = xemail;
+        this.xphone = xphone;
+        this.xaddress = xaddress;
+        this.xstatus = xstatus;
+
         // Side Panel
         ArrayList<Sandwich> sanList = new ArrayList();
 
-        for (String x: sanData) {
+        for (String x : sanData) {
             sanList.add(new Sandwich(x));
         }
         dtableSide.setCellValueFactory(new PropertyValueFactory("item"));
         tableSide.getItems().setAll(FXCollections.observableArrayList(sanList));
-        
+
         // Show Panel
         paneSide.setVisible(false);
         paneLog.setVisible(false);
-        ArrayList <ArrayList<String>> proFetch = (new Reader("Database/User/" + user + "/" + email, "profile.bin")).splitFile('▓');
-        ArrayList <String> data = proFetch.get(0);
+        ArrayList<ArrayList<String>> proFetch = (new Reader("Database/User/" + user + "/" + email, "profile.bin"))
+                .splitFile('▓');
+        ArrayList<String> data = proFetch.get(0);
         labName.setText(data.get(0));
-        
+
         // image
         BufferedImage originalImage = null;
         try {
@@ -131,43 +141,107 @@ public class LogsController implements Initializable {
 
             imageUser.setImage(fxImage);
         }
-        
+
         // dot
-        ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
-        ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
-        ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
-        
+        ArrayList<ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin"))
+                .splitFile('▓');
+        ArrayList<ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin"))
+                .splitFile('▓');
+        ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin"))
+                .splitFile('▓');
+
         if (mesFetch.size() != Integer.parseInt(dotFetch.get(0).get(0))) {
             mdot.setVisible(true);
         } else {
             mdot.setVisible(false);
         }
-        
+
         if (notFetch.size() != Integer.parseInt(dotFetch.get(0).get(1))) {
             ndot.setVisible(true);
         } else {
             ndot.setVisible(false);
         }
-        
-        // log
-        ttype.setCellValueFactory(new PropertyValueFactory("user"));
-        temail.setCellValueFactory(new PropertyValueFactory("email"));
-        ttime.setCellValueFactory(new PropertyValueFactory("time"));
-        tdate.setCellValueFactory(new PropertyValueFactory("date"));
-        tip.setCellValueFactory(new PropertyValueFactory("ip"));
-        
-        String[] filterData = {"Sign In", "Register"};
-        filterComb.getItems().setAll(filterData);
-        filterComb.setValue(filterData[0]);
-        
-        this.logFetch = (new Reader("Database/Official/LOG" , "signin.bin")).splitFile('▓');
 
-        ArrayList<Log>logList = new ArrayList();
-        for(ArrayList<String> Y:logFetch){
-            logList.add(new Log(Y.get(0), Y.get(1), Y.get(2), Y.get(3), Y.get(4)));
+        // user
+        enEmail.setText(xemail);
+        enPhone.setText(xphone);
+        enAddress.setText(xaddress);
+        enStatus.setText(xstatus);
+        labUserName.setText(xname);
+
+        switch (xstatus) {
+            case "Active":
+                enStatus.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: green;");
+                break;
+            case "Banned":
+                enStatus.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: red;");
+                break;
+            case "Restricted":
+                enStatus.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: orange;");
+                break;
+            default:
+                break;
         }
-        table.getItems().setAll(logList);
-        
+
+        // user switch
+        switch (xuser) {
+            case "Administrator":
+                this.xtype = "ADMINISTRATOR";
+                break;
+            case "IT Officer":
+                this.xtype = "ITOFFICER";
+                break;
+            case "Client":
+                this.xtype = "CLIENT";
+                break;
+            case "Merchant":
+                this.xtype = "MERCHANT";
+                break;
+            case "General Manager":
+                this.xtype = "GENERALMANAGER";
+                break;
+            case "Credit Analyst":
+                this.xtype = "CREDITANALYST";
+                break;
+            case "L\\C Officer":
+                this.xtype = "LCOFFICER";
+                break;
+            case "Sales Representative":
+                this.xtype = "SALESREPRESENTATIVE";
+                break;
+            case "Compliance Officer":
+                this.xtype = "COMPLIANCEOFFICER";
+                break;
+            case "Reporting Officer":
+                this.xtype = "REPORTINGOFFICER";
+                break;
+            default:
+                break;
+        }
+
+        // view user image
+        BufferedImage originalImage2 = null;
+        try {
+            originalImage2 = ImageIO.read(new File("Database/User/" + xtype + "/" + xemail + "/user.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (originalImage2 != null) {
+            int targetWidth2 = 50;
+            int targetHeight2 = 50;
+
+            BufferedImage resizedImage2 = new BufferedImage(targetWidth2, targetHeight2, BufferedImage.TYPE_INT_ARGB);
+            java.awt.Graphics2D g2d2 = resizedImage2.createGraphics();
+            g2d2.drawImage(originalImage2, 0, 0, targetWidth2, targetHeight2, null);
+            g2d2.dispose();
+
+            Image fxImage2 = SwingFXUtils.toFXImage(resizedImage2, null);
+
+            imageView.setImage(fxImage2);
+
+        }
+
     }
 
     @FXML
@@ -182,7 +256,7 @@ public class LogsController implements Initializable {
     @FXML
     private void windowClick(MouseEvent event) {
         Sandwich window = tableSide.getSelectionModel().getSelectedItem();
-        
+
         switch (window.getItem()) {
             case "Notification":
                 notClick(event);
@@ -268,6 +342,64 @@ public class LogsController implements Initializable {
     }
 
     @FXML
+    private void notClick(MouseEvent event) {
+        if (ndot.isVisible() == true) {
+            ArrayList<ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email,
+                    "notification.bin")).splitFile('▓');
+            ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin"))
+                    .splitFile('▓');
+            String notNum = dotFetch.get(0).get(0) + "▓" + notFetch.size() + "▓";
+            new Writer("Database/User/" + user + "/" + email, "dot.bin", notNum).writeFile();
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/notification/NotificationFXML.fxml"));
+            Parent root = loader.load();
+
+            common.notification.NotificationController controller = loader.getController();
+            controller.initData(user, email, sanData);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void mailClick(MouseEvent event) {
+        if (mdot.isVisible() == true) {
+            ArrayList<ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin"))
+                    .splitFile('▓');
+            ArrayList<ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin"))
+                    .splitFile('▓');
+            String mesNum = mesFetch.size() + "▓" + dotFetch.get(0).get(1) + "▓";
+            new Writer("Database/User/" + user + "/" + email, "dot.bin", mesNum).writeFile();
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/message/MessageFXML.fxml"));
+            Parent root = loader.load();
+
+            common.message.MessageController controller = loader.getController();
+            controller.initData(user, email, sanData);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void logClick(MouseEvent event) {
         if (paneLog.isVisible()) {
             paneLog.setVisible(false);
@@ -277,77 +409,11 @@ public class LogsController implements Initializable {
     }
 
     @FXML
-    private void notClick(MouseEvent event) {
-        if (ndot.isVisible() == true) {
-            ArrayList <ArrayList<String>> notFetch = (new Reader("Database/User/" + user + "/" + email, "notification.bin")).splitFile('▓');
-            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
-            String notNum = dotFetch.get(0).get(0) + "▓" + notFetch.size() + "▓";
-            new Writer("Database/User/" + user + "/" + email, "dot.bin", notNum).writeFile();
-        }
-        
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/notification/NotificationFXML.fxml"));
-            Parent root = loader.load();
-
-            common.notification.NotificationController controller = loader.getController();
-            controller.initData(user, email, sanData);
-            
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setTitle("LC Bank Portal");
-
-            stage.setScene(new Scene(root));
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    
-    @FXML
-    private void mailClick(MouseEvent event) {
-        if (mdot.isVisible() == true) {
-            ArrayList <ArrayList<String>> mesFetch = (new Reader("Database/User/" + user + "/" + email, "message.bin")).splitFile('▓');
-            ArrayList <ArrayList<String>> dotFetch = (new Reader("Database/User/" + user + "/" + email, "dot.bin")).splitFile('▓');
-            String mesNum = mesFetch.size() + "▓" + dotFetch.get(0).get(1) + "▓";
-            new Writer("Database/User/" + user + "/" + email, "dot.bin", mesNum).writeFile();
-        }
-        
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/message/MessageFXML.fxml"));
-            Parent root = loader.load();
-
-            common.message.MessageController controller = loader.getController();
-            controller.initData(user, email, sanData);
-            
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setTitle("LC Bank Portal");
-
-            stage.setScene(new Scene(root));
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    
-    private void dashClick(MouseEvent event) {
-        
-    }
-    
-    private void feedClick(MouseEvent event) {
-        
-    }
-    
-    private void settClick(MouseEvent event) {
-        
-    }
-
-    @FXML
     private void outClick(MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/signIN/SignINFXML.fxml"));
             Parent root = loader.load();
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
 
@@ -360,18 +426,53 @@ public class LogsController implements Initializable {
     }
 
     @FXML
-    private void filterClick(MouseEvent event) {
-        if (filterComb.getValue().equals("Sign In")) {
-            this.logFetch = (new Reader("Database/Official/LOG" , "signin.bin")).splitFile('▓');
-        } else if (filterComb.getValue().equals("Register")) {
-            this.logFetch = (new Reader("Database/Official/LOG" , "register.bin")).splitFile('▓');
-        }
+    private void admBack(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Management.fxml"));
+            Parent root = loader.load();
 
-        ArrayList<Log>logList = new ArrayList();
-        for(ArrayList<String> Y:logFetch){
-            logList.add(new Log(Y.get(0), Y.get(1), Y.get(2), Y.get(3), Y.get(4)));
+            ManagementController controller = loader.getController();
+            controller.initData(user, email, sanData);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        table.getItems().setAll(logList);
     }
-    
+
+    @FXML
+    private void backClick(MouseEvent event) {
+        // user switch
+        switch (xuser) {
+            case "Administrator":
+                admBack(event);
+                break;
+            case "IT Officer":
+                break;
+            case "Client":
+                break;
+            case "Merchant":
+                break;
+            case "General Manager":
+                break;
+            case "Credit Analyst":
+                break;
+            case "L\\C Officer":
+                break;
+            case "Sales Representative":
+                break;
+            case "Compliance Officer":
+                break;
+            case "Reporting Officer":
+                break;
+            default:
+                break;
+        }
+    }
+
 }
