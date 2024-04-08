@@ -97,7 +97,6 @@ public class LcApplicationController implements Initializable {
     private TextField issuBankTxt;
     @FXML
     private TextField exLcNoTxt;
-    @FXML
     private TextField exDateTxt;
     @FXML
     private CheckBox mailhk;
@@ -112,8 +111,6 @@ public class LcApplicationController implements Initializable {
     @FXML
     private TextField beneTellTxt;
     @FXML
-    private TextField shipDetailsTxt;
-    @FXML
     private CheckBox yesChk;
     @FXML
     private TextField dateTxt;
@@ -126,9 +123,9 @@ public class LcApplicationController implements Initializable {
     @FXML
     private CheckBox transPerChk;
     @FXML
-    private TextArea TermsTxtF;
-    @FXML
     private Button ProceedButt;
+    @FXML
+    private TextField benAddressTxt;
 
     /**
      * Initializes the controller class.
@@ -469,6 +466,10 @@ public class LcApplicationController implements Initializable {
         catch(FileNotFoundException ex){
             
         }
+    }
+
+    @FXML
+    private void admBack(MouseEvent event) {
     }
 
 }
