@@ -17,15 +17,20 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #EEEDEB;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lcofficer.LcApplicationController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8f8f8" height="65.0" layoutY="92.0" stroke="#73d6b7" strokeType="INSIDE" strokeWidth="3.0" width="1200.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f5f7f8" height="435.0" layoutY="166.0" stroke="#73d6b7" strokeType="INSIDE" strokeWidth="3.0" width="1200.0" />
-      <Line endX="585.5" endY="166.0" startX="585.5" startY="452.0" stroke="#73d6b7" strokeWidth="2.0" />
-      <TextField fx:id="amWordTxt" layoutX="150.0" layoutY="464.0" prefHeight="25.0" prefWidth="170.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#eeedeb" height="65.0" layoutY="92.0" stroke="#0a0a0a" strokeType="INSIDE" width="1200.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#eeedeb" height="435.0" layoutY="166.0" stroke="#141414" strokeType="INSIDE" width="1200.0" />
+      <Line endX="585.5" endY="166.0" startX="585.5" startY="452.0" stroke="#171717" />
+      <TextField fx:id="amWordTxt" layoutX="150.0" layoutY="464.0" prefHeight="25.0" prefWidth="170.0" style="-fx-border-color: black; -fx-background-color: white;" />
       <Label layoutX="21.0" layoutY="542.0" text="Transhipment :">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
+      <Button fx:id="ProceedButt" layoutX="986.0" layoutY="508.0" mnemonicParsing="false" onMouseClicked="#proceedClick" prefHeight="57.0" prefWidth="170.0" style="-fx-background-color: #00FF00; -fx-border-color: green;" text="PROCEED">
+         <font>
+            <Font name="Arial" size="20.0" />
+         </font>
+      </Button>
       <Label layoutX="21.0" layoutY="507.0" text="Partial Shipment :">
          <font>
             <Font name="Arial" size="15.0" />
@@ -36,8 +41,8 @@
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="appAddressTxt" layoutX="354.0" layoutY="400.0" prefHeight="25.0" prefWidth="219.0" />
-      <TextField fx:id="appCompTxt" layoutX="398.0" layoutY="360.0" />
+      <TextField fx:id="appAddressTxt" layoutX="354.0" layoutY="400.0" prefHeight="25.0" prefWidth="219.0" style="-fx-border-color: black; -fx-background-color: white;" />
+      <TextField fx:id="appCompTxt" layoutX="398.0" layoutY="360.0" style="-fx-border-color: black; -fx-background-color: white;" />
       <Label layoutX="842.0" layoutY="397.0" text="Is the beneficiary Related to Applicant :">
          <font>
             <Font name="Arial" size="15.0" />
@@ -48,13 +53,13 @@
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="beneCompTxt" layoutX="941.0" layoutY="366.0" />
+      <TextField fx:id="beneCompTxt" layoutX="941.0" layoutY="366.0" style="-fx-border-color: black; -fx-background-color: white;" />
       <Label layoutX="21.0" layoutY="426.0" text="Email :">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="BeneEmailTxt" layoutX="664.0" layoutY="424.0" />
+      <TextField fx:id="BeneEmailTxt" layoutX="664.0" layoutY="424.0" style="-fx-border-color: black; -fx-background-color: white;" />
       <Label layoutX="600.0" layoutY="334.0" text="Beneficiary :">
          <font>
             <Font name="Arial" size="18.0" />
@@ -70,9 +75,9 @@
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="appEmailTxt" layoutX="75.0" layoutY="424.0" />
-      <TextField fx:id="appconTxt" layoutX="97.0" layoutY="394.0" />
-      <TextField fx:id="appTellTxt" layoutX="71.0" layoutY="362.0" prefHeight="16.0" prefWidth="149.0" />
+      <TextField fx:id="appEmailTxt" layoutX="75.0" layoutY="424.0" prefHeight="27.0" prefWidth="160.0" style="-fx-border-color: black; -fx-background-color: white;" />
+      <TextField fx:id="appconTxt" layoutX="97.0" layoutY="394.0" style="-fx-border-color: black; -fx-background-color: white;" />
+      <TextField fx:id="appTellTxt" layoutX="71.0" layoutY="362.0" prefHeight="16.0" prefWidth="149.0" style="-fx-border-color: black; -fx-background-color: white;" />
       <Label layoutX="282.0" layoutY="401.0" text="Address :">
          <font>
             <Font name="Arial" size="14.0" />
@@ -113,9 +118,9 @@
             <Font name="Arial" size="16.0" />
          </font>
       </CheckBox>
-      <TextField fx:id="amountTxt" layoutX="215.0" layoutY="290.0" />
-      <TextField fx:id="issuBankTxt" layoutX="215.0" layoutY="255.0" />
-      <TextField fx:id="exLcNoTxt" layoutX="215.0" layoutY="223.0" />
+      <TextField fx:id="amountTxt" layoutX="215.0" layoutY="290.0" style="-fx-border-color: black; -fx-background-color: white;" />
+      <TextField fx:id="issuBankTxt" layoutX="215.0" layoutY="255.0" style="-fx-border-color: black; -fx-background-color: white;" />
+      <TextField fx:id="exLcNoTxt" layoutX="215.0" layoutY="223.0" style="-fx-border-color: black; -fx-background-color: white;" />
       <Label layoutX="648.0" layoutY="267.0" text="In Country Of :">
          <font>
             <Font name="Arial" size="17.0" />
@@ -126,11 +131,11 @@
             <Font name="Arial" size="17.0" />
          </font>
       </Label>
-      <Line endX="584.5" endY="157.0" startX="584.5" startY="92.0" stroke="#73d6b7" strokeWidth="2.0" />
-      <Line endX="1200.0" endY="212.0" startX="-1.52587890625E-5" startY="212.0" stroke="#73d6b7" strokeWidth="2.0" />
-      <Line endX="1200.0" endY="326.0" startX="-1.52587890625E-5" startY="326.0" stroke="#73d6b7" strokeWidth="2.0" />
-      <Line endX="1200.0" endY="326.0" layoutY="127.0" startX="-1.52587890625E-5" startY="326.0" stroke="#73d6b7" strokeWidth="2.0" />
-      <TextField fx:id="exDateTxt" layoutX="776.0" layoutY="223.0" />
+      <Line endX="584.5" endY="157.0" startX="584.5" startY="92.0" />
+      <Line endX="1200.0" endY="212.0" startX="-1.52587890625E-5" startY="212.0" />
+      <Line endX="1200.0" endY="326.0" startX="-1.52587890625E-5" startY="326.0" />
+      <Line endX="1200.0" endY="326.0" layoutY="127.0" startX="-1.52587890625E-5" startY="326.0" />
+      <TextField fx:id="exDateTxt" layoutX="776.0" layoutY="223.0" style="-fx-border-color: black; -fx-background-color: white;" />
       <Label layoutX="20.0" layoutY="292.0" text="Currency &amp; Amount:">
          <font>
             <Font name="Arial" size="17.0" />
@@ -161,18 +166,13 @@
             <Font name="Arial" size="16.0" />
          </font>
       </CheckBox>
-      <TextField fx:id="redTxt" layoutX="776.0" layoutY="125.0" />
+      <TextField fx:id="redTxt" layoutX="776.0" layoutY="125.0" style="-fx-border-color: black; -fx-background-color: white;" />
       <Label layoutX="20.0" layoutY="225.0" text="Export LC No.">
          <font>
             <Font name="Arial" size="17.0" />
          </font>
       </Label>
-      <TextField fx:id="beneConTxt" layoutX="664.0" layoutY="391.0" />
-      <CheckBox fx:id="NoChk" layoutX="1050.0" layoutY="426.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="59.0" style="-fx-background-color: red;" text="No">
-         <font>
-            <Font name="Arial" size="15.0" />
-         </font>
-      </CheckBox>
+      <TextField fx:id="beneConTxt" layoutX="664.0" layoutY="391.0" style="-fx-border-color: black; -fx-background-color: white;" />
       <Label layoutX="21.0" layoutY="178.0" prefHeight="23.0" prefWidth="93.0" text="Advise by">
          <font>
             <Font name="Arial" size="20.0" />
@@ -188,13 +188,13 @@
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="beneTellTxt" layoutX="663.0" layoutY="360.0" />
+      <TextField fx:id="beneTellTxt" layoutX="663.0" layoutY="360.0" style="-fx-border-color: black; -fx-background-color: white;" />
       <Label layoutX="431.0" layoutY="512.0" text="Terms and Conditions : ">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="shipDetailsTxt" layoutX="590.0" layoutY="464.0" prefHeight="25.0" prefWidth="321.0" />
+      <TextField fx:id="shipDetailsTxt" layoutX="590.0" layoutY="464.0" prefHeight="25.0" prefWidth="321.0" style="-fx-border-color: black; -fx-background-color: white;" />
       <Label layoutX="634.0" layoutY="101.0" text="For Bank Use">
          <font>
             <Font name="Arial" size="17.0" />
@@ -205,8 +205,8 @@
             <Font name="Arial" size="15.0" />
          </font>
       </CheckBox>
-      <TextField fx:id="dateTxt" layoutX="141.0" layoutY="127.0" />
-      <TextField fx:id="LcNotxt" layoutX="141.0" layoutY="99.0" prefHeight="17.0" prefWidth="149.0" />
+      <TextField fx:id="dateTxt" layoutX="141.0" layoutY="127.0" style="-fx-border-color: black; -fx-background-color: white;" />
+      <TextField fx:id="LcNotxt" layoutX="141.0" layoutY="99.0" prefHeight="17.0" prefWidth="149.0" style="-fx-border-color: black; -fx-background-color: white;" />
       <Label layoutX="64.0" layoutY="132.0" text="Dated:">
          <font>
             <Font name="Arial" size="14.0" />
@@ -218,7 +218,7 @@
          </font>
       </Label>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1ffff3" height="16.0" layoutX="19.0" layoutY="104.0" stroke="BLACK" strokeType="INSIDE" width="16.0" />
-      <TextField fx:id="beneAdvTxt" layoutX="740.0" layoutY="180.0" prefHeight="25.0" prefWidth="275.0" />
+      <TextField fx:id="beneAdvTxt" layoutX="740.0" layoutY="180.0" prefHeight="25.0" prefWidth="275.0" style="-fx-border-color: black; -fx-background-color: white;" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1ffff3" height="16.0" layoutX="19.0" layoutY="132.0" stroke="BLACK" strokeType="INSIDE" width="16.0" />
       <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;" visible="false">
          <children>
@@ -262,27 +262,17 @@
             <Image url="@../common/iconFiles/User.png" />
          </image>
       </ImageView>
-      <CheckBox fx:id="psPerChk" layoutX="150.0" layoutY="507.0" mnemonicParsing="false" style="-fx-background-color: #00FF00;" text="Permitted">
+      <CheckBox fx:id="psPerChk" layoutX="150.0" layoutY="507.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="103.0" style="-fx-background-color: #00FF00;" text="Permitted">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </CheckBox>
-      <CheckBox fx:id="psProChk" layoutX="276.0" layoutY="507.0" mnemonicParsing="false" style="-fx-background-color: #FF0000;" text="Prohibited">
+      <CheckBox fx:id="transPerChk" layoutX="150.0" layoutY="542.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="103.0" style="-fx-background-color: #00FF00;" text="Permitted">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </CheckBox>
-      <CheckBox fx:id="transPerChk" layoutX="150.0" layoutY="542.0" mnemonicParsing="false" style="-fx-background-color: #00FF00;" text="Permitted">
-         <font>
-            <Font name="Arial" size="15.0" />
-         </font>
-      </CheckBox>
-      <CheckBox fx:id="transProChk" layoutX="276.0" layoutY="542.0" mnemonicParsing="false" style="-fx-background-color: #FF0000;" text="Prohibited">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </CheckBox>
-      <TextArea fx:id="TermsTxtF" layoutX="591.0" layoutY="506.0" prefHeight="50.0" prefWidth="529.0" />
+      <TextArea fx:id="TermsTxtF" layoutX="591.0" layoutY="506.0" prefHeight="86.0" prefWidth="321.0" style="-fx-border-color: black; -fx-background-color: white;" />
       
    </children>
 </AnchorPane>

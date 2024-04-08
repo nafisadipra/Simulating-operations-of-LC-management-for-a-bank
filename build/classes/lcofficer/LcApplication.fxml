@@ -26,6 +26,11 @@
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
+      <Button fx:id="ProceedButt" layoutX="986.0" layoutY="508.0" mnemonicParsing="false" onMouseClicked="#proceedClick" prefHeight="57.0" prefWidth="170.0" style="-fx-background-color: #00FF00; -fx-border-color: green;" text="PROCEED">
+         <font>
+            <Font name="Arial" size="20.0" />
+         </font>
+      </Button>
       <Label layoutX="21.0" layoutY="507.0" text="Partial Shipment :">
          <font>
             <Font name="Arial" size="15.0" />
@@ -168,11 +173,6 @@
          </font>
       </Label>
       <TextField fx:id="beneConTxt" layoutX="664.0" layoutY="391.0" />
-      <CheckBox fx:id="NoChk" layoutX="1050.0" layoutY="426.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="59.0" style="-fx-background-color: red;" text="No">
-         <font>
-            <Font name="Arial" size="15.0" />
-         </font>
-      </CheckBox>
       <Label layoutX="21.0" layoutY="178.0" prefHeight="23.0" prefWidth="93.0" text="Advise by">
          <font>
             <Font name="Arial" size="20.0" />
@@ -262,27 +262,17 @@
             <Image url="@../common/iconFiles/User.png" />
          </image>
       </ImageView>
-      <CheckBox fx:id="psPerChk" layoutX="150.0" layoutY="507.0" mnemonicParsing="false" style="-fx-background-color: #00FF00;" text="Permitted">
+      <CheckBox fx:id="psPerChk" layoutX="150.0" layoutY="507.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="103.0" style="-fx-background-color: #00FF00;" text="Permitted">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </CheckBox>
-      <CheckBox fx:id="psProChk" layoutX="276.0" layoutY="507.0" mnemonicParsing="false" style="-fx-background-color: #FF0000;" text="Prohibited">
+      <CheckBox fx:id="transPerChk" layoutX="150.0" layoutY="542.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="103.0" style="-fx-background-color: #00FF00;" text="Permitted">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </CheckBox>
-      <CheckBox fx:id="transPerChk" layoutX="150.0" layoutY="542.0" mnemonicParsing="false" style="-fx-background-color: #00FF00;" text="Permitted">
-         <font>
-            <Font name="Arial" size="15.0" />
-         </font>
-      </CheckBox>
-      <CheckBox fx:id="transProChk" layoutX="276.0" layoutY="542.0" mnemonicParsing="false" style="-fx-background-color: #FF0000;" text="Prohibited">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </CheckBox>
-      <TextArea fx:id="TermsTxtF" layoutX="591.0" layoutY="506.0" prefHeight="50.0" prefWidth="529.0" />
+      <TextArea fx:id="TermsTxtF" layoutX="591.0" layoutY="506.0" prefHeight="86.0" prefWidth="321.0" />
       
    </children>
 </AnchorPane>

@@ -1,5 +1,11 @@
 package lcofficer;
 
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.property.TextAlignment;
+import common.prompt.Prompt;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -29,6 +35,11 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -99,8 +110,6 @@ public class LcApplicationController implements Initializable {
     @FXML
     private TextField beneConTxt;
     @FXML
-    private CheckBox NoChk;
-    @FXML
     private TextField beneTellTxt;
     @FXML
     private TextField shipDetailsTxt;
@@ -115,13 +124,11 @@ public class LcApplicationController implements Initializable {
     @FXML
     private CheckBox psPerChk;
     @FXML
-    private CheckBox psProChk;
-    @FXML
     private CheckBox transPerChk;
     @FXML
-    private CheckBox transProChk;
-    @FXML
     private TextArea TermsTxtF;
+    @FXML
+    private Button ProceedButt;
 
     /**
      * Initializes the controller class.
@@ -388,6 +395,79 @@ public class LcApplicationController implements Initializable {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void proceedClick(MouseEvent event) {
+        try{
+            PdfWriter write = new PdfWriter(new FileOutputStream("LcPdfGen.pdf"));
+            PdfDocument pdf = new PdfDocument(write);
+            Document document = new Document(pdf);
+            LocalDate currentDate = LocalDate.now();
+            DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String Date = currentDate.format(formatDate);
+            document.add(new Paragraph("Date: "+ Date));
+            document.add(new Paragraph("Letter Of Credit").setFontSize(20).setBold().setTextAlignment(TextAlignment.CENTER));
+            document.add(new Paragraph("LC Bank").setFontSize(12).setTextAlignment(TextAlignment.CENTER));
+            document.add(new Paragraph("45,New Eskaton,Dhaka").setFontSize(12).setTextAlignment(TextAlignment.CENTER));
+            document.add(new Paragraph("LC No: "+ LcNotxt.getText() ).setFontSize(12));
+            document.add(new Paragraph("Issuing Bank: LC Bank").setFontSize(12));
+            document.add(new Paragraph("Advice Date: "+Date).setFontSize(12));
+            document.add(new Paragraph("Expiry Date: "+ exDateTxt.getText()).setFontSize(12));
+            document.add(new Paragraph("Amount(in words): "+amWordTxt.getText()));
+            document.add(new Paragraph("\nBeneficiary:").setFontSize(14).setBold());
+            document.add(new Paragraph("Company Name: "+beneCompTxt.getText()).setFontSize(12));
+            document.add(new Paragraph("Address: ").setFontSize(12));
+            document.add(new Paragraph("Tell: "+beneTellTxt.getText()).setFontSize(12));
+            document.add(new Paragraph("Email: "+BeneEmailTxt.getText()));
+            document.add(new Paragraph("\nApplicant:").setFontSize(14).setBold());
+            document.add(new Paragraph("Company: "+appCompTxt.getText()).setFontSize(12));
+            document.add(new Paragraph("Address: "+appAddressTxt.getText()).setFontSize(12));
+            document.add(new Paragraph("Tell: "+appTellTxt.getText()).setFontSize(12));
+            document.add(new Paragraph("Email: "+appEmailTxt.getText()).setFontSize(12));
+            document.add(new Paragraph("Please be guided by its terms and conditions and by the following:").setFontSize(14));
+            document.add(new Paragraph("\n"));
+            document.add(new Paragraph("\n"));
+            document.add(new Paragraph("\n"));
+            document.add(new Paragraph("\n"));
+            document.add(new Paragraph("\n"));
+            document.add(new Paragraph("\n"));
+            document.add(new Paragraph("\n"));
+            document.add(new Paragraph("Evidencing Shipment Of:").setFontSize(14).setBold());
+            document.add(new Paragraph("Shipment From: ").setFontSize(12));
+            document.add(new Paragraph("To: "+appAddressTxt.getText()).setFontSize(12));
+            
+            String partial="Not Allowed";
+            if(psPerChk.isSelected()){
+                partial="Allowed";
+                
+                
+            }
+            document.add(new Paragraph("Partial Shipment "+partial).setFontSize(12));
+            
+            String trans="Not Allowed";
+            if(transPerChk.isSelected()){
+                trans="Allowed";
+                
+            }
+            
+            document.add(new Paragraph("Transshipment "+trans).setFontSize(12));
+            document.add(new Paragraph("\nAll the banking charges outside of (applicant address) are for Beneficiary's Account.").setFontSize(12));
+            
+            
+            
+            
+            
+            
+            
+            
+            document.close();
+            
+            (new Prompt()).getAlert("PDF Generated", "information");
+        }
+        catch(FileNotFoundException ex){
+            
         }
     }
 
