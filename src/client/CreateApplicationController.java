@@ -1,8 +1,8 @@
 package client;
 
 import common.finder.Tree;
-import common.lc.PI;
 import common.lc.Product;
+import common.prompt.Prompt;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -132,6 +132,10 @@ public class CreateApplicationController implements Initializable {
     private String company = "Null";
     @FXML
     private TableColumn<?, ?> expoTable;
+    @FXML
+    private TextField compxtField;
+    @FXML
+    private Label CusName1;
 
     /**
      * Initializes the controller class.
@@ -428,7 +432,24 @@ public class CreateApplicationController implements Initializable {
     }
 
     @FXML
-    private void addClick(MouseEvent event) {
+    private void addClick(MouseEvent event) {        
+        if (merComb.getValue().equals("Select") || quantxtField.getText().isEmpty() || prodComb.getValue().equals("Select")) {
+            (new Prompt()).getAlert("Please fill the product fields!", "error");
+            return;
+        }
+        
+        try {
+            int quantity = Integer.parseInt(quantxtField.getText());
+        } catch (NumberFormatException e) {
+            (new Prompt()).getAlert("Please input a valid quantity!.", "error");
+            return;
+        }
+        
+        if (prodComb.getValue() == null || merComb.getValue() == null) {
+            // If either product or merchant is not selected, do nothing
+            return;
+        }
+
         boolean productExists = false;
 
         for (Product product : cartList) {
@@ -441,21 +462,30 @@ public class CreateApplicationController implements Initializable {
         }
 
         if (!productExists) {
-            cartList.add(new Product(String.valueOf(cartList.size() + 1), prodComb.getValue().split(" - ")[1],
-                    quantxtField.getText(), prodComb.getValue().split(" - ")[0], merComb.getValue()));
-        }
+            if (cartList.isEmpty() || merComb.getValue().equals(cartList.get(0).getExporter())) {
+                cartList.add(new Product(String.valueOf(cartList.size() + 1), prodComb.getValue().split(" - ")[1],
+                        quantxtField.getText(), prodComb.getValue().split(" - ")[0], merComb.getValue()));
 
-        productTable.getItems().setAll(cartList);
+                productTable.getItems().setAll(cartList);
 
-        this.payAmount = 0.0;
-        for (Product product : cartList) {
-            this.payAmount += Double.parseDouble(product.getAmount());
+                this.payAmount = 0.0;
+                for (Product product : cartList) {
+                    this.payAmount += Double.parseDouble(product.getAmount());
+                }
+                payabletxtField.setText(Double.toString(this.payAmount));
+            } else {
+                (new Prompt()).getAlert("Added products must be from same Merchant!", "error");
+            }
         }
-        payabletxtField.setText(Double.toString(this.payAmount));
     }
 
     @FXML
     private void proClick(MouseEvent event) {
+        if (merComb.getValue().equals("Select")) {
+            (new Prompt()).getAlert("Please select a Merchant!", "error");
+            return;
+        }
+        
         ArrayList<String> companyFetch = new Tree("Database/User/MERCHANT").view();
         for (String X : companyFetch) {
             ArrayList<ArrayList<String>> nameFetch = (new Reader("Database/User/MERCHANT/" + X, "profile.bin"))
@@ -471,14 +501,25 @@ public class CreateApplicationController implements Initializable {
         ArrayList<String> productList = new ArrayList();
         for (ArrayList<String> Y : productFetch) {
             productList.add(Y.get(1) + " - " + Y.get(0));
-
         }
+        
         prodComb.getItems().setAll(productList);
 
     }
 
     @FXML
     private void proceedClick(MouseEvent event) {
+        if (custxtField.getText().isEmpty() || compxtField.getText().isEmpty() || addresstxtField.getText().isEmpty() || phontxtfield.getText().isEmpty() || emailtxtField.getText().isEmpty()) {
+            (new Prompt()).getAlert("Please fill in all fields.", "error");
+            return;
+        }
+        
+        if (cartList.isEmpty()) {
+            (new Prompt()).getAlert("The cart is empty!", "error");
+            return;
+        }
+        
+        
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/alertBox/AlertBoxFXML.fxml"));
             Parent root = loader.load();
