@@ -1,5 +1,6 @@
 package generalmanager;
 
+import itofficer.*;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -295,6 +296,18 @@ public class DashboardController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void dashClick(MouseEvent event) {
+
+    }
+
+    private void feedClick(MouseEvent event) {
+
+    }
+
+    private void settClick(MouseEvent event) {
+
     }
 
     @FXML
