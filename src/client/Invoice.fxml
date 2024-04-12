@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -12,6 +13,25 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #EEEDEB;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.InvoiceController">
    <children>
+      <ComboBox fx:id="selectComb" layoutX="46.0" layoutY="120.0" prefWidth="150.0" promptText="      Select Here" style="-fx-border-color: black;" />
+      <Button fx:id="filterbutt" layoutX="239.0" layoutY="120.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="97.0" style="-fx-background-color: black;" text="Filter" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="14.0" />
+         </font>
+      </Button>
+      <Label layoutX="45.0" layoutY="42.0" text="Invoices">
+         <font>
+            <Font name="Arial" size="41.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tableid" layoutX="45.0" layoutY="163.0" prefHeight="430.0" prefWidth="1099.0" style="-fx-border-color: black;">
+        <columns>
+          <TableColumn fx:id="slT" prefWidth="112.0" text="SL.No." />
+            <TableColumn fx:id="invoiceT" prefWidth="459.0" text="Invoice" />
+          <TableColumn fx:id="dateT" minWidth="0.0" prefWidth="225.0" text="Date" />
+            <TableColumn fx:id="timeT" minWidth="0.0" prefWidth="302.0" text="Time" />
+        </columns>
+      </TableView>
       <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;" visible="false">
          <children>
             <TableView fx:id="tableSide" layoutX="12.0" layoutY="8.0" onMouseClicked="#windowClick" prefHeight="588.0" prefWidth="265.0" style="-fx-background-color: #9AD0C2; -fx-base: #9AD0C2; -fx-font-size: 25;">
