@@ -241,61 +241,11 @@ public class GUI {
     
     public void cliClick(MouseEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + user.toLowerCase() + "/Clients.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/generalmanager/Clients.fxml"));
             Parent root = loader.load();
             
-            switch (user) {
-                case "ADMINISTRATOR":
-                    {
-                        break;
-                    }
-                case "CREDITANALYST":
-                    {
-                        creditanalyst.ClientsController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
-                case "CLIENT":
-                    {
-                        break;
-                    }
-                case "COMPLIANCEOFFICER":
-                    {
-                        complianceofficer.ClientsController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
-                case "GENERALMANAGER":
-                    {
-                        generalmanager.ClientsController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
-                case "ITOFFICER":
-                    {
-                        break;
-                    }
-                case "LCOFFICER":
-                    {
-                        lcofficer.ClientsController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
-                case "MERCHANT":
-                    {
-                        break;
-                    }
-                case "REPORTINGOFFICER":
-                    {
-                        break;
-                    }
-                case "SALESREPRESENTATIVE":
-                    {
-                        break;
-                    }
-                default:
-                    break;
-            }
+            generalmanager.ClientsController controller = loader.getController();
+            controller.initData(user, email, sanData);
             
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
@@ -310,61 +260,11 @@ public class GUI {
     
     public void mrcClick(MouseEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + user.toLowerCase() + "/Merchants.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/generalmanager/Merchants.fxml"));
             Parent root = loader.load();
             
-            switch (user) {
-                case "ADMINISTRATOR":
-                    {
-                        break;
-                    }
-                case "CREDITANALYST":
-                    {
-                        creditanalyst.MerchantsController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
-                case "CLIENT":
-                    {
-                        break;
-                    }
-                case "COMPLIANCEOFFICER":
-                    {
-                        complianceofficer.MerchantsController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
-                case "GENERALMANAGER":
-                    {
-                        generalmanager.MerchantsController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
-                case "ITOFFICER":
-                    {
-                        break;
-                    }
-                case "LCOFFICER":
-                    {
-                        lcofficer.MerchantsController controller = loader.getController();
-                        controller.initData(user, email, sanData);
-                        break;
-                    }
-                case "MERCHANT":
-                    {
-                        break;
-                    }
-                case "REPORTINGOFFICER":
-                    {
-                        break;
-                    }
-                case "SALESREPRESENTATIVE":
-                    {
-                        break;
-                    }
-                default:
-                    break;
-            }
+            generalmanager.MerchantsController controller = loader.getController();
+            controller.initData(user, email, sanData);
             
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");
