@@ -137,6 +137,9 @@ public class RequestsController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+        
+        //
+        
     }
 
     @FXML
