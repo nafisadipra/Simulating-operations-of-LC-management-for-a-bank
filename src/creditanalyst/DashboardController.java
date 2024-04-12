@@ -1,5 +1,8 @@
 package creditanalyst;
 
+import generalmanager.*;
+import client.*;
+import generalmanager.*;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -33,7 +36,7 @@ import common.writer.Writer;
 /**
  * FXML Controller class
  *
- * @author Ishrak
+ * @author Muyeed
  */
 public class DashboardController implements Initializable {
 
@@ -295,38 +298,6 @@ public class DashboardController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private void dashClick(MouseEvent event) {
-
-    }
-
-    private void feedClick(MouseEvent event) {
-
-    }
-
-    private void settClick(MouseEvent event) {
-
-    }
-
-    private void reqClick(MouseEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Requests.fxml"));
-            Parent root = loader.load();
-
-            RequestsController controller = loader.getController();
-            controller.initData(user, email, sanData);
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setTitle("LC Bank Portal");
-
-            stage.setScene(new Scene(root));
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
     @FXML

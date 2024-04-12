@@ -4,15 +4,36 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #EEEDEB;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="itofficer.DashboardController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #EEEDEB; -fx-border-color: b;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="generalmanager.DashboardController">
    <children>
-      <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;">
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="92.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: black;">
+         <image>
+            <Image url="nn" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="747.0" layoutY="121.0" prefHeight="141.0" prefWidth="368.0" style="-fx-border-color: black; -fx-background-color: #ADBDC9;">
+         <children>
+            <TextField layoutX="38.0" layoutY="25.0" promptText="TotalBankMoney" style="-fx-border-color: black;" />
+            <TextField layoutX="38.0" layoutY="88.0" promptText="Total Account" style="-fx-border-color: black;" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="92.0" layoutY="293.0" prefHeight="168.0" prefWidth="457.0" style="-fx-border-color: black; -fx-background-color: white;">
+         <children>
+            <TextField layoutX="25.0" layoutY="21.0" promptText="Name" style="-fx-border-color: black;" />
+            <TextField layoutX="269.0" layoutY="80.0" promptText="Phone" style="-fx-border-color: black;" />
+            <TextField layoutX="25.0" layoutY="65.0" promptText="Designation" style="-fx-border-color: black;" />
+            <TextField layoutX="25.0" layoutY="112.0" promptText="Address" style="-fx-border-color: black;" />
+            <TextField layoutX="269.0" layoutY="41.0" promptText="Email" style="-fx-border-color: black;" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;" visible="false">
          <children>
             <TableView fx:id="tableSide" layoutX="12.0" layoutY="8.0" onMouseClicked="#windowClick" prefHeight="588.0" prefWidth="265.0" style="-fx-background-color: #9AD0C2; -fx-base: #9AD0C2; -fx-font-size: 25;">
                <columns>
@@ -39,7 +60,7 @@
       </ImageView>
       <Circle fx:id="mdot" fill="#ff3737" layoutX="1078.0" layoutY="43.0" radius="8.0" stroke="TRANSPARENT" strokeType="INSIDE" />
       <Circle fx:id="ndot" fill="#ff3737" layoutX="1121.0" layoutY="43.0" radius="8.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-      <AnchorPane fx:id="paneLog" layoutX="896.0" prefHeight="120.0" prefWidth="304.0" style="-fx-background-color: #D6DAC8;">
+      <AnchorPane fx:id="paneLog" layoutX="896.0" prefHeight="120.0" prefWidth="304.0" style="-fx-background-color: #D6DAC8;" visible="false">
          <children>
             <Label fx:id="labName" alignment="TOP_LEFT" contentDisplay="RIGHT" layoutX="27.0" layoutY="29.0" text="Name" textAlignment="RIGHT" wrapText="true">
                <font>

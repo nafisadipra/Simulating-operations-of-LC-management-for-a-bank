@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #EEEDEB; -fx-border-color: b;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="generalmanager.DashboardController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #EEEDEB; -fx-border-color: b;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.DashboardController">
    <children>
       <Label layoutY="450.0" prefHeight="34.0" prefWidth="986.0" style="-fx-background-color: #FF4D4D; -fx-border-color: black;" text="                           Advertisement" />
       <Label layoutY="502.0" prefHeight="34.0" prefWidth="986.0" style="-fx-background-color: #FF4D4D; -fx-border-color: black;" text="                           Advertisement" />
