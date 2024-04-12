@@ -34,10 +34,10 @@
       </Rectangle>
       <Line endX="623.5" endY="422.29290771484375" layoutY="-4.0" startX="786.5" startY="422.29290771484375" stroke="WHITE" />
       <Line endX="983.0" endY="420.5" layoutY="-4.0" startX="834.5" startY="420.5" stroke="#fcf9f9" />
-      <TextField fx:id="cardNametxt" layoutX="624.0" layoutY="204.0" prefHeight="25.0" prefWidth="200.0" />
-      <TextField fx:id="cardNumtxt" layoutX="623.0" layoutY="288.0" prefHeight="25.0" prefWidth="200.0" />
-      <DatePicker fx:id="datePic" layoutX="624.0" layoutY="388.0" prefHeight="25.0" prefWidth="161.0" />
-      <TextField fx:id="cvvtxt" layoutX="833.0" layoutY="388.0" />
+      <TextField fx:id="cardNametxt" layoutX="624.0" layoutY="204.0" prefHeight="25.0" prefWidth="200.0" style="-fx-border-color: black;" />
+      <TextField fx:id="cardNumtxt" layoutX="623.0" layoutY="288.0" prefHeight="25.0" prefWidth="200.0" style="-fx-border-color: black;" />
+      <DatePicker fx:id="datePic" layoutX="624.0" layoutY="388.0" prefHeight="25.0" prefWidth="161.0" style="-fx-border-color: black;" />
+      <TextField fx:id="cvvtxt" layoutX="833.0" layoutY="388.0" style="-fx-border-color: black;" />
       <Label layoutX="836.0" layoutY="365.0" text="CVV" textFill="#fffefe">
          <font>
             <Font name="Century Gothic Bold" size="13.0" />

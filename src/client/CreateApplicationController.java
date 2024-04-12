@@ -2,6 +2,7 @@ package client;
 
 import common.finder.Tree;
 import common.lc.Product;
+import common.number.RandomNumber;
 import common.prompt.Prompt;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
@@ -32,6 +33,10 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -518,24 +523,50 @@ public class CreateApplicationController implements Initializable {
             (new Prompt()).getAlert("The cart is empty!", "error");
             return;
         }
-        
-        
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/alertBox/AlertBoxFXML.fxml"));
-            Parent root = loader.load();
-
-            common.alertBox.AlertBoxController controller = loader.getController();
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setTitle("LC Bank Portal");
-
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!agreeClick.isSelected()){
+            (new Prompt()).getAlert("Please agree all the terms and policies", "warning");
+            return;
+            
         }
+        long piNum = new RandomNumber(16).generate();
+        String cliData = custxtField.getText() + "▓" + compxtField.getText() + "▓" + addresstxtField.getText() + "▓" + phontxtfield.getText() + "▓" + emailtxtField.getText() + "▓" ;
+        String merData= "\n"+merComb.getValue()+  "▓";
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a▓dd/MM/yyyy");
+        String DateAndTime= "\n" + now.format(formatter).toString();
+        String amount= "\n"+ payabletxtField.getText()+ "▓";
+        String proData= "";
+        for(Product X : cartList){
+            proData += "\n" + X.getProduct()+ "▓" + X.getPrice() + "▓"+ X.getQuantity()+ "▓" + X.getAmount()+ "▓" ;
+            
+        }
+        String alldata= cliData + merData + DateAndTime + amount +"\nPending" + proData;
+        new Writer("Database/Official/PI",  piNum + ".bin", alldata).writeFile();
+        new Writer("Database/User/CLIENT/"+ email,"pi.bin", Long.toString(piNum)).overWriteFile();
+        
+        
+        ArrayList<String>GMFetch=new Tree("Database/User/GENERALMANAGER").view();
+        for(String Y : GMFetch){
+            LocalTime currentTime = LocalTime.now();
+            DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("hh:mm a");
+
+            LocalDate currentDate = LocalDate.now();
+            DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+           
+
+            String notData = ("You recieved a PI Request from " + email) + "▓" + "PI Request" + "▓"
+                    + currentTime.format(formatTime) + "▓" + currentDate.format(formatDate);
+            new Writer("Database/User/GENERALMANAGER/"+ Y, "notification.bin", notData).overWriteFile();
+            (new Prompt()).getAlert("PI Request Submitted!", "information");
+            
+        }
+        
+        
+        
+        
+        
+
 
     }
 

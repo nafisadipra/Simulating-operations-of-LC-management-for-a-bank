@@ -44,6 +44,7 @@
       <TextArea fx:id="whitetxtArea" editable="false" layoutX="757.0" layoutY="105.0" prefHeight="142.0" prefWidth="426.0" style="-fx-border-color: black;" />
       <AnchorPane layoutX="19.0" layoutY="105.0" prefHeight="195.0" prefWidth="386.0" style="-fx-border-color: black;">
          <children>
+            <TextField fx:id="custxtField" layoutX="138.0" layoutY="11.0" prefHeight="27.0" prefWidth="237.0" promptText="e.g. Nafisa Anjum" style="-fx-background-color: white; -fx-border-color: black;" />
             <TextField fx:id="compxtField" layoutX="138.0" layoutY="48.0" prefHeight="27.0" prefWidth="237.0" promptText="e.g. Export Inc." style="-fx-background-color: white; -fx-border-color: black;" />
             <TextField fx:id="addresstxtField" layoutX="138.0" layoutY="85.0" prefHeight="27.0" prefWidth="237.0" promptText="e.g. Motijhil, Dhaka, Bangladesh" style="-fx-background-color: white; -fx-border-color: black;" />
             <TextField fx:id="phontxtfield" layoutX="138.0" layoutY="121.0" prefHeight="27.0" prefWidth="237.0" promptText="e.g. +8801712345678" style="-fx-background-color: white; -fx-border-color: black;" />
@@ -68,7 +69,6 @@
                   <Font name="Arial Italic" size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="custxtField" layoutX="138.0" layoutY="11.0" prefHeight="27.0" prefWidth="237.0" promptText="e.g. Nafisa Anjum" style="-fx-background-color: white; -fx-border-color: black;" />
             <Label fx:id="CusName1" layoutX="10.0" layoutY="15.0" text="Customer Name">
                <font>
                   <Font name="Arial Italic" size="16.0" />
@@ -88,9 +88,9 @@
                   <Font name="Arial Italic" size="16.0" />
                </font>
             </Label>
+            <ComboBox fx:id="merComb" layoutX="86.0" layoutY="12.0" onMouseClicked="#merClick" prefHeight="27.0" prefWidth="231.0" promptText="Select" style="-fx-background-color: white; -fx-border-color: black;" />
             <TextField fx:id="quantxtField" layoutX="86.0" layoutY="49.0" prefHeight="27.0" prefWidth="231.0" promptText="eg; 50" style="-fx-background-color: white; -fx-border-color: black;" />
             <ComboBox fx:id="prodComb" layoutX="86.0" layoutY="87.0" onMouseClicked="#proClick" prefHeight="27.0" prefWidth="231.0" promptText="Select" style="-fx-background-color: white; -fx-border-color: black;" />
-            <ComboBox fx:id="merComb" layoutX="86.0" layoutY="12.0" onMouseClicked="#merClick" prefHeight="27.0" prefWidth="231.0" promptText="Select" style="-fx-background-color: white; -fx-border-color: black;" />
             <Label fx:id="productLabel" layoutX="7.0" layoutY="90.0" text="Product">
                <font>
                   <Font name="Arial Italic" size="16.0" />
