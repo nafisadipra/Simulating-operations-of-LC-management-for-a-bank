@@ -540,7 +540,7 @@ public class CreateApplicationController implements Initializable {
             proData += "\n" + X.getProduct()+ "▓" + X.getPrice() + "▓"+ X.getQuantity()+ "▓" + X.getAmount()+ "▓" ;
             
         }
-        String alldata= cliData + merData + DateAndTime + amount +proData;
+        String alldata= cliData + merData + DateAndTime + amount +"\nPending" + proData;
         new Writer("Database/Official/PI",  piNum + ".bin", alldata).writeFile();
         new Writer("Database/User/CLIENT/"+ email,"pi.bin", Long.toString(piNum)).overWriteFile();
         
