@@ -4,6 +4,7 @@ import common.aes.AES;
 import common.device.IP;
 import common.device.ImageResizer;
 import common.emailGen.EmailGen;
+import common.number.RandomNumber;
 import common.prompt.Prompt;
 import common.reader.Reader;
 import common.writer.Writer;
@@ -24,6 +25,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -31,6 +33,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
@@ -73,6 +76,15 @@ public class SignUPController implements Initializable {
     private TextField enPass;
     @FXML
     private TextField enCPass;
+    @FXML
+    private AnchorPane anchVer;
+    @FXML
+    private TextField enVer;
+    @FXML
+    private Button verButt;
+    @FXML
+    private AnchorPane anchData;
+    private String code;
 
     private void loginButtonAction(ActionEvent event) {
         // mail separator
@@ -325,25 +337,11 @@ public class SignUPController implements Initializable {
 
     @FXML
     private void createClick(MouseEvent event) {
-        if (labUserName.getText().isEmpty() || enPhone.getText().isEmpty() || enAddress.getText().isEmpty() || enCountry.getText().isEmpty() || enNID.getText().isEmpty() || enCom.getText().isEmpty()) {
-            (new Prompt()).getAlert("Please fill in all fields.", "error");
-            return;
-        }
-
-        if (imgPath.equals("")) {
-            (new Prompt()).getAlert("Please select a user picture!", "error");
-            return;
-        }
+        String passData = AES.encrypt(enPass.getText());
         
-        String passData = "";
-        if (!enPass.getText().isEmpty()) {
-            passData = AES.encrypt(enPass.getText());
-            
-            if (enPass.getText().length() > 7 && enPass.getText().length()< 17) {
-            } else {
-                (new Prompt()).getAlert("New password must contain 8-16 charecters!", "error");
-                return;
-            }
+        if (!code.equals(enVer.getText())) {
+            (new Prompt()).getAlert("Please enter the correct verfication code!", "error");
+            return;
         }
         
         String xtype = "";
@@ -353,8 +351,11 @@ public class SignUPController implements Initializable {
         else if (mrcRad.isSelected()) {
             xtype = "MERCHANT";
         }
-        
-        String newData = labUserName.getText() + "▓" + passData + "▓" + enPhone.getText() + "▓" + enAddress.getText() + "▓" + enDOB.getValue() + "▓" + "Active" + "▓" + enCountry.getText() + "▓" + enNID.getText() + "▓" + enCom.getText() + "▓";
+
+        LocalDate currentDate = enDOB.getValue();
+        DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        String newData = labUserName.getText() + "▓" + passData + "▓" + enPhone.getText() + "▓" + enAddress.getText() + "▓" + currentDate.format(formatDate) + "▓" + "Active" + "▓" + enCountry.getText() + "▓" + enNID.getText() + "▓" + enCom.getText() + "▓";
         
         new Writer("Database/User/" + xtype + "/" + enEmail.getText(), "profile.bin", newData).writeFile();
         (new ImageResizer()).resize(imgPath, "Database/User/" + xtype + "/" + enEmail.getText());
@@ -365,7 +366,70 @@ public class SignUPController implements Initializable {
         new Writer("Database/User/" + xtype + "/" + enEmail.getText(), "outbox.bin", "").writeFile();
         new Writer("Database/User/" + xtype + "/" + enEmail.getText(), "product.bin", "").writeFile();
         new Writer("Database/User/" + xtype + "/" + enEmail.getText(), "connect.bin", "").writeFile();
-        (new Prompt()).getAlert("New User Created!", "information");
+        new Writer("Database/User/" + xtype + "/" + enEmail.getText(), "pi.bin", "").writeFile();
+        new Writer("Database/User/" + xtype + "/" + enEmail.getText(), "lc.bin", "").writeFile();
+        (new Prompt()).getAlert("Registration Successful!", "information");
+        outClick(event);
+    }
+
+    @FXML
+    private void regClick(MouseEvent event) {
+        if (labUserName.getText().isEmpty() || enPhone.getText().isEmpty() || enAddress.getText().isEmpty() || enCountry.getText().isEmpty() || enNID.getText().isEmpty() || enCom.getText().isEmpty()) {
+            (new Prompt()).getAlert("Please fill in all fields.", "error");
+            return;
+        }
+        
+        Long age = (LocalDate.now().toEpochDay() - enDOB.getValue().toEpochDay())/(365);
+        if (Math.abs(age) < 18) {
+            (new Prompt()).getAlert("Under age!", "error");
+            return;
+        }
+
+        if (imgPath.equals("")) {
+            (new Prompt()).getAlert("Please select a user picture!", "error");
+            return;
+        }
+        
+        if (!enPass.getText().isEmpty()) {
+            if (enPass.getText().length() > 7 && enPass.getText().length()< 17) {
+            } else {
+                (new Prompt()).getAlert("New password must contain 8-16 charecters!", "error");
+                return;
+            }
+        }
+        
+        this.code = Long.toString(new RandomNumber(6).generate());
+        String desktopPath = System.getProperty("user.home") + File.separator + "Desktop";
+        
+        String emailContent = "Subject: Welcome to LC Bank - Please Verify Your Account\n\n" +
+                              "Dear " + labUserName.getText() + ",\n\n" +
+                              "Thank you for choosing LC Bank for your banking needs. To ensure the security of your account, we require verification of your phone number.\n\n" +
+                              "Please use the following verification code to complete your signup process: " + code + "\n\n" +
+                              "If you did not attempt to sign up for an account with LC Bank, please disregard this message.\n\n" +
+                              "Thank you for choosing LC Bank.\n\n" +
+                              "Best regards,\nLC Bank Team";
+        
+        new Writer(desktopPath, "Verification.txt", emailContent).writeFile();
+        (new Prompt()).getAlert("A verification code hasbeen sent to your phone!", "information");
+        
+        anchVer.setVisible(true);
+        anchData.setVisible(false);
+    }
+    
+    private void outClick(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/signIN/SignINFXML.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
 }

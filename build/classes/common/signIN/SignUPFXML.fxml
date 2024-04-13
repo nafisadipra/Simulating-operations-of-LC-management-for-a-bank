@@ -33,7 +33,7 @@
          </font>
       </Label>
       <Label fx:id="labWarning" layoutX="1004.0" layoutY="400.0" text="Wrong Credentials !" textFill="#ff6363" visible="false" />
-      <AnchorPane layoutX="521.0" prefHeight="600.0" prefWidth="679.0" style="-fx-background-color: #EEEDEB;">
+      <AnchorPane fx:id="anchData" layoutX="521.0" prefHeight="600.0" prefWidth="679.0" style="-fx-background-color: #EEEDEB;">
          <children>
             <ImageView fx:id="imageView" layoutX="18.0" layoutY="58.0" onMouseClicked="#changeClick">
                <image>
@@ -88,7 +88,7 @@
                   <Font name="System Italic" size="16.0" />
                </font>
             </Label>
-            <DatePicker fx:id="enDOB" layoutX="162.0" layoutY="366.0" prefHeight="27.0" prefWidth="504.0" promptText="dd-MM-yyyy" style="-fx-border-color: black;" />
+            <DatePicker fx:id="enDOB" layoutX="162.0" layoutY="366.0" prefHeight="27.0" prefWidth="504.0" style="-fx-border-color: black;" />
             <Label layoutX="21.0" layoutY="403.0" text="NID">
                <font>
                   <Font name="System Italic" size="16.0" />
@@ -106,34 +106,34 @@
                   <Font name="System Italic" size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="enPass" layoutX="162.0" layoutY="483.0" prefHeight="27.0" prefWidth="504.0" style="-fx-border-color: black; -fx-background-color: white;" />
+            <TextField fx:id="enPass" accessibleRole="PASSWORD_FIELD" layoutX="162.0" layoutY="483.0" prefHeight="27.0" prefWidth="504.0" style="-fx-border-color: black; -fx-background-color: white;" />
             <Label layoutX="18.0" layoutY="524.0" text="Confirm Password">
                <font>
                   <Font name="System Italic" size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="enCPass" layoutX="162.0" layoutY="523.0" prefHeight="27.0" prefWidth="504.0" style="-fx-border-color: black; -fx-background-color: white;" />
+            <TextField fx:id="enCPass" accessibleRole="PASSWORD_FIELD" layoutX="162.0" layoutY="523.0" prefHeight="27.0" prefWidth="504.0" style="-fx-border-color: black; -fx-background-color: white;" />
             <Label layoutX="161.0" layoutY="71.0" text="[ Add a user picture here ]" textFill="#575757">
                <font>
                   <Font name="System Italic" size="16.0" />
                </font>
             </Label>
-            <Button layoutX="526.0" layoutY="560.0" mnemonicParsing="false" onMouseClicked="#createClick" prefHeight="28.0" prefWidth="139.0" style="-fx-background-color: #96fffc; -fx-border-color: black;" text="Register" />
+            <Button layoutX="526.0" layoutY="560.0" mnemonicParsing="false" onMouseClicked="#regClick" prefHeight="28.0" prefWidth="139.0" style="-fx-background-color: #96fffc; -fx-border-color: black;" text="Register" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="530.0" layoutY="133.0" prefHeight="334.0" prefWidth="594.0" style="-fx-background-color: #EEEDEB;" visible="false">
+      <AnchorPane fx:id="anchVer" layoutX="530.0" layoutY="133.0" prefHeight="334.0" prefWidth="594.0" style="-fx-background-color: #EEEDEB;" visible="false">
          <children>
             <Label layoutX="25.0" layoutY="33.0" text="Enter Verfication Code" textFill="#646464">
                <font>
                   <Font size="55.0" />
                </font>
             </Label>
-            <TextField alignment="CENTER" layoutX="27.0" layoutY="136.0" prefHeight="82.0" prefWidth="541.0" promptText="######">
+            <TextField fx:id="enVer" alignment="CENTER" layoutX="27.0" layoutY="136.0" prefHeight="82.0" prefWidth="541.0" promptText="######">
                <font>
                   <Font size="39.0" />
                </font>
             </TextField>
-            <Button layoutX="230.0" layoutY="254.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="135.0" style="-fx-background-color: black;" text="Verify" textFill="WHITE">
+            <Button fx:id="verButt" layoutX="230.0" layoutY="254.0" mnemonicParsing="false" onMouseClicked="#createClick" prefHeight="40.0" prefWidth="135.0" style="-fx-background-color: black;" text="Verify" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
