@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,7 +14,50 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #EEEDEB;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="complianceofficer.PolicyController">
    <children>
-      <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;">
+      <Label layoutX="13.0" layoutY="41.0" prefHeight="37.0" prefWidth="172.0" text="Policy">
+         <font>
+            <Font size="44.0" />
+         </font>
+      </Label>
+      <Button layoutX="430.0" layoutY="60.0" mnemonicParsing="false" opacity="0.0" prefHeight="25.0" prefWidth="59.0" text="Button" />
+      <Label layoutX="791.0" layoutY="111.0" text="Make Advertisement">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="filterComb" layoutX="80.0" layoutY="111.0" prefHeight="27.0" prefWidth="202.0" promptText="Select" style="-fx-border-color: black; -fx-background-color: white;" />
+      <Label layoutX="16.0" layoutY="112.0" prefHeight="25.0" prefWidth="59.0" text="Filter By">
+         <font>
+            <Font name="System Italic" size="16.0" />
+         </font>
+      </Label>
+      <Button fx:id="createID1" layoutX="295.0" layoutY="110.0" mnemonicParsing="false" onMouseClicked="#filterClick" prefHeight="28.0" prefWidth="102.0" style="-fx-background-color: black;" text="Filter" textFill="WHITE" />
+      <TableView fx:id="policyTB" layoutX="14.0" layoutY="152.0" onMouseClicked="#userCLick" prefHeight="436.0" prefWidth="764.0" style="-fx-border-color: black;">
+         <columns>
+            <TableColumn fx:id="userTB" prefWidth="170.0" text="User" />
+            <TableColumn fx:id="briefTB" prefWidth="369.0" text="Policy Brief" />
+            <TableColumn fx:id="tTB" minWidth="0.0" prefWidth="105.0" text="Time" />
+            <TableColumn fx:id="dTB" prefWidth="118.0" text="Date" />
+         </columns>
+      </TableView>
+      <AnchorPane layoutX="791.0" layoutY="151.0" prefHeight="230.0" prefWidth="396.0" style="-fx-border-color: black;">
+         <children>
+            <Label layoutX="12.0" layoutY="24.0" text="Select User">
+               <font>
+                  <Font name="System Italic" size="16.0" />
+               </font>
+            </Label>
+            <Button layoutX="286.0" layoutY="190.0" mnemonicParsing="false" onMouseClicked="#reqClick" prefHeight="28.0" prefWidth="102.0" style="-fx-background-color: black;" text="Add" textFill="WHITE" />
+            <ComboBox fx:id="prodCom" layoutX="123.0" layoutY="23.0" prefHeight="25.0" prefWidth="256.0" promptText="Select" style="-fx-border-color: black; -fx-background-color: white;" />
+            <TextArea fx:id="areaBrief" layoutX="12.0" layoutY="91.0" prefHeight="96.0" prefWidth="376.0" promptText="e.g. MacBook is now on a 50% discount offer! Grab the discount quickly!" style="-fx-border-color: black;" />
+            <Label layoutX="12.0" layoutY="66.0" text="Brief">
+               <font>
+                  <Font name="System Italic" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;" visible="false">
          <children>
             <TableView fx:id="tableSide" layoutX="12.0" layoutY="8.0" onMouseClicked="#windowClick" prefHeight="588.0" prefWidth="265.0" style="-fx-background-color: #9AD0C2; -fx-base: #9AD0C2; -fx-font-size: 25;">
                <columns>
@@ -39,7 +84,7 @@
       </ImageView>
       <Circle fx:id="mdot" fill="#ff3737" layoutX="1078.0" layoutY="43.0" radius="8.0" stroke="TRANSPARENT" strokeType="INSIDE" />
       <Circle fx:id="ndot" fill="#ff3737" layoutX="1121.0" layoutY="43.0" radius="8.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-      <AnchorPane fx:id="paneLog" layoutX="896.0" prefHeight="120.0" prefWidth="304.0" style="-fx-background-color: #D6DAC8;">
+      <AnchorPane fx:id="paneLog" layoutX="896.0" prefHeight="120.0" prefWidth="304.0" style="-fx-background-color: #D6DAC8;" visible="false">
          <children>
             <Label fx:id="labName" alignment="TOP_LEFT" contentDisplay="RIGHT" layoutX="27.0" layoutY="29.0" text="Name" textAlignment="RIGHT" wrapText="true">
                <font>
@@ -54,6 +99,11 @@
             <Image url="@../common/iconFiles/User.png" />
          </image>
       </ImageView>
+      <AnchorPane layoutX="791.0" layoutY="388.0" prefHeight="200.0" prefWidth="396.0" style="-fx-border-color: black;">
+         <children>
+            <Button layoutX="29.0" layoutY="23.0" mnemonicParsing="false" onMouseClicked="#delClick" prefHeight="28.0" prefWidth="102.0" style="-fx-background-color: black;" text="Delete" textFill="WHITE" />
+         </children>
+      </AnchorPane>
       
    </children>
 </AnchorPane>

@@ -1,5 +1,6 @@
 package complianceofficer;
 
+import common.lc.Policy;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -29,6 +30,12 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
 
 /**
  * FXML Controller class
@@ -57,6 +64,24 @@ public class PolicyController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    @FXML
+    private ComboBox<?> filterComb;
+    @FXML
+    private Button createID1;
+    @FXML
+    private ComboBox<String> prodCom;
+    @FXML
+    private TextArea areaBrief;
+    @FXML
+    private TableView<Policy> policyTB;
+    @FXML
+    private TableColumn<Policy, String> userTB;
+    @FXML
+    private TableColumn<Policy, String> briefTB;
+    @FXML
+    private TableColumn<Policy, String> tTB;
+    @FXML
+    private TableColumn<Policy, String> dTB;
 
     /**
      * Initializes the controller class.
@@ -131,6 +156,24 @@ public class PolicyController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+        //cb
+        String[] users = {"Client","Merchant"};
+        prodCom.getItems().addAll(users);
+        prodCom.setValue(users[0]);
+        //table 
+        ArrayList<ArrayList<String>> policyBin = (new Reader("Database/Official/POLICY" , "policy.bin")).splitFile('▓');
+        ArrayList<Policy> policyList = new ArrayList();
+        for (ArrayList<String> X: policyBin){
+            policyList.add(new Policy(X.get(0),X.get(1),X.get(2),X.get(3)));
+            System.out.println(X);
+        }
+        userTB.setCellValueFactory(new PropertyValueFactory("user"));
+        briefTB.setCellValueFactory(new PropertyValueFactory("brief"));
+        tTB.setCellValueFactory(new PropertyValueFactory("time"));
+        dTB.setCellValueFactory(new PropertyValueFactory("date"));
+        policyTB.getItems().addAll(policyList);
+        
+        
     }
 
     @FXML
@@ -324,6 +367,34 @@ public class PolicyController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void filterClick(MouseEvent event) {
+    }
+
+    @FXML
+    private void userCLick(MouseEvent event) {
+    }
+
+    @FXML
+    private void reqClick(MouseEvent event) {
+        
+        
+        LocalTime currentTime = LocalTime.now();
+        DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("hh:mm a");
+
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        
+        
+        String breifing = prodCom.getValue() + "▓"+ areaBrief.getText() + "▓" + currentTime.format(formatTime)+"▓"+ currentDate.format(formatDate)+"▓";
+        new Writer("Database/Official/POLICY" , "policy.bin", breifing).overWriteFile();
+       (new GUI(user, email, sanData)).pcyClick(event);
+    }
+
+    @FXML
+    private void delClick(MouseEvent event) {
     }
 
 }
