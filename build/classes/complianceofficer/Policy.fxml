@@ -47,10 +47,10 @@
                   <Font name="System Italic" size="16.0" />
                </font>
             </Label>
-            <Button layoutX="286.0" layoutY="190.0" mnemonicParsing="false" onMouseClicked="#reqClick" prefHeight="28.0" prefWidth="102.0" style="-fx-background-color: black;" text="Add" textFill="WHITE" />
+            <Button layoutX="286.0" layoutY="194.0" mnemonicParsing="false" onMouseClicked="#reqClick" prefHeight="28.0" prefWidth="102.0" style="-fx-background-color: black;" text="Add" textFill="WHITE" />
             <ComboBox fx:id="prodCom" layoutX="123.0" layoutY="23.0" prefHeight="25.0" prefWidth="256.0" promptText="Select" style="-fx-border-color: black; -fx-background-color: white;" />
-            <TextArea fx:id="areaBrief" layoutX="12.0" layoutY="91.0" prefHeight="96.0" prefWidth="376.0" promptText="e.g. MacBook is now on a 50% discount offer! Grab the discount quickly!" style="-fx-border-color: black;" />
-            <Label layoutX="12.0" layoutY="66.0" text="Brief">
+            <TextArea fx:id="areaBrief" layoutX="10.0" layoutY="83.0" prefHeight="105.0" prefWidth="376.0" promptText="e.g. MacBook is now on a 50% discount offer! Grab the discount quickly!" style="-fx-border-color: black;" />
+            <Label layoutX="12.0" layoutY="58.0" text="Brief">
                <font>
                   <Font name="System Italic" size="16.0" />
                </font>
