@@ -490,7 +490,7 @@ public class EditorController implements Initializable {
             return;
         }
 
-        if ((new Prompt()).getAlert("Are you to add this picture?", "confirmation").getResult().getText().equals("Cancel")) {
+        if ((new Prompt()).getAlert("Do you want to add this picture?", "confirmation").getResult().getText().equals("Cancel")) {
             return;
         }
 

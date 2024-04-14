@@ -520,7 +520,7 @@ public class CreateApplicationController implements Initializable {
         for(Product X : cartList){
             proData += "\n" + X.getProduct()+ "▓" + X.getPrice() + "▓"+ X.getQuantity()+ "▓" + X.getAmount()+ "▓" ;
         }
-        String alldata= cliData + merData + DateAndTime + amount +"\nPending▓Pending▓Pending▓" + proData;
+        String alldata= cliData + merData + DateAndTime + amount +"\nPending▓Pending▓Pending▓Pending▓" + proData;
         new Writer("Database/Official/PI",  piNum + ".bin", alldata).writeFile();
         new Writer("Database/User/CLIENT/"+ email,"pi.bin", Long.toString(piNum)).overWriteFile();
         

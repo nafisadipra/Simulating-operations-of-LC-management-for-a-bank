@@ -84,6 +84,8 @@ public class ApplicationController implements Initializable {
     private TableColumn<PI, String> tdate;
     @FXML
     private ComboBox<String> typeComb;
+    @FXML
+    private TableColumn<PI, String> mrcTab;
 
     /**
      * Initializes the controller class.
@@ -187,6 +189,7 @@ public class ApplicationController implements Initializable {
                 String xgmStatus = fetchData.get(4).get(0);
                 String xcrStatus = fetchData.get(4).get(1);
                 String xcompStatus = fetchData.get(4).get(2);
+                String xmrcStatus = fetchData.get(4).get(3);
 
                 ArrayList<Product> xproductList = new ArrayList();
                 for(int i=5; i<fetchData.size(); i++){
@@ -194,17 +197,17 @@ public class ApplicationController implements Initializable {
                 }
 
                 if (X.contains(xserial)) {
-                    TablePI.add(new PI(xserial, xcustomer, xcompany, xaddress, xphone, xemail, xmerchant, xtime, xdate, xtotal_amount, xgmStatus, xcrStatus, xcompStatus, "PI", xproductList));
+                    TablePI.add(new PI(xserial, xcustomer, xcompany, xaddress, xphone, xemail, xmerchant, xtime, xdate, xtotal_amount, xgmStatus, xcrStatus, xcompStatus, xmrcStatus, "PI", xproductList));
                 }
             }
-
-            System.out.println(TablePI);
+            
             typTab.setCellValueFactory(new PropertyValueFactory("type"));
             idTab.setCellValueFactory(new PropertyValueFactory("serial"));
             appToTab.setCellValueFactory(new PropertyValueFactory("merchant"));
             timeTab.setCellValueFactory(new PropertyValueFactory("time"));
             tdate.setCellValueFactory(new PropertyValueFactory("date"));        
             statusTab.setCellValueFactory(new PropertyValueFactory("gmStatus"));
+            mrcTab.setCellValueFactory(new PropertyValueFactory("mrcStatus"));
             tableVieW.getItems().addAll(TablePI);
         }
     }

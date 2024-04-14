@@ -37,7 +37,7 @@
             <TextField fx:id="addresstxtField" editable="false" layoutX="138.0" layoutY="85.0" prefHeight="27.0" prefWidth="1010.0" style="-fx-background-color: white; -fx-border-color: black;" />
             <TextField fx:id="phontxtfield" editable="false" layoutX="138.0" layoutY="121.0" prefHeight="27.0" prefWidth="1010.0" style="-fx-background-color: white; -fx-border-color: black;" />
             <TextField fx:id="emailtxtField" editable="false" layoutX="138.0" layoutY="157.0" prefHeight="27.0" prefWidth="1010.0" style="-fx-background-color: white; -fx-border-color: black;" />
-            <TextField fx:id="statusField" editable="false" layoutX="138.0" layoutY="195.0" prefHeight="27.0" prefWidth="1010.0" style="-fx-background-color: white; -fx-border-color: black;" />
+            <TextField fx:id="statusField" editable="false" layoutX="138.0" layoutY="195.0" prefHeight="27.0" prefWidth="391.0" style="-fx-background-color: white; -fx-border-color: black;" />
             <Label fx:id="CusName" layoutX="10.0" layoutY="52.0" text="Company Name">
                <font>
                   <Font name="Arial Italic" size="16.0" />
@@ -63,7 +63,13 @@
                   <Font name="Arial Italic" size="16.0" />
                </font>
             </Label>
-            <Label fx:id="emailLabel1" layoutX="8.0" layoutY="198.0" text="Status">
+            <Label fx:id="emailLabel1" layoutX="8.0" layoutY="198.0" text="GM Status">
+               <font>
+                  <Font name="Arial Italic" size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="MRCstatusField" editable="false" layoutX="757.0" layoutY="195.0" prefHeight="27.0" prefWidth="391.0" style="-fx-background-color: white; -fx-border-color: black;" />
+            <Label fx:id="emailLabel11" layoutX="614.0" layoutY="198.0" text="MRC Status">
                <font>
                   <Font name="Arial Italic" size="16.0" />
                </font>

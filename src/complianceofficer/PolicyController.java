@@ -1,6 +1,7 @@
 package complianceofficer;
 
 import common.lc.Policy;
+import common.prompt.Prompt;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -35,7 +36,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -65,13 +66,13 @@ public class PolicyController implements Initializable {
     private String email;
     private String[] sanData;
     @FXML
-    private ComboBox<?> filterComb;
+    private ComboBox<String> filterComb;
     @FXML
     private Button createID1;
     @FXML
     private ComboBox<String> prodCom;
     @FXML
-    private TextArea areaBrief;
+    private TextField areaBrief;
     @FXML
     private TableView<Policy> policyTB;
     @FXML
@@ -156,24 +157,40 @@ public class PolicyController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+        
         //cb
-        String[] users = {"Client","Merchant"};
+        String[] users = {"Client", "Merchant"};
         prodCom.getItems().addAll(users);
         prodCom.setValue(users[0]);
-        //table 
+        
+        String[] filterList = {"All", "Client", "Merchant"};
+        filterComb.getItems().addAll(filterList);
+        filterComb.setValue(filterList[0]);
+        
+        policyFetch();
+
+    }
+    
+    private void policyFetch() {
+        //table
         ArrayList<ArrayList<String>> policyBin = (new Reader("Database/Official/POLICY" , "policy.bin")).splitFile('▓');
         ArrayList<Policy> policyList = new ArrayList();
+
         for (ArrayList<String> X: policyBin){
-            policyList.add(new Policy(X.get(0),X.get(1),X.get(2),X.get(3)));
-            System.out.println(X);
+            if (filterComb.getValue().equals("All")) {
+                policyList.add(new Policy(X.get(0),X.get(1),X.get(2),X.get(3)));
+            } else {
+                if (X.get(0).equals(filterComb.getValue())) {
+                    policyList.add(new Policy(X.get(0),X.get(1),X.get(2),X.get(3)));
+                }
+            }
         }
+        
         userTB.setCellValueFactory(new PropertyValueFactory("user"));
         briefTB.setCellValueFactory(new PropertyValueFactory("brief"));
         tTB.setCellValueFactory(new PropertyValueFactory("time"));
         dTB.setCellValueFactory(new PropertyValueFactory("date"));
         policyTB.getItems().addAll(policyList);
-        
-        
     }
 
     @FXML
@@ -371,6 +388,8 @@ public class PolicyController implements Initializable {
 
     @FXML
     private void filterClick(MouseEvent event) {
+        policyTB.getItems().clear();
+        policyFetch();
     }
 
     @FXML
@@ -379,7 +398,14 @@ public class PolicyController implements Initializable {
 
     @FXML
     private void reqClick(MouseEvent event) {
+        if (areaBrief.getText().isEmpty()) {
+            (new Prompt()).getAlert("Please fill in all fields.", "error");
+            return;
+        }
         
+        if ((new Prompt()).getAlert("Do you to add this policy", "confirmation").getResult().getText().equals("Cancel")) {
+            return;
+        }
         
         LocalTime currentTime = LocalTime.now();
         DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("hh:mm a");
@@ -395,6 +421,15 @@ public class PolicyController implements Initializable {
 
     @FXML
     private void delClick(MouseEvent event) {
+        if ((new Prompt()).getAlert("Do you to remove this policy", "confirmation").getResult().getText().equals("Cancel")) {
+            return;
+        }
+        
+        Policy xdata = policyTB.getSelectionModel().getSelectedItem();
+        System.out.println(xdata);
+        String prodD = xdata.getUser() + "▓" + xdata.getBrief() + "▓" + xdata.getTime() + "▓" + xdata.getDate() + "▓";
+        new Writer("Database/Official/POLICY", "policy.bin", "").deleteLine(prodD);
+        (new GUI(user, email, sanData)).pcyClick(event);
     }
 
 }

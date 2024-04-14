@@ -13,14 +13,8 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #EEEDEB;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="complianceofficer.RequestsController">
    <children>
-      <ComboBox fx:id="filterComb" layoutX="870.0" layoutY="124.0" prefHeight="27.0" prefWidth="202.0" promptText="                     Select" style="-fx-border-color: black; -fx-background-color: white;" />
-      <ComboBox fx:id="filterComb1" layoutX="562.0" layoutY="124.0" prefHeight="27.0" prefWidth="202.0" promptText="                     Select" style="-fx-border-color: black; -fx-background-color: white;" />
-      <Label layoutX="520.0" layoutY="125.0" prefHeight="25.0" prefWidth="36.0" text="Type">
-         <font>
-            <Font name="System Italic" size="16.0" />
-         </font>
-      </Label>
-      <Label layoutX="816.0" layoutY="125.0" prefHeight="25.0" prefWidth="50.0" text="Status">
+      <ComboBox fx:id="filterComb" layoutX="69.0" layoutY="116.0" prefHeight="27.0" prefWidth="202.0" style="-fx-border-color: black; -fx-background-color: white;" />
+      <Label layoutX="15.0" layoutY="117.0" prefHeight="25.0" prefWidth="50.0" text="Status">
          <font>
             <Font name="System Italic" size="16.0" />
          </font>
@@ -30,16 +24,17 @@
             <Font size="44.0" />
          </font>
       </Label>
-      <TableView fx:id="tableVieW" layoutX="15.0" layoutY="181.0" onMouseClicked="#userCLick" prefHeight="407.0" prefWidth="1170.0" style="-fx-border-color: black;">
+      <TableView fx:id="tableVieW" layoutX="15.0" layoutY="156.0" onMouseClicked="#userCLick" prefHeight="432.0" prefWidth="1170.0" style="-fx-border-color: black;">
          <columns>
             <TableColumn fx:id="typTab" prefWidth="94.00003051757812" text="Type" />
             <TableColumn fx:id="idTab" prefWidth="129.0" text="ID" />
-            <TableColumn fx:id="appToTab" minWidth="0.0" prefWidth="302.0" text="Application To" />
-            <TableColumn fx:id="timeTab" minWidth="0.0" prefWidth="118.0" text="Time" />
-            <TableColumn fx:id="tdate" minWidth="0.0" prefWidth="129.0" text="Date" />
-            <TableColumn fx:id="statusTab" minWidth="0.0" prefWidth="140.0" text="Status" />
-            <TableColumn fx:id="craTab" minWidth="0.0" prefWidth="129.0" text="CRA Status" />
-            <TableColumn fx:id="cmoTab" minWidth="0.0" prefWidth="124.0" text="CMO Status" />
+            <TableColumn fx:id="appToTab" minWidth="0.0" prefWidth="251.0" text="Application To" />
+            <TableColumn fx:id="timeTab" minWidth="0.0" prefWidth="103.0" text="Time" />
+            <TableColumn fx:id="tdate" minWidth="0.0" prefWidth="112.0" text="Date" />
+            <TableColumn fx:id="statusTab" minWidth="0.0" prefWidth="128.0" text="GM Status" />
+            <TableColumn fx:id="craTab" minWidth="0.0" prefWidth="115.0" text="CRA Status" />
+            <TableColumn fx:id="cmoTab" minWidth="0.0" prefWidth="121.0" text="CMO Status" />
+            <TableColumn fx:id="mrcTab" minWidth="0.0" prefWidth="111.0" text="MRC Status" />
          </columns>
       </TableView>
       <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;" visible="false">
@@ -84,7 +79,7 @@
             <Image url="@../common/iconFiles/User.png" />
          </image>
       </ImageView>
-      <Button fx:id="createID1" layoutX="1085.0" layoutY="123.0" mnemonicParsing="false" onMouseClicked="#filterClick" prefHeight="28.0" prefWidth="102.0" style="-fx-background-color: black;" text="Filter" textFill="WHITE" />
+      <Button fx:id="createID1" layoutX="284.0" layoutY="115.0" mnemonicParsing="false" onMouseClicked="#filterClick" prefHeight="28.0" prefWidth="102.0" style="-fx-background-color: black;" text="Filter" textFill="WHITE" />
       
    </children>
 </AnchorPane>

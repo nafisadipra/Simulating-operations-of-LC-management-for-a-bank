@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -13,38 +14,31 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #EEEDEB;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="generalmanager.applicationShowController">
    <children>
-      <AnchorPane layoutX="772.0" layoutY="312.0" prefHeight="255.0" prefWidth="321.0" style="-fx-border-color: black; -fx-background-color: white;">
-         <children>
-            <Button fx:id="aprvButt" layoutX="22.0" layoutY="95.0" mnemonicParsing="false" onMouseClicked="#aprvClick" prefHeight="50.0" prefWidth="125.0" text="Approve">
-               <font>
-                  <Font name="Century Gothic Bold" size="17.0" />
-               </font>
-            </Button>
-            <Button fx:id="declbutt" layoutX="176.0" layoutY="95.0" mnemonicParsing="false" onMouseClicked="#declClick" prefHeight="50.0" prefWidth="125.0" text="Decline">
-               <font>
-                  <Font name="Century Gothic Bold" size="18.0" />
-               </font>
-            </Button>
-         </children>
-      </AnchorPane>
-      <Label layoutX="15.0" layoutY="40.0" text="Performa Invoice">
+      <Button layoutX="456.0" layoutY="65.0" mnemonicParsing="false" opacity="0.0" text="Button" />
+      <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="13.0" layoutY="53.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#backClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../common/iconFiles/arrow.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="48.0" layoutY="34.0" text="Performa Invoice">
          <font>
             <Font size="44.0" />
          </font>
       </Label>
-      <Label fx:id="payableLabel" layoutX="515.0" layoutY="110.0" text="Payable Amount">
+      <Label fx:id="payableLabel" layoutX="19.0" layoutY="561.0" text="Payable Amount ($)" textFill="#005406">
          <font>
             <Font name="Arial Italic" size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="payabletxtField" editable="false" layoutX="675.0" layoutY="107.0" prefHeight="27.0" prefWidth="297.0" style="-fx-background-color: white; -fx-border-color: black;" />
-      <AnchorPane layoutX="19.0" layoutY="105.0" prefHeight="195.0" prefWidth="386.0" style="-fx-border-color: black;">
+      <TextField fx:id="payabletxtField" editable="false" layoutX="172.0" layoutY="558.0" prefHeight="27.0" prefWidth="1010.0" style="-fx-background-color: white; -fx-border-color: black;" />
+      <AnchorPane layoutX="19.0" layoutY="102.0" prefHeight="235.0" prefWidth="1163.0" style="-fx-border-color: black;">
          <children>
-            <TextField fx:id="custxtField" layoutX="138.0" layoutY="11.0" prefHeight="27.0" prefWidth="237.0" promptText="e.g. Nafisa Anjum" style="-fx-background-color: white; -fx-border-color: black;" />
-            <TextField fx:id="compxtField" layoutX="138.0" layoutY="48.0" prefHeight="27.0" prefWidth="237.0" promptText="e.g. Export Inc." style="-fx-background-color: white; -fx-border-color: black;" />
-            <TextField fx:id="addresstxtField" layoutX="138.0" layoutY="85.0" prefHeight="27.0" prefWidth="237.0" promptText="e.g. Motijhil, Dhaka, Bangladesh" style="-fx-background-color: white; -fx-border-color: black;" />
-            <TextField fx:id="phontxtfield" layoutX="138.0" layoutY="121.0" prefHeight="27.0" prefWidth="237.0" promptText="e.g. +8801712345678" style="-fx-background-color: white; -fx-border-color: black;" />
-            <TextField fx:id="emailtxtField" layoutX="138.0" layoutY="157.0" prefHeight="27.0" prefWidth="237.0" promptText="e.g. nafisa@email.com" style="-fx-background-color: white; -fx-border-color: black;" />
+            <TextField fx:id="custxtField" editable="false" layoutX="138.0" layoutY="11.0" prefHeight="27.0" prefWidth="1010.0" style="-fx-background-color: white; -fx-border-color: black;" />
+            <TextField fx:id="compxtField" editable="false" layoutX="138.0" layoutY="48.0" prefHeight="27.0" prefWidth="1010.0" style="-fx-background-color: white; -fx-border-color: black;" />
+            <TextField fx:id="addresstxtField" editable="false" layoutX="138.0" layoutY="85.0" prefHeight="27.0" prefWidth="1010.0" style="-fx-background-color: white; -fx-border-color: black;" />
+            <TextField fx:id="phontxtfield" editable="false" layoutX="138.0" layoutY="121.0" prefHeight="27.0" prefWidth="1010.0" style="-fx-background-color: white; -fx-border-color: black;" />
+            <TextField fx:id="emailtxtField" editable="false" layoutX="138.0" layoutY="157.0" prefHeight="27.0" prefWidth="1010.0" style="-fx-background-color: white; -fx-border-color: black;" />
+            <TextField fx:id="statusField" editable="false" layoutX="138.0" layoutY="195.0" prefHeight="27.0" prefWidth="116.0" style="-fx-background-color: white; -fx-border-color: black;" />
             <Label fx:id="CusName" layoutX="10.0" layoutY="52.0" text="Company Name">
                <font>
                   <Font name="Arial Italic" size="16.0" />
@@ -70,18 +64,55 @@
                   <Font name="Arial Italic" size="16.0" />
                </font>
             </Label>
+            <Label fx:id="emailLabel1" layoutX="8.0" layoutY="198.0" text="GM Status">
+               <font>
+                  <Font name="Arial Italic" size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="CRAstatusField" editable="false" layoutX="432.0" layoutY="195.0" prefHeight="27.0" prefWidth="116.0" style="-fx-background-color: white; -fx-border-color: black;" />
+            <Label fx:id="emailLabel11" layoutX="302.0" layoutY="198.0" text="CRA Status">
+               <font>
+                  <Font name="Arial Italic" size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="CMOstatusField" editable="false" layoutX="733.0" layoutY="195.0" prefHeight="27.0" prefWidth="116.0" style="-fx-background-color: white; -fx-border-color: black;" />
+            <Label fx:id="emailLabel111" layoutX="603.0" layoutY="198.0" text="CMO Status">
+               <font>
+                  <Font name="Arial Italic" size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="MRCstatusField" editable="false" layoutX="1032.0" layoutY="195.0" prefHeight="27.0" prefWidth="116.0" style="-fx-background-color: white; -fx-border-color: black;" />
+            <Label fx:id="emailLabel1111" layoutX="902.0" layoutY="198.0" text="MRC Status">
+               <font>
+                  <Font name="Arial Italic" size="16.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
-      <TableView fx:id="productTable" layoutX="19.0" layoutY="312.0" prefHeight="270.0" prefWidth="614.0" style="-fx-border-color: black;">
-        <columns>
-          <TableColumn fx:id="Sltable" prefWidth="58.0" text="SL.No." />
-          <TableColumn fx:id="protable" prefWidth="177.0" text="Product" />
-            <TableColumn fx:id="quanTable" prefWidth="86.0" text="Quantity" />
-            <TableColumn fx:id="pppTable" prefWidth="79.0" text="Price ($)" />
-            <TableColumn fx:id="amountable" prefWidth="97.0" text="Total Price ($)" />
-            <TableColumn fx:id="expoTable" prefWidth="113.0" text="Merchant" />
-        </columns>
+      <TableView fx:id="productTable" layoutX="19.0" layoutY="348.0" prefHeight="199.0" prefWidth="829.0" style="-fx-border-color: black;">
+         <columns>
+            <TableColumn fx:id="Sltable" prefWidth="94.99996948242188" text="SL.No." />
+            <TableColumn fx:id="protable" prefWidth="175.0" text="Product" />
+            <TableColumn fx:id="quanTable" prefWidth="113.0" text="Quantity" />
+            <TableColumn fx:id="pppTable" prefWidth="153.0" text="Price ($)" />
+            <TableColumn fx:id="amountable" prefWidth="149.0" text="Total Price ($)" />
+            <TableColumn fx:id="expoTable" prefWidth="140.0" text="Merchant" />
+         </columns>
       </TableView>
+      <AnchorPane layoutX="861.0" layoutY="348.0" prefHeight="199.0" prefWidth="321.0" style="-fx-border-color: black; -fx-background-color: white;">
+         <children>
+            <Button fx:id="aprvButt" layoutX="16.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#aprvClick" prefHeight="76.0" prefWidth="290.0" style="-fx-background-color: #37ff80; -fx-border-color: black;" text="Approve">
+               <font>
+                  <Font name="Century Gothic Bold" size="17.0" />
+               </font>
+            </Button>
+            <Button fx:id="declbutt" layoutX="16.0" layoutY="109.0" mnemonicParsing="false" onMouseClicked="#declClick" prefHeight="76.0" prefWidth="290.0" style="-fx-background-color: #fa7070; -fx-border-color: black;" text="Decline">
+               <font>
+                  <Font name="Century Gothic Bold" size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
       <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;" visible="false">
          <children>
             <TableView fx:id="tableSide" layoutX="12.0" layoutY="8.0" onMouseClicked="#windowClick" prefHeight="588.0" prefWidth="265.0" style="-fx-background-color: #9AD0C2; -fx-base: #9AD0C2; -fx-font-size: 25;">
@@ -124,6 +155,18 @@
             <Image url="@../common/iconFiles/User.png" />
          </image>
       </ImageView>
+      <AnchorPane fx:id="subAnch" layoutX="321.0" layoutY="275.0" prefHeight="103.0" prefWidth="501.0" style="-fx-background-color: #EEEDEB; -fx-border-color: black;" visible="false">
+         <children>
+            <ComboBox fx:id="merCom" layoutX="183.0" layoutY="14.0" prefHeight="37.0" prefWidth="304.0" style="-fx-background-color: white; -fx-border-color: black;" />
+            <Label layoutX="14.0" layoutY="20.0" text="Select Merchant Email">
+               <font>
+                  <Font name="System Italic" size="17.0" />
+               </font>
+            </Label>
+            <Button layoutX="392.0" layoutY="63.0" mnemonicParsing="false" onMouseClicked="#sendClick" prefWidth="95.0" style="-fx-background-color: #37ff80; -fx-border-color: black;" text="Submit" />
+            <Button layoutX="288.0" layoutY="63.0" mnemonicParsing="false" onMouseClicked="#closeClick" prefWidth="95.0" style="-fx-background-color: #fa7070; -fx-border-color: black;" text="Close" />
+         </children>
+      </AnchorPane>
       
    </children>
 </AnchorPane>

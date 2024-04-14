@@ -117,6 +117,10 @@ public class applicationShowController implements Initializable {
     private TextField statusField;
     @FXML
     private Label emailLabel1;
+    @FXML
+    private TextField MRCstatusField;
+    @FXML
+    private Label emailLabel11;
     
     
 
@@ -204,27 +208,29 @@ public class applicationShowController implements Initializable {
         emailtxtField.setText(PIdata.getEmail()); 
         payabletxtField.setText(PIdata.getTotal_amount());
         statusField.setText(PIdata.getGmStatus());
+        MRCstatusField.setText(PIdata.getMrcStatus());
         
-        if (statusField.getText().equals("Accepted")) {
+        if (statusField.getText().equals("Approved")) {
             statusField.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: green;");
         }
         else if (statusField.getText().equals("Declined")) {
             statusField.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: red;");
         }
+        
+        if (MRCstatusField.getText().equals("Approved")) {
+            MRCstatusField.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: green;");
+        }
+        else if (MRCstatusField.getText().equals("Declined")) {
+            MRCstatusField.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: red;");
+        }
 
         // table
         Sltable.setCellValueFactory(new PropertyValueFactory("serial"));
-
         protable.setCellValueFactory(new PropertyValueFactory("product"));
-
         quanTable.setCellValueFactory(new PropertyValueFactory("quantity"));
-
         pppTable.setCellValueFactory(new PropertyValueFactory("price"));
-
         amountable.setCellValueFactory(new PropertyValueFactory("amount"));
-
         expoTable.setCellValueFactory(new PropertyValueFactory("exporter"));
-        
         productTable.getItems().addAll(PIdata.getProductList());
 
     }

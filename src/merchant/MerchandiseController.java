@@ -31,10 +31,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.TilePane;
 
 /**
  * FXML Controller class
@@ -415,7 +412,6 @@ public class MerchandiseController implements Initializable {
         String prodD = xdata.getProduct() + "▓" + xdata.getPrice() + "▓" + xdata.getQuantity() + "▓";
         new Writer("Database/User/" + user + "/" + email, "product.bin", "").deleteLine(prodD);
         (new GUI(user, email, sanData)).mrcDiseClick(event);
-
     }
 
 }

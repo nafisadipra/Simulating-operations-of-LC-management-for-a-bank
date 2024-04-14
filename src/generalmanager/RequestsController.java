@@ -64,11 +64,9 @@ public class RequestsController implements Initializable {
     private String email;
     private String[] sanData;
     @FXML
-    private ComboBox<?> filterComb;
+    private ComboBox<String> filterComb;
     @FXML
     private Button createID1;
-    @FXML
-    private ComboBox<?> filterComb1;
     @FXML
     private TableView<PI> tableVieW;
     @FXML
@@ -87,6 +85,8 @@ public class RequestsController implements Initializable {
     private TableColumn<PI, String> craTab;
     @FXML
     private TableColumn<PI, String> cmoTab;
+    @FXML
+    private TableColumn<PI, String> mrcTab;
 
     /**
      * Initializes the controller class.
@@ -161,7 +161,15 @@ public class RequestsController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+        
         //
+        String[] filterList = {"All", "Approved", "Declined", "Pending"};
+        filterComb.getItems().addAll(filterList);
+        filterComb.setValue(filterList[0]);
+        tableFetch();
+    }
+    
+    private void tableFetch() {
         ArrayList<PI> TablePI= new ArrayList();
         ArrayList<String>fetchPI = (new Tree("Database/Official/PI")).view(); 
         for(String X: fetchPI){
@@ -179,16 +187,22 @@ public class RequestsController implements Initializable {
             String xgmStatus = fetchData.get(4).get(0);
             String xcrStatus = fetchData.get(4).get(1);
             String xcompStatus = fetchData.get(4).get(2);
+            String xmrcStatus = fetchData.get(4).get(3);
            
             ArrayList<Product>xproductList = new ArrayList();
             for(int i=5; i<fetchData.size();i++){
                 xproductList.add(new Product(Integer.toString(i-4),fetchData.get(i).get(0),fetchData.get(i).get(2),fetchData.get(i).get(1),xmerchant));
-           
             }
-            TablePI.add(new PI(xserial,xcustomer,xcompany,xaddress,xphone,xemail,xmerchant,xtime,xdate,xtotal_amount,xgmStatus,xcrStatus,xcompStatus,"PI",xproductList));
+            
+            if (filterComb.getValue().equals("All")) {
+                TablePI.add(new PI(xserial,xcustomer,xcompany,xaddress,xphone,xemail,xmerchant,xtime,xdate,xtotal_amount,xgmStatus,xcrStatus,xcompStatus,xmrcStatus,"PI",xproductList));
+            } else {
+                if (xgmStatus.equals(filterComb.getValue())) {
+                    TablePI.add(new PI(xserial,xcustomer,xcompany,xaddress,xphone,xemail,xmerchant,xtime,xdate,xtotal_amount,xgmStatus,xcrStatus,xcompStatus,xmrcStatus,"PI",xproductList));
+                }
+            }
         }
         
-        System.out.println(TablePI);
         typTab.setCellValueFactory(new PropertyValueFactory("type"));
         idTab.setCellValueFactory(new PropertyValueFactory("serial"));
         appToTab.setCellValueFactory(new PropertyValueFactory("merchant"));
@@ -197,10 +211,8 @@ public class RequestsController implements Initializable {
         statusTab.setCellValueFactory(new PropertyValueFactory("gmStatus"));
         craTab.setCellValueFactory(new PropertyValueFactory("crStatus"));
         cmoTab.setCellValueFactory(new PropertyValueFactory("compStatus"));
+        mrcTab.setCellValueFactory(new PropertyValueFactory("mrcStatus"));
         tableVieW.getItems().addAll(TablePI);
-        
-        
-      
     }
 
     @FXML
@@ -398,6 +410,8 @@ public class RequestsController implements Initializable {
 
     @FXML
     private void filterClick(MouseEvent event) {
+        tableVieW.getItems().clear();
+        tableFetch();
     }
 
     @FXML

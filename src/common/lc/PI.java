@@ -11,10 +11,10 @@ import java.util.ArrayList;
  * @author User
  */
 public class PI {
-    private String serial,customer,company,address,phone,email,merchant,time,date,total_amount,gmStatus,crStatus,compStatus,type;
+    private String serial,customer,company,address,phone,email,merchant,time,date,total_amount,gmStatus,crStatus,compStatus,mrcStatus,type;
     private ArrayList<Product>productList;
 
-    public PI(String serial, String customer, String company, String address, String phone, String email, String merchant, String time, String date, String total_amount, String gmStatus, String crStatus, String compStatus, String type, ArrayList<Product> productList) {
+    public PI(String serial, String customer, String company, String address, String phone, String email, String merchant, String time, String date, String total_amount, String gmStatus, String crStatus, String compStatus, String mrcStatus, String type, ArrayList<Product> productList) {
         this.serial = serial;
         this.customer = customer;
         this.company = company;
@@ -28,6 +28,7 @@ public class PI {
         this.gmStatus = gmStatus;
         this.crStatus = crStatus;
         this.compStatus = compStatus;
+        this.mrcStatus = mrcStatus;
         this.type = type;
         this.productList = productList;
     }
@@ -136,6 +137,14 @@ public class PI {
         this.compStatus = compStatus;
     }
 
+    public String getMrcStatus() {
+        return mrcStatus;
+    }
+
+    public void setMrcStatus(String mrcStatus) {
+        this.mrcStatus = mrcStatus;
+    }
+
     public String getType() {
         return type;
     }
@@ -154,13 +163,6 @@ public class PI {
 
     @Override
     public String toString() {
-        return "PI{" + "serial=" + serial + ", customer=" + customer + ", company=" + company + ", address=" + address + ", phone=" + phone + ", email=" + email + ", merchant=" + merchant + ", time=" + time + ", date=" + date + ", total_amount=" + total_amount + ", gmStatus=" + gmStatus + ", crStatus=" + crStatus + ", compStatus=" + compStatus + ", type=" + type + ", productList=" + productList + '}';
+        return "PI{" + "serial=" + serial + ", customer=" + customer + ", company=" + company + ", address=" + address + ", phone=" + phone + ", email=" + email + ", merchant=" + merchant + ", time=" + time + ", date=" + date + ", total_amount=" + total_amount + ", gmStatus=" + gmStatus + ", crStatus=" + crStatus + ", compStatus=" + compStatus + ", mrcStatus=" + mrcStatus + ", type=" + type + ", productList=" + productList + '}';
     }
-    
-
-   
-
-    
-    
-
 }

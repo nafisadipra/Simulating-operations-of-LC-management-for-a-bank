@@ -456,6 +456,8 @@ public class CreatorController implements Initializable {
         new Writer("Database/User/" + xtype + "/" + enEmail.getText(), "outbox.bin", "").writeFile();
         new Writer("Database/User/" + xtype + "/" + enEmail.getText(), "product.bin", "").writeFile();
         new Writer("Database/User/" + xtype + "/" + enEmail.getText(), "connect.bin", "").writeFile();
+        new Writer("Database/User/" + xtype + "/" + enEmail.getText(), "pi.bin", "").writeFile();
+        new Writer("Database/User/" + xtype + "/" + enEmail.getText(), "lc.bin", "").writeFile();
         (new Prompt()).getAlert("New User Created!", "information");
         admBack(event);
     }
