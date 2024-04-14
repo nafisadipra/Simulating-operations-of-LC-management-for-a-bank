@@ -1,5 +1,7 @@
 package client;
 
+import common.number.RandomNumber;
+import common.prompt.Prompt;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -72,9 +74,14 @@ public class CreateTransactionController implements Initializable {
     @FXML
     private ImageView cardjpg;
     @FXML
-    private Button Paybutton;
-    @FXML
     private TextField cardNametxt;
+    @FXML
+    private AnchorPane anchVer;
+    @FXML
+    private TextField enVer;
+    @FXML
+    private Button verButt;
+    private String code;
 
     /**
      * Initializes the controller class.
@@ -342,6 +349,55 @@ public class CreateTransactionController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void payClick(MouseEvent event) {
+        ArrayList<ArrayList<String>> creditFetch= (new Reader("Database/User/" + user + "/" + email, "credit.bin")).splitFile('▓');
+        if (!cardNametxt.getText().equals(creditFetch.get(0).get(4))||!cardNumtxt.getText().equals(creditFetch.get(0).get(1)) ||!cvvtxt.getText().equals(creditFetch.get(0).get(2))||!datePic.getValue().toString().equals(creditFetch.get(0).get(3))){
+            (new Prompt()).getAlert("Credentials Mismatch", "error");
+            return ;           
+        
+        }
+        this.code = Long.toString(new RandomNumber(6).generate());
+        String desktopPath = System.getProperty("user.home") + File.separator + "Desktop";
+        
+        String emailContent = code;
+        
+        new Writer(desktopPath, "Verification.txt", emailContent).writeFile();
+        (new Prompt()).getAlert("A verification code hasbeen sent to your phone!", "information");
+        
+        anchVer.setVisible(true);
+        
+        
+
+        
+        
+        
+        
+        
+    }
+
+    @FXML
+    private void createClick(MouseEvent event) {
+        if (!code.equals(enVer.getText())){
+            (new Prompt()).getAlert("Wrong OTP", "error");
+            return;
+            
+        }
+        
+        ArrayList<ArrayList<String>> creditFetch= (new Reader("Database/User/" + user + "/" + email, "credit.bin")).splitFile('▓');
+        long Taka = Long.parseLong(creditFetch.get(0).get(0))- 10500;
+        new Writer("Database/User/" + user + "/" + email, "credit.bin", Taka+"▓"+ creditFetch.get(0).get(1)+"▓"+creditFetch.get(0).get(2)+"▓"+creditFetch.get(0).get(3)+"▓"+creditFetch.get(0).get(4)+"▓").writeFile();
+        
+        
+        ArrayList<ArrayList<String>> creditFetchx= (new Reader("Database/User/" + "MERCHANT" + "/" + "apple@lc.mrc.com", "credit.bin")).splitFile('▓');
+        long Takax = Long.parseLong(creditFetchx.get(0).get(0))+ 10500;
+        new Writer("Database/User/" + "MERCHANT" + "/" + "apple@lc.mrc.com", "credit.bin", Takax+"▓"+creditFetchx.get(0).get(1)+"▓"+creditFetchx.get(0).get(2)+"▓"+creditFetchx.get(0).get(3)+"▓"+creditFetchx.get(0).get(4)+"▓").writeFile();
+        
+        (new Prompt()).getAlert("Transaction Successful", "information");
+        
+        
     }
 
 }

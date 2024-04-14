@@ -48,7 +48,7 @@
             <Font name="Century Gothic" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="Paybutton" layoutX="638.0" layoutY="512.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="279.0" style="-fx-background-color: #0080bf; -fx-border-color: #002639;" text="Pay Now" textFill="WHITE">
+      <Button layoutX="638.0" layoutY="512.0" mnemonicParsing="false" onMouseClicked="#payClick" prefHeight="50.0" prefWidth="279.0" style="-fx-background-color: #0080bf; -fx-border-color: #002639;" text="Pay Now" textFill="WHITE">
          <font>
             <Font name="Arial Black" size="24.0" />
          </font>
@@ -119,6 +119,25 @@
             <Image url="@../common/iconFiles/User.png" />
          </image>
       </ImageView>
+      <AnchorPane fx:id="anchVer" layoutX="326.0" layoutY="133.0" prefHeight="334.0" prefWidth="594.0" style="-fx-background-color: #EEEDEB;">
+         <children>
+            <Label layoutX="160.0" layoutY="38.0" text="ENTER OTP" textFill="#646464">
+               <font>
+                  <Font size="55.0" />
+               </font>
+            </Label>
+            <TextField fx:id="enVer" alignment="CENTER" layoutX="27.0" layoutY="136.0" prefHeight="82.0" prefWidth="541.0" promptText="######">
+               <font>
+                  <Font size="39.0" />
+               </font>
+            </TextField>
+            <Button fx:id="verButt" layoutX="230.0" layoutY="254.0" mnemonicParsing="false" onMouseClicked="#createClick" prefHeight="40.0" prefWidth="135.0" style="-fx-background-color: black;" text="Verify" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
       
    </children>
 </AnchorPane>
