@@ -15,10 +15,10 @@ public class SceneView extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Requests.fxml"));
         Parent root = loader.load();
         
-        DashboardController controller = loader.getController();
+        RequestsController controller = loader.getController();
         String[] sanData = {"Dashboard", "Contact", "Notification", "Requests", "History", "Clients", "Merchants", "Settings", "Feedback"};
         controller.initData("GENERALMANAGER", "muyeed@lc.gm.com", sanData);
         

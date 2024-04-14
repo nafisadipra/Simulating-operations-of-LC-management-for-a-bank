@@ -1,5 +1,11 @@
 package complianceofficer;
 
+
+
+
+import common.finder.Tree;
+import common.lc.PI;
+import common.lc.Product;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -29,6 +35,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 
 /**
@@ -59,7 +66,29 @@ public class RequestsController implements Initializable {
     private String email;
     private String[] sanData;
     @FXML
-    private ComboBox<String> piSelect;
+    private ComboBox<?> filterComb;
+    @FXML
+    private Button createID1;
+    @FXML
+    private ComboBox<?> filterComb1;
+    @FXML
+    private TableView<PI> tableVieW;
+    @FXML
+    private TableColumn<PI, String> timeTab;
+    @FXML
+    private TableColumn<PI, String> typTab;
+    @FXML
+    private TableColumn<PI, String> idTab;
+    @FXML
+    private TableColumn<PI, String> appToTab;
+    @FXML
+    private TableColumn<PI, String> statusTab;
+    @FXML
+    private TableColumn<PI, String> tdate;
+    @FXML
+    private TableColumn<PI, String> craTab;
+    @FXML
+    private TableColumn<PI, String> cmoTab;
 
     /**
      * Initializes the controller class.
@@ -134,9 +163,46 @@ public class RequestsController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
-        //combo
-        String[] perfoma = {"PI"};
-        piSelect.getItems().addAll(perfoma);
+        //
+        ArrayList<PI> TablePI= new ArrayList();
+        ArrayList<String>fetchPI = (new Tree("Database/Official/PI")).view(); 
+        for(String X: fetchPI){
+            ArrayList<ArrayList<String>>fetchData = (new Reader("Database/Official/PI",X)).splitFile('▓');
+            String xserial = X.split("\\.")[0];
+            String xcustomer = fetchData.get(0).get(0);
+            String xcompany = fetchData.get(0).get(1);
+            String xaddress = fetchData.get(0).get(2);
+            String xphone = fetchData.get(0).get(3);
+            String xemail = fetchData.get(0).get(4);
+            String xmerchant = fetchData.get(1).get(0);
+            String xtime = fetchData.get(2).get(0);
+            String xdate = fetchData.get(2).get(1);
+            String xtotal_amount = fetchData.get(3).get(0);
+            String xgmStatus = fetchData.get(4).get(0);
+            String xcrStatus = fetchData.get(4).get(1);
+            String xcompStatus = fetchData.get(4).get(2);
+           
+            ArrayList<Product>xproductList = new ArrayList();
+            for(int i=5; i<fetchData.size();i++){
+                xproductList.add(new Product(Integer.toString(i-4),fetchData.get(i).get(0),fetchData.get(i).get(2),fetchData.get(i).get(1),xmerchant));
+           
+            }
+            TablePI.add(new PI(xserial,xcustomer,xcompany,xaddress,xphone,xemail,xmerchant,xtime,xdate,xtotal_amount,xgmStatus,xcrStatus,xcompStatus,"PI",xproductList));
+        }
+        
+        System.out.println(TablePI);
+        typTab.setCellValueFactory(new PropertyValueFactory("type"));
+        idTab.setCellValueFactory(new PropertyValueFactory("serial"));
+        appToTab.setCellValueFactory(new PropertyValueFactory("merchant"));
+        timeTab.setCellValueFactory(new PropertyValueFactory("time"));
+        tdate.setCellValueFactory(new PropertyValueFactory("date"));        
+        statusTab.setCellValueFactory(new PropertyValueFactory("gmStatus"));
+        craTab.setCellValueFactory(new PropertyValueFactory("crStatus"));
+        cmoTab.setCellValueFactory(new PropertyValueFactory("compStatus"));
+        tableVieW.getItems().addAll(TablePI);
+        
+        
+      
     }
 
     @FXML
@@ -333,7 +399,31 @@ public class RequestsController implements Initializable {
     }
 
     @FXML
-    private void viewBtn(MouseEvent event) {
+    private void filterClick(MouseEvent event) {
     }
+
+    @FXML
+    private void userCLick(MouseEvent event) {
+        System.out.println(tableVieW.getSelectionModel().getSelectedItem());
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("applicationShow.fxml"));
+            Parent root = loader.load();
+
+            applicationShowController controller = loader.getController();
+            controller.initData(user, email, sanData,tableVieW.getSelectionModel().getSelectedItem());
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } 
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
 }
