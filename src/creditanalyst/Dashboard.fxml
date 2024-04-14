@@ -16,11 +16,6 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #EEEDEB; -fx-border-color: b;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="creditanalyst.DashboardController">
    <children>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="92.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: black;">
-         <image>
-            <Image url="nn" />
-         </image>
-      </ImageView>
       <AnchorPane layoutX="636.0" layoutY="100.0" prefHeight="464.0" prefWidth="525.0" style="-fx-background-color: white; -fx-border-color: black;">
          <children>
             <LineChart layoutX="42.0" layoutY="270.0" prefHeight="176.0" prefWidth="435.0">

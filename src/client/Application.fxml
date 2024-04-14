@@ -38,11 +38,12 @@
       <Button fx:id="createID" layoutX="208.0" layoutY="123.0" mnemonicParsing="false" onMouseClicked="#createClick" prefHeight="28.0" prefWidth="102.0" style="-fx-background-color: #37ff80; -fx-border-color: black;" text="Create" />
       <TableView fx:id="tableVieW" layoutX="15.0" layoutY="181.0" onMouseClicked="#userCLick" prefHeight="407.0" prefWidth="1170.0" style="-fx-border-color: black;">
          <columns>
-            <TableColumn fx:id="tid" prefWidth="183.00003051757812" text="Type" />
-            <TableColumn fx:id="tfrom" prefWidth="373.0" text="From" />
-            <TableColumn fx:id="tname" minWidth="0.0" prefWidth="224.0" text="Status" />
-            <TableColumn fx:id="tdate" minWidth="0.0" prefWidth="185.0" text="Time" />
-            <TableColumn fx:id="tdate1" minWidth="0.0" prefWidth="200.0" text="Date" />
+            <TableColumn fx:id="typTab" prefWidth="94.00003051757812" text="Type" />
+            <TableColumn fx:id="idTab" prefWidth="159.0" text="ID" />
+            <TableColumn fx:id="appToTab" minWidth="0.0" prefWidth="436.0" text="Application To" />
+            <TableColumn fx:id="timeTab" minWidth="0.0" prefWidth="130.0" text="Time" />
+            <TableColumn fx:id="tdate" minWidth="0.0" prefWidth="209.0" text="Date" />
+            <TableColumn fx:id="statusTab" minWidth="0.0" prefWidth="137.0" text="Status" />
          </columns>
       </TableView>
       <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;" visible="false">

@@ -1,8 +1,5 @@
 package creditanalyst;
 
-import generalmanager.*;
-import client.*;
-import generalmanager.*;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
