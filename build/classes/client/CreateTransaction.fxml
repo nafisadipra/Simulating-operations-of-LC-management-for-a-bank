@@ -119,7 +119,7 @@
             <Image url="@../common/iconFiles/User.png" />
          </image>
       </ImageView>
-      <AnchorPane fx:id="anchVer" layoutX="326.0" layoutY="133.0" prefHeight="334.0" prefWidth="594.0" style="-fx-background-color: #EEEDEB;">
+      <AnchorPane fx:id="anchVer" layoutX="326.0" layoutY="133.0" prefHeight="334.0" prefWidth="594.0" style="-fx-background-color: #EEEDEB;" visible="false">
          <children>
             <Label layoutX="160.0" layoutY="38.0" text="ENTER OTP" textFill="#646464">
                <font>

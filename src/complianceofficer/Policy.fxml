@@ -20,7 +20,7 @@
          </font>
       </Label>
       <Button layoutX="430.0" layoutY="60.0" mnemonicParsing="false" opacity="0.0" prefHeight="25.0" prefWidth="59.0" text="Button" />
-      <Label layoutX="791.0" layoutY="111.0" text="Make Advertisement">
+      <Label layoutX="791.0" layoutY="125.0" text="Create a Policy">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
@@ -40,17 +40,17 @@
             <TableColumn fx:id="dTB" prefWidth="118.0" text="Date" />
          </columns>
       </TableView>
-      <AnchorPane layoutX="791.0" layoutY="151.0" prefHeight="230.0" prefWidth="396.0" style="-fx-border-color: black;">
+      <AnchorPane layoutX="791.0" layoutY="151.0" prefHeight="348.0" prefWidth="396.0" style="-fx-border-color: black;">
          <children>
             <Label layoutX="12.0" layoutY="24.0" text="Select User">
                <font>
                   <Font name="System Italic" size="16.0" />
                </font>
             </Label>
-            <Button layoutX="286.0" layoutY="194.0" mnemonicParsing="false" onMouseClicked="#reqClick" prefHeight="28.0" prefWidth="102.0" style="-fx-background-color: black;" text="Add" textFill="WHITE" />
-            <ComboBox fx:id="prodCom" layoutX="123.0" layoutY="23.0" prefHeight="25.0" prefWidth="256.0" promptText="Select" style="-fx-border-color: black; -fx-background-color: white;" />
-            <TextArea fx:id="areaBrief" layoutX="10.0" layoutY="83.0" prefHeight="105.0" prefWidth="376.0" promptText="e.g. MacBook is now on a 50% discount offer! Grab the discount quickly!" style="-fx-border-color: black;" />
-            <Label layoutX="12.0" layoutY="58.0" text="Brief">
+            <Button layoutX="284.0" layoutY="307.0" mnemonicParsing="false" onMouseClicked="#reqClick" prefHeight="28.0" prefWidth="102.0" style="-fx-background-color: black;" text="Add" textFill="WHITE" />
+            <ComboBox fx:id="prodCom" layoutX="102.0" layoutY="23.0" prefHeight="27.0" prefWidth="284.0" promptText="Select" style="-fx-border-color: black; -fx-background-color: white;" />
+            <TextArea fx:id="areaBrief" layoutX="10.0" layoutY="83.0" prefHeight="215.0" prefWidth="376.0" style="-fx-border-color: black;" />
+            <Label layoutX="12.0" layoutY="58.0" text="Policy">
                <font>
                   <Font name="System Italic" size="16.0" />
                </font>
@@ -99,11 +99,16 @@
             <Image url="@../common/iconFiles/User.png" />
          </image>
       </ImageView>
-      <AnchorPane layoutX="791.0" layoutY="388.0" prefHeight="200.0" prefWidth="396.0" style="-fx-border-color: black;">
+      <AnchorPane layoutX="791.0" layoutY="529.0" prefHeight="57.0" prefWidth="396.0" style="-fx-border-color: black;">
          <children>
-            <Button layoutX="29.0" layoutY="23.0" mnemonicParsing="false" onMouseClicked="#delClick" prefHeight="28.0" prefWidth="102.0" style="-fx-background-color: black;" text="Delete" textFill="WHITE" />
+            <Button layoutX="10.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#delClick" prefHeight="28.0" prefWidth="376.0" style="-fx-background-color: black;" text="Delete" textFill="WHITE" />
          </children>
       </AnchorPane>
+      <Label layoutX="791.0" layoutY="504.0" text="Delete Policy">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
       
    </children>
 </AnchorPane>

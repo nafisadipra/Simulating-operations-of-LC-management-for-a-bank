@@ -16,32 +16,36 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #EEEDEB;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.CreateApplicationController">
    <children>
-      <Label layoutX="15.0" layoutY="40.0" text="Performa Invoice">
+      <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="13.0" layoutY="53.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#backClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../common/iconFiles/arrow.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="48.0" layoutY="34.0" text="Performa Invoice">
          <font>
             <Font size="44.0" />
          </font>
       </Label>
-      <Button fx:id="proceedButton" layoutX="1034.0" layoutY="549.0" mnemonicParsing="false" onMouseClicked="#proceedClick" prefHeight="36.0" prefWidth="149.0" style="-fx-background-color: black;" text="Proceed" textFill="WHITE">
+      <Button fx:id="proceedButton" layoutX="990.0" layoutY="538.0" mnemonicParsing="false" onMouseClicked="#proceedClick" prefHeight="50.0" prefWidth="193.0" style="-fx-background-color: black;" text="Proceed" textFill="WHITE">
          <font>
-            <Font name="Arial" size="18.0" />
+            <Font name="Arial" size="24.0" />
          </font>
       </Button>
-      <TextArea fx:id="policytxtArea" editable="false" layoutX="650.0" layoutY="333.0" prefHeight="195.0" prefWidth="533.0" style="-fx-border-color: black;" text="------------------------------------------------------------------&#10;Letter of Credit Management System Terms and Policies&#10;------------------------------------------------------------------&#10;&#10;1. Eligibility and Application Process:&#10;   - LC Bank will only provide Letter of Credit (LC) services to eligible applicants, including individuals, businesses, and entities meeting the bank's criteria.&#10;   - Applicants must submit a formal application with all required documentation, including identification, financial statements, and any other relevant information deemed necessary by LC Bank.&#10;&#10;2. Issuance and Amendment of Letters of Credit:&#10;   - LC Bank will issue Letters of Credit based on the applicant's request and in compliance with international banking standards (e.g., UCP 600).&#10;   - Any amendments to the LC must be agreed upon by all relevant parties and processed through LC Bank following established procedures.&#10;&#10;3. Fees and Charges:&#10;   - LC Bank will charge fees for the issuance, amendment, negotiation, and other services related to Letters of Credit. The fee structure will be transparent and communicated to applicants prior to the initiation of services.&#10;   - Applicants are responsible for all applicable charges associated with their LC transactions.&#10;&#10;4. Security and Collateral:&#10;   - LC Bank may require applicants to provide collateral or security to cover the value of the Letter of Credit.&#10;   - The type and amount of collateral required will be determined by LC Bank based on risk assessment and other relevant factors.&#10;&#10;5. Expiration and Renewal:&#10;   - Letters of Credit issued by LC Bank will have a specified expiration date, beyond which they will no longer be valid.&#10;   - Applicants may request renewal of an LC subject to approval by LC Bank and payment of any applicable renewal fees.&#10;&#10;6. Documentation and Compliance:&#10;   - LC Bank will ensure that all documentation related to Letters of Credit complies with applicable laws, regulations, and international banking standards.&#10;   - Applicants are responsible for providing accurate and complete documentation to facilitate the issuance and processing of LC transactions.&#10;&#10;7. Dispute Resolution:&#10;   - In the event of disputes arising from LC transactions, LC Bank will endeavor to resolve them in a fair and timely manner.&#10;   - Disputes may be resolved through negotiation, mediation, or other alternative dispute resolution methods as agreed upon by all parties involved.&#10;&#10;8. Confidentiality and Data Security:&#10;   - LC Bank will maintain the confidentiality and security of all information provided by applicants in accordance with applicable laws and regulations.&#10;   - Applicants' information will only be disclosed to authorized parties for the purpose of processing LC transactions or as required by law.&#10;&#10;9. Termination of Services:&#10;   - LC Bank reserves the right to terminate or suspend LC services to any applicant for reasons including but not limited to non-compliance with terms, default on payments, or legal/regulatory requirements.&#10;&#10;10. Amendment of Terms and Policies:&#10;    - LC Bank reserves the right to amend these terms and policies at any time, with prior notice to affected parties.&#10;    - Amendments will be communicated through appropriate channels, and continued use of LC services will constitute acceptance of the revised terms.&#10;&#10;By using the Letter of Credit Management System provided by LC Bank, applicants agree to abide by these terms and policies. For further clarification or inquiries, applicants may contact LC Bank's customer service department.&#10;">
+      <TextArea fx:id="policytxtArea" editable="false" layoutX="755.0" layoutY="106.0" prefHeight="421.0" prefWidth="428.0" style="-fx-border-color: black;" text="-------------------------------------------------------------------------------&#10;Letter of Credit Management System Terms and Policies&#10;-------------------------------------------------------------------------------&#10;&#10;1. Eligibility and Application Process:&#10;   - LC Bank will only provide Letter of Credit (LC) services to eligible applicants, including individuals, businesses, and entities meeting the bank's criteria.&#10;   - Applicants must submit a formal application with all required documentation, including identification, financial statements, and any other relevant information deemed necessary by LC Bank.&#10;&#10;2. Issuance and Amendment of Letters of Credit:&#10;   - LC Bank will issue Letters of Credit based on the applicant's request and in compliance with international banking standards (e.g., UCP 600).&#10;   - Any amendments to the LC must be agreed upon by all relevant parties and processed through LC Bank following established procedures.&#10;&#10;3. Fees and Charges:&#10;   - LC Bank will charge fees for the issuance, amendment, negotiation, and other services related to Letters of Credit. The fee structure will be transparent and communicated to applicants prior to the initiation of services.&#10;   - Applicants are responsible for all applicable charges associated with their LC transactions.&#10;&#10;4. Security and Collateral:&#10;   - LC Bank may require applicants to provide collateral or security to cover the value of the Letter of Credit.&#10;   - The type and amount of collateral required will be determined by LC Bank based on risk assessment and other relevant factors.&#10;&#10;5. Expiration and Renewal:&#10;   - Letters of Credit issued by LC Bank will have a specified expiration date, beyond which they will no longer be valid.&#10;   - Applicants may request renewal of an LC subject to approval by LC Bank and payment of any applicable renewal fees.&#10;&#10;6. Documentation and Compliance:&#10;   - LC Bank will ensure that all documentation related to Letters of Credit complies with applicable laws, regulations, and international banking standards.&#10;   - Applicants are responsible for providing accurate and complete documentation to facilitate the issuance and processing of LC transactions.&#10;&#10;7. Dispute Resolution:&#10;   - In the event of disputes arising from LC transactions, LC Bank will endeavor to resolve them in a fair and timely manner.&#10;   - Disputes may be resolved through negotiation, mediation, or other alternative dispute resolution methods as agreed upon by all parties involved.&#10;&#10;8. Confidentiality and Data Security:&#10;   - LC Bank will maintain the confidentiality and security of all information provided by applicants in accordance with applicable laws and regulations.&#10;   - Applicants' information will only be disclosed to authorized parties for the purpose of processing LC transactions or as required by law.&#10;&#10;9. Termination of Services:&#10;   - LC Bank reserves the right to terminate or suspend LC services to any applicant for reasons including but not limited to non-compliance with terms, default on payments, or legal/regulatory requirements.&#10;&#10;10. Amendment of Terms and Policies:&#10;    - LC Bank reserves the right to amend these terms and policies at any time, with prior notice to affected parties.&#10;    - Amendments will be communicated through appropriate channels, and continued use of LC services will constitute acceptance of the revised terms.&#10;&#10;By using the Letter of Credit Management System provided by LC Bank, applicants agree to abide by these terms and policies. For further clarification or inquiries, applicants may contact LC Bank's customer service department.&#10;">
          <font>
-            <Font name="System Bold" size="12.0" />
+            <Font name="Century" size="12.0" />
          </font></TextArea>
-      <CheckBox fx:id="agreeClick" layoutX="650.0" layoutY="530.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="215.0" text="I agree to the terms and policies" textFill="#434343">
+      <CheckBox fx:id="agreeClick" layoutX="755.0" layoutY="538.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="215.0" text="I agree to the terms and policies" textFill="#434343">
          <font>
             <Font name="Arial Bold Italic" size="12.0" />
          </font>
       </CheckBox>
-      <Label fx:id="payableLabel" layoutX="757.0" layoutY="257.0" text="Payable Amount">
+      <Label fx:id="payableLabel" layoutX="19.0" layoutY="540.0" text="Payable Amount ($)" textFill="#005406">
          <font>
             <Font name="Arial Italic" size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="payabletxtField" editable="false" layoutX="885.0" layoutY="253.0" prefHeight="27.0" prefWidth="297.0" style="-fx-background-color: white; -fx-border-color: black;" />
-      <TextArea fx:id="whitetxtArea" editable="false" layoutX="757.0" layoutY="105.0" prefHeight="142.0" prefWidth="426.0" style="-fx-border-color: black;" />
+      <TextField fx:id="payabletxtField" editable="false" layoutX="167.0" layoutY="537.0" prefHeight="27.0" prefWidth="578.0" style="-fx-background-color: white; -fx-border-color: black;" />
       <AnchorPane layoutX="19.0" layoutY="105.0" prefHeight="195.0" prefWidth="386.0" style="-fx-border-color: black;">
          <children>
             <TextField fx:id="custxtField" layoutX="138.0" layoutY="11.0" prefHeight="27.0" prefWidth="237.0" promptText="e.g. Nafisa Anjum" style="-fx-background-color: white; -fx-border-color: black;" />
@@ -83,15 +87,15 @@
                   <Font name="Arial Italic" size="16.0" />
                </font>
             </Label>
-            <Label fx:id="quanLabel" layoutX="8.0" layoutY="52.0" text="Quantity">
+            <ComboBox fx:id="prodComb" layoutX="86.0" layoutY="49.0" onMouseClicked="#proClick" prefHeight="27.0" prefWidth="231.0" promptText="Select" style="-fx-background-color: white; -fx-border-color: black;" />
+            <Label fx:id="quanLabel" layoutX="5.0" layoutY="88.0" text="Quantity">
                <font>
                   <Font name="Arial Italic" size="16.0" />
                </font>
             </Label>
             <ComboBox fx:id="merComb" layoutX="86.0" layoutY="12.0" onMouseClicked="#merClick" prefHeight="27.0" prefWidth="231.0" promptText="Select" style="-fx-background-color: white; -fx-border-color: black;" />
-            <TextField fx:id="quantxtField" layoutX="86.0" layoutY="49.0" prefHeight="27.0" prefWidth="231.0" promptText="eg; 50" style="-fx-background-color: white; -fx-border-color: black;" />
-            <ComboBox fx:id="prodComb" layoutX="86.0" layoutY="87.0" onMouseClicked="#proClick" prefHeight="27.0" prefWidth="231.0" promptText="Select" style="-fx-background-color: white; -fx-border-color: black;" />
-            <Label fx:id="productLabel" layoutX="7.0" layoutY="90.0" text="Product">
+            <TextField fx:id="quantxtField" layoutX="86.0" layoutY="84.0" prefHeight="27.0" prefWidth="231.0" promptText="eg; 50" style="-fx-background-color: white; -fx-border-color: black;" />
+            <Label fx:id="productLabel" layoutX="7.0" layoutY="52.0" text="Product">
                <font>
                   <Font name="Arial Italic" size="16.0" />
                </font>
@@ -108,19 +112,19 @@
             </Button>
          </children>
       </AnchorPane>
-      <Label fx:id="payableLabel1" layoutX="650.0" layoutY="310.0" text="Terms and Policies">
+      <Label fx:id="payableLabel1" layoutX="758.0" layoutY="85.0" text="Terms and Policies">
          <font>
             <Font name="Arial Italic" size="16.0" />
          </font>
       </Label>
-      <TableView fx:id="productTable" layoutX="19.0" layoutY="312.0" prefHeight="270.0" prefWidth="614.0" style="-fx-border-color: black;">
+      <TableView fx:id="productTable" layoutX="19.0" layoutY="312.0" prefHeight="215.0" prefWidth="726.0" style="-fx-border-color: black;">
         <columns>
           <TableColumn fx:id="Sltable" prefWidth="58.0" text="SL.No." />
-          <TableColumn fx:id="protable" prefWidth="177.0" text="Product" />
-            <TableColumn fx:id="quanTable" prefWidth="86.0" text="Quantity" />
-            <TableColumn fx:id="pppTable" prefWidth="79.0" text="Price ($)" />
-            <TableColumn fx:id="amountable" prefWidth="97.0" text="Total Price ($)" />
-            <TableColumn fx:id="expoTable" prefWidth="113.0" text="Merchant" />
+          <TableColumn fx:id="protable" prefWidth="193.0" text="Product" />
+            <TableColumn fx:id="quanTable" prefWidth="103.0" text="Quantity" />
+            <TableColumn fx:id="pppTable" prefWidth="87.0" text="Price ($)" />
+            <TableColumn fx:id="amountable" prefWidth="132.0" text="Total Price ($)" />
+            <TableColumn fx:id="expoTable" prefWidth="149.0" text="Merchant" />
         </columns>
       </TableView>
       <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;" visible="false">

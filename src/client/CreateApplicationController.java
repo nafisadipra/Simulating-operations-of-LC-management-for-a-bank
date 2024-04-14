@@ -110,8 +110,6 @@ public class CreateApplicationController implements Initializable {
     @FXML
     private TextField payabletxtField;
     @FXML
-    private TextArea whitetxtArea;
-    @FXML
     private TableView<Product> productTable;
     @FXML
     private TableColumn<Product, String> Sltable;
@@ -226,19 +224,14 @@ public class CreateApplicationController implements Initializable {
 
         // Exporter
         merComb.getItems().setAll(exList);
+        merComb.setValue("Select");
 
         // table
-
         Sltable.setCellValueFactory(new PropertyValueFactory("serial"));
-
         protable.setCellValueFactory(new PropertyValueFactory("product"));
-
         quanTable.setCellValueFactory(new PropertyValueFactory("quantity"));
-
         pppTable.setCellValueFactory(new PropertyValueFactory("price"));
-
         amountable.setCellValueFactory(new PropertyValueFactory("amount"));
-
         expoTable.setCellValueFactory(new PropertyValueFactory("exporter"));
 
     }
@@ -407,18 +400,6 @@ public class CreateApplicationController implements Initializable {
         }
     }
 
-    private void dashClick(MouseEvent event) {
-
-    }
-
-    private void feedClick(MouseEvent event) {
-
-    }
-
-    private void settClick(MouseEvent event) {
-
-    }
-
     @FXML
     private void outClick(MouseEvent event) {
         try {
@@ -451,7 +432,6 @@ public class CreateApplicationController implements Initializable {
         }
         
         if (prodComb.getValue() == null || merComb.getValue() == null) {
-            // If either product or merchant is not selected, do nothing
             return;
         }
 
@@ -461,6 +441,7 @@ public class CreateApplicationController implements Initializable {
             if (product.getProduct().equals(prodComb.getValue().split(" - ")[1])) {
                 int newQuantity = Integer.parseInt(product.getQuantity()) + Integer.parseInt(quantxtField.getText());
                 product.setQuantity(Integer.toString(newQuantity));
+                productTable.refresh();
                 productExists = true;
                 break;
             }
@@ -488,29 +469,28 @@ public class CreateApplicationController implements Initializable {
     private void proClick(MouseEvent event) {
         if (merComb.getValue().equals("Select")) {
             (new Prompt()).getAlert("Please select a Merchant!", "error");
-            return;
-        }
-        
-        ArrayList<String> companyFetch = new Tree("Database/User/MERCHANT").view();
-        for (String X : companyFetch) {
-            ArrayList<ArrayList<String>> nameFetch = (new Reader("Database/User/MERCHANT/" + X, "profile.bin"))
-                    .splitFile('▓');
+            
+        } else {
+            ArrayList<String> companyFetch = new Tree("Database/User/MERCHANT").view();
+            for (String X : companyFetch) {
+                ArrayList<ArrayList<String>> nameFetch = (new Reader("Database/User/MERCHANT/" + X, "profile.bin"))
+                        .splitFile('▓');
 
-            if (merComb.getValue().equals(nameFetch.get(0).get(8))) {
-                this.Xemail = X;
+                if (merComb.getValue().equals(nameFetch.get(0).get(8))) {
+                    this.Xemail = X;
+                }
             }
 
-        }
+            this.productFetch = (new Reader("Database/User/MERCHANT/" + Xemail, "product.bin")).splitFile('▓');
+            ArrayList<String> productList = new ArrayList();
+            for (ArrayList<String> Y : productFetch) {
+                productList.add(Y.get(1) + " - " + Y.get(0));
+            }
 
-        this.productFetch = (new Reader("Database/User/MERCHANT/" + Xemail, "product.bin")).splitFile('▓');
-        ArrayList<String> productList = new ArrayList();
-        for (ArrayList<String> Y : productFetch) {
-            productList.add(Y.get(1) + " - " + Y.get(0));
+            prodComb.getItems().setAll(productList);
         }
-        
-        prodComb.getItems().setAll(productList);
-
     }
+
 
     @FXML
     private void proceedClick(MouseEvent event) {
@@ -526,8 +506,8 @@ public class CreateApplicationController implements Initializable {
         if (!agreeClick.isSelected()){
             (new Prompt()).getAlert("Please agree all the terms and policies", "warning");
             return;
-            
         }
+        
         long piNum = new RandomNumber(16).generate();
         String cliData = custxtField.getText() + "▓" + compxtField.getText() + "▓" + addresstxtField.getText() + "▓" + phontxtfield.getText() + "▓" + emailtxtField.getText() + "▓" ;
         String merData= "\n"+merComb.getValue()+  "▓";
@@ -536,44 +516,53 @@ public class CreateApplicationController implements Initializable {
         String DateAndTime= "\n" + now.format(formatter).toString();
         String amount= "\n"+ payabletxtField.getText()+ "▓";
         String proData= "";
+        
         for(Product X : cartList){
             proData += "\n" + X.getProduct()+ "▓" + X.getPrice() + "▓"+ X.getQuantity()+ "▓" + X.getAmount()+ "▓" ;
-            
         }
         String alldata= cliData + merData + DateAndTime + amount +"\nPending▓Pending▓Pending▓" + proData;
         new Writer("Database/Official/PI",  piNum + ".bin", alldata).writeFile();
         new Writer("Database/User/CLIENT/"+ email,"pi.bin", Long.toString(piNum)).overWriteFile();
         
+        LocalTime currentTime = LocalTime.now();
+        DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("hh:mm a");
+
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         
         ArrayList<String>GMFetch=new Tree("Database/User/GENERALMANAGER").view();
         for(String Y : GMFetch){
-            LocalTime currentTime = LocalTime.now();
-            DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("hh:mm a");
-
-            LocalDate currentDate = LocalDate.now();
-            DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-           
-
             String notData = ("You recieved a PI Request from " + email) + "▓" + "PI Request" + "▓"
                     + currentTime.format(formatTime) + "▓" + currentDate.format(formatDate);
             new Writer("Database/User/GENERALMANAGER/"+ Y, "notification.bin", notData).overWriteFile();
-            (new Prompt()).getAlert("PI Request Submitted!", "information");
-            
         }
         
+        ArrayList<String>CAFetch=new Tree("Database/User/CREDITANALYST").view();
+        for(String Z : CAFetch){
+            String notData = ("You recieved a PI Request from " + email) + "▓" + "PI Request" + "▓"
+                    + currentTime.format(formatTime) + "▓" + currentDate.format(formatDate);
+            new Writer("Database/User/CREDITANALYST/"+ Z, "notification.bin", notData).overWriteFile();
+        }
         
+        ArrayList<String>COFetch=new Tree("Database/User/COMPLIANCEOFFICER").view();
+        for(String A : COFetch){
+            String notData = ("You recieved a PI Request from " + email) + "▓" + "PI Request" + "▓"
+                    + currentTime.format(formatTime) + "▓" + currentDate.format(formatDate);
+            new Writer("Database/User/COMPLIANCEOFFICER/"+ A, "notification.bin", notData).overWriteFile();
+        }
         
-        
-        
-
-
+        (new Prompt()).getAlert("PI Request Submitted!", "information");
+        (new GUI(user, email, sanData)).applcClick(event);
     }
 
     @FXML
     private void merClick(MouseEvent event) {
         prodComb.setValue("Select");
+    }
 
+    @FXML
+    private void backClick(MouseEvent event) {
+        (new GUI(user, email, sanData)).applcClick(event);
     }
 
 }

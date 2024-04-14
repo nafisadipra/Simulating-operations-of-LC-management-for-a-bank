@@ -13,18 +13,6 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #EEEDEB; -fx-border-color: b;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.DashboardController">
    <children>
-      <Label layoutY="450.0" prefHeight="34.0" prefWidth="986.0" style="-fx-background-color: #FF4D4D; -fx-border-color: black;" text="                           Advertisement" />
-      <Label layoutY="502.0" prefHeight="34.0" prefWidth="986.0" style="-fx-background-color: #FF4D4D; -fx-border-color: black;" text="                           Advertisement" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="75.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: black;">
-         <image>
-            <Image url="nn" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="120.0" fitWidth="114.0" layoutX="1013.0" layoutY="437.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../common/iconFiles/speaker.png" />
-         </image>
-      </ImageView>
       <AnchorPane layoutX="747.0" layoutY="120.0" prefHeight="137.0" prefWidth="374.0" style="-fx-border-color: black; -fx-background-color: #ADBDC9;">
          <children>
             <TextField layoutX="38.0" layoutY="14.0" promptText="TotalMoney" style="-fx-border-color: black;" />

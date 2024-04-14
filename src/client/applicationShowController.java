@@ -1,10 +1,7 @@
 package client;
 
-import common.finder.Tree;
 import common.lc.PI;
 import common.lc.Product;
-import common.number.RandomNumber;
-import common.prompt.Prompt;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -34,14 +31,8 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 /**
@@ -122,6 +113,10 @@ public class applicationShowController implements Initializable {
     private Label CusName1;
     
     private PI PIdata;
+    @FXML
+    private TextField statusField;
+    @FXML
+    private Label emailLabel1;
     
     
 
@@ -207,12 +202,17 @@ public class applicationShowController implements Initializable {
         addresstxtField.setText(PIdata.getAddress());        
         phontxtfield.setText(PIdata.getPhone());
         emailtxtField.setText(PIdata.getEmail()); 
-        payabletxtField.setText(PIdata.getTotal_amount());        
+        payabletxtField.setText(PIdata.getTotal_amount());
+        statusField.setText(PIdata.getGmStatus());
+        
+        if (statusField.getText().equals("Accepted")) {
+            statusField.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: green;");
+        }
+        else if (statusField.getText().equals("Declined")) {
+            statusField.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: red;");
+        }
 
         // table
-        
-        
-
         Sltable.setCellValueFactory(new PropertyValueFactory("serial"));
 
         protable.setCellValueFactory(new PropertyValueFactory("product"));
@@ -422,7 +422,9 @@ public class applicationShowController implements Initializable {
         }
     }
 
-    
-
+    @FXML
+    private void backClick(MouseEvent event) {
+        (new GUI(user, email, sanData)).applcClick(event);
+    }
 
 }

@@ -69,8 +69,6 @@ public class ApplicationController implements Initializable {
     @FXML
     private Button createID1;
     @FXML
-    private ComboBox<?> filterComb1;
-    @FXML
     private TableView<PI> tableVieW;
     @FXML
     private TableColumn<PI, String> timeTab;
@@ -84,6 +82,8 @@ public class ApplicationController implements Initializable {
     private TableColumn<PI, String> statusTab;
     @FXML
     private TableColumn<PI, String> tdate;
+    @FXML
+    private ComboBox<String> typeComb;
 
     /**
      * Initializes the controller class.
@@ -158,45 +158,57 @@ public class ApplicationController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
-        //
-        ArrayList<PI> TablePI= new ArrayList();
-        ArrayList<String>fetchPI = (new Tree("Database/Official/PI")).view(); 
-        for(String X: fetchPI){
-            ArrayList<ArrayList<String>>fetchData = (new Reader("Database/Official/PI",X)).splitFile('▓');
-            String xserial = X.split("\\.")[0];
-            String xcustomer = fetchData.get(0).get(0);
-            String xcompany = fetchData.get(0).get(1);
-            String xaddress = fetchData.get(0).get(2);
-            String xphone = fetchData.get(0).get(3);
-            String xemail = fetchData.get(0).get(4);
-            String xmerchant = fetchData.get(1).get(0);
-            String xtime = fetchData.get(2).get(0);
-            String xdate = fetchData.get(2).get(1);
-            String xtotal_amount = fetchData.get(3).get(0);
-            String xgmStatus = fetchData.get(4).get(0);
-            String xcrStatus = fetchData.get(4).get(1);
-            String xcompStatus = fetchData.get(4).get(2);
-           
-            ArrayList<Product>xproductList = new ArrayList();
-            for(int i=5; i<fetchData.size();i++){
-                xproductList.add(new Product(Integer.toString(i-4),fetchData.get(i).get(0),fetchData.get(i).get(2),fetchData.get(i).get(1),xmerchant));
-           
-            }
-            TablePI.add(new PI(xserial,xcustomer,xcompany,xaddress,xphone,xemail,xmerchant,xtime,xdate,xtotal_amount,xgmStatus,xcrStatus,xcompStatus,"PI",xproductList));
-        }
         
-        System.out.println(TablePI);
-        typTab.setCellValueFactory(new PropertyValueFactory("type"));
-        idTab.setCellValueFactory(new PropertyValueFactory("serial"));
-        appToTab.setCellValueFactory(new PropertyValueFactory("merchant"));
-        timeTab.setCellValueFactory(new PropertyValueFactory("time"));
-        tdate.setCellValueFactory(new PropertyValueFactory("date"));        
-        statusTab.setCellValueFactory(new PropertyValueFactory("gmStatus"));
-        tableVieW.getItems().addAll(TablePI);
-        
-        
-      
+        // table
+        String[] typeList = {"PI", "LC"};
+        typeComb.getItems().addAll(typeList);
+        typeComb.setValue("PI");
+        applicationFetch();
     }
+    
+    private void applicationFetch() {        
+        if (typeComb.getValue() != null && typeComb.getValue().equals("PI")) {
+            ArrayList<PI> TablePI= new ArrayList();
+            ArrayList<String> fetchPI = (new Tree("Database/Official/PI")).view();
+            ArrayList<ArrayList<String>> fetchTemp = (new Reader("Database/User/" + user + "/" + email, "pi.bin")).splitFile('▓');
+
+            for(String X: fetchPI){
+                ArrayList<ArrayList<String>> fetchData = (new Reader("Database/Official/PI",X)).splitFile('▓');
+                String xserial = X.split("\\.")[0];
+                String xcustomer = fetchData.get(0).get(0);
+                String xcompany = fetchData.get(0).get(1);
+                String xaddress = fetchData.get(0).get(2);
+                String xphone = fetchData.get(0).get(3);
+                String xemail = fetchData.get(0).get(4);
+                String xmerchant = fetchData.get(1).get(0);
+                String xtime = fetchData.get(2).get(0);
+                String xdate = fetchData.get(2).get(1);
+                String xtotal_amount = fetchData.get(3).get(0);
+                String xgmStatus = fetchData.get(4).get(0);
+                String xcrStatus = fetchData.get(4).get(1);
+                String xcompStatus = fetchData.get(4).get(2);
+
+                ArrayList<Product> xproductList = new ArrayList();
+                for(int i=5; i<fetchData.size(); i++){
+                    xproductList.add(new Product(Integer.toString(i-4), fetchData.get(i).get(0), fetchData.get(i).get(2), fetchData.get(i).get(1), xmerchant));
+                }
+
+                if (X.contains(xserial)) {
+                    TablePI.add(new PI(xserial, xcustomer, xcompany, xaddress, xphone, xemail, xmerchant, xtime, xdate, xtotal_amount, xgmStatus, xcrStatus, xcompStatus, "PI", xproductList));
+                }
+            }
+
+            System.out.println(TablePI);
+            typTab.setCellValueFactory(new PropertyValueFactory("type"));
+            idTab.setCellValueFactory(new PropertyValueFactory("serial"));
+            appToTab.setCellValueFactory(new PropertyValueFactory("merchant"));
+            timeTab.setCellValueFactory(new PropertyValueFactory("time"));
+            tdate.setCellValueFactory(new PropertyValueFactory("date"));        
+            statusTab.setCellValueFactory(new PropertyValueFactory("gmStatus"));
+            tableVieW.getItems().addAll(TablePI);
+        }
+    }
+
 
     @FXML
     private void sandAction(MouseEvent event) {
@@ -397,7 +409,6 @@ public class ApplicationController implements Initializable {
 
     @FXML
     private void userCLick(MouseEvent event) {
-        System.out.println(tableVieW.getSelectionModel().getSelectedItem());
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("applicationShow.fxml"));
             Parent root = loader.load();
@@ -418,6 +429,22 @@ public class ApplicationController implements Initializable {
 
     @FXML
     private void createClick(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("CreateApplication.fxml"));
+            Parent root = loader.load();
+
+            CreateApplicationController controller = loader.getController();
+            controller.initData(user, email, sanData);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
