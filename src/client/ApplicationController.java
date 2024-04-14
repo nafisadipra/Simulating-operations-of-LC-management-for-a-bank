@@ -63,15 +63,17 @@ public class ApplicationController implements Initializable {
     private String email;
     private String[] sanData;
     @FXML
-    private TableColumn<PI, String> tdate;
-    @FXML
     private Button createID;
-    @FXML
-    private TableView<PI> tableVieW;
     @FXML
     private ComboBox<?> filterComb;
     @FXML
     private Button createID1;
+    @FXML
+    private ComboBox<?> filterComb1;
+    @FXML
+    private TableView<PI> tableVieW;
+    @FXML
+    private TableColumn<PI, String> timeTab;
     @FXML
     private TableColumn<PI, String> typTab;
     @FXML
@@ -81,7 +83,7 @@ public class ApplicationController implements Initializable {
     @FXML
     private TableColumn<PI, String> statusTab;
     @FXML
-    private TableColumn<?, ?> timeTab;
+    private TableColumn<PI, String> tdate;
 
     /**
      * Initializes the controller class.
@@ -174,7 +176,7 @@ public class ApplicationController implements Initializable {
             String xgmStatus = fetchData.get(4).get(0);
             String xcrStatus = fetchData.get(4).get(1);
             String xcompStatus = fetchData.get(4).get(2);
-//            
+           
             ArrayList<Product>xproductList = new ArrayList();
             for(int i=5; i<fetchData.size();i++){
                 xproductList.add(new Product(Integer.toString(i-4),fetchData.get(i).get(0),fetchData.get(i).get(2),fetchData.get(i).get(1),xmerchant));
@@ -182,6 +184,8 @@ public class ApplicationController implements Initializable {
             }
             TablePI.add(new PI(xserial,xcustomer,xcompany,xaddress,xphone,xemail,xmerchant,xtime,xdate,xtotal_amount,xgmStatus,xcrStatus,xcompStatus,"PI",xproductList));
         }
+        
+        System.out.println(TablePI);
         typTab.setCellValueFactory(new PropertyValueFactory("type"));
         idTab.setCellValueFactory(new PropertyValueFactory("serial"));
         appToTab.setCellValueFactory(new PropertyValueFactory("merchant"));
