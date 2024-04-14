@@ -25,12 +25,12 @@
          </font>
       </Label>
       <Button fx:id="createID1" layoutX="294.0" layoutY="110.0" mnemonicParsing="false" onMouseClicked="#filterClick" prefHeight="28.0" prefWidth="102.0" style="-fx-background-color: black;" text="Filter" textFill="WHITE" />
-      <TableView layoutX="13.0" layoutY="153.0" prefHeight="434.0" prefWidth="1173.0" style="-fx-border-color: black;">
+      <TableView fx:id="TTable" layoutX="13.0" layoutY="153.0" prefHeight="434.0" prefWidth="1173.0" style="-fx-border-color: black;">
          <columns>
-            <TableColumn prefWidth="203.0" text="Type" />
-            <TableColumn prefWidth="531.0" text="Email" />
-            <TableColumn prefWidth="213.0" text="Time" />
-            <TableColumn prefWidth="222.0" text="Date" />
+            <TableColumn fx:id="S" prefWidth="203.0" text="Type" />
+            <TableColumn fx:id="S" prefWidth="531.0" text="Email" />
+            <TableColumn fx:id="timeTable" prefWidth="213.0" text="Time" />
+            <TableColumn fx:id="dateTable" prefWidth="222.0" text="Date" />
          </columns>
       </TableView>
       <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;" visible="false">

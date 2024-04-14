@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #EEEDEB;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lcofficer.RedLcHistoryController">
+   <children>
+      <Label layoutX="76.0" layoutY="66.0" prefHeight="50.0" prefWidth="360.0" text="Red Clause LC History">
+         <font>
+            <Font name="Century Gothic Bold" size="33.0" />
+         </font>
+      </Label>
+      <TableView fx:id="mainTab" layoutX="76.0" layoutY="166.0" prefHeight="394.0" prefWidth="758.0" style="-fx-border-color: black;">
+        <columns>
+          <TableColumn fx:id="slTab" prefWidth="63.0" text="SL.No" />
+          <TableColumn fx:id="rdLcTab" prefWidth="382.0" text="Red Clause LC" />
+            <TableColumn fx:id="dateTab" prefWidth="153.0" text="Date" />
+            <TableColumn fx:id="timeTab" prefWidth="159.0" text="Time" />
+        </columns>
+      </TableView>
+      <AnchorPane layoutX="882.0" layoutY="197.0" prefHeight="241.0" prefWidth="231.0" style="-fx-background-color: white; -fx-border-color: black;" />
+      <Button fx:id="filterButt" layoutX="932.0" layoutY="343.0" mnemonicParsing="false" onMouseClicked="#filterClick" prefHeight="40.0" prefWidth="131.0" style="-fx-background-color: #4B9CD3; -fx-border-color: black;" text="Filter">
+         <font>
+            <Font name="Cambria Math" size="20.0" />
+         </font>
+      </Button>
+      <ComboBox fx:id="selectComb" layoutX="921.0" layoutY="233.0" prefHeight="40.0" prefWidth="152.0" promptText="     Select" style="-fx-border-color: black;" />
+      <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;" visible="false">
+         <children>
+            <TableView fx:id="tableSide" layoutX="12.0" layoutY="8.0" onMouseClicked="#windowClick" prefHeight="588.0" prefWidth="265.0" style="-fx-background-color: #9AD0C2; -fx-base: #9AD0C2; -fx-font-size: 25;">
+               <columns>
+                  <TableColumn fx:id="dtableSide" editable="false" minWidth="0.0" prefWidth="263.0" style="-fx-background-color: #9AD0C2; -fx-border-color: #9AD0C2;" />
+               </columns>
+            </TableView>
+            <AnchorPane prefHeight="65.0" prefWidth="290.0" />
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="28.0" fitWidth="51.0" layoutX="13.0" layoutY="13.0" onMouseClicked="#sandAction" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../common/iconFiles/sandwich.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="16.0" fitWidth="25.0" layoutX="1096.0" layoutY="43.0" onMouseClicked="#notClick">
+         <image>
+            <Image url="@../common/iconFiles/Not.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="1053.0" layoutY="43.0" onMouseClicked="#mailClick">
+         <image>
+            <Image url="@../common/iconFiles/Mail.png" />
+         </image>
+      </ImageView>
+      <Circle fx:id="mdot" fill="#ff3737" layoutX="1078.0" layoutY="43.0" radius="8.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+      <Circle fx:id="ndot" fill="#ff3737" layoutX="1121.0" layoutY="43.0" radius="8.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+      <AnchorPane fx:id="paneLog" layoutX="896.0" prefHeight="120.0" prefWidth="304.0" style="-fx-background-color: #D6DAC8;" visible="false">
+         <children>
+            <Label fx:id="labName" alignment="TOP_LEFT" contentDisplay="RIGHT" layoutX="27.0" layoutY="29.0" text="Name" textAlignment="RIGHT" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Button layoutX="231.0" layoutY="80.0" mnemonicParsing="false" onMouseClicked="#outClick" style="-fx-background-color: black;" text="Log Out" textFill="WHITE" />
+         </children>
+      </AnchorPane>
+      <ImageView fx:id="imageUser" layoutX="1136.0" layoutY="16.0" onMouseClicked="#logClick">
+         <image>
+            <Image url="@../common/iconFiles/User.png" />
+         </image>
+      </ImageView>
+      
+   </children>
+</AnchorPane>
