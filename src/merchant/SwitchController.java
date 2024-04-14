@@ -1,5 +1,6 @@
 package merchant;
 
+import client.*;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
