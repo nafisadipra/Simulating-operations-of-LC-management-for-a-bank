@@ -65,8 +65,6 @@ public class ApplicationController implements Initializable {
     @FXML
     private Button createID;
     @FXML
-    private ComboBox<?> filterComb;
-    @FXML
     private Button createID1;
     @FXML
     private TableView<PI> tableVieW;
@@ -168,7 +166,7 @@ public class ApplicationController implements Initializable {
         applicationFetch();
     }
     
-    private void applicationFetch() {        
+    private void applicationFetch() {
         if (typeComb.getValue() != null && typeComb.getValue().equals("PI")) {
             ArrayList<PI> TablePI= new ArrayList();
             ArrayList<String> fetchPI = (new Tree("Database/Official/PI")).view();
@@ -195,9 +193,11 @@ public class ApplicationController implements Initializable {
                 for(int i=5; i<fetchData.size(); i++){
                     xproductList.add(new Product(Integer.toString(i-4), fetchData.get(i).get(0), fetchData.get(i).get(2), fetchData.get(i).get(1), xmerchant));
                 }
-
-                if (X.contains(xserial)) {
-                    TablePI.add(new PI(xserial, xcustomer, xcompany, xaddress, xphone, xemail, xmerchant, xtime, xdate, xtotal_amount, xgmStatus, xcrStatus, xcompStatus, xmrcStatus, "PI", xproductList));
+                
+                for (ArrayList<String> Y: fetchTemp) {
+                    if (Y.get(0).equals(xserial)) {
+                        TablePI.add(new PI(xserial, xcustomer, xcompany, xaddress, xphone, xemail, xmerchant, xtime, xdate, xtotal_amount, xgmStatus, xcrStatus, xcompStatus, xmrcStatus, "PI", xproductList));
+                    }
                 }
             }
             

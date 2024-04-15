@@ -15,11 +15,11 @@ public class SceneView extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Policy.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Transaction.fxml"));
         Parent root = loader.load();
         
-        PolicyController controller = loader.getController();
-        String[] sanData = {"Dashboard", "Contact", "Notification", "Application", "Transaction", "Invoice", "Switch Account", "Settings", "Policy", "Feedback"};
+        TransactionController controller = loader.getController();
+        String[] sanData = {"Dashboard", "Contact", "Notification", "Application", "Transaction", "Invoice", "Settings", "Policy", "Feedback"};
         controller.initData("CLIENT", "dipra@lc.cli.com", sanData);
         
         Scene scene = new Scene(root);

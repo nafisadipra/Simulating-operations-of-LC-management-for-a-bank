@@ -1,5 +1,8 @@
 package client;
 
+import common.finder.Tree;
+import common.lc.Transaction;
+import common.prompt.Prompt;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -29,6 +32,9 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -57,6 +63,26 @@ public class TransactionController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    @FXML
+    private ComboBox<String> filterComb;
+    @FXML
+    private TextField enEmail;
+    @FXML
+    private Button createID1;
+    @FXML
+    private TableView<Transaction> table;
+    @FXML
+    private TableColumn<Transaction, String> tid;
+    @FXML
+    private TableColumn<Transaction, String> tsend;
+    @FXML
+    private TableColumn<Transaction, String> trece;
+    @FXML
+    private TableColumn<Transaction, String> ttime;
+    @FXML
+    private TableColumn<Transaction, String> tdate;
+    @FXML
+    private TableColumn<Transaction, String> tstatus;
 
     /**
      * Initializes the controller class.
@@ -131,6 +157,48 @@ public class TransactionController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+        
+        // Transactions
+        String[] filterList = {"All", "Pending", "Complete"};
+        filterComb.getItems().addAll(filterList);
+        filterComb.setValue("All");
+        
+        fetchTran();
+    }
+    
+    private void fetchTran() {
+        ArrayList<Transaction> TableTran= new ArrayList();
+        ArrayList<String> fetchPI = (new Tree("Database/Official/TRANSACTION")).view();
+        ArrayList<ArrayList<String>> fetchTemp = (new Reader("Database/User/" + user + "/" + email, "pi.bin")).splitFile('▓');
+
+        for(String X: fetchPI){
+            ArrayList<ArrayList<String>> fetchData = (new Reader("Database/Official/TRANSACTION",X)).splitFile('▓');
+            String xserial = X.split("\\.")[0];
+            String xemail = fetchData.get(0).get(1);
+            String xmrcemail = fetchData.get(0).get(2);
+            String xtime = fetchData.get(0).get(3);
+            String xdate = fetchData.get(0).get(4);
+            String xstatus = fetchData.get(0).get(5);
+
+            for (ArrayList<String> Y: fetchTemp) {
+                if (Y.get(0).equals(xserial)) {
+                    if (filterComb.getValue().toLowerCase().equals("all") || (filterComb.getValue().toLowerCase().equals(xstatus.toLowerCase()))) {
+                        if (enEmail.getText().isEmpty() || (-1 != (xmrcemail.toLowerCase()).indexOf(enEmail.getText().toLowerCase()))) {
+                            TableTran.add(new Transaction(xserial, xemail, xmrcemail, xtime, xdate, xstatus));
+                        }
+                    }   
+                }
+            }
+        }
+        
+        tid.setCellValueFactory(new PropertyValueFactory("id"));
+        tsend.setCellValueFactory(new PropertyValueFactory("sender"));
+        trece.setCellValueFactory(new PropertyValueFactory("reciever"));
+        ttime.setCellValueFactory(new PropertyValueFactory("time"));
+        tdate.setCellValueFactory(new PropertyValueFactory("date"));
+        tstatus.setCellValueFactory(new PropertyValueFactory("status"));
+        table.getItems().addAll(TableTran);
+        
     }
 
     @FXML
@@ -314,6 +382,37 @@ public class TransactionController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/signIN/SignINFXML.fxml"));
             Parent root = loader.load();
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void filterClick(MouseEvent event) {
+        table.getItems().clear();
+        fetchTran();
+    }
+
+    @FXML
+    private void tranClick(MouseEvent event) {
+        if (table.getSelectionModel().getSelectedItem().getReciever().equals(email) || table.getSelectionModel().getSelectedItem().getStatus().equals("Complete")) {
+            (new Prompt()).getAlert("Transaction already completed!", "warning");
+            return;
+        }
+        
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("CreateTransaction.fxml"));
+            Parent root = loader.load();
+
+            CreateTransactionController controller = loader.getController();
+            controller.initData(user, email, sanData, table.getSelectionModel().getSelectedItem().getId());
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");

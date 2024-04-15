@@ -19,7 +19,7 @@ public class SceneView extends Application {
         Parent root = loader.load();
         
         reportingofficer.DashboardController controller = loader.getController();
-        String[] sanData = {"Dashboard", "Contact", "Notification", "Invoice", "Reports", "Settings", "Feedback"};
+        String[] sanData = {"Dashboard", "Contact", "Notification", "Reports", "Settings", "Feedback"};
         controller.initData("REPORTINGOFFICER", "ishrak@lc.ro.com", sanData);
         
         Scene scene = new Scene(root);

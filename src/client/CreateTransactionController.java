@@ -1,6 +1,8 @@
 package client;
 
+import common.finder.Tree;
 import common.number.RandomNumber;
+import common.pdf.TranPDF;
 import common.prompt.Prompt;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
@@ -31,6 +33,9 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -82,6 +87,7 @@ public class CreateTransactionController implements Initializable {
     @FXML
     private Button verButt;
     private String code;
+    private String idSerial;
 
     /**
      * Initializes the controller class.
@@ -92,11 +98,12 @@ public class CreateTransactionController implements Initializable {
     }
 
     // pipeline
-    public void initData(String user, String email, String[] sanData) {
+    public void initData(String user, String email, String[] sanData, String idSerial) {
         // append
         this.user = user;
         this.email = email;
         this.sanData = sanData;
+        this.idSerial = idSerial;
 
         // Side Panel
         ArrayList<Sandwich> sanList = new ArrayList();
@@ -353,29 +360,21 @@ public class CreateTransactionController implements Initializable {
 
     @FXML
     private void payClick(MouseEvent event) {
-        ArrayList<ArrayList<String>> creditFetch= (new Reader("Database/User/" + user + "/" + email, "credit.bin")).splitFile('▓');
-        if (!cardNametxt.getText().equals(creditFetch.get(0).get(4))||!cardNumtxt.getText().equals(creditFetch.get(0).get(1)) ||!cvvtxt.getText().equals(creditFetch.get(0).get(2))||!datePic.getValue().toString().equals(creditFetch.get(0).get(3))){
+        ArrayList<ArrayList<String>> creditFetch = (new Reader("Database/User/" + user + "/" + email, "credit.bin")).splitFile('▓');
+        if (!cardNametxt.getText().equals(creditFetch.get(0).get(4)) || !cardNumtxt.getText().equals(creditFetch.get(0).get(1)) || !cvvtxt.getText().equals(creditFetch.get(0).get(2)) || !datePic.getValue().toString().equals(creditFetch.get(0).get(3))) {
             (new Prompt()).getAlert("Credentials Mismatch", "error");
-            return ;           
-        
+            return;
         }
-        this.code = Long.toString(new RandomNumber(6).generate());
-        String desktopPath = System.getProperty("user.home") + File.separator + "Desktop";
-        
-        String emailContent = code;
-        
-        new Writer(desktopPath, "Verification.txt", emailContent).writeFile();
-        (new Prompt()).getAlert("A verification code hasbeen sent to your phone!", "information");
-        
-        anchVer.setVisible(true);
-        
-        
 
-        
-        
-        
-        
-        
+        this.code = Long.toString(new RandomNumber(6).generate()); // Initialize the code variable here
+        String desktopPath = System.getProperty("user.home") + File.separator + "Desktop";
+
+        String emailContent = code;
+
+        new Writer(desktopPath, "Verification.txt", emailContent).writeFile();
+        (new Prompt()).getAlert("A verification code has been sent to your phone!", "information");
+
+        anchVer.setVisible(true);
     }
 
     @FXML
@@ -383,21 +382,51 @@ public class CreateTransactionController implements Initializable {
         if (!code.equals(enVer.getText())){
             (new Prompt()).getAlert("Wrong OTP", "error");
             return;
-            
         }
         
+        ArrayList<ArrayList<String>> piFetch= (new Reader("Database/Official/PI", idSerial + ".bin")).splitFile('▓');
+        ArrayList<ArrayList<String>> tranFetch= (new Reader("Database/Official/TRANSACTION", idSerial + ".bin")).splitFile('▓');
+        ArrayList<ArrayList<String>> bankFetch= (new Reader("Database/Official/BANK", "credit.bin")).splitFile('▓');
+        
         ArrayList<ArrayList<String>> creditFetch= (new Reader("Database/User/" + user + "/" + email, "credit.bin")).splitFile('▓');
-        long Taka = Long.parseLong(creditFetch.get(0).get(0))- 10500;
+        long Taka = (long) (Double.parseDouble(creditFetch.get(0).get(0)) - Double.parseDouble(piFetch.get(3).get(0)));
         new Writer("Database/User/" + user + "/" + email, "credit.bin", Taka+"▓"+ creditFetch.get(0).get(1)+"▓"+creditFetch.get(0).get(2)+"▓"+creditFetch.get(0).get(3)+"▓"+creditFetch.get(0).get(4)+"▓").writeFile();
         
-        
         ArrayList<ArrayList<String>> creditFetchx= (new Reader("Database/User/" + "MERCHANT" + "/" + "apple@lc.mrc.com", "credit.bin")).splitFile('▓');
-        long Takax = Long.parseLong(creditFetchx.get(0).get(0))+ 10500;
-        new Writer("Database/User/" + "MERCHANT" + "/" + "apple@lc.mrc.com", "credit.bin", Takax+"▓"+creditFetchx.get(0).get(1)+"▓"+creditFetchx.get(0).get(2)+"▓"+creditFetchx.get(0).get(3)+"▓"+creditFetchx.get(0).get(4)+"▓").writeFile();
+        long Takax = (long) (Double.parseDouble(creditFetchx.get(0).get(0)) + Double.parseDouble(piFetch.get(3).get(0)));
+        new Writer("Database/User/" + "MERCHANT" + "/" + tranFetch.get(0).get(2), "credit.bin", Takax+"▓"+creditFetchx.get(0).get(1)+"▓"+creditFetchx.get(0).get(2)+"▓"+creditFetchx.get(0).get(3)+"▓"+creditFetchx.get(0).get(4)+"▓").writeFile();
+        
+        long Takay = (long) (Double.parseDouble(bankFetch.get(0).get(0)) + (Double.parseDouble(piFetch.get(3).get(0))*15/100));
+        new Writer("Database/Official/" + "BANK", "credit.bin", Takay+"▓").writeFile();
+        
+        LocalTime currentTime = LocalTime.now();
+        DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("hh:mm a");
+        
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        
+        String notData = "Transaction (" + idSerial + ") completed!" + "▓" + "Transaction" + "▓" + currentTime.format(formatTime) + "▓" + currentDate.format(formatDate);
+        new Writer("Database/User/MERCHANT/"+ tranFetch.get(0).get(2), "notification.bin", notData).overWriteFile();
+        
+        String tranData = idSerial + "▓" + tranFetch.get(0).get(1) + "▓" + tranFetch.get(0).get(2) + "▓" + tranFetch.get(0).get(3) + "▓" + tranFetch.get(0).get(4) + "▓" + "Complete" + "▓";
+        new Writer("Database/Official/TRANSACTION", idSerial+".bin", tranData).writeFile();
+        
+        String tranDataX = idSerial + "▓" + tranFetch.get(0).get(2) + "▓" + tranFetch.get(0).get(3) + "▓" + tranFetch.get(0).get(4) + "▓" + "Pending" + "▓";
+        new Writer("Database/Official/LC", idSerial+".bin", tranDataX).writeFile();
+        
+        long total = (long) Double.parseDouble(piFetch.get(3).get(0));
+        new TranPDF().generate("Database/Official/TRANSACTION_PDF", idSerial, Long.toString(total), email, tranFetch.get(0).get(2));
         
         (new Prompt()).getAlert("Transaction Successful", "information");
         
+        ArrayList<String>LCFetch=new Tree("Database/User/LCOFFICER").view();
+        for(String Y : LCFetch){
+            String notData2 = ("You recieved a LC Request from " + email) + "▓" + "LC Request" + "▓"
+                    + currentTime.format(formatTime) + "▓" + currentDate.format(formatDate);
+            new Writer("Database/User/LCOFFICER/"+ Y, "notification.bin", notData2).overWriteFile();
+        }
         
+        (new GUI(user, email, sanData)).transClick(event);
     }
 
 }

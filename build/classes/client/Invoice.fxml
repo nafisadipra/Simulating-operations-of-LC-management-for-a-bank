@@ -13,24 +13,22 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #EEEDEB;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.InvoiceController">
    <children>
-      <ComboBox fx:id="selectComb" layoutX="46.0" layoutY="120.0" prefWidth="150.0" promptText="      Select Here" style="-fx-border-color: black;" />
-      <Button fx:id="filterbutt" layoutX="239.0" layoutY="120.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="97.0" style="-fx-background-color: black;" text="Filter" textFill="WHITE">
+      <ComboBox fx:id="filterComb" layoutX="862.0" layoutY="109.0" prefHeight="27.0" prefWidth="202.0" style="-fx-border-color: black; -fx-background-color: white;" visible="false" />
+      <Label layoutX="808.0" layoutY="110.0" prefHeight="25.0" prefWidth="50.0" text="Status" visible="false">
          <font>
-            <Font name="Arial Bold" size="14.0" />
-         </font>
-      </Button>
-      <Label layoutX="45.0" layoutY="42.0" text="Invoices">
-         <font>
-            <Font name="Arial" size="41.0" />
+            <Font name="System Italic" size="16.0" />
          </font>
       </Label>
-      <TableView fx:id="tableid" layoutX="45.0" layoutY="163.0" prefHeight="430.0" prefWidth="1099.0" style="-fx-border-color: black;">
-        <columns>
-          <TableColumn fx:id="slT" prefWidth="112.0" text="SL.No." />
-            <TableColumn fx:id="invoiceT" prefWidth="459.0" text="Invoice" />
-          <TableColumn fx:id="dateT" minWidth="0.0" prefWidth="225.0" text="Date" />
-            <TableColumn fx:id="timeT" minWidth="0.0" prefWidth="302.0" text="Time" />
-        </columns>
+      <Label layoutX="15.0" layoutY="40.0" prefHeight="65.0" prefWidth="387.0" text="Invoice">
+         <font>
+            <Font size="44.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tableVieW" layoutX="15.0" layoutY="152.0" onMouseClicked="#userCLick" prefHeight="433.0" prefWidth="1170.0" style="-fx-border-color: black;">
+         <columns>
+            <TableColumn fx:id="idTab" prefWidth="178.0" text="ID" />
+            <TableColumn fx:id="appToTab" minWidth="0.0" prefWidth="987.0" text="Application To" />
+         </columns>
       </TableView>
       <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;" visible="false">
          <children>
@@ -74,6 +72,14 @@
             <Image url="@../common/iconFiles/User.png" />
          </image>
       </ImageView>
+      <Button fx:id="createID1" disable="true" layoutX="1084.0" layoutY="108.0" mnemonicParsing="false" onMouseClicked="#filterClick" prefHeight="28.0" prefWidth="102.0" style="-fx-background-color: black;" text="Filter" textFill="WHITE" visible="false" />
+      <ComboBox fx:id="filterCombX" layoutX="65.0" layoutY="109.0" prefHeight="28.0" prefWidth="202.0" promptText="Select" style="-fx-border-color: black; -fx-background-color: white;" />
+      <Label layoutX="22.0" layoutY="110.0" prefHeight="25.0" prefWidth="43.0" text="Type">
+         <font>
+            <Font name="System Italic" size="16.0" />
+         </font>
+      </Label>
+      <Button layoutX="282.0" layoutY="108.0" mnemonicParsing="false" onMouseClicked="#filter2Click" prefHeight="28.0" prefWidth="102.0" style="-fx-background-color: black;" text="Filter" textFill="WHITE" />
       
    </children>
 </AnchorPane>

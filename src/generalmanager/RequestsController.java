@@ -416,7 +416,6 @@ public class RequestsController implements Initializable {
 
     @FXML
     private void userCLick(MouseEvent event) {
-        System.out.println(tableVieW.getSelectionModel().getSelectedItem());
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("applicationShow.fxml"));
             Parent root = loader.load();

@@ -1,10 +1,13 @@
 package lcofficer;
 
+import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
+import common.finder.Tree;
 import common.prompt.Prompt;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
@@ -37,10 +40,15 @@ import javax.imageio.ImageIO;
 import common.writer.Writer;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.net.MalformedURLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -97,13 +105,8 @@ public class LcApplicationController implements Initializable {
     private TextField issuBankTxt;
     @FXML
     private TextField exLcNoTxt;
-    private TextField exDateTxt;
     @FXML
-    private CheckBox mailhk;
-    @FXML
-    private CheckBox courChk;
-    @FXML
-    private CheckBox swiftChk;
+    private DatePicker exDateTxt;
     @FXML
     private TextField redTxt;
     @FXML
@@ -113,12 +116,6 @@ public class LcApplicationController implements Initializable {
     @FXML
     private CheckBox yesChk;
     @FXML
-    private TextField dateTxt;
-    @FXML
-    private TextField LcNotxt;
-    @FXML
-    private TextField beneAdvTxt;
-    @FXML
     private CheckBox psPerChk;
     @FXML
     private CheckBox transPerChk;
@@ -126,6 +123,8 @@ public class LcApplicationController implements Initializable {
     private Button ProceedButt;
     @FXML
     private TextField benAddressTxt;
+    @FXML
+    private ComboBox<String> LcNoComb;
 
     /**
      * Initializes the controller class.
@@ -200,6 +199,18 @@ public class LcApplicationController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+        
+        // lc
+        ArrayList<String> lcList = new Tree("Database/Official/LC").view();
+        
+        for (String X: lcList) {
+            if ((new Reader("Database/Official/LC/", X)).splitFile('▓').get(0).get(4).equals("Pending")) {
+                LcNoComb.getItems().add(X.split("\\.")[0]);
+            }
+        }
+        
+        LcNoComb.setValue("Select");
+        
     }
 
     @FXML
@@ -397,79 +408,101 @@ public class LcApplicationController implements Initializable {
 
     @FXML
     private void proceedClick(MouseEvent event) {
-        try{
-            PdfWriter write = new PdfWriter(new FileOutputStream("LcPdfGen.pdf"));
+        if (appCompTxt.getText().isEmpty() || appAddressTxt.getText().isEmpty() || appTellTxt.getText().isEmpty()
+                || appEmailTxt.getText().isEmpty() || beneCompTxt.getText().isEmpty() || benAddressTxt.getText().isEmpty()
+                || BeneEmailTxt.getText().isEmpty() || beneTellTxt.getText().isEmpty() || amountTxt.getText().isEmpty()
+                || issuBankTxt.getText().isEmpty() || exLcNoTxt.getText().isEmpty() || exDateTxt.getValue() == null
+                || redTxt.getText().isEmpty() || beneConTxt.getText().isEmpty() || LcNoComb.getValue().equals("Select")) {
+            
+            (new Prompt()).getAlert("Please fill in all fields.", "error");
+            return;
+        }
+        
+        try {
+            PdfWriter write = new PdfWriter(new FileOutputStream("Database/Official/LC_PDF/" + LcNoComb.getValue() + ".pdf"));
             PdfDocument pdf = new PdfDocument(write);
             Document document = new Document(pdf);
-            LocalDate currentDate = LocalDate.now();
-            DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            String Date = currentDate.format(formatDate);
-            document.add(new Paragraph("Date: "+ Date));
+
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a, dd/MM/yyyy");
+            Paragraph timeAndDate = new Paragraph(now.format(formatter));
+            timeAndDate.setFontSize(8);
+            document.add(timeAndDate.setTextAlignment(TextAlignment.RIGHT));
+            
             document.add(new Paragraph("Letter Of Credit").setFontSize(20).setBold().setTextAlignment(TextAlignment.CENTER));
             document.add(new Paragraph("LC Bank").setFontSize(12).setTextAlignment(TextAlignment.CENTER));
-            document.add(new Paragraph("45,New Eskaton,Dhaka").setFontSize(12).setTextAlignment(TextAlignment.CENTER));
-            document.add(new Paragraph("LC No: "+ LcNotxt.getText() ).setFontSize(12));
-            document.add(new Paragraph("Issuing Bank: LC Bank").setFontSize(12));
-            document.add(new Paragraph("Advice Date: "+Date).setFontSize(12));
-            document.add(new Paragraph("Expiry Date: "+ exDateTxt.getText()).setFontSize(12));
-            document.add(new Paragraph("Amount(in words): "+amWordTxt.getText()));
-            document.add(new Paragraph("\nBeneficiary:").setFontSize(14).setBold());
-            document.add(new Paragraph("Company Name: "+beneCompTxt.getText()).setFontSize(12));
-            document.add(new Paragraph("Address: ").setFontSize(12));
-            document.add(new Paragraph("Tell: "+beneTellTxt.getText()).setFontSize(12));
-            document.add(new Paragraph("Email: "+BeneEmailTxt.getText()));
-            document.add(new Paragraph("\nApplicant:").setFontSize(14).setBold());
-            document.add(new Paragraph("Company: "+appCompTxt.getText()).setFontSize(12));
-            document.add(new Paragraph("Address: "+appAddressTxt.getText()).setFontSize(12));
-            document.add(new Paragraph("Tell: "+appTellTxt.getText()).setFontSize(12));
-            document.add(new Paragraph("Email: "+appEmailTxt.getText()).setFontSize(12));
-            document.add(new Paragraph("Please be guided by its terms and conditions and by the following:").setFontSize(14));
-            document.add(new Paragraph("\n"));
-            document.add(new Paragraph("\n"));
-            document.add(new Paragraph("\n"));
-            document.add(new Paragraph("\n"));
-            document.add(new Paragraph("\n"));
-            document.add(new Paragraph("\n"));
-            document.add(new Paragraph("\n"));
-            document.add(new Paragraph("Evidencing Shipment Of:").setFontSize(14).setBold());
-            document.add(new Paragraph("Shipment From: ").setFontSize(12));
-            document.add(new Paragraph("To: "+appAddressTxt.getText()).setFontSize(12));
+            document.add(new Paragraph("House no. 6, Road 18, Block B Mirpur 10 Roundabout, Dhaka 1216").setFontSize(12).setTextAlignment(TextAlignment.CENTER));
             
-            String partial="Not Allowed";
-            if(psPerChk.isSelected()){
-                partial="Allowed";
-                
-                
+            document.add(new Paragraph("\nLC Number:"));
+            document.add(new Paragraph(LcNoComb.getValue()).setFontSize(8));
+            
+            document.add(new Paragraph("\nApplicant:"));
+            document.add(new Paragraph(appCompTxt.getText()).setFontSize(8));
+            document.add(new Paragraph("Email: " + appEmailTxt.getText()).setFontSize(8));
+            document.add(new Paragraph("Tell: " + appTellTxt.getText()).setFontSize(8));
+            document.add(new Paragraph("Address: " + appAddressTxt.getText()).setFontSize(8));
+            document.add(new Paragraph("Country: " + appconTxt.getText()).setFontSize(8));
+
+            document.add(new Paragraph("\nBeneficiary:"));
+            document.add(new Paragraph(beneCompTxt.getText()).setFontSize(8));
+            document.add(new Paragraph("Email: " + BeneEmailTxt.getText()).setFontSize(8));
+            document.add(new Paragraph("Tell: " + beneTellTxt.getText()).setFontSize(8));
+            document.add(new Paragraph("Address: " + benAddressTxt.getText()).setFontSize(8));
+            document.add(new Paragraph("Country: " + appconTxt.getText()).setFontSize(8));
+
+            document.add(new Paragraph("\nReferral Number:"));
+            document.add(new Paragraph(redTxt.getText()).setFontSize(8));
+            
+            document.add(new Paragraph("Terms and Conditions:"));
+            document.add(new Paragraph("1. This Letter of Credit is subject to the Uniform Customs and Practice for Documentary Credits (UCP 600).").setFontSize(8));
+            document.add(new Paragraph("2. Partial shipments are " + (psPerChk.isSelected() ? "allowed" : "not allowed") + ".").setFontSize(8));
+            document.add(new Paragraph("3. Transshipment is " + (transPerChk.isSelected() ? "allowed" : "not allowed") + ".").setFontSize(8));
+            document.add(new Paragraph("4. All banking charges outside of the applicant's address are for the beneficiary's account.").setFontSize(8));
+            
+            // image
+            try {
+                com.itextpdf.layout.element.Image signatureImage = new com.itextpdf.layout.element.Image(ImageDataFactory.create("src/common/iconFiles/signature.png"));
+                signatureImage.setWidth(70);
+                signatureImage.setHeight(20);
+                signatureImage.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+                document.add(signatureImage);
+
+                Paragraph signature = new Paragraph("Approved By: " + "____________");
+                signature.setFontSize(12);
+                signature.setTextAlignment(TextAlignment.RIGHT);
+                document.add(signature);
+            } catch (MalformedURLException ex) {
+                ex.printStackTrace();
             }
-            document.add(new Paragraph("Partial Shipment "+partial).setFontSize(12));
             
-            String trans="Not Allowed";
-            if(transPerChk.isSelected()){
-                trans="Allowed";
-                
-            }
+            LocalTime currentTime = LocalTime.now();
+            DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("hh:mm a");
+
+            LocalDate currentDate = LocalDate.now();
+            DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            String notData = ("Your Letter of Credit (" + LcNoComb.getValue() + ") has arrived in the invoice!") + "▓" + "LC" + "▓"
+            + currentTime.format(formatTime) + "▓" + currentDate.format(formatDate);
+
+            new Writer("Database/User/CLIENT/"+ appEmailTxt.getText(), "notification.bin", notData).overWriteFile();
+            new Writer("Database/User/MERCHANT/"+ BeneEmailTxt.getText(), "notification.bin", notData).overWriteFile();
             
-            document.add(new Paragraph("Transshipment "+trans).setFontSize(12));
-            document.add(new Paragraph("\nAll the banking charges outside of (applicant address) are for Beneficiary's Account.").setFontSize(12));
-            
-            
-            
-            
-            
-            
-            
+            ArrayList<ArrayList<String>> lcFtech = (new Reader("Database/Official/LC", LcNoComb.getValue() + ".bin")).splitFile('▓');
+            new Writer("Database/Official/LC/", LcNoComb.getValue() + ".bin", lcFtech.get(0).get(0) + "▓" + lcFtech.get(0).get(1) + "▓" + lcFtech.get(0).get(2) + "▓" + lcFtech.get(0).get(3) + "▓" + "Complete" + "▓").writeFile();
             
             document.close();
             
-            (new Prompt()).getAlert("PDF Generated", "information");
+            (new Prompt()).getAlert("LC Created Successfully!", "information");
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
         }
-        catch(FileNotFoundException ex){
-            
-        }
+        (new GUI(user, email, sanData)).applcClick(event);
+        
     }
 
     @FXML
     private void admBack(MouseEvent event) {
+        (new GUI(user, email, sanData)).applcClick(event);
     }
 
 }

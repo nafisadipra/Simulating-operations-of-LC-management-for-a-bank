@@ -158,7 +158,7 @@ public class ClientsController implements Initializable {
         temail.setCellValueFactory(new PropertyValueFactory("email"));
         tstate.setCellValueFactory(new PropertyValueFactory("state"));
         tcompany.setCellValueFactory(new PropertyValueFactory("company"));
-
+        
         table.getItems().setAll((new UserList()).getFilterList("Client", enEmail.getText()));
     }
 

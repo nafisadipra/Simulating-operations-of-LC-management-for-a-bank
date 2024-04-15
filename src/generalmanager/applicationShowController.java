@@ -534,6 +534,8 @@ public class applicationShowController implements Initializable {
         
         String alldata= cliData + merData + "\n"+ PIdata.getTime()+"▓"+ PIdata.getDate()+ amount +"\nApproved"+"▓"+PIdata.getCrStatus()+"▓"+PIdata.getCompStatus()+"▓"+PIdata.getMrcStatus()+"▓" + proData;
         new Writer("Database/Official/PI",  PIdata.getSerial() + ".bin", alldata).writeFile();
+        new Writer("Database/User/MERCHANT/"+ merCom.getValue(),"pi.bin", PIdata.getSerial()).overWriteFile();
+        
         statusField.setText("Approved");
         statusField.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: green;");
         aprvButt.setDisable(true);

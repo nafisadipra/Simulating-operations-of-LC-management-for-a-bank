@@ -313,26 +313,6 @@ public class ReportMakeController implements Initializable {
 
     }
 
-    private void invoClick(MouseEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Invoice.fxml"));
-            Parent root = loader.load();
-
-            InvoiceController controller = loader.getController();
-            controller.initData(user, email, sanData);
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setTitle("LC Bank Portal");
-
-            stage.setScene(new Scene(root));
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
     private void feedClick(MouseEvent event) {
 
     }

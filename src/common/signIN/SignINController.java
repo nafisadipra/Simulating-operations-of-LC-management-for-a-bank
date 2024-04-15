@@ -144,7 +144,7 @@ public class SignINController implements Initializable {
                         case "CLIENT":
                             {
                                 client.DashboardController controller = loader.getController();
-                                String[] sanData = {"Dashboard", "Contact", "Notification", "Application", "Transaction", "Invoice", "Switch Account", "Settings", "Policy", "Feedback"};
+                                String[] sanData = {"Dashboard", "Contact", "Notification", "Application", "Transaction", "Invoice", "Settings", "Policy", "Feedback"};
                                 controller.initData(user, email, sanData);
                                 logger = "Client";
                                 break;
@@ -152,7 +152,7 @@ public class SignINController implements Initializable {
                         case "MERCHANT":
                             {
                                 merchant.DashboardController controller = loader.getController();
-                                String[] sanData = {"Dashboard", "Contact", "Notification", "Merchandise", "Advertising", "Requests", "Transaction", "Invoice", "Switch Account", "Settings", "Policy", "Feedback"};
+                                String[] sanData = {"Dashboard", "Contact", "Notification", "Merchandise", "Advertising", "Requests", "Transaction", "Invoice", "Settings", "Policy", "Feedback"};
                                 controller.initData(user, email, sanData);
                                 logger = "Merchant";
                                 break;
@@ -176,7 +176,7 @@ public class SignINController implements Initializable {
                         case "LCOFFICER":
                             {
                                 lcofficer.DashboardController controller = loader.getController();
-                                String[] sanData = {"Dashboard", "Contact", "Notification", "L\\C Applications", "History", "Clients", "Merchants", "Settings", "Feedback"};
+                                String[] sanData = {"Dashboard", "Contact", "Notification", "L\\C Application", "Clients", "Merchants", "Settings", "Feedback"};
                                 controller.initData(user, email, sanData);
                                 logger = "Administrator";
                                 break;
@@ -184,7 +184,7 @@ public class SignINController implements Initializable {
                         case "SALESREPRESENTATIVE":
                             {
                                 salesrepresentative.DashboardController controller = loader.getController();
-                                String[] sanData = {"Dashboard", "Contact", "Notification", "Relationship", "Advertising", "Transaction", "Analytics", "Settings", "Feedback"};
+                                String[] sanData = {"Dashboard", "Contact", "Notification", "Advertising", "Analytics", "Settings", "Feedback"};
                                 controller.initData(user, email, sanData);
                                 logger = "Sales Representative";
                                 break;
@@ -200,7 +200,7 @@ public class SignINController implements Initializable {
                         case "REPORTINGOFFICER":
                             {
                                 reportingofficer.DashboardController controller = loader.getController();
-                                String[] sanData = {"Dashboard", "Contact", "Notification", "Invoice", "Reports", "Settings", "Feedback"};
+                                String[] sanData = {"Dashboard", "Contact", "Notification", "Reports", "Settings", "Feedback"};
                                 controller.initData(user, email, sanData);
                                 logger = "Reporting Officer";
                                 break;

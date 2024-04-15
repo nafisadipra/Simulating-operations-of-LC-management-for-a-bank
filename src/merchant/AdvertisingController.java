@@ -1,7 +1,6 @@
 package merchant;
 
 import common.advertisement.Advertisement;
-import common.device.Log;
 import common.prompt.Prompt;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
@@ -177,21 +176,19 @@ public class AdvertisingController implements Initializable {
     }
     
     private void getAdv(){
-        ArrayList<Advertisement>advList = new ArrayList();
-        ArrayList <ArrayList<String>> advFetch = (new Reader("Database/Official/ADVERTISEMENT" , "advertisement.bin")).splitFile('▓');
-        
-        if (filterComb.getValue().equals("All")) {
-            for(ArrayList<String> Y:advFetch){
+        ArrayList<Advertisement> advList = new ArrayList();
+        ArrayList<ArrayList<String>> advFetch = (new Reader("Database/Official/ADVERTISEMENT", "advertisement.bin")).splitFile('▓');
+
+        for(ArrayList<String> Y : advFetch){
+            if (filterComb.getValue().equals("All")) {
                 advList.add(new Advertisement(Y.get(0), Y.get(1), Y.get(2), Y.get(3)));
-            }
-        } else {
-            for(ArrayList<String> Y:advFetch){
-                if (Y.get(2).equals(filterComb.getValue())) {
-                    advList.add(new Advertisement(Y.get(0), Y.get(1), Y.get(2), Y.get(3)));   
+            } else {
+                if (Y.get(2).equals(filterComb.getValue()) && Y.get(3).equals(email)) {
+                    advList.add(new Advertisement(Y.get(0), Y.get(1), Y.get(2), Y.get(3)));
                 }
             }
         }
-        
+
         tprod.setCellValueFactory(new PropertyValueFactory("product"));
         tbrief.setCellValueFactory(new PropertyValueFactory("brief"));
         tstatus.setCellValueFactory(new PropertyValueFactory("status"));
@@ -397,6 +394,7 @@ public class AdvertisingController implements Initializable {
 
     @FXML
     private void filterClick(MouseEvent event) {
+        table.getItems().clear();
         getAdv();
     }
 
@@ -411,7 +409,7 @@ public class AdvertisingController implements Initializable {
             return;
         }
 
-        String advD = prodCom.getValue() + "▓" + areaBrief.getText() + "▓" + "Pending" + "▓" + user + "▓";
+        String advD = prodCom.getValue() + "▓" + areaBrief.getText() + "▓" + "Pending" + "▓" + email + "▓";
         new Writer("Database/Official/ADVERTISEMENT", "advertisement.bin", advD).overWriteFile();
         (new GUI(user, email, sanData)).advClick(event);
     }

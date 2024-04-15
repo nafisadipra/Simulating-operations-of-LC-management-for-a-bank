@@ -147,8 +147,8 @@ public class GUI {
                     }
                 case "MERCHANT":
                     {
-//                        merchant.RequestsController controller = loader.getController();
-//                        controller.initData(user, email, sanData);
+                        merchant.RequestsController controller = loader.getController();
+                        controller.initData(user, email, sanData);
                         break;
                     }
                 case "REPORTINGOFFICER":
@@ -311,8 +311,8 @@ public class GUI {
                     }
                 case "LCOFFICER":
                     {
-//                        lcofficer.ApplicationController controller = loader.getController();
-//                        controller.initData(user, email, sanData);
+                        lcofficer.ApplicationController controller = loader.getController();
+                        controller.initData(user, email, sanData);
                         break;
                     }
                 case "MERCHANT":
@@ -390,8 +390,6 @@ public class GUI {
                     }
                 case "SALESREPRESENTATIVE":
                     {
-                        salesrepresentative.TransactionController controller = loader.getController();
-                        controller.initData(user, email, sanData);
                         break;
                     }
                 default:
@@ -453,8 +451,6 @@ public class GUI {
                     }
                 case "REPORTINGOFFICER":
                     {
-                        reportingofficer.InvoiceController controller = loader.getController();
-                        controller.initData(user, email, sanData);
                         break;
                     }
                 case "SALESREPRESENTATIVE":
@@ -492,8 +488,6 @@ public class GUI {
                     }
                 case "CLIENT":
                     {
-                        client.SwitchController controller = loader.getController();
-                        controller.initData(user, email, sanData);
                         break;
                     }
                 case "COMPLIANCEOFFICER":
@@ -514,8 +508,6 @@ public class GUI {
                     }
                 case "MERCHANT":
                     {
-                        merchant.SwitchController controller = loader.getController();
-                        controller.initData(user, email, sanData);
                         break;
                     }
                 case "REPORTINGOFFICER":
@@ -1200,8 +1192,6 @@ public class GUI {
                     }
                 case "SALESREPRESENTATIVE":
                     {
-                        salesrepresentative.RelationshipController controller = loader.getController();
-                        controller.initData(user, email, sanData);
                         break;
                     }
                 default:

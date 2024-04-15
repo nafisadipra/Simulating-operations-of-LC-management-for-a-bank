@@ -4,30 +4,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #EEEDEB; -fx-border-color: b;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.DashboardController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #EEEDEB;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.DashboardController">
    <children>
-      <AnchorPane layoutX="747.0" layoutY="120.0" prefHeight="137.0" prefWidth="374.0" style="-fx-border-color: black; -fx-background-color: #ADBDC9;">
-         <children>
-            <TextField layoutX="38.0" layoutY="14.0" promptText="TotalMoney" style="-fx-border-color: black;" />
-            <TextField layoutX="38.0" layoutY="69.0" promptText="card" style="-fx-border-color: black;" />
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="75.0" layoutY="235.0" prefHeight="168.0" prefWidth="457.0" style="-fx-border-color: black; -fx-background-color: white;">
-         <children>
-            <TextField layoutX="25.0" layoutY="21.0" promptText="Client Name" style="-fx-border-color: black;" />
-            <TextField layoutX="269.0" layoutY="80.0" promptText="Phone" style="-fx-border-color: black;" />
-            <TextField layoutX="25.0" layoutY="65.0" promptText="Company Name" style="-fx-border-color: black;" />
-            <TextField layoutX="25.0" layoutY="112.0" promptText="Address" style="-fx-border-color: black;" />
-            <TextField layoutX="269.0" layoutY="41.0" promptText="Email" style="-fx-border-color: black;" />
-         </children>
-      </AnchorPane>
       <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;" visible="false">
          <children>
             <TableView fx:id="tableSide" layoutX="12.0" layoutY="8.0" onMouseClicked="#windowClick" prefHeight="588.0" prefWidth="265.0" style="-fx-background-color: #9AD0C2; -fx-base: #9AD0C2; -fx-font-size: 25;">

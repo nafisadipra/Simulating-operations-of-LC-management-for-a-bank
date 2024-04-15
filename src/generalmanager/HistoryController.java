@@ -1,5 +1,7 @@
 package generalmanager;
 
+import common.finder.Tree;
+import common.lc.LC;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -60,9 +62,17 @@ public class HistoryController implements Initializable {
     private String email;
     private String[] sanData;
     @FXML
-    private ComboBox<?> filterComb;
+    private ComboBox<String> filterComb;
     @FXML
     private Button createID1;
+    @FXML
+    private TableView<LC> tableVieW;
+    @FXML
+    private TableColumn<LC, String> idTab;
+    @FXML
+    private TableColumn<LC, String> appToTab;
+    @FXML
+    private TableColumn<LC, String> tstatus;
 
     /**
      * Initializes the controller class.
@@ -137,7 +147,40 @@ public class HistoryController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+        
+        // table
+        String[] filterList = {"All", "Complete", "Pending"};
+        filterComb.getItems().addAll(filterList);
+        filterComb.setValue(filterList[1]);
+        applicationFetch();
     }
+    
+    private void applicationFetch() {
+        ArrayList<LC> TableLC= new ArrayList();
+        ArrayList<String>fetchLC = (new Tree("Database/Official/LC")).view(); 
+        for(String X: fetchLC){
+            ArrayList<ArrayList<String>>fetchData = (new Reader("Database/Official/LC",X)).splitFile('▓');
+            String xserial = X.split("\\.")[0];
+            String xmerchant = fetchData.get(0).get(1);
+            String xtime = fetchData.get(0).get(2);
+            String xdate = fetchData.get(0).get(3);
+            String xStatus = fetchData.get(0).get(4);
+            
+            if (filterComb.getValue().equals("All")) {
+                TableLC.add(new LC(xserial, xmerchant, xtime, xdate, xStatus));
+            } else {
+                if (xStatus.equals(filterComb.getValue())) {
+                    TableLC.add(new LC(xserial, xmerchant, xtime, xdate, xStatus));
+                }
+            }
+        }
+        
+        idTab.setCellValueFactory(new PropertyValueFactory("serial"));
+        appToTab.setCellValueFactory(new PropertyValueFactory("merchant"));
+        tstatus.setCellValueFactory(new PropertyValueFactory("status"));
+        tableVieW.getItems().addAll(TableLC);
+    }
+
 
     @FXML
     private void sandAction(MouseEvent event) {
@@ -303,6 +346,18 @@ public class HistoryController implements Initializable {
         }
     }
 
+    private void dashClick(MouseEvent event) {
+
+    }
+
+    private void feedClick(MouseEvent event) {
+
+    }
+
+    private void settClick(MouseEvent event) {
+
+    }
+
     @FXML
     private void outClick(MouseEvent event) {
         try {
@@ -322,6 +377,11 @@ public class HistoryController implements Initializable {
 
     @FXML
     private void filterClick(MouseEvent event) {
+    }
+
+    @FXML
+    private void userCLick(MouseEvent event) {
+        (new Reader("Database/Official/LC_PDF", tableVieW.getSelectionModel().getSelectedItem().getSerial() + ".pdf")).openFile();
     }
 
 }
