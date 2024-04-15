@@ -356,15 +356,53 @@ public class ClientsController implements Initializable {
 
             ViewerController controller = loader.getController();
 
+            String xemail = table.getSelectionModel().getSelectedItem().getEmail();
             String xuser = table.getSelectionModel().getSelectedItem().getType();
             String xname = table.getSelectionModel().getSelectedItem().getName();
-            String xemail = table.getSelectionModel().getSelectedItem().getEmail();
+            
             String xphone = table.getSelectionModel().getSelectedItem().getPhone();
             String xaddress = table.getSelectionModel().getSelectedItem().getAddress();
             String xstatus = table.getSelectionModel().getSelectedItem().getState();
-            String xcompany = table.getSelectionModel().getSelectedItem().getCompany();
+            
+            String xtype = xuser;
+            switch (xtype) {
+                case "Administrator":
+                    xtype = "ADMINISTRATOR";
+                    break;
+                case "Client":
+                    xtype = "CLIENT";
+                    break;
+                case "Compliance Officer":
+                    xtype = "COMPLIANCEOFFICER";
+                    break;
+                case "Credit Analyst":
+                    xtype = "CREDITANALYST";
+                    break;
+                case "General Manager":
+                    xtype = "GENERALMANAGER";
+                    break;
+                case "IT Officer":
+                    xtype = "ITOFFICER";
+                    break;
+                case "L\\C Officer":
+                    xtype = "LCOFFICER";
+                    break;
+                case "Merchant":
+                    xtype = "MERCHANT";
+                    break;
+                case "Reporting Officer":
+                    xtype = "REPORTINGOFFICER";
+                    break;
+                case "Sales Representative":
+                    xtype = "SALESREPRESENTATIVE";
+                    break;
+                default:
+                    break;
+            }
 
-            controller.initData(user, email, sanData, xuser, xname, xemail, xphone, xaddress, xstatus, xcompany);
+            ArrayList<ArrayList<String>> proFetch = (new Reader("Database/User/" + xtype + "/" + xemail, "profile.bin")).splitFile('▓');
+
+            controller.initData(user, email, sanData, xuser, xname, xemail, xphone, xaddress, xstatus, proFetch.get(0).get(6), proFetch.get(0).get(7), proFetch.get(0).get(8), proFetch.get(0).get(4));
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("LC Bank Portal");

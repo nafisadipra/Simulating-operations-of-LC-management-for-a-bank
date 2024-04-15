@@ -1,5 +1,6 @@
 package generalmanager;
 
+import common.finder.UserList;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -32,6 +33,7 @@ import common.writer.Writer;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 
 /**
@@ -63,6 +65,8 @@ public class DashboardController implements Initializable {
     private String[] sanData;
     @FXML
     private BarChart<String, Number> revChart;
+    @FXML
+    private PieChart userPieChart;
 
     /**
      * Initializes the controller class.
@@ -139,6 +143,64 @@ public class DashboardController implements Initializable {
         }
         
         // chart
+        userPieChart.getData().clear();
+        
+        ArrayList<ArrayList<String>> userList = (new UserList()).get2DList();
+        
+        int i = 0;
+        int off = 0;
+        String cuser = "";
+        for (ArrayList<String> X: userList) {
+            
+            switch (i) {
+                case 0:
+                    cuser = "Administrator";
+                    off += X.size();
+                    break;
+                case 1:
+                    cuser = "Client";
+                    break;
+                case 2:
+                    cuser = "Compliance";
+                    off += X.size();
+                    break;
+                case 3:
+                    cuser = "Credit Analyst";
+                    off += X.size();
+                    break;
+                case 4:
+                    cuser = "General Manager";
+                    off += X.size();
+                    break;
+                case 5:
+                    cuser = "IT Officer";
+                    off += X.size();
+                    break;
+                case 6:
+                    cuser = "LC Officer";
+                    off += X.size();
+                    break;
+                case 7:
+                    cuser = "Merchant";
+                    break;
+                case 8:
+                    cuser = "Reporting Officer";
+                    off += X.size();
+                    break;
+                case 9:
+                    cuser = "Sales Representative";
+                    off += X.size();
+                    break;
+                default:
+                    break;
+            }
+            
+            i += 1;
+            
+            userPieChart.getData().add(new PieChart.Data(cuser, X.size()));
+        }
+        
+        
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
         revChart.setTitle("Yearly Revenue");

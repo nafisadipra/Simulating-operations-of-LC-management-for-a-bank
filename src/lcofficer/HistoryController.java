@@ -157,9 +157,9 @@ public class HistoryController implements Initializable {
     
     private void applicationFetch() {
         ArrayList<LC> TableLC= new ArrayList();
-        ArrayList<String>fetchLC = (new Tree("Database/Official/LC")).view(); 
+        ArrayList<String>fetchLC = (new Tree("Database/Official/LC_PDF")).view(); 
         for(String X: fetchLC){
-            ArrayList<ArrayList<String>>fetchData = (new Reader("Database/Official/LC",X)).splitFile('▓');
+            ArrayList<ArrayList<String>>fetchData = (new Reader("Database/Official/LC",X.split("\\.")[0])).splitFile('▓');
             String xserial = X.split("\\.")[0];
             String xmerchant = fetchData.get(0).get(1);
             String xtime = fetchData.get(0).get(2);

@@ -163,24 +163,27 @@ public class InvoiceController implements Initializable {
     private void applicationFetch() {
         ArrayList<LC> TableLC = new ArrayList();
         
-        ArrayList<String>fetchLC = (new Tree("Database/Official/TRANSACTION")).view();
+        ArrayList<String>fetchLC = (new Tree("Database/Official/TRANSACTION_PDF")).view();
         
         if (filterCombX.getValue().equals("LC")) {
             TableLC = new ArrayList();
-            fetchLC = (new Tree("Database/Official/LC")).view(); 
+            fetchLC = (new Tree("Database/Official/LC_PDF")).view(); 
         }
         
         for(String X: fetchLC){
-            ArrayList<ArrayList<String>>fetchData = (new Reader("Database/Official/LC",X)).splitFile('▓');
+            ArrayList<ArrayList<String>>fetchData = (new Reader("Database/Official/LC",X.split("\\.")[0] + ".bin")).splitFile('▓');
             String xserial = X.split("\\.")[0];
             String xmerchant = fetchData.get(0).get(1);
             String xtime = fetchData.get(0).get(2);
             String xdate = fetchData.get(0).get(3);
             String xStatus = fetchData.get(0).get(4);
             
-            if (xStatus.equals(filterComb.getValue())) {
-                TableLC.add(new LC(xserial, xmerchant, xtime, xdate, xStatus));
+            for (ArrayList<String> Y : (new Reader("Database/User/CLIENT/" + email,"pi.bin")).splitFile('▓')) {
+                if (xStatus.equals(filterComb.getValue()) && Y.get(0).equals(xserial)) {
+                    TableLC.add(new LC(xserial, xmerchant, xtime, xdate, xStatus));
+                }
             }
+
         }
 
         idTab.setCellValueFactory(new PropertyValueFactory("serial"));

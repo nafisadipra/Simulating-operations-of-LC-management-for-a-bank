@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -12,7 +13,59 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #EEEDEB;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="itofficer.DashboardController">
    <children>
-      <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;">
+      <Label layoutX="15.0" layoutY="40.0" text="Dashboard">
+         <font>
+            <Font size="44.0" />
+         </font>
+      </Label>
+      <PieChart fx:id="userPieChart" layoutX="15.0" layoutY="146.0" prefHeight="441.0" prefWidth="605.0" style="-fx-border-color: gray; -fx-background-color: white;" />
+      <Label layoutX="15.0" layoutY="115.0" text="User Chart" textFill="#616161">
+         <font>
+            <Font name="System Italic" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="632.0" layoutY="115.0" text="User Overview" textFill="#616161">
+         <font>
+            <Font name="System Italic" size="22.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="632.0" layoutY="147.0" prefHeight="80.0" prefWidth="556.0" style="-fx-background-color: white; -fx-border-color: gray;">
+         <children>
+            <Label fx:id="labCli" layoutX="14.0" layoutY="20.0" text="CLIENTS   : 100" textFill="#007e80">
+               <font>
+                  <Font name="Monospaced Regular" size="34.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="632.0" layoutY="227.0" prefHeight="80.0" prefWidth="556.0" style="-fx-background-color: white; -fx-border-color: gray;">
+         <children>
+            <Label fx:id="labMer" layoutX="14.0" layoutY="20.0" text="MERCHANTS : 100" textFill="#5300bd">
+               <font>
+                  <Font name="Monospaced Regular" size="34.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="632.0" layoutY="347.0" prefHeight="80.0" prefWidth="556.0" style="-fx-background-color: black; -fx-border-color: gray;">
+         <children>
+            <Label fx:id="labLog" layoutX="14.0" layoutY="20.0" text="LOGINS     : 100" textFill="#b7d5ff">
+               <font>
+                  <Font name="Monospaced Regular" size="34.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="632.0" layoutY="427.0" prefHeight="80.0" prefWidth="556.0" style="-fx-background-color: black; -fx-border-color: gray;">
+         <children>
+            <Label fx:id="labReg" layoutX="14.0" layoutY="20.0" text="REGISTERS  : 100" textFill="#c3ffb8">
+               <font>
+                  <Font name="Monospaced Regular" size="34.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="paneSide" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="290.0" style="-fx-background-color: #9AD0C2;" visible="false">
          <children>
             <TableView fx:id="tableSide" layoutX="12.0" layoutY="8.0" onMouseClicked="#windowClick" prefHeight="588.0" prefWidth="265.0" style="-fx-background-color: #9AD0C2; -fx-base: #9AD0C2; -fx-font-size: 25;">
                <columns>
@@ -39,7 +92,7 @@
       </ImageView>
       <Circle fx:id="mdot" fill="#ff3737" layoutX="1078.0" layoutY="43.0" radius="8.0" stroke="TRANSPARENT" strokeType="INSIDE" />
       <Circle fx:id="ndot" fill="#ff3737" layoutX="1121.0" layoutY="43.0" radius="8.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-      <AnchorPane fx:id="paneLog" layoutX="896.0" prefHeight="120.0" prefWidth="304.0" style="-fx-background-color: #D6DAC8;">
+      <AnchorPane fx:id="paneLog" layoutX="896.0" prefHeight="120.0" prefWidth="304.0" style="-fx-background-color: #D6DAC8;" visible="false">
          <children>
             <Label fx:id="labName" alignment="TOP_LEFT" contentDisplay="RIGHT" layoutX="27.0" layoutY="29.0" text="Name" textAlignment="RIGHT" wrapText="true">
                <font>
@@ -54,6 +107,20 @@
             <Image url="@../common/iconFiles/User.png" />
          </image>
       </ImageView>
+      <Label layoutX="632.0" layoutY="315.0" prefHeight="0.0" prefWidth="100.0" text="Logs" textFill="#616161">
+         <font>
+            <Font name="System Italic" size="22.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="632.0" layoutY="507.0" prefHeight="80.0" prefWidth="556.0" style="-fx-background-color: black; -fx-border-color: gray;">
+         <children>
+            <Label fx:id="labSus" layoutX="14.0" layoutY="20.0" text="SUSPECIOUS : 100" textFill="#ffbaba">
+               <font>
+                  <Font name="Monospaced Regular" size="34.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
       
    </children>
 </AnchorPane>

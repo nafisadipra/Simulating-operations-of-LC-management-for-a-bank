@@ -117,8 +117,8 @@ public class GUI {
                     }
                 case "CREDITANALYST":
                     {
-//                        creditanalyst.RequestsController controller = loader.getController();
-//                        controller.initData(user, email, sanData);
+                        creditanalyst.RequestsController controller = loader.getController();
+                        controller.initData(user, email, sanData);
                         break;
                     }
                 case "CLIENT":
@@ -1050,8 +1050,6 @@ public class GUI {
                     }
                 case "ITOFFICER":
                     {
-                        itofficer.MonitoringController controller = loader.getController();
-                        controller.initData(user, email, sanData);
                         break;
                     }
                 case "LCOFFICER":

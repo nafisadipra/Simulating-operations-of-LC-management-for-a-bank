@@ -180,7 +180,7 @@ public class AdvertisingController implements Initializable {
         ArrayList<ArrayList<String>> advFetch = (new Reader("Database/Official/ADVERTISEMENT", "advertisement.bin")).splitFile('▓');
 
         for(ArrayList<String> Y : advFetch){
-            if (filterComb.getValue().equals("All")) {
+            if (filterComb.getValue().equals("All") && Y.get(3).equals(email)) {
                 advList.add(new Advertisement(Y.get(0), Y.get(1), Y.get(2), Y.get(3)));
             } else {
                 if (Y.get(2).equals(filterComb.getValue()) && Y.get(3).equals(email)) {

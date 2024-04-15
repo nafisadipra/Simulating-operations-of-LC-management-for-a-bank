@@ -1,5 +1,7 @@
 package salesrepresentative;
 
+import common.advertisement.Advertisement;
+import common.prompt.Prompt;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -29,6 +31,9 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
 
 /**
  * FXML Controller class
@@ -57,6 +62,24 @@ public class AdvertisingController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    @FXML
+    private TableView<Advertisement> table;
+    @FXML
+    private ComboBox<String> prodCom;
+    @FXML
+    private TableColumn<Advertisement, String> tprod;
+    @FXML
+    private TableColumn<Advertisement, String> tbrief;
+    @FXML
+    private TableColumn<Advertisement, String> tstatus;
+    @FXML
+    private ComboBox<String> filterComb;
+    @FXML
+    private Button createID1;
+    @FXML
+    private Button reqClick;
+    @FXML
+    private TextArea areaBrief;
 
     /**
      * Initializes the controller class.
@@ -131,6 +154,45 @@ public class AdvertisingController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+
+        // product
+        String[] filterList = { "All", "Accepted", "Pending", "Rejected" };
+        filterComb.getItems().setAll(filterList);
+        filterComb.setValue(filterList[0]);
+        
+        ArrayList<ArrayList<String>>productFetch = (new Reader("Database/User/MERCHANT/" + email, "product.bin")).splitFile('▓');
+        ArrayList<String> productList = new ArrayList();
+        
+        for (ArrayList<String> Y : productFetch) {
+            productList.add(Y.get(1) + " - " + Y.get(0));
+
+        }
+        
+        prodCom.getItems().setAll(productList);
+    
+        // advertisement
+        getAdv();
+        
+    }
+    
+    private void getAdv(){
+        ArrayList<Advertisement> advList = new ArrayList();
+        ArrayList<ArrayList<String>> advFetch = (new Reader("Database/Official/ADVERTISEMENT", "advertisement.bin")).splitFile('▓');
+
+        for(ArrayList<String> Y : advFetch){
+            if (filterComb.getValue().equals("All") && Y.get(3).equals(email)) {
+                advList.add(new Advertisement(Y.get(0), Y.get(1), Y.get(2), Y.get(3)));
+            } else {
+                if (Y.get(2).equals(filterComb.getValue()) && Y.get(3).equals(email)) {
+                    advList.add(new Advertisement(Y.get(0), Y.get(1), Y.get(2), Y.get(3)));
+                }
+            }
+        }
+
+        tprod.setCellValueFactory(new PropertyValueFactory("product"));
+        tbrief.setCellValueFactory(new PropertyValueFactory("brief"));
+        tstatus.setCellValueFactory(new PropertyValueFactory("status"));
+        table.getItems().setAll(advList);
     }
 
     @FXML
@@ -324,6 +386,32 @@ public class AdvertisingController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void userCLick(MouseEvent event) {
+    }
+
+    @FXML
+    private void filterClick(MouseEvent event) {
+        table.getItems().clear();
+        getAdv();
+    }
+
+    @FXML
+    private void reqClick(MouseEvent event) {
+        if (prodCom.getValue() == null || prodCom.getValue().equals("Select") || areaBrief.getText() == null || areaBrief.getText().isEmpty()) {
+            (new Prompt()).getAlert("Please fill in all fields!", "error");
+            return;
+        }
+
+        if ((new Prompt()).getAlert("Are you sure?", "confirmation").getResult().getText().equals("Cancel")) {
+            return;
+        }
+
+        String advD = prodCom.getValue() + "▓" + areaBrief.getText() + "▓" + "Pending" + "▓" + email + "▓";
+        new Writer("Database/Official/ADVERTISEMENT", "advertisement.bin", advD).overWriteFile();
+        (new GUI(user, email, sanData)).advClick(event);
     }
 
 }

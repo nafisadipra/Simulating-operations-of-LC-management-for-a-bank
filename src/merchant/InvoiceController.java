@@ -1,5 +1,7 @@
 package merchant;
 
+import common.finder.Tree;
+import common.lc.LC;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -29,6 +31,8 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 
 /**
  * FXML Controller class
@@ -58,15 +62,17 @@ public class InvoiceController implements Initializable {
     private String email;
     private String[] sanData;
     @FXML
-    private TableView<?> table;
+    private ComboBox<String> filterComb;
     @FXML
-    private TableColumn<?, ?> ttype;
+    private Button createID1;
     @FXML
-    private TableColumn<?, ?> tinvoice;
+    private TableView<LC> tableVieW;
     @FXML
-    private TableColumn<?, ?> ttime;
+    private TableColumn<LC, String> idTab;
     @FXML
-    private TableColumn<?, ?> tdate;
+    private TableColumn<LC, String> appToTab;
+    @FXML
+    private ComboBox<String> filterCombX;
 
     /**
      * Initializes the controller class.
@@ -141,7 +147,50 @@ public class InvoiceController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+        
+        // table
+        String[] filterList = {"All", "Complete", "Pending"};
+        filterComb.getItems().addAll(filterList);
+        filterComb.setValue(filterList[1]);
+        
+        String[] filterListX = {"LC", "Transaction"};
+        filterCombX.getItems().addAll(filterListX);
+        filterCombX.setValue(filterListX[0]);
+        
+        applicationFetch();
     }
+    
+    private void applicationFetch() {
+        ArrayList<LC> TableLC = new ArrayList();
+        
+        ArrayList<String>fetchLC = (new Tree("Database/Official/TRANSACTION_PDF")).view();
+        
+        if (filterCombX.getValue().equals("LC")) {
+            TableLC = new ArrayList();
+            fetchLC = (new Tree("Database/Official/LC_PDF")).view(); 
+        }
+        
+        for(String X: fetchLC){
+            ArrayList<ArrayList<String>>fetchData = (new Reader("Database/Official/LC",X.split("\\.")[0] + ".bin")).splitFile('▓');
+            String xserial = X.split("\\.")[0];
+            String xmerchant = fetchData.get(0).get(1);
+            String xtime = fetchData.get(0).get(2);
+            String xdate = fetchData.get(0).get(3);
+            String xStatus = fetchData.get(0).get(4);
+            
+            for (ArrayList<String> Y : (new Reader("Database/User/MERCHANT/" + email,"pi.bin")).splitFile('▓')) {
+                if (xStatus.equals(filterComb.getValue()) && Y.get(0).equals(xserial)) {
+                    TableLC.add(new LC(xserial, xmerchant, xtime, xdate, xStatus));
+                }
+            }
+
+        }
+
+        idTab.setCellValueFactory(new PropertyValueFactory("serial"));
+        appToTab.setCellValueFactory(new PropertyValueFactory("merchant"));
+        tableVieW.getItems().addAll(TableLC);
+    }
+
 
     @FXML
     private void sandAction(MouseEvent event) {
@@ -337,7 +386,23 @@ public class InvoiceController implements Initializable {
     }
 
     @FXML
+    private void filterClick(MouseEvent event) {
+    }
+
+    @FXML
     private void userCLick(MouseEvent event) {
+        if (filterCombX.getValue().equals("LC")) {
+            (new Reader("Database/Official/LC_PDF", tableVieW.getSelectionModel().getSelectedItem().getSerial() + ".pdf")).openFile();
+        } else {
+            (new Reader("Database/Official/TRANSACTION_PDF", tableVieW.getSelectionModel().getSelectedItem().getSerial() + ".pdf")).openFile();
+        }
+        
+    }
+
+    @FXML
+    private void filter2Click(MouseEvent event) {
+        tableVieW.getItems().clear();
+        applicationFetch();
     }
 
 }

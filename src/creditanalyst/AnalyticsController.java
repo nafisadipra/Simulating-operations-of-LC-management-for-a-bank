@@ -1,5 +1,6 @@
 package creditanalyst;
 
+import common.finder.Tree;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -29,6 +30,13 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 
 /**
  * FXML Controller class
@@ -57,6 +65,12 @@ public class AnalyticsController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    @FXML
+    private PieChart userPieChart2;
+    @FXML
+    private BarChart<String, Number> revChart;
+    @FXML
+    private Label labBank;
 
     /**
      * Initializes the controller class.
@@ -131,6 +145,55 @@ public class AnalyticsController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+        
+        //
+        
+        CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+        revChart.setTitle("Yearly Revenue");
+        xAxis.setLabel("Year");
+        yAxis.setLabel("Revenue");
+
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Revenue");
+
+        series.getData().add(new XYChart.Data<>("2020", 10000));
+        series.getData().add(new XYChart.Data<>("2021", 15000));
+        series.getData().add(new XYChart.Data<>("2022", 20000));
+        series.getData().add(new XYChart.Data<>("2023", 18000));
+        series.getData().add(new XYChart.Data<>("2024", 22000));
+
+        revChart.getData().add(series);
+        
+        ArrayList<String> piList = new Tree("Database/Official/PI").view();
+        
+        int a = 0;
+        int d = 0;
+        int p = 0;
+        
+        for (String X: piList) {
+            String state = (new Reader("Database/Official/PI", X)).splitFile('▓').get(4).get(3);
+            
+            switch (state) {
+                case "Approved":
+                    a += 1;
+                    break;
+                case "Declined":
+                    d += 1;
+                    break;
+                case "Pending":
+                    p += 1;
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        userPieChart2.getData().add(new PieChart.Data("Approved", a));
+        userPieChart2.getData().add(new PieChart.Data("Declined", d));
+        userPieChart2.getData().add(new PieChart.Data("Pending", p));
+        
+        labBank.setText("$"+ new Reader("Database/Official/BANK", "credit.bin").splitFile('▓').get(0).get(0));
     }
 
     @FXML
@@ -325,5 +388,6 @@ public class AnalyticsController implements Initializable {
             e.printStackTrace();
         }
     }
+
 
 }

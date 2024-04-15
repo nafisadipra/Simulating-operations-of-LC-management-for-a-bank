@@ -1,5 +1,6 @@
 package merchant;
 
+import common.advertisement.Advertisement;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -29,6 +30,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -57,6 +59,28 @@ public class DashboardController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    @FXML
+    private Label labUserName;
+    @FXML
+    private Label labCardMoney;
+    @FXML
+    private Label labCardName;
+    @FXML
+    private TextField enEmail;
+    @FXML
+    private TextField enPhone;
+    @FXML
+    private TextField enAddress;
+    @FXML
+    private TextField enCountry;
+    @FXML
+    private TextField enCom;
+    @FXML
+    private TableView<Advertisement> table;
+    @FXML
+    private TableColumn<Advertisement, String> tprod;
+    @FXML
+    private TableColumn<Advertisement, String> tbrief;
 
     /**
      * Initializes the controller class.
@@ -131,6 +155,30 @@ public class DashboardController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+        
+
+        //
+        enEmail.setText(email);
+        enPhone.setText(proFetch.get(0).get(2));
+        enAddress.setText(proFetch.get(0).get(3));
+        enCountry.setText(proFetch.get(0).get(6));
+        enCom.setText(proFetch.get(0).get(8));
+        labUserName.setText(proFetch.get(0).get(0));
+        labCardName.setText(proFetch.get(0).get(0));
+        labCardMoney.setText("$"+(new Reader("Database/User/" + user + "/" + email, "credit.bin")).splitFile('▓').get(0).get(0));
+        
+        ArrayList<Advertisement> advList = new ArrayList();
+        ArrayList<ArrayList<String>> advFetch = (new Reader("Database/Official/ADVERTISEMENT", "advertisement.bin")).splitFile('▓');
+
+        for(ArrayList<String> Y : advFetch){
+            if (Y.get(2).equals("Approved")) {
+                advList.add(new Advertisement(Y.get(0), Y.get(1), Y.get(2), Y.get(3)));
+            }
+        }
+        
+        tprod.setCellValueFactory(new PropertyValueFactory("product"));
+        tbrief.setCellValueFactory(new PropertyValueFactory("brief"));
+        table.getItems().setAll(advList);
     }
 
     @FXML
@@ -297,18 +345,6 @@ public class DashboardController implements Initializable {
         }
     }
 
-    private void dashClick(MouseEvent event) {
-
-    }
-
-    private void feedClick(MouseEvent event) {
-
-    }
-
-    private void settClick(MouseEvent event) {
-
-    }
-
     @FXML
     private void outClick(MouseEvent event) {
         try {
@@ -324,6 +360,10 @@ public class DashboardController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void userCLick(MouseEvent event) {
     }
 
 }

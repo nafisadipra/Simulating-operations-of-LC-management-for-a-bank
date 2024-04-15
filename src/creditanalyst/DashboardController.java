@@ -1,5 +1,8 @@
 package creditanalyst;
 
+import common.finder.Tree;
+import generalmanager.*;
+import common.finder.UserList;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -29,6 +32,11 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 
 /**
  * FXML Controller class
@@ -57,6 +65,10 @@ public class DashboardController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    @FXML
+    private BarChart<String, Number> revChart;
+    @FXML
+    private PieChart userPieChart;
 
     /**
      * Initializes the controller class.
@@ -125,12 +137,39 @@ public class DashboardController implements Initializable {
         } else {
             mdot.setVisible(false);
         }
-
+        
         if (notFetch.size() != Integer.parseInt(dotFetch.get(0).get(1))) {
             ndot.setVisible(true);
         } else {
             ndot.setVisible(false);
         }
+        
+        // chart
+        userPieChart.getData().clear();
+        
+        ArrayList<String> lcList = new Tree("Database/Official/LC").view();
+        ArrayList<String> piList = new Tree("Database/Official/PI").view();
+        userPieChart.getData().add(new PieChart.Data("LC", lcList.size()));
+        userPieChart.getData().add(new PieChart.Data("PI", piList.size()));
+                
+        
+        CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+        revChart.setTitle("Yearly Revenue");
+        xAxis.setLabel("Year");
+        yAxis.setLabel("Revenue");
+
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Revenue");
+
+        series.getData().add(new XYChart.Data<>("2020", 10000));
+        series.getData().add(new XYChart.Data<>("2021", 15000));
+        series.getData().add(new XYChart.Data<>("2022", 20000));
+        series.getData().add(new XYChart.Data<>("2023", 18000));
+        series.getData().add(new XYChart.Data<>("2024", 22000));
+
+        revChart.getData().add(series);
+
     }
 
     @FXML

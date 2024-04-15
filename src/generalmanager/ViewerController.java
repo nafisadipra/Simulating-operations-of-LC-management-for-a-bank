@@ -64,8 +64,11 @@ public class ViewerController implements Initializable {
     private String xstatus;
     private String xaddress;
     private String xphone;
-    private String xtype;
+    private String xcountry;
+    private String xnid;
     private String xcompany;
+    private String xdob;
+    private String xtype;
     @FXML
     private ImageView imageView;
     @FXML
@@ -82,8 +85,15 @@ public class ViewerController implements Initializable {
     private Label labCardName;
     @FXML
     private Label labUserName;
-    @FXML
     private TextField enCompany;
+    @FXML
+    private TextField enCountry;
+    @FXML
+    private TextField enDOB;
+    @FXML
+    private TextField enNID;
+    @FXML
+    private TextField enCom;
 
     /**
      * Initializes the controller class.
@@ -95,7 +105,7 @@ public class ViewerController implements Initializable {
 
     // pipeline
     public void initData(String user, String email, String[] sanData, String xuser, String xname, String xemail,
-            String xphone, String xaddress, String xstatus, String xcompany) {
+            String xphone, String xaddress, String xstatus, String xcountry, String xnid, String xcompany, String xdob) {
         // append
         this.user = user;
         this.email = email;
@@ -106,7 +116,10 @@ public class ViewerController implements Initializable {
         this.xphone = xphone;
         this.xaddress = xaddress;
         this.xstatus = xstatus;
+        this.xcountry = xcountry;
+        this.xnid = xnid;
         this.xcompany = xcompany;
+        this.xdob = xdob;
 
         // Side Panel
         ArrayList<Sandwich> sanList = new ArrayList();
@@ -172,9 +185,12 @@ public class ViewerController implements Initializable {
         enPhone.setText(xphone);
         enAddress.setText(xaddress);
         enStatus.setText(xstatus);
+        enCountry.setText(xcountry);
+        enDOB.setText(xdob);
+        enNID.setText(xnid);
+        enCom.setText(xcompany);
+        enCountry.setText(xcountry);
         labUserName.setText(xname);
-        labCardName.setText(xname);
-        enCompany.setText(xcompany);
 
         switch (xstatus) {
             case "Active":

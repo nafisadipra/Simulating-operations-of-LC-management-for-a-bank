@@ -1,7 +1,10 @@
 package complianceofficer;
 
+import generalmanager.*;
+import common.finder.Tree;
 import common.lc.PI;
 import common.lc.Product;
+import common.prompt.Prompt;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -31,6 +34,9 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -134,6 +140,10 @@ public class applicationShowController implements Initializable {
     private TextField MRCstatusField;
     @FXML
     private Label emailLabel1111;
+    @FXML
+    private AnchorPane subAnch;
+    @FXML
+    private ComboBox<String> merCom;
     
     
 
@@ -226,9 +236,15 @@ public class applicationShowController implements Initializable {
         
         if (statusField.getText().equals("Approved")) {
             statusField.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: green;");
+            aprvButt.setDisable(true);
+            declbutt.setDisable(true);
+            
         }
         else if (statusField.getText().equals("Declined")) {
             statusField.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: red;");
+            aprvButt.setDisable(true);
+            declbutt.setDisable(true);
+            
         }
         if (CRAstatusField.getText().equals("Approved")) {
             CRAstatusField.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: green;");
@@ -238,9 +254,13 @@ public class applicationShowController implements Initializable {
         }
         if (CMOstatusField.getText().equals("Approved")) {
             CMOstatusField.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: green;");
+            aprvButt.setDisable(true);
+            declbutt.setDisable(true);
         }
         else if (CMOstatusField.getText().equals("Declined")) {
             CMOstatusField.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: red;");
+            aprvButt.setDisable(true);
+            declbutt.setDisable(true);
         }
         if (MRCstatusField.getText().equals("Approved")) {
             MRCstatusField.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: green;");
@@ -257,6 +277,10 @@ public class applicationShowController implements Initializable {
         amountable.setCellValueFactory(new PropertyValueFactory("amount"));
         expoTable.setCellValueFactory(new PropertyValueFactory("exporter"));
         productTable.getItems().addAll(PIdata.getProductList());
+        
+        ArrayList<String> mrcList = new Tree("Database/User/MERCHANT").view();
+        merCom.getItems().addAll(mrcList);
+        merCom.setValue("Select");
     }
 
     @FXML
@@ -442,24 +466,15 @@ public class applicationShowController implements Initializable {
 
     @FXML
     private void aprvClick(MouseEvent event) {
-        String cliData = PIdata.getCustomer() + "▓" + PIdata.getCompany() + "▓" + PIdata.getAddress() + "▓" + PIdata.getPhone() + "▓" + PIdata.getEmail() + "▓" ;
-        String merData= "\n"+PIdata.getMerchant()+  "▓";
-        String amount= "\n"+ PIdata.getTotal_amount()+ "▓";
-        String proData= "";
-        
-        for(Product X : PIdata.getProductList()){
-            proData += "\n" + X.getProduct()+ "▓" + X.getPrice() + "▓"+ X.getQuantity()+ "▓" + X.getAmount()+ "▓" ;
-        }
-        
-        String alldata= cliData + merData + "\n"+ PIdata.getTime()+"▓"+ PIdata.getDate()+ amount +"\n"+PIdata.getGmStatus()+"▓"+PIdata.getCrStatus()+"▓"+"Approved"+"▓"+PIdata.getMrcStatus()+"▓" + proData;
-        new Writer("Database/Official/PI",  PIdata.getSerial() + ".bin", alldata).writeFile();
-        CMOstatusField.setText("Approved");
-        CMOstatusField.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: green;");
-        
+        sendClick(event);
     }
 
     @FXML
     private void declClick(MouseEvent event) {
+        if ((new Prompt()).getAlert("Are you sure to Decline", "confirmation").getResult().getText().equals("Cancel")) {
+            return;
+        }
+
         String cliData = PIdata.getCustomer() + "▓" + PIdata.getCompany() + "▓" + PIdata.getAddress() + "▓" + PIdata.getPhone() + "▓" + PIdata.getEmail() + "▓" ;
         String merData= "\n"+PIdata.getMerchant()+  "▓";
         String amount= "\n"+ PIdata.getTotal_amount()+ "▓";
@@ -469,14 +484,44 @@ public class applicationShowController implements Initializable {
             proData += "\n" + X.getProduct()+ "▓" + X.getPrice() + "▓"+ X.getQuantity()+ "▓" + X.getAmount()+ "▓" ;
         }
         
-        String alldata= cliData + merData + "\n"+ PIdata.getTime()+"▓"+ PIdata.getDate()+ amount +"\n"+PIdata.getGmStatus()+"▓"+PIdata.getCrStatus()+"▓"+"Declined"+"▓"+PIdata.getMrcStatus()+"▓" + proData;
+        String alldata= cliData + merData + "\n"+ PIdata.getTime()+"▓"+ PIdata.getDate()+ amount +"\n"+PIdata.getGmStatus()+"▓"+PIdata.getCrStatus()+ "▓"+ "Declined" + "▓"+PIdata.getMrcStatus()+"▓" + proData;
         new Writer("Database/Official/PI",  PIdata.getSerial() + ".bin", alldata).writeFile();
         CMOstatusField.setText("Declined");
-        CMOstatusField.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: red;");  
+        CMOstatusField.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: red;");
+        aprvButt.setDisable(true);
+        declbutt.setDisable(true);
     }
 
     @FXML
     private void backClick(MouseEvent event) {
         (new GUI(user, email, sanData)).reqClick(event);
+    }
+
+    @FXML
+    private void sendClick(MouseEvent event) {
+        if ((new Prompt()).getAlert("Are you sure to Approve?", "confirmation").getResult().getText().equals("Cancel")) {
+            return;
+        }
+        
+        String cliData = PIdata.getCustomer() + "▓" + PIdata.getCompany() + "▓" + PIdata.getAddress() + "▓" + PIdata.getPhone() + "▓" + PIdata.getEmail() + "▓" ;
+        String merData= "\n"+PIdata.getMerchant()+  "▓";
+        String amount= "\n"+ PIdata.getTotal_amount()+ "▓";
+        String proData= "";
+        
+        for(Product X : PIdata.getProductList()){
+            proData += "\n" + X.getProduct()+ "▓" + X.getPrice() + "▓"+ X.getQuantity()+ "▓" + X.getAmount()+ "▓" ;
+        }
+        
+        String alldata= cliData + merData + "\n"+ PIdata.getTime()+"▓"+ PIdata.getDate()+ amount +"\n"+PIdata.getGmStatus()+"▓"+PIdata.getCrStatus()+ "▓"+ "Approved" + "▓"+PIdata.getMrcStatus()+"▓" + proData;
+        new Writer("Database/Official/PI",  PIdata.getSerial() + ".bin", alldata).writeFile();
+        
+        CMOstatusField.setText("Approved");
+        CMOstatusField.setStyle("-fx-text-fill: white; -fx-border-color: black; -fx-background-color: green;");
+        aprvButt.setDisable(true);
+        declbutt.setDisable(true);
+    }
+
+    @FXML
+    private void closeClick(MouseEvent event) {
     }
 }
