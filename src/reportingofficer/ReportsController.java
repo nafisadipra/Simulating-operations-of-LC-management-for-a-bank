@@ -59,10 +59,23 @@ public class ReportsController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
-    @FXML
     private ComboBox<String> userSelectReport;
     @FXML
-    private Button createReport;
+    private ComboBox<?> filterCombX;
+    @FXML
+    private TableView<?> table;
+    @FXML
+    private TableColumn<?, ?> tid;
+    @FXML
+    private TableColumn<?, ?> appToTab;
+    @FXML
+    private TableColumn<?, ?> tsub;
+    @FXML
+    private TableColumn<?, ?> ttime;
+    @FXML
+    private TableColumn<?, ?> tdate;
+    @FXML
+    private Button createID;
 
     /**
      * Initializes the controller class.
@@ -336,9 +349,17 @@ public class ReportsController implements Initializable {
     }
 
     @FXML
-    private void reportCreateBtn(MouseEvent event) {
+    private void filter2Click(MouseEvent event) {
 
         
+    }
+
+    @FXML
+    private void userCLick(MouseEvent event) {
+    }
+
+    @FXML
+    private void createClick(MouseEvent event) {
     }
 
 }

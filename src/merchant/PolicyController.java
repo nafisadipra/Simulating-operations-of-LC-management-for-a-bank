@@ -1,6 +1,7 @@
 package merchant;
 
-import client.*;
+import common.lc.Policy;
+import common.prompt.Prompt;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -30,6 +31,12 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -58,6 +65,10 @@ public class PolicyController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    @FXML
+    private TableView<Policy> policyTB;
+    @FXML
+    private TableColumn<Policy, String> briefTB;
 
     /**
      * Initializes the controller class.
@@ -132,6 +143,24 @@ public class PolicyController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
+
+        policyFetch();
+
+    }
+    
+    private void policyFetch() {
+        //table
+        ArrayList<ArrayList<String>> policyBin = (new Reader("Database/Official/POLICY" , "policy.bin")).splitFile('▓');
+        ArrayList<Policy> policyList = new ArrayList();
+
+        for (ArrayList<String> X: policyBin){
+            if (X.get(0).equals("Merchant")) {
+                policyList.add(new Policy(X.get(0),X.get(1),X.get(2),X.get(3)));
+            }
+        }
+        
+        briefTB.setCellValueFactory(new PropertyValueFactory("brief"));
+        policyTB.getItems().addAll(policyList);
     }
 
     @FXML
@@ -325,6 +354,10 @@ public class PolicyController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void userCLick(MouseEvent event) {
     }
 
 }
