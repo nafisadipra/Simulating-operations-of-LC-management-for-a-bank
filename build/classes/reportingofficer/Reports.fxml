@@ -68,6 +68,7 @@
             <Image url="@../common/iconFiles/User.png" />
          </image>
       </ImageView>
+      <Button layoutX="1109.0" layoutY="77.0" mnemonicParsing="false" onMouseClicked="#backClick" prefHeight="28.0" prefWidth="80.0" text="Back" />
       
    </children>
 </AnchorPane>
