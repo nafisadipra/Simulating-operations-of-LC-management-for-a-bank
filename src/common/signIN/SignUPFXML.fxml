@@ -119,6 +119,12 @@
                </font>
             </Label>
             <Button layoutX="526.0" layoutY="560.0" mnemonicParsing="false" onMouseClicked="#regClick" prefHeight="28.0" prefWidth="139.0" style="-fx-background-color: #96fffc; -fx-border-color: black;" text="Register" />
+            <Label layoutX="364.0" layoutY="564.0" text="Already a user? Login">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Button layoutX="364.0" layoutY="560.0" mnemonicParsing="false" onAction="#switchToSignUp" onMouseClicked="#loginClick" opacity="0.0" prefHeight="25.0" prefWidth="133.0" style="-fx-background-color: black;" text="Button" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="anchVer" layoutX="530.0" layoutY="133.0" prefHeight="334.0" prefWidth="594.0" style="-fx-background-color: #EEEDEB;" visible="false">

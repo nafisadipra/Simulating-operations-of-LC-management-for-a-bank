@@ -1,6 +1,7 @@
 package salesrepresentative;
 
 import common.advertisement.Advertisement;
+import common.lc.Product;
 import common.prompt.Prompt;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
@@ -65,21 +66,11 @@ public class AdvertisingController implements Initializable {
     @FXML
     private TableView<Advertisement> table;
     @FXML
-    private ComboBox<String> prodCom;
-    @FXML
     private TableColumn<Advertisement, String> tprod;
     @FXML
     private TableColumn<Advertisement, String> tbrief;
     @FXML
     private TableColumn<Advertisement, String> tstatus;
-    @FXML
-    private ComboBox<String> filterComb;
-    @FXML
-    private Button createID1;
-    @FXML
-    private Button reqClick;
-    @FXML
-    private TextArea areaBrief;
 
     /**
      * Initializes the controller class.
@@ -156,21 +147,6 @@ public class AdvertisingController implements Initializable {
         }
 
         // product
-        String[] filterList = { "All", "Accepted", "Pending", "Rejected" };
-        filterComb.getItems().setAll(filterList);
-        filterComb.setValue(filterList[0]);
-        
-        ArrayList<ArrayList<String>>productFetch = (new Reader("Database/User/MERCHANT/" + email, "product.bin")).splitFile('▓');
-        ArrayList<String> productList = new ArrayList();
-        
-        for (ArrayList<String> Y : productFetch) {
-            productList.add(Y.get(1) + " - " + Y.get(0));
-
-        }
-        
-        prodCom.getItems().setAll(productList);
-    
-        // advertisement
         getAdv();
         
     }
@@ -180,13 +156,7 @@ public class AdvertisingController implements Initializable {
         ArrayList<ArrayList<String>> advFetch = (new Reader("Database/Official/ADVERTISEMENT", "advertisement.bin")).splitFile('▓');
 
         for(ArrayList<String> Y : advFetch){
-            if (filterComb.getValue().equals("All") && Y.get(3).equals(email)) {
-                advList.add(new Advertisement(Y.get(0), Y.get(1), Y.get(2), Y.get(3)));
-            } else {
-                if (Y.get(2).equals(filterComb.getValue()) && Y.get(3).equals(email)) {
-                    advList.add(new Advertisement(Y.get(0), Y.get(1), Y.get(2), Y.get(3)));
-                }
-            }
+            advList.add(new Advertisement(Y.get(0), Y.get(1), Y.get(2), Y.get(3)));
         }
 
         tprod.setCellValueFactory(new PropertyValueFactory("product"));
@@ -392,26 +362,37 @@ public class AdvertisingController implements Initializable {
     private void userCLick(MouseEvent event) {
     }
 
-    @FXML
-    private void filterClick(MouseEvent event) {
+    private void filterClick() {
         table.getItems().clear();
         getAdv();
     }
 
     @FXML
-    private void reqClick(MouseEvent event) {
-        if (prodCom.getValue() == null || prodCom.getValue().equals("Select") || areaBrief.getText() == null || areaBrief.getText().isEmpty()) {
-            (new Prompt()).getAlert("Please fill in all fields!", "error");
-            return;
-        }
+    private void apvClick(MouseEvent event) {
+        Advertisement xdata = table.getSelectionModel().getSelectedItem();
+        String prodD = xdata.getProduct() + "▓" + xdata.getBrief() + "▓" + xdata.getStatus() + "▓" + xdata.getMerchant() + "▓";
+        String prodDX = xdata.getProduct() + "▓" + xdata.getBrief() + "▓" + "Approved" + "▓" + xdata.getMerchant() + "▓";
+        new Writer("Database/Official/ADVERTISEMENT", "advertisement.bin", "").deleteLine(prodD);
+        new Writer("Database/Official/ADVERTISEMENT", "advertisement.bin", prodDX).overWriteFile();
+        filterClick();
+    }
 
-        if ((new Prompt()).getAlert("Are you sure?", "confirmation").getResult().getText().equals("Cancel")) {
-            return;
-        }
+    @FXML
+    private void decClick(MouseEvent event) {
+        Advertisement xdata = table.getSelectionModel().getSelectedItem();
+        String prodD = xdata.getProduct() + "▓" + xdata.getBrief() + "▓" + xdata.getStatus() + "▓" + xdata.getMerchant() + "▓";
+        String prodDX = xdata.getProduct() + "▓" + xdata.getBrief() + "▓" + "Declined" + "▓" + xdata.getMerchant() + "▓";
+        new Writer("Database/Official/ADVERTISEMENT", "advertisement.bin", "").deleteLine(prodD);
+        new Writer("Database/Official/ADVERTISEMENT", "advertisement.bin", prodDX).overWriteFile();
+        filterClick();
+    }
 
-        String advD = prodCom.getValue() + "▓" + areaBrief.getText() + "▓" + "Pending" + "▓" + email + "▓";
-        new Writer("Database/Official/ADVERTISEMENT", "advertisement.bin", advD).overWriteFile();
-        (new GUI(user, email, sanData)).advClick(event);
+    @FXML
+    private void delClick(MouseEvent event) {
+        Advertisement xdata = table.getSelectionModel().getSelectedItem();
+        String prodD = xdata.getProduct() + "▓" + xdata.getBrief() + "▓" + xdata.getStatus() + "▓" + xdata.getMerchant() + "▓";
+        new Writer("Database/Official/ADVERTISEMENT", "advertisement.bin", "").deleteLine(prodD);
+        filterClick();
     }
 
 }

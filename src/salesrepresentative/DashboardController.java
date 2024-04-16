@@ -1,5 +1,6 @@
 package salesrepresentative;
 
+import common.finder.Tree;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -29,6 +30,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.chart.PieChart;
 
 /**
  * FXML Controller class
@@ -57,6 +59,10 @@ public class DashboardController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    @FXML
+    private PieChart userPieChart2;
+    @FXML
+    private PieChart userPieChart;
 
     /**
      * Initializes the controller class.
@@ -125,12 +131,47 @@ public class DashboardController implements Initializable {
         } else {
             mdot.setVisible(false);
         }
-
+        
         if (notFetch.size() != Integer.parseInt(dotFetch.get(0).get(1))) {
             ndot.setVisible(true);
         } else {
             ndot.setVisible(false);
         }
+        
+        // chart
+        userPieChart2.getData().clear();
+        
+        ArrayList<String> piList = new Tree("Database/Official/PI").view();
+        
+        int a = 0;
+        int d = 0;
+        int p = 0;
+        
+        for (String X: piList) {
+            String state = (new Reader("Database/Official/PI", X)).splitFile('▓').get(4).get(3);
+            
+            switch (state) {
+                case "Approved":
+                    a += 1;
+                    break;
+                case "Declined":
+                    d += 1;
+                    break;
+                case "Pending":
+                    p += 1;
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        userPieChart2.getData().add(new PieChart.Data("Approved", a));
+        userPieChart2.getData().add(new PieChart.Data("Declined", d));
+        userPieChart2.getData().add(new PieChart.Data("Pending", p));
+        
+        userPieChart.getData().add(new PieChart.Data("Client", new Tree("Database/User/CLIENT").view().size()));
+        userPieChart.getData().add(new PieChart.Data("Merchant", new Tree("Database/User/MERCHANT").view().size()));
+
     }
 
     @FXML
@@ -295,18 +336,6 @@ public class DashboardController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private void dashClick(MouseEvent event) {
-
-    }
-
-    private void feedClick(MouseEvent event) {
-
-    }
-
-    private void settClick(MouseEvent event) {
-
     }
 
     @FXML
