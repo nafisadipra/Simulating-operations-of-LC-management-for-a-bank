@@ -359,7 +359,7 @@ public class SignUPController implements Initializable {
         
         new Writer("Database/User/" + xtype + "/" + enEmail.getText(), "profile.bin", newData).writeFile();
         (new ImageResizer()).resize(imgPath, "Database/User/" + xtype + "/" + enEmail.getText());
-        new Writer("Database/User/" + xtype + "/" + enEmail.getText(), "credit.bin", "127007800▓").writeFile();
+        new Writer("Database/User/" + xtype + "/" + enEmail.getText(), "credit.bin", "127007800▓" + Long.toString(new RandomNumber(16).generate()) + "▓"+ Long.toString(new RandomNumber(3).generate()) +"▓2026-04-14▓" + labUserName.getText() + "▓").writeFile();
         new Writer("Database/User/" + xtype + "/" + enEmail.getText(), "dot.bin", "0▓0▓").writeFile();
         new Writer("Database/User/" + xtype + "/" + enEmail.getText(), "message.bin", "").writeFile();
         new Writer("Database/User/" + xtype + "/" + enEmail.getText(), "notification.bin", "").writeFile();
