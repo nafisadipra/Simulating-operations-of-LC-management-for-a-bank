@@ -1,5 +1,6 @@
 package reportingofficer;
 
+import common.feedback.Feedback;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -61,21 +62,17 @@ public class ReportsController implements Initializable {
     private String[] sanData;
     private ComboBox<String> userSelectReport;
     @FXML
-    private ComboBox<?> filterCombX;
+    private TableView<Feedback> table;
     @FXML
-    private TableView<?> table;
+    private TableColumn<Feedback, String> tsub;
     @FXML
-    private TableColumn<?, ?> tid;
+    private TableColumn<Feedback, String> ttime;
     @FXML
-    private TableColumn<?, ?> appToTab;
+    private TableColumn<Feedback, String> tdate;
     @FXML
-    private TableColumn<?, ?> tsub;
+    private TableColumn<Feedback, String> tuser;
     @FXML
-    private TableColumn<?, ?> ttime;
-    @FXML
-    private TableColumn<?, ?> tdate;
-    @FXML
-    private Button createID;
+    private TableColumn<Feedback, String> temail;
 
     /**
      * Initializes the controller class.
@@ -150,10 +147,25 @@ public class ReportsController implements Initializable {
         } else {
             ndot.setVisible(false);
         }
-        //combo box 
-        String[] selecUser ={"User","Transaction","Maintenance"};
-        userSelectReport.getItems().addAll(selecUser); 
+        
+        //
+        ArrayList<ArrayList<String>> feedbackFetch = (new Reader("Database/Official/FEEDBACK", "feedback.bin")).splitFile('▓');
+        ArrayList<Feedback> feedList = new ArrayList();
+        
+        for (ArrayList<String> X: feedbackFetch) {
+            feedList.add(new Feedback(X.get(0), X.get(1), X.get(2), X.get(3), X.get(4), X.get(5)));
+        }
+        
+        tsub.setCellValueFactory(new PropertyValueFactory("subject"));
+        ttime.setCellValueFactory(new PropertyValueFactory("time"));
+        tdate.setCellValueFactory(new PropertyValueFactory("date"));
+        tuser.setCellValueFactory(new PropertyValueFactory("user"));
+        temail.setCellValueFactory(new PropertyValueFactory("email"));
+        
+        table.getItems().addAll(feedList);
+        
     }
+    
     
 
     @FXML
@@ -348,18 +360,27 @@ public class ReportsController implements Initializable {
         }
     }
 
-    @FXML
-    private void filter2Click(MouseEvent event) {
-
-        
-    }
 
     @FXML
     private void userCLick(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("View.fxml"));
+            Parent root = loader.load();
+
+            ViewController controller = loader.getController();
+            controller.initData(user, email, sanData, table.getSelectionModel().getSelectedItem().getSubject(), table.getSelectionModel().getSelectedItem().getMessage());
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+                
     }
 
-    @FXML
-    private void createClick(MouseEvent event) {
-    }
 
 }

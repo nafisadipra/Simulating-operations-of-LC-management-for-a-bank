@@ -1,5 +1,8 @@
 package reportingofficer;
 
+import complianceofficer.*;
+import common.finder.Tree;
+import common.finder.UserList;
 import common.reader.Reader;
 import common.sandwich.Sandwich;
 import common.switcher.GUI;
@@ -29,11 +32,12 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import common.writer.Writer;
+import javafx.scene.chart.PieChart;
 
 /**
  * FXML Controller class
  *
- * @author Ishrak
+ * @author Muyeed
  */
 public class DashboardController implements Initializable {
 
@@ -57,6 +61,10 @@ public class DashboardController implements Initializable {
     private String user;
     private String email;
     private String[] sanData;
+    @FXML
+    private PieChart userPieChart2;
+    @FXML
+    private PieChart userPieChart;
 
     /**
      * Initializes the controller class.
@@ -125,12 +133,99 @@ public class DashboardController implements Initializable {
         } else {
             mdot.setVisible(false);
         }
-
+        
         if (notFetch.size() != Integer.parseInt(dotFetch.get(0).get(1))) {
             ndot.setVisible(true);
         } else {
             ndot.setVisible(false);
         }
+        
+        // chart
+        userPieChart2.getData().clear();
+        
+        ArrayList<String> piList = new Tree("Database/Official/PI").view();
+        
+        int a = 0;
+        int d = 0;
+        int p = 0;
+        
+        for (String X: piList) {
+            String state = (new Reader("Database/Official/PI", X)).splitFile('▓').get(4).get(3);
+            
+            switch (state) {
+                case "Approved":
+                    a += 1;
+                    break;
+                case "Declined":
+                    d += 1;
+                    break;
+                case "Pending":
+                    p += 1;
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        userPieChart2.getData().add(new PieChart.Data("Approved", a));
+        userPieChart2.getData().add(new PieChart.Data("Declined", d));
+        userPieChart2.getData().add(new PieChart.Data("Pending", p));
+        
+        ArrayList<ArrayList<String>> userList = (new UserList()).get2DList();
+        
+        int i = 0;
+        int off = 0;
+        String cuser = "";
+        for (ArrayList<String> X: userList) {
+            
+            switch (i) {
+                case 0:
+                    cuser = "Administrator";
+                    off += X.size();
+                    break;
+                case 1:
+                    cuser = "Client";
+                    break;
+                case 2:
+                    cuser = "Compliance";
+                    off += X.size();
+                    break;
+                case 3:
+                    cuser = "Credit Analyst";
+                    off += X.size();
+                    break;
+                case 4:
+                    cuser = "General Manager";
+                    off += X.size();
+                    break;
+                case 5:
+                    cuser = "IT Officer";
+                    off += X.size();
+                    break;
+                case 6:
+                    cuser = "LC Officer";
+                    off += X.size();
+                    break;
+                case 7:
+                    cuser = "Merchant";
+                    break;
+                case 8:
+                    cuser = "Reporting Officer";
+                    off += X.size();
+                    break;
+                case 9:
+                    cuser = "Sales Representative";
+                    off += X.size();
+                    break;
+                default:
+                    break;
+            }
+            
+            i += 1;
+            
+            userPieChart.getData().add(new PieChart.Data(cuser, X.size()));
+        }
+
     }
 
     @FXML
@@ -295,18 +390,6 @@ public class DashboardController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private void dashClick(MouseEvent event) {
-
-    }
-
-    private void feedClick(MouseEvent event) {
-
-    }
-
-    private void settClick(MouseEvent event) {
-
     }
 
     @FXML
