@@ -14,7 +14,7 @@ public class SceneView extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("SignUPFXML.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("SignINFXML.fxml"));
         
         Scene scene = new Scene(root);
         stage.setScene(scene);

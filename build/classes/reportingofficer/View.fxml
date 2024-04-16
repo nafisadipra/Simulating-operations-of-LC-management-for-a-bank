@@ -14,7 +14,12 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #EEEDEB;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reportingofficer.ViewController">
    <children>
-      <Label layoutX="14.0" layoutY="41.0" text="Feedback View">
+      <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="14.0" layoutY="54.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#backClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../common/iconFiles/arrow.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="50.0" layoutY="34.0" text="Feedback View">
          <font>
             <Font size="44.0" />
          </font>
@@ -81,6 +86,5 @@
             <Image url="@../common/iconFiles/User.png" />
          </image>
       </ImageView>
-      <Button layoutX="1099.0" layoutY="88.0" mnemonicParsing="false" onMouseClicked="#backClick" prefHeight="28.0" prefWidth="82.0" style="-fx-background-color: black;" text="Back" />
    </children>
 </AnchorPane>

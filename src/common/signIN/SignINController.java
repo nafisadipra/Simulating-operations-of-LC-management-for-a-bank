@@ -2,6 +2,7 @@ package common.signIN;
 
 import common.aes.AES;
 import common.device.IP;
+import common.prompt.Prompt;
 import common.reader.Reader;
 import common.writer.Writer;
 import java.io.IOException;
@@ -208,6 +209,16 @@ public class SignINController implements Initializable {
                         default:
                             break;
                     }
+                    
+                    if (proFetch.get(0).get(5).equals("Banned")) {
+                        (new Prompt()).getAlert("Your account hasbeen banned!", "error");
+                        return;
+                    }
+                    
+                    if (proFetch.get(0).get(5).equals("Restricted")) {
+                        (new Prompt()).getAlert("Your account hasbeen restricted!", "error");
+                        return;
+                    }  
 
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     stage.setTitle("LC Bank Portal");
@@ -230,7 +241,7 @@ public class SignINController implements Initializable {
                 }
                 labWarning.setVisible(false);
             } else {
-                labWarning.setVisible(true);
+                (new Prompt()).getAlert("Wrong Credentials!", "error");
             } 
         }
     }
@@ -242,7 +253,19 @@ public class SignINController implements Initializable {
 
     @FXML
     private void switchToSignUp(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/common/signIN/SignUPFXML.fxml"));
+            Parent root = loader.load();
 
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
 }
