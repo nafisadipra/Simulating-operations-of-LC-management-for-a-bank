@@ -81,6 +81,6 @@
             <Image url="@../common/iconFiles/User.png" />
          </image>
       </ImageView>
-      <Button layoutX="1099.0" layoutY="88.0" mnemonicParsing="false" onMouseClicked="#backClick" prefHeight="28.0" prefWidth="82.0" style="-fx-background-color: black;" text="Back" />
+      <Button layoutX="1099.0" layoutY="88.0" mnemonicParsing="false" onMouseClicked="#backClick" prefHeight="28.0" prefWidth="82.0" style="-fx-background-color: black;" text="Back" textFill="WHITE" />
    </children>
 </AnchorPane>
