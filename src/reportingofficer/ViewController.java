@@ -338,7 +338,6 @@ public class ViewController implements Initializable {
         }
     }
 
-    @FXML
     private void submitClick(MouseEvent event) {
         if (fieldSub.getText().isEmpty() || areaSend.getText().isEmpty()) {
             (new Prompt()).getAlert("Please fill all the required fields!", "error");
@@ -356,5 +355,26 @@ public class ViewController implements Initializable {
         (new Prompt()).getAlert("Your feedback has been sent!", "information");
         (new GUI(user, email, sanData)).feedClick(event);
     }
+
+    @FXML
+    private void backClick(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Reports.fxml"));
+            Parent root = loader.load();
+
+            ReportsController controller = loader.getController();
+            controller.initData(user, email, sanData);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("LC Bank Portal");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
 
 }
