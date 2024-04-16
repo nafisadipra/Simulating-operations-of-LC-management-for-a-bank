@@ -408,7 +408,6 @@ public class MerchandiseController implements Initializable {
     @FXML
     private void deleteClick(MouseEvent event) {
         Product xdata = table.getSelectionModel().getSelectedItem();
-        System.out.println(xdata);
         String prodD = xdata.getProduct() + "▓" + xdata.getPrice() + "▓" + xdata.getQuantity() + "▓";
         new Writer("Database/User/" + user + "/" + email, "product.bin", "").deleteLine(prodD);
         (new GUI(user, email, sanData)).mrcDiseClick(event);
