@@ -3,6 +3,7 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -65,14 +66,10 @@ public class Reader {
     public ArrayList<ArrayList<String>> splitFile(char variable) {
         ArrayList<String> readData = readFile();
         ArrayList<ArrayList<String>> fetchList = new ArrayList();
-        
         for (String x: readData) {
             ArrayList<String> addData = new ArrayList();
-            
             String[] fetchData = x.split(variable + "");
-            for (int i = 0; i < fetchData.length; i++) {
-                addData.add(fetchData[i]);
-            }
+            addData.addAll(Arrays.asList(fetchData));
             fetchList.add(addData);
         }
         return fetchList;
