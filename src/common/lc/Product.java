@@ -1,12 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package common.lc;
 
 /**
  *
- * @author User
+ * @author Muyeed
  */
 public class Product {
     private String serial,product,quantity,price,amount,exporter;

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package common.device;
 
 import java.net.InetAddress;
@@ -9,7 +5,7 @@ import java.net.UnknownHostException;
 
 /**
  *
- * @author User
+ * @author Muyeed
  */
 
 public class IP {

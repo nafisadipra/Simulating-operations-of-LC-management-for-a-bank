@@ -169,6 +169,7 @@ public class DashboardController implements Initializable {
         
         ArrayList<Advertisement> advList = new ArrayList();
         ArrayList<ArrayList<String>> advFetch = (new Reader("Database/Official/ADVERTISEMENT", "advertisement.bin")).splitFile('▓');
+        System.out.println(advFetch);
 
         for(ArrayList<String> Y : advFetch){
             if (Y.get(2).equals("Approved")) {

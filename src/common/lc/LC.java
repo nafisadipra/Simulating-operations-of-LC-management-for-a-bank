@@ -2,7 +2,7 @@ package common.lc;
 
 /**
  *
- * @author User
+ * @author Dipra
  */
 public class LC {
     private String serial, merchant, time, date, status;

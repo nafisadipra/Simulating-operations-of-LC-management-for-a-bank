@@ -8,6 +8,10 @@ import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ *
+ * @author Muyeed
+ */
 public class Force {
     public void deleteFolder(String folderPath) {
         Path folder = Paths.get(folderPath);

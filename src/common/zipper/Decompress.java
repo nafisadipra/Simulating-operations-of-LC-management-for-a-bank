@@ -1,8 +1,11 @@
 package common.zipper;
 
-
 import java.io.*;
 
+/**
+ *
+ * @author Muyeed
+ */
 public class Decompress {
     public boolean run(String location) {
         String sevenZipPath = "External/7-Zip/7z.exe";

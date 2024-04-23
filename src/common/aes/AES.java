@@ -13,9 +13,9 @@ import java.util.Base64;
  * @author Muyeed
  */
 public class AES {
-    private static final String secretKey = "e6S42r9GAdSj6IYu"; // 16, 24, or 32 bytes
-    private static final String salt = "5H5k9q1QPweTaDzM"; // 16 bytes
-    private static final String initializationVector = "6IdQ839GmSFPULUO"; // 16 bytes
+    private static final String secretKey = "e6S42r9GAdSj6IYu";
+    private static final String salt = "5H5k9q1QPweTaDzM";
+    private static final String initializationVector = "6IdQ839GmSFPULUO";
 
     public static String encrypt(String strToEncrypt) {
         try {

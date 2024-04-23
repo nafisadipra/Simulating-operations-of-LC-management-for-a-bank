@@ -47,6 +47,7 @@ public class Reader {
 
             if (!directory.exists()) {
                 System.out.println("File does not exist!");
+                return data;
             }
 
             File myFile = new File(location + "/" + fileName);
@@ -63,40 +64,28 @@ public class Reader {
     
     public ArrayList<ArrayList<String>> splitFile(char variable) {
         ArrayList<String> readData = readFile();
-        ArrayList<ArrayList<String>> splitData = new ArrayList<>();
-
-        for (int j = 0; j < readData.size(); j++) {
-            ArrayList<String> itemData = new ArrayList<>();
-            String data = "";
-            for (int i = 0; i < readData.get(j).length(); i++) {
-                if (readData.get(j).charAt(i) == variable) {
-                    itemData.add(data);
-                    data = "";
-                } else {
-                    data += readData.get(j).charAt(i);
-                }
+        ArrayList<ArrayList<String>> fetchList = new ArrayList();
+        
+        for (String x: readData) {
+            ArrayList<String> addData = new ArrayList();
+            
+            String[] fetchData = x.split(variable + "");
+            for (int i = 0; i < fetchData.length; i++) {
+                addData.add(fetchData[i]);
             }
-            itemData.add(data);
-            splitData.add(itemData);
+            fetchList.add(addData);
         }
-        return splitData;
+        return fetchList;
     }
-
+    
     public void openFile() {
-        File file = new File(location, fileName);
-
-        if (!file.exists()) {
-            System.out.println("File does not exist!");
-            return;
-        }
-
-        if (!Desktop.isDesktopSupported()) {
-            System.out.println("Desktop is not supported!");
-            return;
-        }
-
-        Desktop desktop = Desktop.getDesktop();
+        File file = new File(location + "/" + fileName);
         try {
+            if (!Desktop.isDesktopSupported()) {
+                System.out.println("Desktop is not supported!");
+                return;
+            }
+            Desktop desktop = Desktop.getDesktop();
             desktop.open(file);
         } catch (IOException e) {
             System.out.println("Error opening file: " + e.getMessage());

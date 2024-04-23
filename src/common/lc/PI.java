@@ -1,14 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package common.lc;
 
 import java.util.ArrayList;
 
 /**
  *
- * @author User
+ * @author Dipra
  */
 public class PI {
     private String serial,customer,company,address,phone,email,merchant,time,date,total_amount,gmStatus,crStatus,compStatus,mrcStatus,type;

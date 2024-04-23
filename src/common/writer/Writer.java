@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package common.writer;
 
 import java.io.BufferedReader;
@@ -86,7 +82,7 @@ public class Writer {
             } else {
                 File myFile = new File(location + "/" + fileName);
                 try (FileWriter myWriter = new FileWriter(myFile, true);
-                     BufferedWriter bufferedWriter = new BufferedWriter(myWriter)) {
+                    BufferedWriter bufferedWriter = new BufferedWriter(myWriter)) {
                     bufferedWriter.write(data);
                     bufferedWriter.newLine();
                 }
@@ -129,7 +125,7 @@ public class Writer {
                 }
             }
 
-            System.out.println("Line(s) deleted successfully.");
+            System.out.println("Line deleted successfully.");
 
         } catch (IOException e) {
             e.printStackTrace();

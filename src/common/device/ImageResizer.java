@@ -6,6 +6,10 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+/**
+ *
+ * @author Muyeed
+ */
 public class ImageResizer {
 
     public void resize(String location, String destination) {
@@ -22,7 +26,7 @@ public class ImageResizer {
             g.drawImage(originalImage, 0, 0, newWidth, newHeight, null);
             g.dispose();
 
-            File outputFile = new File(destination + "/User.jpg");
+            File outputFile = new File(destination + "/user.jpg");
             ImageIO.write(resizedImage, "jpg", outputFile);
 
             System.out.println("Image resized successfully.");
